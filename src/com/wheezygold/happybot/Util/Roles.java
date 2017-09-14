@@ -3,6 +3,9 @@ package com.wheezygold.happybot.Util;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;
 
+/**
+ * An easy way to get roles!
+ */
 @SuppressWarnings("unused")
 public enum  Roles {
 
