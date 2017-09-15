@@ -4,6 +4,7 @@ import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.jagrosh.jdautilities.commandclient.examples.AboutCommand;
 import com.wheezygold.happybot.Util.C;
 import com.wheezygold.happybot.commands.*;
+import com.wheezygold.happybot.events.AutoMod;
 import net.dv8tion.jda.core.*;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.events.ShutdownEvent;
@@ -45,6 +46,9 @@ public class Main extends ListenerAdapter {
         }
 
 //        EventWaiter waiter = new EventWaiter();
+
+        new AutoMod("194473148161327104");
+        //Start the AutoMod instance.
 
         C.log("Loading the command builder...");
 
