@@ -7,6 +7,12 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.managers.GuildController;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.Proxy;
+import java.net.URL;
+
 public class C {
 
     /**
@@ -47,14 +53,6 @@ public class C {
         return null;
     }
 
-//    public static Role getRole(Guild g, Roles r) {
-//        for (Role lr : g.getRoles()) {
-//            if (lr.getName().equalsIgnoreCase(r.getrolename())) {
-//
-//            }
-//        }
-//    }
-
     /**
      * Returns the perm message for a Role.
      * @param r The role the message is made for.
@@ -71,6 +69,34 @@ public class C {
      */
     public static GuildController getCtrl(CommandEvent e) {
         return e.getGuild().getController();
+    }
+
+    /**
+     * Expands a short url and gives the full URL output.
+     * @param baseUrl The short url given for conversion.
+     * @return The longer URL.
+     */
+    public static String urlExpand(String baseUrl) {
+        URL shortURL = null;
+        try {
+            shortURL = new URL(baseUrl);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        HttpURLConnection connection = null;
+        //Open the connection.
+        try {
+            connection = (HttpURLConnection) shortURL.openConnection(Proxy.NO_PROXY);
+            //We do not want to render the contents of the long url.
+            connection.setInstanceFollowRedirects(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Grab the longer url.
+        String fullURL = connection.getHeaderField("Location");
+        connection.disconnect();
+        return fullURL;
     }
 
 }

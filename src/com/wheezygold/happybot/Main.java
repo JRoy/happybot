@@ -70,6 +70,7 @@ public class Main extends ListenerAdapter {
 
                 new PingCommand(),
                 new RulesCommand(),
+                new VideoCommand(),
 //                new AboutCommand(Color.BLUE, "an example bot",
 //                        new String[]{"Cool commands","Nice examples","Lots of fun!"},
 //                        new Permission[]{Permission.ADMINISTRATOR}),
