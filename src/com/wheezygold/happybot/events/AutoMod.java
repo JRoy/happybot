@@ -20,7 +20,7 @@ public class AutoMod extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         if (C.hasRole(event.getGuild(), event.getMember(), Roles.SUPER_ADMIN) || C.hasRole(event.getGuild(), event.getMember(), Roles.BOT))
             return;
-        if (!event.getMessage().getContent().contains("discord.gg/"))
+        if (!event.getMessage().getContent().toLowerCase().contains("discord.gg/"))
             return;
         event.getMessage().delete().reason("Advertising Link with Message: " + event.getMessage().getStrippedContent()).queue();
         event.getChannel().sendMessage(event.getMember().getAsMention() + "! Do not advert other discord servers!").queue();
