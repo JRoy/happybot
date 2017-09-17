@@ -19,7 +19,7 @@ public class FanartCommand extends Command {
     protected void execute(CommandEvent e) {
         if (C.hasRole(e.getGuild(), e.getMember(), Roles.HELPER)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
-                e.getMessage().delete().queue();
+                e.getMessage().delete().reason("Auto Command Deletion").queue();
                 String msg = C.getMemberEvent(e).getAsMention() + ", please post only fanart in " + e.getGuild().getTextChannelById("337689640888827905").getAsMention();
                 e.replySuccess(msg);
                 C.getMemberEvent(e).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(msg).queue());

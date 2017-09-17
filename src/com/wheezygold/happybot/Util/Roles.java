@@ -23,7 +23,10 @@ public enum  Roles {
     MUTED("Muted", "Muted"),
 
     //Regular Roles
-    FANS("Fans", "Fans");
+    FANS("Fans", "Fans"),
+
+    //Other Roles
+    BOT("Useless Bot", "Bot");
 
     private String role;
     private String name;

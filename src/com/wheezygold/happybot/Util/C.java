@@ -5,6 +5,7 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.managers.GuildController;
 
 public class C {
 
@@ -21,7 +22,7 @@ public class C {
                 return m.getRoles().contains(s);
             }
         } catch (NullPointerException x) {
-            System.out.println("Could not find a role with that name!");
+            System.out.println("Could not find a role with the name: " + r.getrolename() + "");
         }
         return false;
     }
@@ -61,6 +62,15 @@ public class C {
      */
     public static String permMsg(Roles r) {
         return "This requires Permission Rank **" + r.getname() + "** to execute!";
+    }
+
+    /**
+     * Gets the {@link net.dv8tion.jda.core.managers.GuildController GuildController} Class from a {@link com.jagrosh.jdautilities.commandclient.CommandEvent CommandEvent}.
+     * @param e The target {@link com.jagrosh.jdautilities.commandclient.CommandEvent CommandEvent}
+     * @return The requested {@link net.dv8tion.jda.core.managers.GuildController GuildController}
+     */
+    public static GuildController getCtrl(CommandEvent e) {
+        return e.getGuild().getController();
     }
 
 }

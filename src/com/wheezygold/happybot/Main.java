@@ -1,18 +1,19 @@
 package com.wheezygold.happybot;
 
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
-import com.jagrosh.jdautilities.commandclient.examples.AboutCommand;
 import com.wheezygold.happybot.Util.C;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.AutoMod;
-import net.dv8tion.jda.core.*;
+import net.dv8tion.jda.core.AccountType;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.events.ShutdownEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -21,6 +22,7 @@ import java.io.IOException;
 public class Main extends ListenerAdapter {
 
     private static JDA jda;
+    private static CommandClientBuilder clientBuilder;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
         C.log("Initializing the bot...");
@@ -37,23 +39,23 @@ public class Main extends ListenerAdapter {
         //Create the file reader to get the first line.
         BufferedReader br = new BufferedReader(new FileReader("config.yml"));
         //Because null pointers.
-        if (br.readLine() != null) {
+        try {
             //We will get the token just in case, I don't know, maybe we want to log in.
             token = br.readLine();
-        } else {
+            C.log("Token has been acquired!");
+        } catch (NullPointerException ex1) {
             //Let them know they are going to die.
             C.log("There is not token in your config, welcome to stack trace city!");
         }
 
-//        EventWaiter waiter = new EventWaiter();
-
-        new AutoMod("194473148161327104");
         //Start the AutoMod instance.
+        C.log("Starting Auto-Mod...");
+       AutoMod autoMod = new AutoMod("194473148161327104");
 
         C.log("Loading the command builder...");
 
         //Creates JDA-Util's Command Builder so we can use it later.
-        CommandClientBuilder clientBuilder = new CommandClientBuilder();
+        clientBuilder = new CommandClientBuilder();
 
         //Used for "ownerOnly" commands in commands.
         clientBuilder.setOwnerId("194473148161327104");
@@ -73,6 +75,8 @@ public class Main extends ListenerAdapter {
 //                        new Permission[]{Permission.ADMINISTRATOR}),
                 new SpamCommand(),
                 new FanartCommand(),
+                new BanCommand(),
+                new PardonCommand(),
                 new PromoteCommand(),
                 new StaffManagementCommand(),
                 new ShutdownCommand(),
@@ -87,6 +91,8 @@ public class Main extends ListenerAdapter {
                     .setStatus(OnlineStatus.DO_NOT_DISTURB)
                     //Listens to the MessageReceivedEvent.
                     .addEventListener(clientBuilder.build())
+                    //.addEventListener(messageManager)
+                    .addEventListener(autoMod)
                     //Because people gonna spam...
                     .useSharding(0, 2)
                     .setGame(Game.of("Loading"))
@@ -112,10 +118,17 @@ public class Main extends ListenerAdapter {
     }
 
     /**
-     * @return Returns the JDA Instance
+     * An easy way to get our JDA Instance!
+     * @return Returns the JDA Instance.
      */
     public static JDA getJda() {
         return jda;
     }
+
+    /**
+     * An easy way to get our CommandClientBuilder instance!
+     * @return Returns the CommandClientBuilder Instance.
+     */
+    public static CommandClientBuilder getClientBuilder() { return clientBuilder; }
 
 }
