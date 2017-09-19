@@ -4,6 +4,7 @@ import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.Util.C;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.AutoMod;
+import com.wheezygold.happybot.events.WelcomeMessage;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -50,7 +51,9 @@ public class Main extends ListenerAdapter {
 
         //Start the AutoMod instance.
         C.log("Starting Auto-Mod...");
-       AutoMod autoMod = new AutoMod("194473148161327104");
+        AutoMod autoMod = new AutoMod("194473148161327104");
+
+        WelcomeMessage welcomeMessage = new WelcomeMessage();
 
         C.log("Loading the command builder...");
 
@@ -92,7 +95,7 @@ public class Main extends ListenerAdapter {
                     .setStatus(OnlineStatus.DO_NOT_DISTURB)
                     //Listens to the MessageReceivedEvent.
                     .addEventListener(clientBuilder.build())
-                    //.addEventListener(messageManager)
+                    .addEventListener(welcomeMessage)
                     .addEventListener(autoMod)
                     //Because people gonna spam...
                     .useSharding(0, 2)
