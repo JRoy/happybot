@@ -23,6 +23,11 @@ public class WelcomeMessage extends ListenerAdapter {
                 "has entered hell :)",
                 "is possibly mentally retarted cause he came here...",
                 "has had a bad case of idiocity cause he is here",
+                "gain a nosewave",
+                "get to work get busy!",
+                "get my money!",
+                "MOM get the cam."
+
         };
         this.goodbyemsgs = new String[] {
                 "just left happyheart Fanbase. You smel.",
@@ -30,6 +35,12 @@ public class WelcomeMessage extends ListenerAdapter {
                 "left, kthxbai",
                 "left, who made this guy get triggered and leave?",
                 "left, maybe the totino gods didnt like him?",
+                "lose a nosewave.",
+                "get pranked as heck!1!",
+                "get gameplayed!",
+                "you got outplayed QUICKLY.",
+                "Wake up you're useless!"
+
         };
     }
 
