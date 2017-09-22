@@ -26,7 +26,8 @@ public class WelcomeMessage extends ListenerAdapter {
                 "gain a nosewave",
                 "get to work get busy!",
                 "get my money!",
-                "MOM get the cam."
+                "MOM get the cam.",
+                "hi and welcome to our restaurant, u smell sorry no pies for u"
 
         };
         this.goodbyemsgs = new String[] {
@@ -39,7 +40,8 @@ public class WelcomeMessage extends ListenerAdapter {
                 "get pranked as heck!1!",
                 "get gameplayed!",
                 "you got outplayed QUICKLY.",
-                "Wake up you're useless!"
+                "Wake up you're useless!",
+                "u still smell go shower ur bad"
 
         };
     }
