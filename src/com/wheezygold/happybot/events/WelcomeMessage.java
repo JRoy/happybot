@@ -9,11 +9,13 @@ import java.util.Random;
 public class WelcomeMessage extends ListenerAdapter {
     private final String[] welcomemsgs;
     private final String[] goodbyemsgs;
+    private final Random random;
 
     /**
      * Creates an WelcomeMessage Instance!
      */
     public WelcomeMessage() {
+        this.random = new Random();
         this.welcomemsgs = new String[]{
                 "Welcome to the happyheart fandom! You are being targeted because you are a famous YouTuber!1!",
                 "my man, you have entered the realm of severe depression",
@@ -48,16 +50,12 @@ public class WelcomeMessage extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-        Random random = new Random();
-        int index = random.nextInt(welcomemsgs.length);
-        event.getGuild().getTextChannelById("237363812842340363").sendMessage(event.getMember().getAsMention() + " " + welcomemsgs[index]).queue();
+        event.getGuild().getTextChannelById("237363812842340363").sendMessage(event.getMember().getAsMention() + " " + welcomemsgs[random.nextInt(welcomemsgs.length)]).queue();
     }
 
     @Override
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
-        Random random = new Random();
-        int index = random.nextInt(goodbyemsgs.length);
-        event.getGuild().getTextChannelById("237363812842340363").sendMessage(event.getMember().getUser().getName() + " " + goodbyemsgs[index]).queue();
+        event.getGuild().getTextChannelById("237363812842340363").sendMessage(event.getMember().getUser().getName() + " " + goodbyemsgs[random.nextInt(goodbyemsgs.length)]).queue();
     }
 
 }
