@@ -1,4 +1,4 @@
-package com.wheezygold.happybot.Util;
+package com.wheezygold.happybot.util;
 
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;

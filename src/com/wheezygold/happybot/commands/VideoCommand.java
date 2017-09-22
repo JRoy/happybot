@@ -2,7 +2,7 @@ package com.wheezygold.happybot.commands;
 
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
-import com.wheezygold.happybot.Util.C;
+import com.wheezygold.happybot.util.C;
 
 public class VideoCommand extends Command {
 

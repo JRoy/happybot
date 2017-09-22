@@ -2,8 +2,8 @@ package com.wheezygold.happybot.commands;
 
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
-import com.wheezygold.happybot.Util.C;
-import com.wheezygold.happybot.Util.Roles;
+import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Roles;
 
 public class StaffManagementCommand extends Command {
 

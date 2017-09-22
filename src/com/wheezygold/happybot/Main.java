@@ -1,7 +1,7 @@
 package com.wheezygold.happybot;
 
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
-import com.wheezygold.happybot.Util.C;
+import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.AutoMod;
 import com.wheezygold.happybot.events.WelcomeMessage;

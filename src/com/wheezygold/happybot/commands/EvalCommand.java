@@ -6,8 +6,8 @@ import javax.script.ScriptException;
 
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
-import com.wheezygold.happybot.Util.C;
-import com.wheezygold.happybot.Util.Roles;
+import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Roles;
 
 public class EvalCommand extends Command {
 

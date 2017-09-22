@@ -1,7 +1,7 @@
 package com.wheezygold.happybot.events;
 
-import com.wheezygold.happybot.Util.C;
-import com.wheezygold.happybot.Util.Roles;
+import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Roles;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
