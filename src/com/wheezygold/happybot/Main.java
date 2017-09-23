@@ -50,11 +50,11 @@ public class Main extends ListenerAdapter {
         }
 
         //Start the AutoMod instance.
-        C.log("Starting Auto-Mod...");
+        C.log("Loading AutoMod...");
         AutoMod autoMod = new AutoMod("194473148161327104");
 
         //Start the WelcomeMessage instance.
-        C.log("Starting Welcome/Quit Messages...");
+        C.log("Loading Welcome Manager...");
         WelcomeMessage welcomeMessage = new WelcomeMessage();
 
         C.log("Loading the command builder...");

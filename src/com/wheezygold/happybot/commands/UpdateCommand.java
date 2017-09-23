@@ -11,7 +11,7 @@ public class UpdateCommand extends Command {
 
     public UpdateCommand() {
         this.name = "update";
-        this.help = "Updates the code of the bot!";
+        this.help = "Downloads new code for the bot!";
         this.category = new Category("Bot Management");
     }
 
@@ -27,8 +27,6 @@ public class UpdateCommand extends Command {
             }
             e.getJDA().shutdown();
             C.dlFile("https://dl.dropbox.com/s/momoz7ciigj2msg/HappyBot.jar?dl=1", "HappyBot.jar");
-
-
             C.log("The JDA instance has been shutdown...exiting the program.");
             System.exit(0);
         } else {
