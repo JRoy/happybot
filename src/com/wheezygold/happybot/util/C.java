@@ -7,11 +7,14 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.managers.GuildController;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
+import java.nio.channels.Channels;
 
 public class C {
 
@@ -97,6 +100,21 @@ public class C {
         String fullURL = connection.getHeaderField("Location");
         connection.disconnect();
         return fullURL;
+    }
+
+    /**
+     * Downloads a file to chosen output location.
+     * @param url The URL where the target is located.
+     * @param outputName The File/Path where the file will be placed.
+     */
+    public static void dlFile(String url, String outputName) {
+        try {
+            FileOutputStream fos = new FileOutputStream(outputName);
+            fos.getChannel().transferFrom(Channels.newChannel(new URL(url).openStream()), 0, Long.MAX_VALUE);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

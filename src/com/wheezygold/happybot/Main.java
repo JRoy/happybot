@@ -35,7 +35,7 @@ public class Main extends ListenerAdapter {
         if (!file.exists())
             file.createNewFile();
 
-        //Allways init your strings!
+        //Always init your strings!
         String token = null;
         //Create the file reader to get the first line.
         BufferedReader br = new BufferedReader(new FileReader("config.yml"));
@@ -53,6 +53,8 @@ public class Main extends ListenerAdapter {
         C.log("Starting Auto-Mod...");
         AutoMod autoMod = new AutoMod("194473148161327104");
 
+        //Start the WelcomeMessage instance.
+        C.log("Starting Welcome/Quit Messages...");
         WelcomeMessage welcomeMessage = new WelcomeMessage();
 
         C.log("Loading the command builder...");
@@ -84,6 +86,7 @@ public class Main extends ListenerAdapter {
                 new PromoteCommand(),
                 new StaffManagementCommand(),
                 new ShutdownCommand(),
+                new UpdateCommand(),
                 new EvalCommand());
 
         C.log("Constructing the JDA Instance...");
