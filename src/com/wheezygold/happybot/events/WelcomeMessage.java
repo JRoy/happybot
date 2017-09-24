@@ -18,24 +18,29 @@ public class WelcomeMessage extends ListenerAdapter {
         this.random = new Random();
         this.welcomemsgs = new String[]{
                 "Welcome to the happyheart fandom! You are being targeted because you are a famous YouTuber!1!",
-                "my man, you have entered the realm of severe depression",
+                "my man, you have entered the realm of severe depression.",
                 "you have entered the realm of the totino gods, do you have anything to say?",
                 "Welcome to the happyheart discord. You must be crazy for joining.",
-                "Welcome to happyheart's fanbase!.. you are ugly",
+                "Welcome to happyheart's fanbase!.. you are ugly.",
                 "has entered hell :)",
                 "is possibly mentally retarted cause he came here...",
-                "has had a bad case of idiocity cause he is here",
-                "gain a nosewave",
+                "has had a bad case of idiocity cause he is here.",
+                "gain a nosewave.",
                 "get to work get busy!",
                 "get my money!",
                 "MOM get the cam.",
-                "hi and welcome to our restaurant, u smell sorry no pies for u"
+                "hi and welcome to our restaurant, u smell sorry no pies for u.",
+                "welcome to the realm of confusion.",
+                "crap another one joined...",
+                "joining this discord wont cure your depression.",
+                "oh great, someone else threw their trash here!"
+
 
         };
         this.goodbyemsgs = new String[] {
                 "just left happyheart Fanbase. You smel.",
-                "come back pls ur not ugly",
-                "left, kthxbai",
+                "come back pls ur not ugly.",
+                "left, kthxbai.",
                 "left, who made this guy get triggered and leave?",
                 "left, maybe the totino gods didnt like him?",
                 "lose a nosewave.",
@@ -43,7 +48,9 @@ public class WelcomeMessage extends ListenerAdapter {
                 "get gameplayed!",
                 "you got outplayed QUICKLY.",
                 "Wake up you're useless!",
-                "u still smell go shower ur bad"
+                "u still smell go shower ur bad.",
+                "leaving this discord wont cure your depression.",
+                "wasn't trash enough for this discord."
 
         };
     }
@@ -55,7 +62,7 @@ public class WelcomeMessage extends ListenerAdapter {
 
     @Override
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
-        event.getGuild().getTextChannelById("237363812842340363").sendMessage(event.getMember().getUser().getName() + " " + goodbyemsgs[random.nextInt(goodbyemsgs.length)]).queue();
+        event.getGuild().getTextChannelById("237363812842340363").sendMessage("**" + event.getMember().getUser().getName() + "** " + goodbyemsgs[random.nextInt(goodbyemsgs.length)]).queue();
     }
 
 }
