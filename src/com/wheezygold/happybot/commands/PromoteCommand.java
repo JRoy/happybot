@@ -23,10 +23,10 @@ public class PromoteCommand extends Command{
     protected void execute(CommandEvent e) {
         if (C.hasRole(e.getGuild(), e.getMember(), Roles.SUPER_ADMIN)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
-                e.reply("Please wait while we look how promote " + C.getMemberEvent(e).getAsMention() + "!");
+                e.reply("Please wait while we look how to promote " + C.getMemberEvent(e).getAsMention() + "!");
                 u = C.getMemberEvent(e);
                 if (C.hasRole(e.getGuild(), u, Roles.SUPER_ADMIN)) {
-                    e.replySuccess("User is already the highest level of promotion!");
+                    e.replySuccess("User is already the on highest level of promotion!");
                 } else if (C.hasRole(e.getGuild(), u, Roles.ADMIN)) {
                     e.replySuccess("User has been promoted to **Super Admin**!");
                     e.getGuild().getController().addSingleRoleToMember(u, Roles.SUPER_ADMIN.getrole(e.getGuild())).reason("User Promotion!").queue();
