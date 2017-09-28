@@ -1,6 +1,7 @@
 package com.wheezygold.happybot;
 
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
+import com.wheezygold.happybot.events.UploadMonitor;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.AutoMod;
@@ -115,6 +116,9 @@ public class Main extends ListenerAdapter {
         C.log("Initializing the console...");
         //Lets me run java code in the console directly!
         new Console();
+
+        C.log("Loading Upload Monitor");
+        new UploadMonitor("d");
 
         C.log("Bot has been loaded!");
     }

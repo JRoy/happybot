@@ -1,6 +1,7 @@
 package com.wheezygold.happybot.util;
 
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
+import com.wheezygold.happybot.Main;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
@@ -117,4 +118,11 @@ public class C {
         }
     }
 
+    /**
+     * Gets the happyheart guild easily.
+     * @return {@link net.dv8tion.jda.core.entities.Guild Guild} of happyheart fanbase.
+     */
+    public static Guild getGuild() {
+        return Main.getJda().getGuildById("237363812842340363");
+    }
 }

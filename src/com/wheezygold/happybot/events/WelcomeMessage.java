@@ -33,7 +33,24 @@ public class WelcomeMessage extends ListenerAdapter {
                 "welcome to the realm of confusion.",
                 "crap another one joined...",
                 "joining this discord wont cure your depression.",
-                "oh great, someone else threw their trash here!"
+                "oh great, someone else threw their trash here!",
+                "just got pranked and joined the discord.",
+                "pressed the join button by accident.",
+                "has found our secret totino stash ( ͡ಠ ʖ̯ ͡ಠ)!",
+                "dropped his diamonds off the edge and went after them",
+                "got baited by the giveaway!",
+                "wanted to know where to get the shears hacked client.",
+                "has entered the valley of depression.",
+                "is a proud Mineplex hero!",
+                "want depression?",
+                "smelled the totinos in the microwave.",
+                "tried to jitter bridge, but failed and ended up here.",
+                "wanted to find happyheart's subbot.",
+                "here's the new wave degeneracy disorder.",
+                "just joined...ACT LIKE YOU'RE BUSY!",
+                "is here to sell their kidney in exchange for MVP+.",
+                "was told Dotz is so eaeaeaeaeaeseey so he joined.",
+                "used the wrong discord link."
 
 
         };
@@ -50,7 +67,35 @@ public class WelcomeMessage extends ListenerAdapter {
                 "Wake up you're useless!",
                 "u still smell go shower ur bad.",
                 "leaving this discord wont cure your depression.",
-                "wasn't trash enough for this discord."
+                "wasn't trash enough for this discord.",
+                "was so useless that they left the server.",
+                "kicked due to unfair skydiving technique",
+                "failed the triple neo.",
+                "became intelligent and left for their own sanity!",
+                "skydived out of the server.",
+                "gave up on the french class.",
+                "was sent to french class.",
+                "got pranked as heck.",
+                "was a spy for AonAiAi!",
+                "couldn't handle the subscriber count!",
+                "went to hackusate happyheart live.",
+                "left to watch Rebel_Guy",
+                "timed out.",
+                "couldn't figure out the quadruple neo.",
+                "was kicked for bed nuker.",
+                "only watched quality gameplay...",
+                "went to heck",
+                "couldn't handle french class.",
+                "has been killed by a hypixel tryhard! **FINAL KILL**!",
+                "quit because his welcome-submit didn't get submitted.",
+                "ran out of bridges for breakfast!",
+                "refused to take french class.",
+                "quickly sprinted to the kitchen to get some more tontinos.",
+                "good choice.",
+                "Banned by Watchdog (Wait, who am I kidding).",
+                "AonAiAi does not approve.",
+                "git gud and skydive with me.",
+                "was bad at pvp so they used TNT!"
 
         };
     }
