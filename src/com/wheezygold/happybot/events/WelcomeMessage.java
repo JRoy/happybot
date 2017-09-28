@@ -1,5 +1,6 @@
 package com.wheezygold.happybot.events;
 
+import com.wheezygold.happybot.util.C;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -7,8 +8,8 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.util.Random;
 
 public class WelcomeMessage extends ListenerAdapter {
-    private final String[] welcomemsgs;
-    private final String[] goodbyemsgs;
+    private static String[] welcomemsgs;
+    private static String[] goodbyemsgs;
     private final Random random;
 
     /**
@@ -98,6 +99,10 @@ public class WelcomeMessage extends ListenerAdapter {
                 "was bad at pvp so they used TNT!"
 
         };
+    }
+
+    public static void showStats() {
+        C.getGuild().getTextChannelById("337920467450986497").sendMessage(":information_source: Welcome Queue Stats:\n**Welcome Messages:** " + welcomemsgs.length + "\n**Quit Messages:** " + goodbyemsgs.length).queue();
     }
 
     @Override

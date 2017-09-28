@@ -25,6 +25,8 @@ public class Main extends ListenerAdapter {
 
     private static JDA jda;
     private static CommandClientBuilder clientBuilder;
+    private static WelcomeMessage welcomeMessage;
+    private static AutoMod autoMod;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
         C.log("Initializing the bot...");
@@ -52,11 +54,11 @@ public class Main extends ListenerAdapter {
 
         //Start the AutoMod instance.
         C.log("Loading AutoMod...");
-        AutoMod autoMod = new AutoMod("194473148161327104");
+        autoMod = new AutoMod("194473148161327104");
 
         //Start the WelcomeMessage instance.
         C.log("Loading Welcome Manager...");
-        WelcomeMessage welcomeMessage = new WelcomeMessage();
+        welcomeMessage = new WelcomeMessage();
 
         C.log("Loading the command builder...");
 
@@ -113,12 +115,16 @@ public class Main extends ListenerAdapter {
             C.log("#-#-#-#-#-#-#-#-# Ending Stack Trace #-#-#-#-#-#-#-#-#");
         }
 
-        C.log("Initializing the console...");
-        //Lets me run java code in the console directly!
-        new Console();
+        //Shows the users stats!
+        C.log("Displaying Stats!");
+        WelcomeMessage.showStats();
 
-        C.log("Loading Upload Monitor");
-        new UploadMonitor("d");
+//        C.log("Initializing the console...");
+//        //Lets me run java code in the console directly!
+//        new Console();
+
+//        C.log("Loading Upload Monitor");
+//        new UploadMonitor("d");
 
         C.log("Bot has been loaded!");
     }
