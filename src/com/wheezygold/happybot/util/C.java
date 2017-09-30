@@ -32,7 +32,7 @@ public class C {
                 return m.getRoles().contains(s);
             }
         } catch (NullPointerException x) {
-            System.out.println("Could not find a role with the name: " + r.getrolename() + "");
+            //Don't Worry this will not happen...
         }
         return false;
     }

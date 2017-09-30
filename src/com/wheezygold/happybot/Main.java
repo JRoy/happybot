@@ -1,6 +1,7 @@
 package com.wheezygold.happybot;
 
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
+import com.wheezygold.happybot.events.TweetMonitor;
 import com.wheezygold.happybot.events.UploadMonitor;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.commands.*;
@@ -32,25 +33,55 @@ public class Main extends ListenerAdapter {
         C.log("Initializing the bot...");
 
         //Lets make the file so we can use it!
-        File file = new File("config.yml");
+        File configfile = new File("config.yml");
+        File twitterfile = new File("twitter.yml");
 
         //We are going to check if the config exists, if not lets create one for them!
-        if (!file.exists())
-            file.createNewFile();
+        if (!configfile.exists())
+            configfile.createNewFile();
+
+        //Check Twitter Creds File, Create it if not a thing.
+        if (!twitterfile.exists())
+            twitterfile.createNewFile();
 
         //Always init your strings!
         String token = null;
+        String cKey = null;
+        String cSecret = null;
+        String aToken = null;
+        String aSecret = null;
+
+        //config.yml Reader - Simpler, as we only need one line.
+
         //Create the file reader to get the first line.
-        BufferedReader br = new BufferedReader(new FileReader("config.yml"));
+        BufferedReader configreader = new BufferedReader(new FileReader("config.yml"));
         //Because null pointers.
         try {
             //We will get the token just in case, I don't know, maybe we want to log in.
-            token = br.readLine();
+            token = configreader.readLine();
             C.log("Token has been acquired!");
-        } catch (NullPointerException ex1) {
+        } catch (NullPointerException cex) {
             //Let them know they are going to die.
             C.log("There is not token in your config, welcome to stack trace city!");
         }
+
+        //twitter.yml Reader - Getting 4 lines, see how it works out.
+
+        //Create our BufferedReader
+        BufferedReader twitterreader = new BufferedReader(new FileReader("twitter.yml"));
+        //Catch null pointers so we can tell if the config reader
+        try {
+            cKey = twitterreader.readLine();
+            cSecret = twitterreader.readLine();
+            aToken = twitterreader.readLine();
+            aSecret = twitterreader.readLine();
+            C.log("All Twitter credentials has been acquired.");
+        } catch (NullPointerException tex) {
+            C.log("Error loading the Twitter credentials: " + tex.getMessage());
+        }
+
+        //Start the TweetMonitor
+        new TweetMonitor(cKey, cSecret, aToken, aSecret);
 
         //Start the AutoMod instance.
         C.log("Loading AutoMod...");
