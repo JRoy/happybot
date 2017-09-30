@@ -79,6 +79,7 @@ public class Main extends ListenerAdapter {
                 new PingCommand(),
                 new RulesCommand(),
                 new VideoCommand(),
+                new WelcomeStatsCommand(),
 //                new AboutCommand(Color.BLUE, "an example bot",
 //                        new String[]{"Cool commands","Nice examples","Lots of fun!"},
 //                        new Permission[]{Permission.ADMINISTRATOR}),
@@ -117,7 +118,7 @@ public class Main extends ListenerAdapter {
 
         //Shows the users stats!
         C.log("Displaying Stats!");
-        WelcomeMessage.showStats();
+        WelcomeMessage.showStats("337920467450986497");
 
 //        C.log("Initializing the console...");
 //        //Lets me run java code in the console directly!

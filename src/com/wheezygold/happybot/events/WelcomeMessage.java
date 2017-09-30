@@ -17,7 +17,7 @@ public class WelcomeMessage extends ListenerAdapter {
      */
     public WelcomeMessage() {
         this.random = new Random();
-        this.welcomemsgs = new String[]{
+        welcomemsgs = new String[]{
                 "Welcome to the happyheart fandom! You are being targeted because you are a famous YouTuber!1!",
                 "my man, you have entered the realm of severe depression.",
                 "you have entered the realm of the totino gods, do you have anything to say?",
@@ -38,7 +38,7 @@ public class WelcomeMessage extends ListenerAdapter {
                 "just got pranked and joined the discord.",
                 "pressed the join button by accident.",
                 "has found our secret totino stash ( ͡ಠ ʖ̯ ͡ಠ)!",
-                "dropped his diamonds off the edge and went after them",
+                "dropped his diamonds off the edge and went after them.",
                 "got baited by the giveaway!",
                 "wanted to know where to get the shears hacked client.",
                 "has entered the valley of depression.",
@@ -51,11 +51,20 @@ public class WelcomeMessage extends ListenerAdapter {
                 "just joined...ACT LIKE YOU'RE BUSY!",
                 "is here to sell their kidney in exchange for MVP+.",
                 "was told Dotz is so eaeaeaeaeaeseey so he joined.",
-                "used the wrong discord link."
+                "used the wrong discord link.",
+                "I hope you enjoy your stay because there's no way back!",
+                "no no no this is a bad thing no no no this is a bad thing.",
+                "french class gave them chronic heart attacks.",
+                "hi, Josh made me write this message. this was happyheart's message, though. feel blessed.",
+                "thanks for watching!",
+                "wanted depression and didn't even have to ask!",
+                "has joined the depression support circle.",
+                "got cat fished by happyheart and was told to come here to be his egirl.",
+                "welcome to isle stupid. Try not to run in the the idiots."
 
 
         };
-        this.goodbyemsgs = new String[] {
+        goodbyemsgs = new String[] {
                 "just left happyheart Fanbase. You smel.",
                 "come back pls ur not ugly.",
                 "left, kthxbai.",
@@ -96,13 +105,24 @@ public class WelcomeMessage extends ListenerAdapter {
                 "Banned by Watchdog (Wait, who am I kidding).",
                 "AonAiAi does not approve.",
                 "git gud and skydive with me.",
-                "was bad at pvp so they used TNT!"
+                "was bad at pvp so they used TNT!",
+                "crashed because KillAura = Less FPS!",
+                "accidentally ate End Stone thinking it was Frosted Mini Wheats and died.",
+                "e.",
+                "you could leave if you want, but once you see this server, you can never un-see it.",
+                "are you even able to read your own leave message?",
+                "thanks for watching part 2",
+                "had enough depression for one day!"
 
         };
     }
 
-    public static void showStats() {
-        C.getGuild().getTextChannelById("337920467450986497").sendMessage(":information_source: Welcome Queue Stats:\n**Welcome Messages:** " + welcomemsgs.length + "\n**Quit Messages:** " + goodbyemsgs.length).queue();
+    /**
+     * Displays the WelcomeMessage Stats
+     * @param chnl Channel to send the stats.
+     */
+    public static void showStats(String chnl) {
+        C.getGuild().getTextChannelById(chnl).sendMessage(":information_source: Welcome Queue Stats:\n**Welcome Messages:** " + welcomemsgs.length + "\n**Quit Messages:** " + goodbyemsgs.length).queue();
     }
 
     @Override
