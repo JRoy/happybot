@@ -29,7 +29,8 @@ public class TweetMonitor {
                    builder.addField("In reply to..","[In reply to this @" + status.getInReplyToScreenName() + "'s tweet]" +
                            "(https://twitter.com/" + status.getInReplyToScreenName() + "/status/" + status.getInReplyToStatusId() + ")", false);
                }
-               Channels.TWITTER.getChannel().sendMessage(builder.build()).queue();
+               if (status.getUser().getId() == happyid)
+                   Channels.TWITTER.getChannel().sendMessage(builder.build()).queue();
            }
 
            @Override

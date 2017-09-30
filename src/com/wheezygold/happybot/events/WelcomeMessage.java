@@ -62,8 +62,7 @@ public class WelcomeMessage extends ListenerAdapter {
                 "got cat fished by happyheart and was told to come here to be his egirl.",
                 "welcome to isle stupid. Try not to run in the the idiots.",
                 "you just advanced to depression level 0.",
-
-
+                "needed some help with french!"
 
         };
         goodbyemsgs = new String[] {

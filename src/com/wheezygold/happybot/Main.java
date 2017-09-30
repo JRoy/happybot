@@ -114,6 +114,7 @@ public class Main extends ListenerAdapter {
 //                        new String[]{"Cool commands","Nice examples","Lots of fun!"},
 //                        new Permission[]{Permission.ADMINISTRATOR}),
                 new SpamCommand(),
+                new OgCommand(),
                 new FanartCommand(),
                 new BanCommand(),
                 new PardonCommand(),
