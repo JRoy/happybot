@@ -1,6 +1,6 @@
 package com.wheezygold.happybot.events;
 
-import com.wheezygold.happybot.Main;
+import com.wheezygold.happybot.util.Channels;
 import net.dv8tion.jda.core.EmbedBuilder;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
@@ -30,7 +30,7 @@ public class TweetMonitor {
                    builder.addField("In reply to..","[In reply to this @" + status.getInReplyToScreenName() + "'s tweet]" +
                            "(https://twitter.com/" + status.getInReplyToScreenName() + "/status/" + status.getInReplyToStatusId() + ")", false);
                }
-               Main.getJda().getTextChannelById("362333614580432896").sendMessage(builder.build()).queue();
+               Channels.TWITTER.getChannel().sendMessage(builder.build()).queue();
            }
 
            @Override
