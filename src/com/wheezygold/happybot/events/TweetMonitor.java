@@ -10,7 +10,6 @@ import java.awt.*;
 public class TweetMonitor {
     public TweetMonitor(String cKey, String cSecret, String aToken, String aSecret) {
         long happyid = Long.parseLong("865017489213673472");
-        long wheezyid = Long.parseLong("3437978211");
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
                 .setOAuthConsumerKey(cKey)
@@ -60,7 +59,7 @@ public class TweetMonitor {
        };
        twitterStream.addListener(listener);
        FilterQuery filter = new FilterQuery();
-       filter.follow(happyid, wheezyid);
+       filter.follow(happyid);
        twitterStream.filter(filter);
     }
 }

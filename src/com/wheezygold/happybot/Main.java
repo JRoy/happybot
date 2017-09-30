@@ -79,6 +79,7 @@ public class Main extends ListenerAdapter {
         }
 
         //Start the TweetMonitor
+        C.log("Loading Twitter Monitor...");
         new TweetMonitor(cKey, cSecret, aToken, aSecret);
 
         //Start the AutoMod instance.
@@ -148,10 +149,6 @@ public class Main extends ListenerAdapter {
         //Shows the users stats!
         C.log("Displaying Stats!");
         WelcomeMessage.showStats(Channels.GENERAL.getId());
-
-//        C.log("Initializing the console...");
-//        //Lets me run java code in the console directly!
-//        new Console();
 
 //        C.log("Loading Upload Monitor");
 //        new UploadMonitor("d");
