@@ -43,10 +43,10 @@ public class StaffManagementCommand extends Command {
                     ).queue());
                     e.replySuccess("Application Approved!");
                 } else {
-                    e.replyError("^staffmng <deny/deny-level/approve> <user>");
+                    e.replyError("**Correct Usage:** ^" + name + " " + arguments);
                 }
             } else {
-                e.replyError("^staffmng <deny/deny-level/approve> <user>");
+                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }
         } else {
             e.replyError(C.permMsg(Roles.RECRUITER));

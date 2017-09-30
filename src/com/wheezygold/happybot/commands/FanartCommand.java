@@ -24,7 +24,7 @@ public class FanartCommand extends Command {
                 e.replySuccess(msg);
                 C.getMemberEvent(e).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(msg).queue());
             } else {
-                e.replyError("Please (only) mention one user!");
+                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }
         } else {
             e.replyError(C.permMsg(Roles.HELPER));

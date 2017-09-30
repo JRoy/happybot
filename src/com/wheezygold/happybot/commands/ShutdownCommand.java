@@ -20,10 +20,12 @@ public class ShutdownCommand extends Command {
     protected void execute(CommandEvent e) {
         if (e.isOwner()) {
             if (e.getArgs().startsWith("instance")) {
+                e.getMessage().addReaction("✅").queue();
                 e.replySuccess(":white_check_mark: Stopping the JDA Instance!");
                 e.getJDA().shutdown();
                 C.log("The JDA instance has been shutdown.");
             } else if (e.getArgs().startsWith("vm")) {
+                e.getMessage().addReaction("✅").queue();
                 e.replySuccess(":white_check_mark: Stopping the VM!");
                 e.getJDA().shutdown();
                 C.log("The JDA instance has been shutdown...exiting the program.");
@@ -34,10 +36,6 @@ public class ShutdownCommand extends Command {
         } else {
             e.replyError(C.permMsg(Roles.DEVELOPER));
         }
-        e.getMessage().addReaction("✅").queue();
-
-
-
     }
 
 }

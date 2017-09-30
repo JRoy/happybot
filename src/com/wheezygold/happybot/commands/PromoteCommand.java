@@ -13,7 +13,7 @@ public class PromoteCommand extends Command{
 
     public PromoteCommand() {
         this.name = "promote";
-        this.help = "Gives/Takes a user's EXP Spammer Role!";
+        this.help = "Promotes a user up the staff hierarchy.";
         this.arguments = "<user>";
         this.guildOnly = true;
         this.category = new Category("Staff Tools");
@@ -43,7 +43,7 @@ public class PromoteCommand extends Command{
                     e.replyError("User has a malformed role!");
                 }
             } else {
-                e.replyError("Please (only) mention one user!");
+                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }
         } else {
             e.replyError(C.permMsg(Roles.SUPER_ADMIN));

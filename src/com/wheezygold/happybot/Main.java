@@ -146,10 +146,6 @@ public class Main extends ListenerAdapter {
             C.log("#-#-#-#-#-#-#-#-# Ending Stack Trace #-#-#-#-#-#-#-#-#");
         }
 
-        //Shows the users stats!
-        C.log("Displaying Stats!");
-        WelcomeMessage.showStats(Channels.GENERAL.getId());
-
 //        C.log("Loading Upload Monitor");
 //        new UploadMonitor("d");
 

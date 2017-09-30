@@ -23,10 +23,12 @@ public enum  Roles {
     MUTED("Muted", "Muted"),
 
     //Regular Roles
+    OG("OG", "OG"),
     FANS("Fans", "Fans"),
 
     //Other Roles
-    BOT("Useless Bot", "Bot");
+    BOT("Useless Bot", "Bot"),
+    EVERYONE("@everyone", "@everyone");
 
     private String role;
     private String name;
