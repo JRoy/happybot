@@ -1,12 +1,12 @@
 package com.wheezygold.happybot;
 
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
-import com.wheezygold.happybot.events.TweetMonitor;
-import com.wheezygold.happybot.events.UploadMonitor;
-import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.AutoMod;
+import com.wheezygold.happybot.events.TweetMonitor;
 import com.wheezygold.happybot.events.WelcomeMessage;
+import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Channels;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -26,8 +26,6 @@ public class Main extends ListenerAdapter {
 
     private static JDA jda;
     private static CommandClientBuilder clientBuilder;
-    private static WelcomeMessage welcomeMessage;
-    private static AutoMod autoMod;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
         C.log("Initializing the bot...");
@@ -85,11 +83,11 @@ public class Main extends ListenerAdapter {
 
         //Start the AutoMod instance.
         C.log("Loading AutoMod...");
-        autoMod = new AutoMod("194473148161327104");
+        AutoMod autoMod = new AutoMod("194473148161327104");
 
         //Start the WelcomeMessage instance.
         C.log("Loading Welcome Manager...");
-        welcomeMessage = new WelcomeMessage();
+        WelcomeMessage welcomeMessage = new WelcomeMessage();
 
         C.log("Loading the command builder...");
 
@@ -149,7 +147,7 @@ public class Main extends ListenerAdapter {
 
         //Shows the users stats!
         C.log("Displaying Stats!");
-        WelcomeMessage.showStats("337920467450986497");
+        WelcomeMessage.showStats(Channels.GENERAL.getId());
 
 //        C.log("Initializing the console...");
 //        //Lets me run java code in the console directly!
@@ -178,6 +176,7 @@ public class Main extends ListenerAdapter {
      * An easy way to get our CommandClientBuilder instance!
      * @return Returns the CommandClientBuilder Instance.
      */
+    @SuppressWarnings("unused")
     public static CommandClientBuilder getClientBuilder() { return clientBuilder; }
 
 }

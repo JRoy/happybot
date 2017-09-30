@@ -60,7 +60,9 @@ public class WelcomeMessage extends ListenerAdapter {
                 "wanted depression and didn't even have to ask!",
                 "has joined the depression support circle.",
                 "got cat fished by happyheart and was told to come here to be his egirl.",
-                "welcome to isle stupid. Try not to run in the the idiots."
+                "welcome to isle stupid. Try not to run in the the idiots.",
+                "you just advanced to depression level 0.",
+
 
 
         };
@@ -112,7 +114,9 @@ public class WelcomeMessage extends ListenerAdapter {
                 "you could leave if you want, but once you see this server, you can never un-see it.",
                 "are you even able to read your own leave message?",
                 "thanks for watching part 2",
-                "had enough depression for one day!"
+                "had enough depression for one day!",
+                "Au revoir!",
+                "Alright then. Be that way."
 
         };
     }
