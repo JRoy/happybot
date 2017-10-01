@@ -1,5 +1,6 @@
 package com.wheezygold.happybot.util;
 
+import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.Main;
 import net.dv8tion.jda.core.entities.Guild;
@@ -8,7 +9,6 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.managers.GuildController;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
 import java.nio.channels.Channels;
+import java.util.Objects;
 
 public class C {
 
@@ -32,7 +33,7 @@ public class C {
                 return m.getRoles().contains(s);
             }
         } catch (NullPointerException x) {
-            //Don't Worry this will not happen...
+            //Don't Worry this will not hapen
         }
         return false;
     }
@@ -125,4 +126,33 @@ public class C {
     public static Guild getGuild() {
         return Main.getJda().getGuildById("237363812842340363");
     }
+
+    /**
+     * Sends the help message for the registered commands.
+     * @param event The {@link com.jagrosh.jdautilities.commandclient.CommandEvent CommandEvent} that handles the reply.
+     * @return The help message.
+     */
+    public static String showHelp(CommandEvent event) {
+        event.replySuccess("Help is on the way! :sparkles:");
+        StringBuilder builder = new StringBuilder("**"+event.getSelfUser().getName()+"** commands:\n");
+        Command.Category category = null;
+        for(Command command : event.getClient().getCommands())
+            if(!command.isOwnerCommand() || event.isOwner() || event.isCoOwner())
+            {
+                if(!Objects.equals(category, command.getCategory()))
+                {
+                    category = command.getCategory();
+                    builder.append("\n\n  __").append(category==null ? "No Category" : category.getName()).append("__:\n");
+                }
+                builder.append("\n`").append(event.getClient().getPrefix()).append(command.getName())
+                        .append(command.getArguments()==null ? "`" : " "+command.getArguments()+"`")
+                        .append(" **-** ").append(command.getHelp());
+            }
+        User owner = event.getJDA().getUserById(event.getClient().getOwnerId());
+        if(owner!=null)
+        {
+            builder.append("\n\nFor additional help, contact **").append(owner.getName()).append("**#").append(owner.getDiscriminator());
+
+    }
+        return builder.toString();};
 }

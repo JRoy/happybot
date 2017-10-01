@@ -6,7 +6,6 @@ import com.wheezygold.happybot.events.AutoMod;
 import com.wheezygold.happybot.events.TweetMonitor;
 import com.wheezygold.happybot.events.WelcomeMessage;
 import com.wheezygold.happybot.util.C;
-import com.wheezygold.happybot.util.Channels;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -123,6 +122,8 @@ public class Main extends ListenerAdapter {
                 new ShutdownCommand(),
                 new UpdateCommand(),
                 new EvalCommand());
+
+        clientBuilder.setHelpFunction(event -> C.showHelp(event));
 
         C.log("Constructing the JDA Instance...");
 

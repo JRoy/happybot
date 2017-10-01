@@ -12,6 +12,7 @@ public class UpdateCommand extends Command {
     public UpdateCommand() {
         this.name = "update";
         this.help = "Downloads new code for the bot!";
+        this.guildOnly = false;
         this.category = new Category("Bot Management");
     }
 
