@@ -109,6 +109,7 @@ public class Main extends ListenerAdapter {
                 new RulesCommand(),
                 new VideoCommand(),
                 new WelcomeStatsCommand(),
+                new ServersCommand(),
 //                new AboutCommand(Color.BLUE, "an example bot",
 //                        new String[]{"Cool commands","Nice examples","Lots of fun!"},
 //                        new Permission[]{Permission.ADMINISTRATOR}),
