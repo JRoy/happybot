@@ -62,7 +62,12 @@ public class WelcomeMessage extends ListenerAdapter {
                 "got cat fished by happyheart and was told to come here to be his egirl.",
                 "welcome to isle stupid. Try not to run in the the idiots.",
                 "you just advanced to depression level 0.",
-                "needed some help with french!"
+                "needed some help with french!",
+                "wanted depression, but they don't even have to ask!",
+                "Welcome to french class!",
+                "needed depression, but they already got it.",
+                "\"Where is happoheart?!!\"",
+                "+5 Karma!"
 
         };
         goodbyemsgs = new String[] {
@@ -115,7 +120,11 @@ public class WelcomeMessage extends ListenerAdapter {
                 "thanks for watching part 2",
                 "had enough depression for one day!",
                 "Au revoir!",
-                "Alright then. Be that way."
+                "Alright then. Be that way.",
+                "couldn't find their totinos.",
+                "did the best they could by leaving.",
+                "abused HYPIXEL YT RANK!!!!!!!!!!!",
+                "does not have a happy heart."
 
         };
     }
