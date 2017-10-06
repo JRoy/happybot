@@ -18,6 +18,7 @@ public class ServersCommand extends Command {
                 "Hypixel - play.hypixel.net\n" +
                 "Mineplex - us.mineplex.com\n" +
                 "Jumpcraft - play.jumpcraft.org\n" +
-                "Weebcraft - weebcraftpk.myserver.gs");
+                "Weebcraft - weebcraftpk.myserver.gs\n" +
+                "Tidecraft - tidecraft.beastmc.com)");
     }
 }

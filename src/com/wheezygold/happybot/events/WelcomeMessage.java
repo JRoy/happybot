@@ -67,7 +67,15 @@ public class WelcomeMessage extends ListenerAdapter {
                 "Welcome to french class!",
                 "needed depression, but they already got it.",
                 "\"Where is happoheart?!!\"",
-                "+5 Karma!"
+                "+5 Karma!",
+                "welcome to toys r us we have free type two diabetes.",
+                "hope you have brain.",
+                "came to learn about interior bed defense.",
+                "go watch Riverdale.",
+                "came looking for technoblade.",
+                "has made a mistake that can never be reversed!",
+                "Well! Excuuuusee me, Princess!",
+                "is probably :nose:-less!"
 
         };
         goodbyemsgs = new String[] {
@@ -124,7 +132,18 @@ public class WelcomeMessage extends ListenerAdapter {
                 "couldn't find their totinos.",
                 "did the best they could by leaving.",
                 "abused HYPIXEL YT RANK!!!!!!!!!!!",
-                "does not have a happy heart."
+                "does not have a happy heart.",
+                "has gone to his moms purse to get some money for happy's patreon.",
+                "was kicked for not giving Josh any Totinos Pizza Rolls.",
+                "has deleted their livestream, along with their channel.",
+                "spoiled Riverdale in Josh's DMs.",
+                "went to CVS to buy more anti-depressants.",
+                "is using high jump!",
+                "turn off your aura. I'm live XD.",
+                "tried to steal the Happy Bot.",
+                "wasn’t excused by the princess.",
+                "has passed french class.",
+                "was banned for bringing Ducky back."
 
         };
     }
