@@ -6,13 +6,14 @@ import com.wheezygold.happybot.events.AutoMod;
 import com.wheezygold.happybot.events.TweetMonitor;
 import com.wheezygold.happybot.events.WelcomeMessage;
 import com.wheezygold.happybot.util.C;
-import net.dv8tion.jda.core.*;
+import net.dv8tion.jda.core.AccountType;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.impl.JDAImpl;
 import net.dv8tion.jda.core.events.ShutdownEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import org.json.JSONObject;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -113,6 +114,7 @@ public class Main extends ListenerAdapter {
                 new SpamCommand(),
                 new OgCommand(),
                 new FanartCommand(),
+                new KickCommand(),
                 new BanCommand(),
                 new PardonCommand(),
                 new PromoteCommand(),
