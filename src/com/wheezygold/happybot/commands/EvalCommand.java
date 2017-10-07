@@ -7,7 +7,9 @@ import javax.script.ScriptException;
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Roles;
+import net.dv8tion.jda.core.entities.Game;
 
 public class EvalCommand extends Command {
 
@@ -45,6 +47,8 @@ public class EvalCommand extends Command {
             se.put("member", e.getMember());
             se.put("C", C.class);
             se.put("Roles", Roles.class);
+            se.put("Channels", Channels.class);
+            se.put("Game", Game.class);
             try {
                 e.reply(e.getClient().getSuccess() + " Evaluated Successfully:\n```\n" + se.eval(e.getArgs()) + " ```");
             } catch (Exception ex) {
