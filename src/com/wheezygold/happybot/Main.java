@@ -6,14 +6,13 @@ import com.wheezygold.happybot.events.AutoMod;
 import com.wheezygold.happybot.events.TweetMonitor;
 import com.wheezygold.happybot.events.WelcomeMessage;
 import com.wheezygold.happybot.util.C;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.OnlineStatus;
+import net.dv8tion.jda.core.*;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.impl.JDAImpl;
 import net.dv8tion.jda.core.events.ShutdownEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import org.json.JSONObject;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -146,6 +145,32 @@ public class Main extends ListenerAdapter {
             e.printStackTrace();
             C.log("#-#-#-#-#-#-#-#-# Ending Stack Trace #-#-#-#-#-#-#-#-#");
         }
+
+//        JDAImpl jdaimpl = (JDAImpl) jda;
+//
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("afk", false);
+//        jsonObject.put("status", "dnd");
+//        jsonObject.put("since", System.currentTimeMillis());
+//
+//        JSONObject gameObj = new JSONObject();
+//        gameObj.put("name", "InteliJ");
+//        gameObj.put("type", 0);
+//        gameObj.put("state", "Developing");
+//        gameObj.put("details", "Using JDA to make myself!");
+//        gameObj.put("application_id", "354736186516045835");
+//
+//        JSONObject assetsObj = new JSONObject();
+//        assetsObj.put("large_image", "358402218577231875");
+//        assetsObj.put("small_image", "358402218577231875");
+//        assetsObj.put("large_text", "Large Text");
+//        assetsObj.put("small_text", "Small Text");
+//
+//        gameObj.put("assets", assetsObj);
+//
+//        jsonObject.put("game", gameObj);
+//
+//        jdaimpl.getClient().send(new JSONObject().put("d", jsonObject).put("op", WebSocketCode.PRESENCE).toString());
 
 //        C.log("Loading Upload Monitor");
 //        new UploadMonitor("d");

@@ -163,6 +163,12 @@ public class C {
         return builder.toString();
     }
 
+    /**
+     * Toggles the role of a user.
+     * @param m The member who you want the role on.
+     * @param role The role you want toggled.
+     * @return Returns if it added or removed a role.
+     */
     public static boolean toggleRole(Member m, Roles role) {
         if (!hasRole(getGuild(), m, role)) {
             getGuildCtrl().addSingleRoleToMember(m, role.getrole(getGuild())).reason("Role toggle from internal C Util").queue();

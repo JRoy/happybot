@@ -32,7 +32,6 @@ public class EvalCommand extends Command {
                         "java.io," +
                         "java.lang," +
                         "java.util," +
-                        "net.dv8tion.jda.core.entities.Game," +
                         "Packages.net.dv8tion.jda.core," +
                         "Packages.net.dv8tion.jda.core.entities," +
                         "Packages.net.dv8tion.jda.core.entities.impl," +
