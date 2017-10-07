@@ -26,6 +26,11 @@ public enum  Roles {
     OG("OG", "OG"),
     FANS("Fans", "Fans"),
 
+    //Mentionable Roles
+    TWITTER("Twitter", "Twitter"),
+    GIT("Git", "Git"),
+    UPDATES("Updates", "Updates"),
+
     //Other Roles
     BOT("Useless Bot", "Bot"),
     EVERYONE("@everyone", "@everyone");

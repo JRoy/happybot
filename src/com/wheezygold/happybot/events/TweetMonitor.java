@@ -1,6 +1,8 @@
 package com.wheezygold.happybot.events;
 
+import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Channels;
+import com.wheezygold.happybot.util.Roles;
 import net.dv8tion.jda.core.EmbedBuilder;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
@@ -20,6 +22,7 @@ public class TweetMonitor {
        StatusListener listener = new StatusListener() {
            @Override
            public void onStatus(Status status) {
+               Roles.TWITTER.getrole(C.getGuild()).getManager().setMentionable(true).queue();
                EmbedBuilder builder = new EmbedBuilder()
                        .setThumbnail(status.getUser().getBiggerProfileImageURL())
                        .setTitle("@" + status.getUser().getScreenName() + " has just tweeted", "https://twitter.com/" + status.getUser().getScreenName() + "/status/" + status.getId())
@@ -30,7 +33,8 @@ public class TweetMonitor {
                            "(https://twitter.com/" + status.getInReplyToScreenName() + "/status/" + status.getInReplyToStatusId() + ")", false);
                }
                if (status.getUser().getId() == happyid)
-                   Channels.TWITTER.getChannel().sendMessage(builder.build()).queue();
+                   Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getrole(C.getGuild()).getAsMention() + builder.build()).queue();
+               Roles.TWITTER.getrole(C.getGuild()).getManager().setMentionable(false).queue();
            }
 
            @Override

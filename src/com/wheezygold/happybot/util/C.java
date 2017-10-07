@@ -128,6 +128,12 @@ public class C {
     }
 
     /**
+     * Gets the happyheart guild controller.
+     * @return {@link net.dv8tion.jda.core.managers.GuildController GuildController} of happyheart guild.
+     */
+    public static GuildController getGuildCtrl() { return Main.getJda().getGuildById("237363812842340363").getController(); }
+
+    /**
      * Sends the help message for the registered commands.
      * @param event The {@link com.jagrosh.jdautilities.commandclient.CommandEvent CommandEvent} that handles the reply.
      * @return The help message.
@@ -154,5 +160,17 @@ public class C {
             builder.append("\n\nFor additional help, contact **").append(owner.getName()).append("**#").append(owner.getDiscriminator());
 
     }
-        return builder.toString();};
+        return builder.toString();
+    }
+
+    public static boolean toggleRole(Member m, Roles role) {
+        if (!hasRole(getGuild(), m, role)) {
+            getGuildCtrl().addSingleRoleToMember(m, role.getrole(getGuild())).reason("Role toggle from internal C Util").queue();
+            return true;
+        } else {
+            getGuildCtrl().removeSingleRoleFromMember(m, role.getrole(getGuild())).reason("Role toggle from internal C Util").queue();
+            return false;
+        }
+    }
+
 }
