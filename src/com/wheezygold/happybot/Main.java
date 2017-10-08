@@ -108,6 +108,8 @@ public class Main extends ListenerAdapter {
                 new PingCommand(),
                 new RulesCommand(),
                 new VideoCommand(),
+                new SeasonCommand(),
+                new RandomSeasonCommand(),
                 new WelcomeStatsCommand(),
                 new ServersCommand(),
                 new MentionCommand(),
