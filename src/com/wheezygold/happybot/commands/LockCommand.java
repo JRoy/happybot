@@ -2,6 +2,7 @@ package com.wheezygold.happybot.commands;
 
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
+import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Roles;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.PermissionOverride;
@@ -17,12 +18,16 @@ public class LockCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        PermissionOverride permissionOverride = e.getTextChannel().getPermissionOverride(Roles.EVERYONE.getrole(e.getGuild()));
+        if (C.hasRole(e.getGuild(), e.getMember(), Roles.ADMIN)) {
+            PermissionOverride permissionOverride = e.getTextChannel().getPermissionOverride(Roles.EVERYONE.getrole(e.getGuild()));
 
-        PermOverrideManager manager = permissionOverride.getManager();
+            PermOverrideManager manager = permissionOverride.getManager();
 
-        manager.deny(Permission.MESSAGE_WRITE).queue();
+            manager.deny(Permission.MESSAGE_WRITE).queue();
 
-        e.replySuccess(":lock: Channel has been locked!");
+            e.replySuccess(":lock: Channel has been locked!");
+        } else {
+            e.replyError(C.permMsg(Roles.ADMIN));
+        }
     }
 }
