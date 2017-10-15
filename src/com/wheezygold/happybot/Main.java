@@ -2,10 +2,7 @@ package com.wheezygold.happybot;
 
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
-import com.wheezygold.happybot.events.AutoMod;
-import com.wheezygold.happybot.events.AutoReact;
-import com.wheezygold.happybot.events.TweetMonitor;
-import com.wheezygold.happybot.events.WelcomeMessage;
+import com.wheezygold.happybot.events.*;
 import com.wheezygold.happybot.util.C;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -24,6 +21,7 @@ import java.io.IOException;
 
 public class Main extends ListenerAdapter {
 
+    private Main instance = this;
     private static JDA jda;
     private static CommandClientBuilder clientBuilder;
 
@@ -94,6 +92,9 @@ public class Main extends ListenerAdapter {
         C.log("Loading AutoReact...");
         AutoReact autoReact = new AutoReact();
 
+        //Start the Star Messages
+        StarMessages starMessages = new StarMessages();
+
         C.log("Loading the command builder...");
 
         //Creates JDA-Util's Command Builder so we can use it later.
@@ -148,6 +149,7 @@ public class Main extends ListenerAdapter {
                     .addEventListener(welcomeMessage)
                     .addEventListener(autoMod)
                     .addEventListener(autoReact)
+                    .addEventListener(starMessages)
                     //Because people gonna spam...
                     .useSharding(0, 2)
                     .setGame(Game.of("Loading"))
