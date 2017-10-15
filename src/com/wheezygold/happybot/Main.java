@@ -3,6 +3,7 @@ package com.wheezygold.happybot;
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.AutoMod;
+import com.wheezygold.happybot.events.AutoReact;
 import com.wheezygold.happybot.events.TweetMonitor;
 import com.wheezygold.happybot.events.WelcomeMessage;
 import com.wheezygold.happybot.util.C;
@@ -89,6 +90,10 @@ public class Main extends ListenerAdapter {
         C.log("Loading Welcome Manager...");
         WelcomeMessage welcomeMessage = new WelcomeMessage();
 
+        //Start the AutoReact Instance.
+        C.log("Loading AutoReact...");
+        AutoReact autoReact = new AutoReact();
+
         C.log("Loading the command builder...");
 
         //Creates JDA-Util's Command Builder so we can use it later.
@@ -142,6 +147,7 @@ public class Main extends ListenerAdapter {
                     .addEventListener(clientBuilder.build())
                     .addEventListener(welcomeMessage)
                     .addEventListener(autoMod)
+                    .addEventListener(autoReact)
                     //Because people gonna spam...
                     .useSharding(0, 2)
                     .setGame(Game.of("Loading"))
