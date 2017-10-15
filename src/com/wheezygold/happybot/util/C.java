@@ -179,4 +179,42 @@ public class C {
         }
     }
 
+    /**
+     * Removes a role from a guild member.
+     * @param m The target guild member.
+     * @param role The target role.
+     */
+    public static void removeRole(Member m, Roles role) {
+        getGuildCtrl().removeSingleRoleFromMember(m, role.getrole(getGuild())).reason("Role removed from internal C Util").queue();
+    }
+
+    /**
+     * Removes a role from a guild member.
+     * @param m The target guild member.
+     * @param role The target role.
+     * @param reason The reason to show in the audit log.
+     */
+    public static void removeRole(Member m, Roles role, String reason) {
+        getGuildCtrl().removeSingleRoleFromMember(m, role.getrole(getGuild())).reason(reason).queue();
+    }
+
+    /**
+     * Adds a role to a guild member.
+     * @param m The target guild member.
+     * @param role The target role.
+     */
+    public static void giveRole(Member m, Roles role) {
+        getGuildCtrl().addSingleRoleToMember(m, role.getrole(getGuild())).reason("Role added from internal C Util").queue();
+    }
+
+    /**
+     * Adds a role to a guild member.
+     * @param m The target guild member.
+     * @param role The target role.
+     * @param reason The reason to show in the audit log.
+     */
+    public static void giveRole(Member m, Roles role, String reason) {
+        getGuildCtrl().addSingleRoleToMember(m, role.getrole(getGuild())).reason(reason).queue();
+    }
+
 }

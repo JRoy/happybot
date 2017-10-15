@@ -122,6 +122,7 @@ public class Main extends ListenerAdapter {
                 new BanCommand(),
                 new PardonCommand(),
                 new PromoteCommand(),
+                new DemoteCommand(),
                 new StaffManagementCommand(),
                 new ShutdownCommand(),
                 new UpdateCommand(),

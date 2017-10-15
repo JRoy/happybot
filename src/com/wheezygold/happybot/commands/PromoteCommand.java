@@ -21,7 +21,7 @@ public class PromoteCommand extends Command{
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getGuild(), e.getMember(), Roles.SUPER_ADMIN)) {
+        if (C.hasRole(e.getGuild(), e.getMember(), Roles.RECRUITER)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
                 e.reply("Please wait while we look how to promote " + C.getMemberEvent(e).getAsMention() + "!");
                 u = C.getMemberEvent(e);
@@ -46,7 +46,7 @@ public class PromoteCommand extends Command{
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }
         } else {
-            e.replyError(C.permMsg(Roles.SUPER_ADMIN));
+            e.replyError(C.permMsg(Roles.RECRUITER));
         }
     }
 
