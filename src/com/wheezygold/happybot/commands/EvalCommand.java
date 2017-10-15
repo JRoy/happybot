@@ -1,16 +1,15 @@
 package com.wheezygold.happybot.commands;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
-import com.wheezygold.happybot.Main;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Roles;
 import net.dv8tion.jda.core.entities.Game;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 public class EvalCommand extends Command {
 

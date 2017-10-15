@@ -1,6 +1,5 @@
 package com.wheezygold.happybot.events;
 
-import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Channels;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -42,7 +41,6 @@ public class StarMessages extends ListenerAdapter {
             for (User u : message.getReactions().stream().filter(r -> r.getEmote().getName().equals("⭐")).findAny().orElse(null).getUsers()) {
                 help++;
             }
-            C.log(String.valueOf(help));
             if (help == 5) {
                 String footer = "New Stared Message from #" + message.getChannel().getName();
                 Channels.STARED_MESSAGES.getChannel().sendMessage(new EmbedBuilder()

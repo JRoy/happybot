@@ -9,8 +9,7 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.managers.GuildController;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.Proxy;
@@ -28,12 +27,10 @@ public class C {
      * @return Boolean, is the person has the role.
      */
     public static boolean hasRole(Guild g, Member m, Roles r) {
-        try {
-            for (Role s : g.getRolesByName(r.getrolename(), true)) {
-                return m.getRoles().contains(s);
+        for (Role s : m.getRoles()) {
+            if (s.getId().equals(r.getrole(getGuild()).getId())) {
+                return true;
             }
-        } catch (NullPointerException x) {
-            //Don't Worry this will not hapen
         }
         return false;
     }
@@ -215,6 +212,23 @@ public class C {
      */
     public static void giveRole(Member m, Roles role, String reason) {
         getGuildCtrl().addSingleRoleToMember(m, role.getrole(getGuild())).reason(reason).queue();
+    }
+
+    /**
+     * Writes the first line of a file.
+     * @param file The target file.
+     * @param content The content of said file.
+     */
+    public static void writeFile(String file, String content) {
+        try {
+            FileWriter fw = new FileWriter(new File(file));
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(content);
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

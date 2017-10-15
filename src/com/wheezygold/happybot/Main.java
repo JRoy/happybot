@@ -14,10 +14,7 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class Main extends ListenerAdapter {
 
@@ -25,12 +22,17 @@ public class Main extends ListenerAdapter {
     private static JDA jda;
     private static CommandClientBuilder clientBuilder;
 
+
+
+    private static String theme;
+
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
         C.log("Initializing the bot...");
 
         //Lets make the file so we can use it!
         File configfile = new File("config.yml");
         File twitterfile = new File("twitter.yml");
+        File themefile = new File("theme.yml");
 
         //We are going to check if the config exists, if not lets create one for them!
         if (!configfile.exists())
@@ -39,6 +41,16 @@ public class Main extends ListenerAdapter {
         //Check Twitter Creds File, Create it if not a thing.
         if (!twitterfile.exists())
             twitterfile.createNewFile();
+
+        //Check Theme Value File, Create it if not a thing.
+        if (!themefile.exists()) {
+            themefile.createNewFile();
+            FileWriter fw = new FileWriter(themefile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("normal");
+            bw.close();
+            fw.close();
+        }
 
         //Always init your strings!
         String token = null;
@@ -56,9 +68,25 @@ public class Main extends ListenerAdapter {
             //We will get the token just in case, I don't know, maybe we want to log in.
             token = configreader.readLine();
             C.log("Token has been acquired!");
+            configreader.close();
         } catch (NullPointerException cex) {
             //Let them know they are going to die.
             C.log("There is not token in your config, welcome to stack trace city!");
+        }
+
+        //theme.yml Reader - Simpler, as we only need one line.
+
+        //Create the file reader to get the first line.
+        BufferedReader themereader = new BufferedReader(new FileReader("theme.yml"));
+        //Because null pointers.
+        try {
+            //We will get the token just in case, I don't know, maybe we want to log in.
+            theme = themereader.readLine();
+            C.log("Theme Loaded: " + theme + "!");
+            themereader.close();
+        } catch (NullPointerException tex) {
+            //Let them know they are going to die.
+            C.log("Error receiving your theme: " + tex.getMessage());
         }
 
         //twitter.yml Reader - Getting 4 lines, see how it works out.
@@ -72,6 +100,7 @@ public class Main extends ListenerAdapter {
             aToken = twitterreader.readLine();
             aSecret = twitterreader.readLine();
             C.log("All Twitter credentials has been acquired.");
+            twitterreader.close();
         } catch (NullPointerException tex) {
             C.log("Error loading the Twitter credentials: " + tex.getMessage());
         }
@@ -131,6 +160,7 @@ public class Main extends ListenerAdapter {
                 new PromoteCommand(),
                 new DemoteCommand(),
                 new StaffManagementCommand(),
+                new ThemeCommand(),
                 new ShutdownCommand(),
                 new UpdateCommand(),
                 new EvalCommand());
@@ -213,5 +243,24 @@ public class Main extends ListenerAdapter {
      */
     @SuppressWarnings("unused")
     public static CommandClientBuilder getClientBuilder() { return clientBuilder; }
+
+    public static String getTheme() { return theme; }
+
+    public static void updateTheme() {
+        try {
+            BufferedReader themereader = new BufferedReader(new FileReader("theme.yml"));
+            //We will get the token just in case, I don't know, maybe we want to log in.
+            theme = themereader.readLine();
+            C.log("Theme Loaded: " + theme + "!");
+            themereader.close();
+        } catch (NullPointerException e) {
+            //Let them know they are going to die.
+            C.log("Error receiving your theme: " + e.getMessage());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            C.log("Error receiving your theme: " + e.getMessage());
+        }
+    }
 
 }

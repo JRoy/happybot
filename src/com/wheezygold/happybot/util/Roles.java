@@ -1,5 +1,6 @@
 package com.wheezygold.happybot.util;
 
+import com.wheezygold.happybot.Main;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;
 
@@ -10,54 +11,61 @@ import net.dv8tion.jda.core.entities.Role;
 public enum  Roles {
 
     //Staff Ranks
-    HAPPYHEART("Happyoheart", "Happyoheart"),
-    DEVELOPER("Developer", "Developer"),
-    SUPER_ADMIN("Super Admin", "Super Admin"),
-    ADMIN("Admin", "Admin"),
-    MODERATOR("Moderators", "Moderator"),
-    HELPER("Helpers", "Helper"),
-    RECRUITER("Recruiter", "Recruiter"),
+    HAPPYHEART("264560287183667202", "Happoheart", "Spookoheart", "Happoheart"),
+    DEVELOPER("317386352763207702", "Developer", "Grim Reaper", "Developer"),
+    SUPER_ADMIN("264963855426256897", "Super Admin", "Sp00ky Skary Skelentons", "Super Admin"),
+    ADMIN("295673671203291147", "Admin", "Glowing Pumpkins", "Admin"),
+    MODERATOR("264964563517046784", "Moderators", "Fortune Tellers", "Moderator"),
+    HELPER("264965005949009920", "Helpers", "Drooling Vampires", "Helper"),
+    RECRUITER("299632971319869451", "Recruiter", "Recruiter", "Recruiter"),
 
     //Punish Ranks
-    EXP_SPAMMER("EXP Spammer", "EXP Spammer"),
-    MUTED("Muted", "Muted"),
+    EXP_SPAMMER("299652763099332608", "EXP Spammer", "EXP Spammer", "EXP Spammer"),
+    MUTED("280043630494875648", "Muted", "Muted", "Muted"),
 
     //Regular Roles
-    OG("OG", "OG"),
-    FANS("Fans", "Fans"),
+    PATRON_BOYS("300084940710739968", "Patron Boys", "Trick or Treaters", "Patron Boys"),
+    SUPPORTER("294583863521312770", "Supporter", "Enslaved", "Supporter"),
+    QUALITY_ART("364568257660846084", "Quality Art", "Quality Spooks", "Quality Art"),
+    OG("350986983004307456", "OG", "Decaying Corpses", "OG"),
+    IRL("304074646104571905", "IRL", "Zombies", "IRL"),
+    OBSESSIVE("296259032400920578", "Obsessive", "Crazed Flesh Eater", "Obsessive"),
+    TRYHARD("296257773887553538", "Tryhard", "Human Filth", "Tryhard"),
+    REGULAR("277933832240496650", "Regular", "Regular Costume", "Regular"),
+    FANS("264964418796781568", "Fans", "Cult Fanatics", "Fans"),
 
     //Mentionable Roles
-    TWITTER("Twitter", "Twitter"),
-    GIT("Git", "Git"),
-    UPDATES("Updates", "Updates"),
+    TWITTER("366005538766585866", "Twitter", "Twitter", "Twitter"),
+    GIT("366056865697628160", "Git", "Git", "Git"),
+    UPDATES("366056967287865345", "Updates", "Updates", "Updates"),
 
     //Other Roles
-    BOT("Useless Bot", "Bot"),
-    EVERYONE("@everyone", "@everyone");
+    BOT("285371566580170753", "Useless Bot", "Useless Bot", "Bot"),
+    EVERYONE("237363812842340363", "@everyone", "@everyone", "@everyone");
 
-    private String role;
+    private String nrole;
+    private String srole;
     private String name;
+    private String id;
 
-    Roles(String role, String name) {
+    Roles(String id, String nrole, String srole, String name) {
 
-        this.role = role;
+        this.nrole = nrole;
+        this.srole = srole;
         this.name = name;
+        this.id = id;
 
     }
 
     public String getrolename() {
-        return role;
+        return nrole;
     }
     public String getname() {
         return name;
     }
+    public String getspook() { return srole; }
     public Role getrole(Guild g) {
-        for (Role lr : g.getRoles()) {
-            if (lr.getName().equalsIgnoreCase(role)) {
-                return lr;
-            }
-        }
-        return null;
+        return C.getGuild().getRoleById(id);
     }
 
 }
