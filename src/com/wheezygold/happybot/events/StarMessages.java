@@ -7,10 +7,14 @@ import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.util.HashMap;
+
 public class StarMessages extends ListenerAdapter {
 
+    private HashMap<String, Message> used;
+
     public StarMessages() {
-        //lol
+        used = new HashMap<>();
     }
 
     @Override
@@ -42,16 +46,19 @@ public class StarMessages extends ListenerAdapter {
                 help++;
             }
             if (help == 5) {
-                String footer = "New Stared Message from #" + message.getChannel().getName();
-                EmbedBuilder embed = new EmbedBuilder()
-                        .setTitle(message.getMember().getEffectiveName())
-                        .setDescription(message.getStrippedContent())
-                        .setFooter(footer, "https://google.com")
-                        .setThumbnail(message.getMember().getUser().getAvatarUrl())
-                        .setColor(message.getMember().getColor());
-                Channels.STARED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
-                message.getAuthor().openPrivateChannel().queue(pc -> pc.sendMessage("Congrats! One of your messages has been started:").queue());
-                message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed.build()).queue());
+                if (!used.containsKey(message.getId())) {
+                    String footer = "New Stared Message from #" + message.getChannel().getName();
+                    EmbedBuilder embed = new EmbedBuilder()
+                            .setTitle(message.getMember().getEffectiveName())
+                            .setDescription(message.getStrippedContent())
+                            .setFooter(footer, "https://google.com")
+                            .setThumbnail(message.getMember().getUser().getAvatarUrl())
+                            .setColor(message.getMember().getColor());
+                    Channels.STARED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
+                    message.getAuthor().openPrivateChannel().queue(pc -> pc.sendMessage("Congrats! One of your messages has been started:").queue());
+                    message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed.build()).queue());
+                    used.put(message.getId(), message);
+                }
             }
         }
 
