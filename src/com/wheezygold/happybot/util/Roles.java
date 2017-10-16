@@ -14,6 +14,7 @@ public enum  Roles {
     HAPPYHEART("264560287183667202", "Happoheart", "Spookoheart", "Happoheart"),
     DEVELOPER("317386352763207702", "Developer", "Grim Reaper", "Developer"),
     SUPER_ADMIN("264963855426256897", "Super Admin", "Sp00ky Skary Skelentons", "Super Admin"),
+    CHANNEL_MANAGER("368172637182230549", "Channel Manager", "Rabid Werewolves", "Channel Manager"),
     ADMIN("295673671203291147", "Admin", "Glowing Pumpkins", "Admin"),
     MODERATOR("264964563517046784", "Moderators", "Fortune Tellers", "Moderator"),
     HELPER("264965005949009920", "Helpers", "Drooling Vampires", "Helper"),
@@ -24,7 +25,7 @@ public enum  Roles {
     MUTED("280043630494875648", "Muted", "Muted", "Muted"),
 
     //Regular Roles
-    PATRON_BOYS("300084940710739968", "Patron Boys", "Trick or Treaters", "Patron Boys"),
+    PATRON_BOYS("300081997878132736", "Patron Boys", "Trick or Treaters", "Patron Boys"),
     SUPPORTER("294583863521312770", "Supporter", "Enslaved", "Supporter"),
     QUALITY_ART("364568257660846084", "Quality Art", "Quality Spooks", "Quality Art"),
     OG("350986983004307456", "OG", "Decaying Corpses", "OG"),

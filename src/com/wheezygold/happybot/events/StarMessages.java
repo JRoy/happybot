@@ -43,12 +43,15 @@ public class StarMessages extends ListenerAdapter {
             }
             if (help == 5) {
                 String footer = "New Stared Message from #" + message.getChannel().getName();
-                Channels.STARED_MESSAGES.getChannel().sendMessage(new EmbedBuilder()
+                EmbedBuilder embed = new EmbedBuilder()
                         .setTitle(message.getMember().getEffectiveName())
                         .setDescription(message.getStrippedContent())
                         .setFooter(footer, "https://google.com")
                         .setThumbnail(message.getMember().getUser().getAvatarUrl())
-                        .setColor(message.getMember().getColor()).build()).queue();
+                        .setColor(message.getMember().getColor());
+                Channels.STARED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
+                message.getAuthor().openPrivateChannel().queue(pc -> pc.sendMessage("Congrats! One of your messages has been started:").queue());
+                message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed.build()).queue());
             }
         }
 

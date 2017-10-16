@@ -27,10 +27,14 @@ public class C {
      * @return Boolean, is the person has the role.
      */
     public static boolean hasRole(Guild g, Member m, Roles r) {
-        for (Role s : m.getRoles()) {
-            if (s.getId().equals(r.getrole(getGuild()).getId())) {
-                return true;
+        try {
+            for (Role s : m.getRoles()) {
+                if (s.getId().equals(r.getrole(getGuild()).getId())) {
+                    return true;
+                }
             }
+        } catch (NullPointerException e) {
+            //NO I DON'T CARE, MY CONSOLE DOESN'T CARE, NOBODY CARES!
         }
         return false;
     }

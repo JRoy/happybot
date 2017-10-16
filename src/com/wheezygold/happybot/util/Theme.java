@@ -17,6 +17,7 @@ public class Theme {
                 crole.getrole(C.getGuild()).getManager().setName(crole.getrolename()).queue();
             }
             C.getGuild().getManager().setName("Happyheart Fanbase").complete();
+            C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), "Happy Bot").complete();
             Main.updateTheme();
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,6 +33,7 @@ public class Theme {
                 crole.getrole(C.getGuild()).getManager().setName(crole.getspook()).queue();
             }
             C.getGuild().getManager().setName("Happyheart Spookbase").complete();
+            C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), "Spooky Bot").complete();
             Main.updateTheme();
         } catch (IOException e) {
             e.printStackTrace();
