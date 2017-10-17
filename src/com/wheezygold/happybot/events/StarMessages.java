@@ -41,6 +41,8 @@ public class StarMessages extends ListenerAdapter {
 
         @Override
         public void run() {
+            if (message.getChannel().getId().equals("369214529847951361") || message.getChannel().getId().equals("360544824434098188") || message.getChannel().getId().equals("362333614580432896") || message.getChannel().getId().equals("294588669682122752"))
+                return;
             int help = 0;
             for (User u : message.getReactions().stream().filter(r -> r.getEmote().getName().equals("⭐")).findAny().orElse(null).getUsers()) {
                 help++;
