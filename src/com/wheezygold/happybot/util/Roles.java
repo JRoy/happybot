@@ -25,6 +25,7 @@ public enum  Roles {
     MUTED("280043630494875648", "Muted", "Muted", "Muted"),
 
     //Regular Roles
+    LEGENDARY("348917170174033920", "Legendary", "Ghost Pirates", "Legendary"),
     PATRON_BOYS("300081997878132736", "Patron Boys", "Trick or Treaters", "Patron Boys"),
     SUPPORTER("294583863521312770", "Supporter", "Enslaved", "Supporter"),
     QUALITY_ART("364568257660846084", "Quality Art", "Quality Spooks", "Quality Art"),
