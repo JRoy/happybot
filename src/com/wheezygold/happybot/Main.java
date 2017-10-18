@@ -3,6 +3,7 @@ package com.wheezygold.happybot;
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.*;
+import com.wheezygold.happybot.sql.SQLManager;
 import com.wheezygold.happybot.util.C;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -21,9 +22,6 @@ public class Main extends ListenerAdapter {
     private Main instance = this;
     private static JDA jda;
     private static CommandClientBuilder clientBuilder;
-
-
-
     private static String theme;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
@@ -33,6 +31,7 @@ public class Main extends ListenerAdapter {
         File configfile = new File("config.yml");
         File twitterfile = new File("twitter.yml");
         File themefile = new File("theme.yml");
+        File sqlfile = new File("sql.yml");
 
         //We are going to check if the config exists, if not lets create one for them!
         if (!configfile.exists())
@@ -41,6 +40,10 @@ public class Main extends ListenerAdapter {
         //Check Twitter Creds File, Create it if not a thing.
         if (!twitterfile.exists())
             twitterfile.createNewFile();
+
+        //Check SQL Creds File, Create it if not a thing.
+        if (!sqlfile.exists())
+            sqlfile.createNewFile();
 
         //Check Theme Value File, Create it if not a thing.
         if (!themefile.exists()) {
@@ -58,6 +61,7 @@ public class Main extends ListenerAdapter {
         String cSecret = null;
         String aToken = null;
         String aSecret = null;
+        String sqlpass = null;
 
         //config.yml Reader - Simpler, as we only need one line.
 
@@ -89,6 +93,21 @@ public class Main extends ListenerAdapter {
             C.log("Error receiving your theme: " + tex.getMessage());
         }
 
+        //sql.yml Reader - Simpler, as we only need one line.
+
+        //Create the file reader to get the first line.
+        BufferedReader sqlreader = new BufferedReader(new FileReader("sql.yml"));
+        //Because null pointers.
+        try {
+            //We will get the token just in case, I don't know, maybe we want to log in.
+            sqlpass = sqlreader.readLine();
+            C.log("SQL Password has been acquired!");
+            sqlreader.close();
+        } catch (NullPointerException tex) {
+            //Let them know they are going to die.
+            C.log("Error receiving your SQL Password: " + tex.getMessage());
+        }
+
         //twitter.yml Reader - Getting 4 lines, see how it works out.
 
         //Create our BufferedReader
@@ -108,6 +127,9 @@ public class Main extends ListenerAdapter {
         //Start the TweetMonitor
         C.log("Loading Twitter Monitor...");
         new TweetMonitor(cKey, cSecret, aToken, aSecret);
+
+        //Load our SQL Stuff
+        SQLManager sqlManager = new SQLManager("root", sqlpass);
 
         //Start the AutoMod instance.
         C.log("Loading AutoMod...");
