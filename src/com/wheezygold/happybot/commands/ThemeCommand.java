@@ -10,7 +10,7 @@ public class ThemeCommand extends Command {
     public ThemeCommand() {
         this.name = "theme";
         this.help = "Sets the theme of the discord.";
-        this.arguments = "<normal/spooky>";
+        this.arguments = "<normal/spooky/winter>";
         this.guildOnly = false;
         this.category = new Category("Bot Management");
     }
@@ -32,6 +32,11 @@ public class ThemeCommand extends Command {
                 C.log("Switched to Spooky Theme!");
                 e.replySuccess(":gear: Switching over to Spooky Theme!");
                 Theme.toSpooky();
+            } else if (e.getArgs().equals("winter")) {
+                C.writeFile("theme.yml", "winter");
+                C.log("Switched to Winter Theme!");
+                e.replySuccess(":gear: Switching over to Winter Theme!");
+                Theme.toWinter();
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }

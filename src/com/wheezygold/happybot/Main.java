@@ -3,7 +3,6 @@ package com.wheezygold.happybot;
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.*;
-import com.wheezygold.happybot.sql.SQLManager;
 import com.wheezygold.happybot.util.C;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
