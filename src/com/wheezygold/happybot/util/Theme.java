@@ -101,7 +101,7 @@ public class Theme {
         public void run() {
             C.getGuild().getManager().setName("Happyheart's Winter Wonderland").queue();
             try {
-                Icon icon = Icon.from(new File("spooky.png"));
+                Icon icon = Icon.from(new File("winter.png"));
                 C.getGuild().getManager().setIcon(icon).queue();
                 for (Roles crole : Roles.values()) {
                     crole.getrole(C.getGuild()).getManager().setName(crole.getxmas()).queue();
