@@ -1,1 +1,7 @@
+com.wheezygold.happybot
+com.wheezygold.happybot.commands
+com.wheezygold.happybot.embed
+com.wheezygold.happybot.events
+com.wheezygold.happybot.sql
+com.wheezygold.happybot.sql.exceptions
 com.wheezygold.happybot.util

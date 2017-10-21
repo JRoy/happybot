@@ -17,6 +17,9 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.util.Objects;
 
+/**
+ * The C Class provides lots of *sometimes* useful methods that make things ez-pz.
+ */
 public class C {
 
     /**
