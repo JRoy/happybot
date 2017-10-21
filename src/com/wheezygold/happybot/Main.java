@@ -143,6 +143,7 @@ public class Main extends ListenerAdapter {
         AutoReact autoReact = new AutoReact();
 
         //Start the Star Messages
+        C.log("Loading Message Starer...");
         StarMessages starMessages = new StarMessages();
 
         C.log("Loading the command builder...");
@@ -167,6 +168,7 @@ public class Main extends ListenerAdapter {
                 new VideoCommand(),
                 new SeasonCommand(),
                 new RandomSeasonCommand(),
+                new StatsCommand(),
                 new WelcomeStatsCommand(),
                 new ServersCommand(),
                 new MentionCommand(),

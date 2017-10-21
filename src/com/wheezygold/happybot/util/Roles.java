@@ -71,5 +71,8 @@ public enum  Roles {
     public Role getrole(Guild g) {
         return C.getGuild().getRoleById(id);
     }
+    public Role getrole() {
+        return C.getGuild().getRoleById(id);
+    }
 
 }

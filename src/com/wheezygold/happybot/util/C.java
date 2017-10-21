@@ -15,6 +15,8 @@ import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
 import java.nio.channels.Channels;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -236,6 +238,15 @@ public class C {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Returns a number as a String in comma formatted style.
+     * @param in The input number.
+     * @return Comma formatted number.
+     */
+    public static String prettyNum(int in) {
+        return NumberFormat.getInstance(Locale.US).format(in);
     }
 
 }
