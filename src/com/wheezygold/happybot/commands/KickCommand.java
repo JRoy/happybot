@@ -12,6 +12,7 @@ public class KickCommand extends Command {
         this.arguments = "<user mention>";
         this.guildOnly = true;
         this.category = new Category("Staff Tools");
+        this.aliases = new String[] {"deport"};
     }
 
     @Override

@@ -129,7 +129,7 @@ public class Main extends ListenerAdapter {
         new TweetMonitor(cKey, cSecret, aToken, aSecret);
 
         //Load our SQL Stuff
-        SQLManager sqlManager = new SQLManager("root", sqlpass);
+//        SQLManager sqlManager = new SQLManager("root", sqlpass);
 
         //Start the AutoMod instance.
         C.log("Loading AutoMod...");
