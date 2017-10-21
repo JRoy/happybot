@@ -6,20 +6,33 @@ import net.dv8tion.jda.core.entities.Icon;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The Manager of the Theme System.
+ * Changes Icon, Guild Name, Role Names, and Bot Nickname.
+ */
 public class Theme {
 
+    /**
+     * Opens a a new thread and switches to the normal theme.
+     */
     public static void toNormal() {
         NormalTheme normalTheme = new NormalTheme();
         Thread t = new Thread(normalTheme);
         t.start();
     }
 
+    /**
+     * Opens a a new thread and switches to the spooky theme.
+     */
     public static void toSpooky() {
         SpookyTheme spookyTheme = new SpookyTheme();
         Thread t = new Thread(spookyTheme);
         t.start();
     }
 
+    /**
+     * The runnable that the thread used for spooky theme.
+     */
     private static class SpookyTheme implements Runnable {
 
         public SpookyTheme() {}
@@ -42,6 +55,9 @@ public class Theme {
         }
     }
 
+    /**
+     * The runnable that the thread used for normal theme.
+     */
     private static class NormalTheme implements Runnable {
 
         public NormalTheme() {}
