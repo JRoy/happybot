@@ -249,4 +249,13 @@ public class C {
         return NumberFormat.getInstance(Locale.US).format(in);
     }
 
+    /**
+     * Opens a private channel with a user.
+     * @param m The Guild {@link net.dv8tion.jda.core.entities.Member Member} that gets the private channel.
+     * @param message The message to send via private channel.
+     */
+    public static void privChannel(Member m, String message) {
+        m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(message).queue());
+    }
+
 }

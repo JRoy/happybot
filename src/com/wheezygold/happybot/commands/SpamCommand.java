@@ -30,6 +30,7 @@ public class SpamCommand extends Command {
                 } else {
                     e.getGuild().getController().addSingleRoleToMember(u, Roles.EXP_SPAMMER.getrole(e.getGuild())).reason("Role added (by " + Main.getJda().getUserById(e.getMember().getUser().getId()).getName() + ") with ^expspammer").queue();
                     e.replySuccess(u.getUser().getAsMention() + " has become an EXP Spammer!");
+                    C.privChannel(C.getMemberEvent(e), "You have become an EXP Spammer! Please ask to get this removed 1 week from now!");
                 }
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
