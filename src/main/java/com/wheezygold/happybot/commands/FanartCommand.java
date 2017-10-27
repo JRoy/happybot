@@ -17,12 +17,12 @@ public class FanartCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getGuild(), e.getMember(), Roles.HELPER)) {
+        if (C.hasRole(e.getMember(), Roles.HELPER)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
                 e.getMessage().delete().reason("Auto Command Deletion").queue();
-                String msg = C.getMemberEvent(e).getAsMention() + ", please post only fanart in " + e.getGuild().getTextChannelById("337689640888827905").getAsMention();
+                String msg = C.getMentionedMember(e).getAsMention() + ", please post only fanart in " + e.getGuild().getTextChannelById("337689640888827905").getAsMention();
                 e.replySuccess(msg);
-                C.getMemberEvent(e).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(msg).queue());
+                C.getMentionedMember(e).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(msg).queue());
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }

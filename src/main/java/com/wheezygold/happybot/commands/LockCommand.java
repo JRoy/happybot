@@ -18,8 +18,8 @@ public class LockCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getGuild(), e.getMember(), Roles.ADMIN)) {
-            PermissionOverride permissionOverride = e.getTextChannel().getPermissionOverride(Roles.EVERYONE.getrole(e.getGuild()));
+        if (C.hasRole(e.getMember(), Roles.ADMIN)) {
+            PermissionOverride permissionOverride = e.getTextChannel().getPermissionOverride(Roles.EVERYONE.getRole());
 
             PermOverrideManager manager = permissionOverride.getManager();
 

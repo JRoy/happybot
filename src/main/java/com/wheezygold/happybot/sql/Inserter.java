@@ -1,12 +1,12 @@
 package com.wheezygold.happybot.sql;
 
-import java.util.Iterator;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
+
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class Inserter {
     private Collector collector;
@@ -27,7 +27,7 @@ public class Inserter {
         internalInsert(false);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private Long internalInsert(boolean fetch) {
         CollectedData data = new CollectedData();
         collector.collect(object, data);
@@ -38,7 +38,7 @@ public class Inserter {
 
         Set<Entry<String, Object>> entrySet = data.data().entrySet();
 
-        for (Iterator iterator = entrySet.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = entrySet.iterator(); iterator.hasNext(); ) {
             Entry<String, Object> entry = (Entry<String, Object>) iterator
                     .next();
 
@@ -49,7 +49,7 @@ public class Inserter {
         }
 
         insert.append(") VALUES (");
-        for (Iterator iterator = entrySet.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = entrySet.iterator(); iterator.hasNext(); ) {
             Entry<String, Object> entry = (Entry<String, Object>) iterator
                     .next();
 

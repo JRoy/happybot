@@ -5,8 +5,6 @@ import org.sql2o.Query;
 import org.sql2o.ResultSetHandler;
 import org.sql2o.Sql2o;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,7 +17,7 @@ public class Selector {
     private Object object;
     private String what;
 
-    private Map<String, Object> where = new HashMap<String, Object>();
+    private Map<String, Object> where = new HashMap<>();
 
     public Selector(Collector collector, Sql2o sql2o, Object object) {
         this.collector = collector;
@@ -37,7 +35,7 @@ public class Selector {
         return this;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public void execute(ResultSetHandler setHandler) {
         CollectedData collectedData = new CollectedData();
         collector.collect(object, collectedData);
@@ -52,7 +50,7 @@ public class Selector {
         if (where.size() > 0) {
             entrySet = where.entrySet();
             select.append(" WHERE ");
-            for (Iterator iterator = entrySet.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = entrySet.iterator(); iterator.hasNext(); ) {
                 Map.Entry<String, Object> entry = (Map.Entry<String, Object>) iterator
                         .next();
                 select.append(entry.getKey()).append(" = :f")

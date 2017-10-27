@@ -78,7 +78,7 @@ public class WelcomeMessage extends ListenerAdapter {
                 "is probably :nose:-less!"
 
         };
-        goodbyemsgs = new String[] {
+        goodbyemsgs = new String[]{
                 "just left happyheart Fanbase. You smel.",
                 "come back pls ur not ugly.",
                 "left, kthxbai.",
@@ -150,6 +150,7 @@ public class WelcomeMessage extends ListenerAdapter {
 
     /**
      * Displays the WelcomeMessage Stats
+     *
      * @param chnl Channel to send the stats.
      */
     public static void showStats(String chnl) {

@@ -18,14 +18,14 @@ public class OgCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getGuild(), e.getMember(), Roles.ADMIN)) {
+        if (C.hasRole(e.getMember(), Roles.ADMIN)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
-                Member u = C.getMemberEvent(e);
-                if (C.hasRole(e.getGuild(), u, Roles.OG)) {
-                    e.getGuild().getController().removeSingleRoleFromMember(u, Roles.OG.getrole(e.getGuild())).reason("Role removed (by " + Main.getJda().getUserById(e.getMember().getUser().getId()).getName() + ") with ^og").queue();
+                Member u = C.getMentionedMember(e);
+                if (C.hasRole(u, Roles.OG)) {
+                    e.getGuild().getController().removeSingleRoleFromMember(u, Roles.OG.getRole()).reason("Role removed (by " + Main.getJda().getUserById(e.getMember().getUser().getId()).getName() + ") with ^og").queue();
                     e.replySuccess(u.getUser().getAsMention() + " is no OG!");
                 } else {
-                    e.getGuild().getController().addSingleRoleToMember(u, Roles.OG.getrole(e.getGuild())).reason("Role added (by " + Main.getJda().getUserById(e.getMember().getUser().getId()).getName() + ") with ^og").queue();
+                    e.getGuild().getController().addSingleRoleToMember(u, Roles.OG.getRole()).reason("Role added (by " + Main.getJda().getUserById(e.getMember().getUser().getId()).getName() + ") with ^og").queue();
                     e.replySuccess(u.getUser().getAsMention() + " has become OG!");
                 }
             } else {

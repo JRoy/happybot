@@ -16,12 +16,12 @@ public class BanCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getGuild(), e.getMember(), Roles.MODERATOR)) {
+        if (C.hasRole(e.getMember(), Roles.MODERATOR)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
-                //String id = C.getMemberEvent(e).getUser().getId();
-                String bname = C.getMemberEvent(e).getUser().getName();
-                String bdescrim = C.getMemberEvent(e).getUser().getDiscriminator();
-                C.getCtrl(e).ban(C.getMemberEvent(e).getUser(), 7, "Banned by Moderator: " + e.getMember().getUser().getName()).reason("Banned by Moderator: " + e.getMember().getUser().getName()).queue();
+                //String id = C.getMentionedMember(e).getUser().getId();
+                String bname = C.getMentionedMember(e).getUser().getName();
+                String bdescrim = C.getMentionedMember(e).getUser().getDiscriminator();
+                C.getCtrl(e).ban(C.getMentionedMember(e).getUser(), 7, "Banned by Moderator: " + e.getMember().getUser().getName()).reason("Banned by Moderator: " + e.getMember().getUser().getName()).queue();
                 e.replySuccess("User " + bname + "#" + bdescrim + " has been **FRIGGING BANNED** by " + e.getMember().getEffectiveName());
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);

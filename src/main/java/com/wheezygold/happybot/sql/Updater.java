@@ -1,21 +1,21 @@
 package com.wheezygold.happybot.sql;
 
+import org.sql2o.Connection;
+import org.sql2o.Query;
+import org.sql2o.Sql2o;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.sql2o.Connection;
-import org.sql2o.Query;
-import org.sql2o.Sql2o;
-
 public class Updater {
     private Collector collector;
     private Sql2o sql2o;
     private Object object;
 
-    private Map<String, Object> where = new HashMap<String, Object>();
+    private Map<String, Object> where = new HashMap<>();
 
     public Updater(Collector collector, Sql2o sql2o, Object object) {
         this.collector = collector;
@@ -28,7 +28,7 @@ public class Updater {
         return this;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public void execute() {
         CollectedData collectedData = new CollectedData();
         collector.collect(object, collectedData);
@@ -39,7 +39,7 @@ public class Updater {
         update.append("UPDATE ").append(collectedData.table()).append(" SET ");
 
         Set<Entry<String, Object>> entrySet = collectedData.data().entrySet();
-        for (Iterator iterator = entrySet.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = entrySet.iterator(); iterator.hasNext(); ) {
             Entry<String, Object> entry = (Entry<String, Object>) iterator
                     .next();
 
@@ -52,7 +52,7 @@ public class Updater {
         if (where.size() > 0) {
             entrySet = where.entrySet();
             update.append(" WHERE ");
-            for (Iterator iterator = entrySet.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = entrySet.iterator(); iterator.hasNext(); ) {
                 Entry<String, Object> entry = (Entry<String, Object>) iterator
                         .next();
                 update.append(entry.getKey()).append(" = :f")

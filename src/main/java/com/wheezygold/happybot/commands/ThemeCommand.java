@@ -17,7 +17,7 @@ public class ThemeCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if(C.hasRole(e.getGuild(), e.getMember(), Roles.DEVELOPER)) {
+        if (C.hasRole(e.getMember(), Roles.DEVELOPER)) {
             if (e.getArgs().isEmpty()) {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
                 return;

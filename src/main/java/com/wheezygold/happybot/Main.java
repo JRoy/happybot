@@ -11,10 +11,13 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.events.ShutdownEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import net.dv8tion.jda.core.hooks.EventListener;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends ListenerAdapter {
 
@@ -25,127 +28,64 @@ public class Main extends ListenerAdapter {
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
         C.log("Initializing the bot...");
+        createConfigFiles();
 
-        //Lets make the file so we can use it!
-        File configfile = new File("config.yml");
-        File twitterfile = new File("twitter.yml");
-        File themefile = new File("theme.yml");
-        File sqlfile = new File("sql.yml");
+        String token = readFirstLineOfFile("config.yml", "There is no token in your config, welcome to stack trace city!");
+        theme = readFirstLineOfFile("theme.yml", "Error receiving theme");
 
-        //We are going to check if the config exists, if not lets create one for them!
-        if (!configfile.exists())
-            configfile.createNewFile();
+        //Always init your strings! (Techno-coder: Wheezy, you are a sad, sad person)
+        String sqlPassword = null;
+        sqlPassword = readFirstLineOfFile("sql.yml", "Error receiving your SQL Password");
 
-        //Check Twitter Creds File, Create it if not a thing.
-        if (!twitterfile.exists())
-            twitterfile.createNewFile();
-
-        //Check SQL Creds File, Create it if not a thing.
-        if (!sqlfile.exists())
-            sqlfile.createNewFile();
-
-        //Check Theme Value File, Create it if not a thing.
-        if (!themefile.exists()) {
-            themefile.createNewFile();
-            FileWriter fw = new FileWriter(themefile);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("normal");
-            bw.close();
-            fw.close();
-        }
-
-        //Always init your strings!
-        String token = null;
-        String cKey = null;
-        String cSecret = null;
-        String aToken = null;
-        String aSecret = null;
-        String sqlpass = null;
-
-        //config.yml Reader - Simpler, as we only need one line.
-
-        //Create the file reader to get the first line.
-        BufferedReader configreader = new BufferedReader(new FileReader("config.yml"));
-        //Because null pointers.
-        try {
-            //We will get the token just in case, I don't know, maybe we want to log in.
-            token = configreader.readLine();
-            C.log("Token has been acquired!");
-            configreader.close();
-        } catch (NullPointerException cex) {
-            //Let them know they are going to die.
-            C.log("There is not token in your config, welcome to stack trace city!");
-        }
-
-        //theme.yml Reader - Simpler, as we only need one line.
-
-        //Create the file reader to get the first line.
-        BufferedReader themereader = new BufferedReader(new FileReader("theme.yml"));
-        //Because null pointers.
-        try {
-            //We will get the token just in case, I don't know, maybe we want to log in.
-            theme = themereader.readLine();
-            C.log("Theme Loaded: " + theme + "!");
-            themereader.close();
-        } catch (NullPointerException tex) {
-            //Let them know they are going to die.
-            C.log("Error receiving your theme: " + tex.getMessage());
-        }
-
-        //sql.yml Reader - Simpler, as we only need one line.
-
-        //Create the file reader to get the first line.
-        BufferedReader sqlreader = new BufferedReader(new FileReader("sql.yml"));
-        //Because null pointers.
-        try {
-            //We will get the token just in case, I don't know, maybe we want to log in.
-            sqlpass = sqlreader.readLine();
-            C.log("SQL Password has been acquired!");
-            sqlreader.close();
-        } catch (NullPointerException tex) {
-            //Let them know they are going to die.
-            C.log("Error receiving your SQL Password: " + tex.getMessage());
-        }
-
-        //twitter.yml Reader - Getting 4 lines, see how it works out.
-
-        //Create our BufferedReader
-        BufferedReader twitterreader = new BufferedReader(new FileReader("twitter.yml"));
-        //Catch null pointers so we can tell if the config reader
-        try {
-            cKey = twitterreader.readLine();
-            cSecret = twitterreader.readLine();
-            aToken = twitterreader.readLine();
-            aSecret = twitterreader.readLine();
-            C.log("All Twitter credentials has been acquired.");
-            twitterreader.close();
-        } catch (NullPointerException tex) {
-            C.log("Error loading the Twitter credentials: " + tex.getMessage());
-        }
-
-        //Start the TweetMonitor
-        C.log("Loading Twitter Monitor...");
-        new TweetMonitor(cKey, cSecret, aToken, aSecret);
+        loadTweetMonitor();
 
         //Load our SQL Stuff
 //        SQLManager sqlManager = new SQLManager("root", sqlpass);
 
-        //Start the AutoMod instance.
+        List<EventListener> eventListeners = loadEventListeners();
+        loadClientBuilder();
+
+        C.log("Constructing the JDA Instance...");
+        try {
+            JDABuilder builder = new JDABuilder(AccountType.BOT)
+                    .setToken(token)
+                    .setStatus(OnlineStatus.DO_NOT_DISTURB)
+                    //Listens to the MessageReceivedEvent.
+                    .addEventListener(clientBuilder.build())
+                    .useSharding(0, 2)
+                    .setGame(Game.of("Loading"));
+            for (EventListener listener : eventListeners)
+                jda.addEventListener(listener);
+            jda = builder.buildBlocking();
+        } catch (InterruptedException e) {
+            C.log("Error while logging into JDA Instance!");
+            C.log("#-#-#-#-#-#-#-#-# Starting Stack Trace #-#-#-#-#-#-#-#-#");
+            e.printStackTrace();
+            C.log("#-#-#-#-#-#-#-#-# Ending Stack Trace #-#-#-#-#-#-#-#-#");
+        }
+
+        C.log("Bot has been loaded!");
+    }
+
+    private static List<EventListener> loadEventListeners() {
+        List<EventListener> eventListeners = new ArrayList<>();
+
         C.log("Loading AutoMod...");
-        AutoMod autoMod = new AutoMod("194473148161327104");
+        eventListeners.add(new AutoMod("194473148161327104"));
 
-        //Start the WelcomeMessage instance.
         C.log("Loading Welcome Manager...");
-        WelcomeMessage welcomeMessage = new WelcomeMessage();
+        eventListeners.add(new WelcomeMessage());
 
-        //Start the AutoReact Instance.
         C.log("Loading AutoReact...");
-        AutoReact autoReact = new AutoReact();
+        eventListeners.add(new AutoReact());
 
-        //Start the Star Messages
         C.log("Loading Message Starer...");
-        StarMessages starMessages = new StarMessages();
+        eventListeners.add(new StarMessages());
 
+        return eventListeners;
+    }
+
+    private static void loadClientBuilder() {
         C.log("Loading the command builder...");
 
         //Creates JDA-Util's Command Builder so we can use it later.
@@ -189,63 +129,67 @@ public class Main extends ListenerAdapter {
                 new UpdateCommand(),
                 new EvalCommand());
 
-        clientBuilder.setHelpFunction(event -> C.showHelp(event));
+        clientBuilder.setHelpFunction(C::showHelp);
+    }
 
-        C.log("Constructing the JDA Instance...");
-
-        //Start JDA Instance
+    private static void loadTweetMonitor() throws IOException {
+        String cKey = null, cSecret = null, aToken = null, aSecret = null;
+        BufferedReader twitterReader = new BufferedReader(new FileReader("twitter.yml"));
         try {
-            jda = new JDABuilder(AccountType.BOT)
-                    .setToken(token)
-                    .setStatus(OnlineStatus.DO_NOT_DISTURB)
-                    //Listens to the MessageReceivedEvent.
-                    .addEventListener(clientBuilder.build())
-                    .addEventListener(welcomeMessage)
-                    .addEventListener(autoMod)
-                    .addEventListener(autoReact)
-                    .addEventListener(starMessages)
-                    //Because people gonna spam...
-                    .useSharding(0, 2)
-                    .setGame(Game.of("Loading"))
-                    //No idea what the difference is...
-                    .buildBlocking();
-        } catch (InterruptedException e) {
-            C.log("Error while logging into JDA Instance!");
-            C.log("#-#-#-#-#-#-#-#-# Starting Stack Trace #-#-#-#-#-#-#-#-#");
-            e.printStackTrace();
-            C.log("#-#-#-#-#-#-#-#-# Ending Stack Trace #-#-#-#-#-#-#-#-#");
+            cKey = twitterReader.readLine();
+            cSecret = twitterReader.readLine();
+            aToken = twitterReader.readLine();
+            aSecret = twitterReader.readLine();
+            twitterReader.close();
+        } catch (NullPointerException tex) {
+            C.log("Error loading the Twitter credentials: " + tex.getMessage());
         }
 
-//        JDAImpl jdaimpl = (JDAImpl) jda;
-//
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("afk", false);
-//        jsonObject.put("status", "dnd");
-//        jsonObject.put("since", System.currentTimeMillis());
-//
-//        JSONObject gameObj = new JSONObject();
-//        gameObj.put("name", "InteliJ");
-//        gameObj.put("type", 0);
-//        gameObj.put("state", "Developing");
-//        gameObj.put("details", "Using JDA to make myself!");
-//        gameObj.put("application_id", "354736186516045835");
-//
-//        JSONObject assetsObj = new JSONObject();
-//        assetsObj.put("large_image", "358402218577231875");
-//        assetsObj.put("small_image", "358402218577231875");
-//        assetsObj.put("large_text", "Large Text");
-//        assetsObj.put("small_text", "Small Text");
-//
-//        gameObj.put("assets", assetsObj);
-//
-//        jsonObject.put("game", gameObj);
-//
-//        jdaimpl.getClient().send(new JSONObject().put("d", jsonObject).put("op", WebSocketCode.PRESENCE).toString());
+        C.log("Loading Twitter Monitor...");
+        new TweetMonitor(cKey, cSecret, aToken, aSecret);
+    }
 
-//        C.log("Loading Upload Monitor");
-//        new UploadMonitor("d");
+    private static String readFirstLineOfFile(String filename, String errorMessage) throws IOException {
+        BufferedReader configReader = new BufferedReader(new FileReader(filename));
+        try {
+            String line = configReader.readLine();
+            configReader.close();
+            return line;
+        } catch (NullPointerException cex) {
+            C.log(errorMessage);
+        }
+        return "";
+    }
 
-        C.log("Bot has been loaded!");
+    private static void createConfigFiles() throws IOException {
+        //Lets make the file so we can use it!
+        File configfile = createFile("config.yml");
+        File twitterfile = createFile("twitter.yml");
+        File sqlfile = createFile("sql.yml");
+        File themefile = new File("theme.yml");
+
+        //Create theme file with defaults if it does not exist
+        boolean themeFileNotExists = themefile.createNewFile();
+        if (themeFileNotExists) {
+            FileWriter fw = new FileWriter(themefile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("normal");
+            bw.close();
+            fw.close();
+        }
+    }
+
+    /**
+     * Creates a new file if it does not exist
+     *
+     * @param filename The filename for the file
+     * @return The reference to the open file
+     * @throws IOException If the file could not be created
+     */
+    private static File createFile(String filename) throws IOException {
+        File file = new File(filename);
+        boolean doesNotExist = file.createNewFile();
+        return file;
     }
 
     @Override
@@ -255,6 +199,7 @@ public class Main extends ListenerAdapter {
 
     /**
      * An easy way to get our JDA Instance!
+     *
      * @return Returns the JDA Instance.
      */
     public static JDA getJda() {
@@ -263,12 +208,17 @@ public class Main extends ListenerAdapter {
 
     /**
      * An easy way to get our CommandClientBuilder instance!
+     *
      * @return Returns the CommandClientBuilder Instance.
      */
     @SuppressWarnings("unused")
-    public static CommandClientBuilder getClientBuilder() { return clientBuilder; }
+    public static CommandClientBuilder getClientBuilder() {
+        return clientBuilder;
+    }
 
-    public static String getTheme() { return theme; }
+    public static String getTheme() {
+        return theme;
+    }
 
     public static void updateTheme() {
         try {

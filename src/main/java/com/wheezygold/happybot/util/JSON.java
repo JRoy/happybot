@@ -3,7 +3,6 @@ package com.wheezygold.happybot.util;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.annotation.Nullable;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -18,16 +17,12 @@ public class JSON {
         }
         return sb.toString();
     }
-    @Nullable
+
     public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
+        try (InputStream is = new URL(url).openStream()) {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } finally {
-            is.close();
+            return new JSONObject(jsonText);
         }
     }
 

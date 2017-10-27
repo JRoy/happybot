@@ -1,13 +1,12 @@
 package com.wheezygold.happybot.util;
 
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;
 
 /**
  * An easy way to get roles!
  */
 @SuppressWarnings("unused")
-public enum  Roles {
+public enum Roles {
 
     //Staff Ranks
     HAPPYHEART("264560287183667202", "Happoheart", "Spookoheart", "Santoheart", "Happoheart"),
@@ -60,18 +59,23 @@ public enum  Roles {
 
     }
 
-    public String getrolename() {
+    public String getRoleName() {
         return nrole;
     }
-    public String getname() {
+
+    public String getName() {
         return name;
     }
-    public String getspook() { return srole; }
-    public String getxmas() { return crole; }
-    public Role getrole(Guild g) {
-        return C.getGuild().getRoleById(id);
+
+    public String getSpook() {
+        return srole;
     }
-    public Role getrole() {
+
+    public String getXmas() {
+        return crole;
+    }
+
+    public Role getRole() {
         return C.getGuild().getRoleById(id);
     }
 

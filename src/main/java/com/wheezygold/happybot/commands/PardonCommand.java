@@ -17,7 +17,7 @@ public class PardonCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getGuild(), e.getMember(), Roles.MODERATOR)) {
+        if (C.hasRole(e.getMember(), Roles.MODERATOR)) {
             String[] args = e.getArgs().split(" ");
             if (e.getArgs().length() > 2) {
                 if (args.length >= 1) {
