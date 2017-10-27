@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+dependencies {
+    compile 'com.jagrosh:JDA-Utilities:1.8'
+    compile 'net.dv8tion:JDA:3.3.0_260'
+    compile group: 'org.sql2o', name: 'sql2o', version: '1.6.0-RC3'
+    compile group: 'org.twitter4j', name: 'twitter4j-stream', version: '4.0.6'
+    compile 'junit:junit:4.12'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
