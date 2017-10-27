@@ -12,3 +12,9 @@ repositories {
     jcenter()
     mavenCentral()
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.wheezygold.happybot.Main'
+    }
+}
