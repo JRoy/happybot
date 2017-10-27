@@ -17,7 +17,7 @@ public class KickCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getGuild(), e.getMember(), Roles.MODERATOR)) {
+        if (C.hasRole(e.getGuild(), e.getMember(), Roles.HELPER)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
                 String bname = C.getMemberEvent(e).getUser().getName();
                 String bdescrim = C.getMemberEvent(e).getUser().getDiscriminator();
@@ -27,7 +27,7 @@ public class KickCommand extends Command {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }
         } else {
-            e.replyError(C.permMsg(Roles.MODERATOR));
+            e.replyError(C.permMsg(Roles.HELPER));
         }
     }
 }
