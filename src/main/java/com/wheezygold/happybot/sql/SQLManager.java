@@ -3,17 +3,14 @@ package com.wheezygold.happybot.sql;
 import com.wheezygold.happybot.sql.exceptions.NoCollectorRegistredException;
 import com.wheezygold.happybot.util.C;
 import org.junit.Assert;
-import org.sql2o.ResultSetHandler;
 import org.sql2o.Sql2o;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SQLManager {
 
-    private Map<Class, Collector> collectors = new HashMap<Class, Collector>();
+    private Map<Class, Collector> collectors = new HashMap<>();
 
     public static Sql2o sql2o;
 
@@ -32,14 +29,11 @@ public class SQLManager {
         userToken.setUserid("12345678910");
         Long key = insert(userToken).insertAndFetchKey();
         Assert.assertNotNull(key);
-        select(userToken).what("coins").where("id", 1).execute(new ResultSetHandler() {
-            @Override
-            public Object handle(ResultSet resultSet) throws SQLException {
-                while (resultSet.next()) {
-                    C.log(String.valueOf(resultSet.getInt(1)));
-                }
-                return null;
+        select(userToken).what("coins").where("id", 1).execute(resultSet -> {
+            while (resultSet.next()) {
+                C.log(String.valueOf(resultSet.getInt(1)));
             }
+            return null;
         });
 
     }
@@ -50,7 +44,7 @@ public class SQLManager {
 
     public Inserter insert(Object obj) {
         Collector collector = collectors.get(obj.getClass());
-        if(collector == null) {
+        if (collector == null) {
             throw new NoCollectorRegistredException();
         }
         return new Inserter(collector, sql2o, obj);
@@ -58,7 +52,7 @@ public class SQLManager {
 
     public Updater update(Object obj) {
         Collector collector = collectors.get(obj.getClass());
-        if(collector == null) {
+        if (collector == null) {
             throw new NoCollectorRegistredException();
         }
         return new Updater(collector, sql2o, obj);
@@ -66,7 +60,7 @@ public class SQLManager {
 
     public Selector select(Object obj) {
         Collector collector = collectors.get(obj.getClass());
-        if(collector == null) {
+        if (collector == null) {
             throw new NoCollectorRegistredException();
         }
         return new Selector(collector, sql2o, obj);

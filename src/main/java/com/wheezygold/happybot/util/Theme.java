@@ -44,7 +44,8 @@ public class Theme {
      */
     private static class NormalTheme implements Runnable {
 
-        public NormalTheme() {}
+        public NormalTheme() {
+        }
 
         @Override
         public void run() {
@@ -53,7 +54,7 @@ public class Theme {
                 Icon icon = Icon.from(new File("normal.png"));
                 C.getGuild().getManager().setIcon(icon).queue();
                 for (Roles crole : Roles.values()) {
-                    crole.getrole(C.getGuild()).getManager().setName(crole.getrolename()).queue();
+                    crole.getRole().getManager().setName(crole.getRoleName()).queue();
                 }
                 C.getGuild().getManager().setName("Happyheart Fanbase").complete();
                 C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), "Happy Bot").complete();
@@ -69,7 +70,8 @@ public class Theme {
      */
     private static class SpookyTheme implements Runnable {
 
-        public SpookyTheme() {}
+        public SpookyTheme() {
+        }
 
         @Override
         public void run() {
@@ -78,7 +80,7 @@ public class Theme {
                 Icon icon = Icon.from(new File("spooky.png"));
                 C.getGuild().getManager().setIcon(icon).queue();
                 for (Roles crole : Roles.values()) {
-                    crole.getrole(C.getGuild()).getManager().setName(crole.getspook()).queue();
+                    crole.getRole().getManager().setName(crole.getSpook()).queue();
                 }
                 C.getGuild().getManager().setName("Happyheart Spookbase").complete();
                 C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), "Spooky Bot").complete();
@@ -95,7 +97,8 @@ public class Theme {
      */
     private static class WinterTheme implements Runnable {
 
-        public WinterTheme() {}
+        public WinterTheme() {
+        }
 
         @Override
         public void run() {
@@ -104,7 +107,7 @@ public class Theme {
                 Icon icon = Icon.from(new File("winter.png"));
                 C.getGuild().getManager().setIcon(icon).queue();
                 for (Roles crole : Roles.values()) {
-                    crole.getrole(C.getGuild()).getManager().setName(crole.getxmas()).queue();
+                    crole.getRole().getManager().setName(crole.getXmas()).queue();
                 }
                 C.getGuild().getManager().setName("Happyheart's Winter Wonderland").complete();
                 C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), "Decorative Bot").complete();

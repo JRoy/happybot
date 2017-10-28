@@ -12,16 +12,16 @@ public class KickCommand extends Command {
         this.arguments = "<user mention>";
         this.guildOnly = true;
         this.category = new Category("Staff Tools");
-        this.aliases = new String[] {"deport"};
+        this.aliases = new String[]{"deport"};
     }
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getGuild(), e.getMember(), Roles.HELPER)) {
+        if (C.hasRole(e.getMember(), Roles.HELPER)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
-                String bname = C.getMemberEvent(e).getUser().getName();
-                String bdescrim = C.getMemberEvent(e).getUser().getDiscriminator();
-                C.getCtrl(e).kick(C.getMemberEvent(e)).reason("Banned by Moderator: " + e.getMember().getUser().getName()).queue();
+                String bname = C.getMentionedMember(e).getUser().getName();
+                String bdescrim = C.getMentionedMember(e).getUser().getDiscriminator();
+                C.getCtrl(e).kick(C.getMentionedMember(e)).reason("Banned by Moderator: " + e.getMember().getUser().getName()).queue();
                 e.replySuccess("User " + bname + "#" + bdescrim + " has been **FLIPPIN KICKED** by " + e.getMember().getEffectiveName());
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);

@@ -8,8 +8,6 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 public class StatsCommand extends Command {
 

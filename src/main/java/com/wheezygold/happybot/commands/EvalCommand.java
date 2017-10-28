@@ -16,8 +16,7 @@ public class EvalCommand extends Command {
     private C CClass = new C();
 
 
-    public EvalCommand()
-    {
+    public EvalCommand() {
         this.name = "eval";
         this.help = "Evaluates Code!";
         this.arguments = "<java code>";

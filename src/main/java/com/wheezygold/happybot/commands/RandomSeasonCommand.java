@@ -16,7 +16,7 @@ public class RandomSeasonCommand extends Command {
         this.guildOnly = false;
         this.category = new Category("Fun");
 
-        seasons = new String[] {
+        seasons = new String[]{
                 "Season 1 - <http://bit.ly/2y0akBf>",
                 "Season 2 - <http://bit.ly/2kxqexc>",
                 "Season 3 - <http://bit.ly/2xpJ3Zm>",

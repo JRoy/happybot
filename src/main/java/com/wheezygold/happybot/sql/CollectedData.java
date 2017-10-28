@@ -27,7 +27,7 @@ public class CollectedData {
     }
 
     public void validate() {
-        if(table == null) throw new NoTableInformedException();
-        if(data.size() == 0) throw new NoDataCollectedException();
+        if (table == null) throw new NoTableInformedException();
+        if (data.size() == 0) throw new NoDataCollectedException();
     }
 }

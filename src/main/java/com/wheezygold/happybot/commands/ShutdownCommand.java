@@ -7,8 +7,7 @@ import com.wheezygold.happybot.util.Roles;
 
 public class ShutdownCommand extends Command {
 
-    public ShutdownCommand()
-    {
+    public ShutdownCommand() {
         this.name = "shutdown";
         this.arguments = "<instance/vm>";
         this.help = "Shutdowns the bot with love.";

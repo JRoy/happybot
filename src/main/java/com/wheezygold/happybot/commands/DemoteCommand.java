@@ -4,13 +4,9 @@ import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Roles;
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 
 public class DemoteCommand extends Command {
-
-    private Member u;
-    private Guild g;
 
     public DemoteCommand() {
         this.name = "demote";
@@ -22,27 +18,18 @@ public class DemoteCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getGuild(), e.getMember(), Roles.RECRUITER)) {
+        if (C.hasRole(e.getMember(), Roles.RECRUITER)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
-                e.reply("Please wait while we look how to demote " + C.getMemberEvent(e).getAsMention() + "!");
-                u = C.getMemberEvent(e);
-                g = C.getGuild();
-                if (!C.hasRole(g, u, Roles.HELPER)) {
+                e.reply("Please wait while we look how to demote " + C.getMentionedMember(e).getAsMention() + "!");
+                Member member = C.getMentionedMember(e);
+                if (!C.hasRole(member, Roles.HELPER)) {
                     e.replyError("User is not on the staff team!");
                     return;
                 }
-                if (C.hasRole(g, u, Roles.SUPER_ADMIN)) {
-                    C.removeRole(u, Roles.SUPER_ADMIN);
-                }
-                if (C.hasRole(g, u, Roles.ADMIN)) {
-                    C.removeRole(u, Roles.ADMIN);
-                }
-                if (C.hasRole(g, u, Roles.MODERATOR)) {
-                    C.removeRole(u, Roles.MODERATOR);
-                }
-                if (C.hasRole(g, u, Roles.HELPER)) {
-                    C.removeRole(u, Roles.HELPER);
-                }
+                removeIfHasRole(member, Roles.SUPER_ADMIN);
+                removeIfHasRole(member, Roles.ADMIN);
+                removeIfHasRole(member, Roles.MODERATOR);
+                removeIfHasRole(member, Roles.HELPER);
                 e.replySuccess("User has been demoted!");
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
@@ -50,5 +37,9 @@ public class DemoteCommand extends Command {
         } else {
             e.replyError(C.permMsg(Roles.RECRUITER));
         }
+    }
+
+    private void removeIfHasRole(Member member, Roles role) {
+        if (C.hasRole(member, role)) C.removeRole(member, role);
     }
 }

@@ -1,6 +1,5 @@
 package com.wheezygold.happybot.events;
 
-import com.wheezygold.happybot.Main;
 import com.wheezygold.happybot.util.C;
 
 import java.util.Timer;
@@ -24,6 +23,6 @@ public class UploadMonitor {
             public void run() {
                 C.getGuild().getTextChannelById("267145626469400586").sendMessage("Test").queue();
             }
-        }, 0, 2*1000);
+        }, 0, 2 * 1000);
     }
 }

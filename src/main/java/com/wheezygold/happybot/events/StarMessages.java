@@ -22,14 +22,14 @@ public class StarMessages extends ListenerAdapter {
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
         if (e.getReactionEmote().getName().equals("⭐")) {
-            e.getChannel().getMessageById(e.getMessageId()).queue(m -> handleStar(m));
+            e.getChannel().getMessageById(e.getMessageId()).queue(this::handleStar);
         } else if (e.getReactionEmote().getName().equals("gild")) {
-            if (!C.hasRole(C.getGuild(), e.getMember(), Roles.MODERATOR)) {
+            if (!C.hasRole(e.getMember(), Roles.MODERATOR)) {
                 e.getReaction().removeReaction().queue();
                 return;
             }
             //huh
-            e.getChannel().getMessageById(e.getMessageId()).queue(m -> handleGuild(m));
+            e.getChannel().getMessageById(e.getMessageId()).queue(this::handleGuild);
         }
     }
 
@@ -43,6 +43,19 @@ public class StarMessages extends ListenerAdapter {
         HandleGuild handleGuild = new HandleGuild(message);
         Thread t = new Thread(handleGuild);
         t.start();
+    }
+
+    private void sendStarredMessage(String footer, Message message, String privateMessageText) {
+        EmbedBuilder embed = new EmbedBuilder()
+                .setTitle(message.getMember().getEffectiveName())
+                .setDescription(message.getStrippedContent())
+                .setFooter(footer, "https://google.com")
+                .setThumbnail(message.getMember().getUser().getAvatarUrl())
+                .setColor(message.getMember().getColor());
+        Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
+        message.getAuthor().openPrivateChannel().queue(pc -> pc.sendMessage(privateMessageText).queue());
+        message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed.build()).queue());
+        used.put(message.getId(), message);
     }
 
     private class HandleStar implements Runnable {
@@ -64,16 +77,8 @@ public class StarMessages extends ListenerAdapter {
             if (help == 5) {
                 if (!used.containsKey(message.getId())) {
                     String footer = "New Starred Message from #" + message.getChannel().getName();
-                    EmbedBuilder embed = new EmbedBuilder()
-                            .setTitle(message.getMember().getEffectiveName())
-                            .setDescription(message.getStrippedContent())
-                            .setFooter(footer, "https://google.com")
-                            .setThumbnail(message.getMember().getUser().getAvatarUrl())
-                            .setColor(message.getMember().getColor());
-                    Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
-                    message.getAuthor().openPrivateChannel().queue(pc -> pc.sendMessage("Congrats! One of your messages has been stared:").queue());
-                    message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed.build()).queue());
-                    used.put(message.getId(), message);
+                    String privateMessageText = "Congrats! One of your messages has been stared:";
+                    sendStarredMessage(footer, message, privateMessageText);
                 }
             }
         }
@@ -92,16 +97,8 @@ public class StarMessages extends ListenerAdapter {
         public void run() {
             if (!used.containsKey(message.getId())) {
                 String footer = "New Gilded Message from #" + message.getChannel().getName();
-                EmbedBuilder embed = new EmbedBuilder()
-                        .setTitle(message.getMember().getEffectiveName())
-                        .setDescription(message.getStrippedContent())
-                        .setFooter(footer, "https://google.com")
-                        .setThumbnail(message.getMember().getUser().getAvatarUrl())
-                        .setColor(message.getMember().getColor());
-                Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
-                message.getAuthor().openPrivateChannel().queue(pc -> pc.sendMessage("Congrats! One of your messages has been gilded by a staff member:").queue());
-                message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed.build()).queue());
-                used.put(message.getId(), message);
+                String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
+                sendStarredMessage(footer, message, privateMessageText);
             }
 
         }

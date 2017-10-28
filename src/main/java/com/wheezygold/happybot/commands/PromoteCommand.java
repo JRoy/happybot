@@ -6,10 +6,7 @@ import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Roles;
 import net.dv8tion.jda.core.entities.Member;
 
-public class PromoteCommand extends Command{
-
-    private Member u;
-
+public class PromoteCommand extends Command {
 
     public PromoteCommand() {
         this.name = "promote";
@@ -21,33 +18,42 @@ public class PromoteCommand extends Command{
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getGuild(), e.getMember(), Roles.RECRUITER)) {
+        if (C.hasRole(e.getMember(), Roles.RECRUITER)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
-                e.reply("Please wait while we look how to promote " + C.getMemberEvent(e).getAsMention() + "!");
-                u = C.getMemberEvent(e);
-                if (C.hasRole(e.getGuild(), u, Roles.SUPER_ADMIN)) {
-                    e.replySuccess("User is already the on highest level of promotion!");
-                } else if (C.hasRole(e.getGuild(), u, Roles.ADMIN)) {
-                    e.replySuccess("User has been promoted to **Super Admin**!");
-                    e.getGuild().getController().addSingleRoleToMember(u, Roles.SUPER_ADMIN.getrole(e.getGuild())).reason("User Promotion!").queue();
-                } else if (C.hasRole(e.getGuild(), u, Roles.MODERATOR)) {
-                    e.replySuccess("User has been promoted to **Admin**!");
-                    e.getGuild().getController().addSingleRoleToMember(u, Roles.ADMIN.getrole(e.getGuild())).reason("User Promotion!").queue();
-                } else if (C.hasRole(e.getGuild(), u, Roles.HELPER)) {
-                    e.replySuccess("User has been promoted to **Moderator**!");
-                    e.getGuild().getController().addSingleRoleToMember(u, Roles.MODERATOR.getrole(e.getGuild())).reason("User Promotion!").queue();
-                } else if (C.hasRole(e.getGuild(), u, Roles.FANS)) {
-                    e.replySuccess("User has been promoted to **Helper**!");
-                    e.getGuild().getController().addSingleRoleToMember(u, Roles.HELPER.getrole(e.getGuild())).reason("User Promotion!").queue();
-                } else {
-                    e.replyError("User has a malformed role!");
-                }
+                e.reply("Please wait while we look how to promote " + C.getMentionedMember(e).getAsMention() + "!");
+                Member member = C.getMentionedMember(e);
+                promoteMember(member, e);
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }
         } else {
             e.replyError(C.permMsg(Roles.RECRUITER));
         }
+    }
+
+    private void promoteMember(Member member, CommandEvent event) {
+        if (C.hasRole(member, Roles.SUPER_ADMIN)) {
+            event.replySuccess("User is already the on highest level of promotion!");
+        } else if (!promoteIfHasRole(Roles.ADMIN, Roles.SUPER_ADMIN, member, event)
+                && !promoteIfHasRole(Roles.MODERATOR, Roles.ADMIN, member, event)
+                && !promoteIfHasRole(Roles.HELPER, Roles.MODERATOR, member, event)
+                && !promoteIfHasRole(Roles.FANS, Roles.HELPER, member, event)) {
+            event.replyError("User has a malformed role!");
+        }
+    }
+
+    /**
+     * Promotes a member if they have the required role
+     *
+     * @return True if the member was promoted
+     */
+    private boolean promoteIfHasRole(Roles requiredRole, Roles promotionRole, Member member, CommandEvent event) {
+        if (C.hasRole(member, requiredRole)) {
+            event.replySuccess("User has been promoted to **" + promotionRole.getName() + "**!");
+            event.getGuild().getController().addSingleRoleToMember(member, promotionRole.getRole()).reason("User Promotion!").queue();
+            return true;
+        }
+        return false;
     }
 
 }

@@ -16,10 +16,10 @@ public class RewardsCommand extends Command {
     @Override
     protected void execute(CommandEvent e) {
         e.reply("**Level Rewards:**\n" +
-                "Level 10 - **" + Roles.REGULAR.getrole().getName() + "**\n" +
-                "Level 20 - **" + Roles.TRYHARD.getrole().getName() + "**\n" +
-                "Level 30 - **" + Roles.OBSESSIVE.getrole().getName() + "**\n" +
-                "Level 50 - **" + Roles.OG.getrole().getName() + "**\n"
+                "Level 10 - **" + Roles.REGULAR.getRole().getName() + "**\n" +
+                "Level 20 - **" + Roles.TRYHARD.getRole().getName() + "**\n" +
+                "Level 30 - **" + Roles.OBSESSIVE.getRole().getName() + "**\n" +
+                "Level 50 - **" + Roles.OG.getRole().getName() + "**\n"
         );
     }
 }
