@@ -20,7 +20,7 @@ public class StarMessages extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
-        if (e.getReactionEmote().getName().equals("star")) {
+        if (e.getReactionEmote().getName().equals("⭐")) {
             e.getChannel().getMessageById(e.getMessageId()).queue(this::handleStar);
         } else if (e.getReactionEmote().getName().equals("gild")) {
             if (!C.hasRole(e.getMember(), Roles.MODERATOR)) {
@@ -72,7 +72,7 @@ public class StarMessages extends ListenerAdapter {
                 return;
             int numberOfStars = 0;
             for (MessageReaction reaction : message.getReactions()) {
-                if (reaction.getEmote().getName().equals("star")) numberOfStars++;
+                if (reaction.getEmote().getName().equals("⭐")) numberOfStars++;
             }
             if (numberOfStars == NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
                 String footer = "New Starred Message from #" + message.getChannel().getName();
