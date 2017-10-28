@@ -55,7 +55,7 @@ public class Main extends ListenerAdapter {
                     .useSharding(0, 2)
                     .setGame(Game.of("Loading"));
             for (EventListener listener : eventListeners)
-                jda.addEventListener(listener);
+                builder.addEventListener(listener);
             jda = builder.buildBlocking();
         } catch (InterruptedException e) {
             C.log("Error while logging into JDA Instance!");
