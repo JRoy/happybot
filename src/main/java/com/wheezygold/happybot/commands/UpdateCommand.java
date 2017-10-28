@@ -18,7 +18,21 @@ public class UpdateCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (e.isOwner()) {
+        if (C.hasRole(e.getMember(), Roles.DEVELOPER)) {
+            new Thread(new Update(e)).start();
+        } else {
+            e.replyError(C.permMsg(Roles.DEVELOPER));
+        }
+    }
+
+    class Update implements Runnable {
+
+        private CommandEvent e;
+
+        Update(CommandEvent e) { this.e = e; }
+
+        @Override
+        public void run() {
             e.reply(":white_check_mark: Downloading Update!");
             e.reply(":information_source: Restarting Bot...");
             try {
@@ -30,8 +44,7 @@ public class UpdateCommand extends Command {
             C.dlFile("https://dl.dropbox.com/s/momoz7ciigj2msg/HappyBot.jar?dl=1", "HappyBot.jar");
             C.log("The JDA instance has been shutdown...exiting the program.");
             System.exit(0);
-        } else {
-            e.replyError(C.permMsg(Roles.DEVELOPER));
         }
     }
+
 }
