@@ -25,6 +25,7 @@ public class Main extends ListenerAdapter {
     private static JDA jda;
     private static CommandClientBuilder clientBuilder;
     private static String theme;
+    private static TweetMonitor tweetMonitor;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
         C.log("Initializing the bot...");
@@ -146,7 +147,7 @@ public class Main extends ListenerAdapter {
         }
 
         C.log("Loading Twitter Monitor...");
-        new TweetMonitor(cKey, cSecret, aToken, aSecret);
+        tweetMonitor = new TweetMonitor(cKey, cSecret, aToken, aSecret);
     }
 
     private static String readFirstLineOfFile(String filename, String errorMessage) throws IOException {

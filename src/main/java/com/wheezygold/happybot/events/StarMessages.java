@@ -5,18 +5,17 @@ import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Roles;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.MessageReaction;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
-import java.util.HashMap;
+import java.util.HashSet;
 
 public class StarMessages extends ListenerAdapter {
 
-    private HashMap<String, Message> used;
+    private HashSet<String> alreadyUsedMessages = new HashSet<>();
 
     public StarMessages() {
-        used = new HashMap<>();
     }
 
     @Override
@@ -29,7 +28,7 @@ public class StarMessages extends ListenerAdapter {
                 return;
             }
             //huh
-            e.getChannel().getMessageById(e.getMessageId()).queue(this::handleGuild);
+            e.getChannel().getMessageById(e.getMessageId()).queue(this::handleGild);
         }
     }
 
@@ -39,9 +38,9 @@ public class StarMessages extends ListenerAdapter {
         t.start();
     }
 
-    private void handleGuild(Message message) {
-        HandleGuild handleGuild = new HandleGuild(message);
-        Thread t = new Thread(handleGuild);
+    private void handleGild(Message message) {
+        HandleGild handleGild = new HandleGild(message);
+        Thread t = new Thread(handleGild);
         t.start();
     }
 
@@ -55,14 +54,15 @@ public class StarMessages extends ListenerAdapter {
         Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
         message.getAuthor().openPrivateChannel().queue(pc -> pc.sendMessage(privateMessageText).queue());
         message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed.build()).queue());
-        used.put(message.getId(), message);
+        alreadyUsedMessages.add(message.getId());
     }
 
     private class HandleStar implements Runnable {
 
         private Message message;
+        private static final int NUM_STARS_REQUIRED = 5;
 
-        public HandleStar(Message message) {
+        HandleStar(Message message) {
             this.message = message;
         }
 
@@ -70,32 +70,30 @@ public class StarMessages extends ListenerAdapter {
         public void run() {
             if (message.getChannel().getId().equals("369214529847951361") || message.getChannel().getId().equals("360544824434098188") || message.getChannel().getId().equals("362333614580432896") || message.getChannel().getId().equals("294588669682122752"))
                 return;
-            int help = 0;
-            for (User u : message.getReactions().stream().filter(r -> r.getEmote().getName().equals("⭐")).findAny().orElse(null).getUsers()) {
-                help++;
+            int numberOfStars = 0;
+            for (MessageReaction reaction : message.getReactions()) {
+                if (reaction.getEmote().getName().equals("⭐")) numberOfStars++;
             }
-            if (help == 5) {
-                if (!used.containsKey(message.getId())) {
-                    String footer = "New Starred Message from #" + message.getChannel().getName();
-                    String privateMessageText = "Congrats! One of your messages has been stared:";
-                    sendStarredMessage(footer, message, privateMessageText);
-                }
+            if (numberOfStars == NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
+                String footer = "New Starred Message from #" + message.getChannel().getName();
+                String privateMessageText = "Congrats! One of your messages has been stared:";
+                sendStarredMessage(footer, message, privateMessageText);
             }
         }
 
     }
 
-    private class HandleGuild implements Runnable {
+    private class HandleGild implements Runnable {
 
         private Message message;
 
-        public HandleGuild(Message message) {
+        HandleGild(Message message) {
             this.message = message;
         }
 
         @Override
         public void run() {
-            if (!used.containsKey(message.getId())) {
+            if (!alreadyUsedMessages.contains(message.getId())) {
                 String footer = "New Gilded Message from #" + message.getChannel().getName();
                 String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
                 sendStarredMessage(footer, message, privateMessageText);
