@@ -1,8 +1,10 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "2.0.0"
+    id 'com.sedmelluq.jdaction' version '1.0.2'
 }
 
 apply plugin: 'java'
+apply plugin: 'idea'
 
 dependencies {
     compile 'com.jagrosh:JDA-Utilities:1.8'
