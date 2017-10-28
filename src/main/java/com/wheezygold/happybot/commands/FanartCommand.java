@@ -22,7 +22,7 @@ public class FanartCommand extends Command {
                 e.getMessage().delete().reason("Auto Command Deletion").queue();
                 String msg = C.getMentionedMember(e).getAsMention() + ", please post only fanart in " + e.getGuild().getTextChannelById("337689640888827905").getAsMention();
                 e.replySuccess(msg);
-                C.getMentionedMember(e).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(msg).queue());
+                C.privChannel(e.getMember(), msg);
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }

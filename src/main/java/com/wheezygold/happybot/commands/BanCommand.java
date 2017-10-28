@@ -18,7 +18,6 @@ public class BanCommand extends Command {
     protected void execute(CommandEvent e) {
         if (C.hasRole(e.getMember(), Roles.MODERATOR)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
-                //String id = C.getMentionedMember(e).getUser().getId();
                 String bname = C.getMentionedMember(e).getUser().getName();
                 String bdescrim = C.getMentionedMember(e).getUser().getDiscriminator();
                 C.getCtrl(e).ban(C.getMentionedMember(e).getUser(), 7, "Banned by Moderator: " + e.getMember().getUser().getName()).reason("Banned by Moderator: " + e.getMember().getUser().getName()).queue();

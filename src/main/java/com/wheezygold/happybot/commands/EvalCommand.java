@@ -33,6 +33,7 @@ public class EvalCommand extends Command {
                         "java.io," +
                         "java.lang," +
                         "java.util," +
+                        "com.wheezygold.happybot.util.C," +
                         "Packages.net.dv8tion.jda.core," +
                         "Packages.net.dv8tion.jda.core.entities," +
                         "Packages.net.dv8tion.jda.core.entities.impl," +
@@ -47,7 +48,7 @@ public class EvalCommand extends Command {
             se.put("guild", e.getGuild());
             se.put("channel", e.getChannel());
             se.put("member", e.getMember());
-            se.put("C", CClass);
+            se.put("C", CClass.getC());
             se.put("Roles", Roles.class);
             se.put("Channels", Channels.class);
             se.put("Game", Game.class);

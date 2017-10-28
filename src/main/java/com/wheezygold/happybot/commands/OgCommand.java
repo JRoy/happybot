@@ -22,10 +22,10 @@ public class OgCommand extends Command {
             if (e.getMessage().getMentionedUsers().size() == 1) {
                 Member u = C.getMentionedMember(e);
                 if (C.hasRole(u, Roles.OG)) {
-                    e.getGuild().getController().removeSingleRoleFromMember(u, Roles.OG.getRole()).reason("Role removed (by " + Main.getJda().getUserById(e.getMember().getUser().getId()).getName() + ") with ^og").queue();
+                    C.removeRole(u, Roles.OG);
                     e.replySuccess(u.getUser().getAsMention() + " is no OG!");
                 } else {
-                    e.getGuild().getController().addSingleRoleToMember(u, Roles.OG.getRole()).reason("Role added (by " + Main.getJda().getUserById(e.getMember().getUser().getId()).getName() + ") with ^og").queue();
+                    C.giveRole(u, Roles.OG);
                     e.replySuccess(u.getUser().getAsMention() + " has become OG!");
                 }
             } else {

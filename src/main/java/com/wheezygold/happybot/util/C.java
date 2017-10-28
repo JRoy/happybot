@@ -25,6 +25,13 @@ import java.util.Objects;
 public class C {
 
     /**
+     * Gets the C Class for things.
+     * @return The C Class.
+     */
+    public C getC() {
+        return this;
+    }
+    /**
      * Sees if a user has the role displayed.
      *
      * @param m The member that has the role.

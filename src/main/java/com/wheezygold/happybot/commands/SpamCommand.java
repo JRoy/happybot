@@ -23,10 +23,10 @@ public class SpamCommand extends Command {
             if (e.getMessage().getMentionedUsers().size() == 1) {
                 Member u = C.getMentionedMember(e);
                 if (C.hasRole(u, Roles.EXP_SPAMMER)) {
-                    e.getGuild().getController().removeSingleRoleFromMember(u, Roles.EXP_SPAMMER.getRole()).reason("Role removed (by " + Main.getJda().getUserById(e.getMember().getUser().getId()).getName() + ") with ^expspammer").queue();
+                    C.removeRole(u, Roles.EXP_SPAMMER);
                     e.replySuccess(u.getUser().getAsMention() + " is no longer an EXP Spammer!");
                 } else {
-                    e.getGuild().getController().addSingleRoleToMember(u, Roles.EXP_SPAMMER.getRole()).reason("Role added (by " + Main.getJda().getUserById(e.getMember().getUser().getId()).getName() + ") with ^expspammer").queue();
+                    C.giveRole(u, Roles.EXP_SPAMMER);
                     e.replySuccess(u.getUser().getAsMention() + " has become an EXP Spammer!");
                     C.privChannel(C.getMentionedMember(e), "You have become an EXP Spammer! Please ask to get this removed 1 week from now!");
                 }
