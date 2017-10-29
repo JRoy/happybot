@@ -19,6 +19,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class Main extends ListenerAdapter {
 
     private Main instance = this;
@@ -30,6 +31,7 @@ public class Main extends ListenerAdapter {
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
         C.log("Initializing the bot...");
         createConfigFiles();
+
 
         String token = readFirstLineOfFile("config.yml", "There is no token in your config, welcome to stack trace city!");
         theme = readFirstLineOfFile("theme.yml", "Error receiving theme");

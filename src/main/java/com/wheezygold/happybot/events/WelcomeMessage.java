@@ -75,7 +75,29 @@ public class WelcomeMessage extends ListenerAdapter {
                 "came looking for technoblade.",
                 "has made a mistake that can never be reversed!",
                 "Well! Excuuuusee me, Princess!",
-                "is probably :nose:-less!"
+                "is probably :nose:-less!",
+                "wants to use tnt instead of pvp.",
+                "used Join! It's super effective.",
+                "shut up marguerite!",
+                "saw their teacher at the end of the hallway and hid here.",
+                "has no clue what they're getting into.",
+                "has joined!!?!?!?! (NOT CLICKBAIT) (GONE WRONG) (MUST SEE) (OMG)!",
+                "what are the chances! Of human dums so far from Earth!",
+                "actually read Happy's description!",
+                "would like to learn how to rap bars.",
+                "star this.",
+                "came to fund the answer to depression.",
+                "joined the man in the yellow hat official discord.",
+                "sorry no technoblade here.",
+                "joined. ffs. YOU TRY AND COME UP WITH THESES MESSAGES!",
+                "wanted to be famous like happyheart!",
+                "got out of the school hallway!",
+                "came here to advertise.",
+                "congratulations.",
+                "came to see how it's like to be depressed.",
+                "oh god... why.",
+                "want depression? **welcome**.",
+                "okay, have fun."
 
         };
         goodbyemsgs = new String[]{
@@ -143,7 +165,25 @@ public class WelcomeMessage extends ListenerAdapter {
                 "tried to steal the Happy Bot.",
                 "wasn’t excused by the princess.",
                 "has passed french class.",
-                "was banned for bringing Ducky back."
+                "was banned for bringing Ducky back.",
+                "with all of their power used at once, managed to escape the clutches of the deadly happyheart.",
+                "hated the new update.",
+                "had one too many bridges for breakfast.",
+                "josh pls explain.",
+                "went off to make a happyheart diss track.",
+                "tried to left click, and their mind exploded as they did so.",
+                "went to study French in a secret mountain lair.",
+                "got beaned.",
+                "left because their welcome submit didn't get pinned.",
+                "was doing Hypixel minecraft high school role play.",
+                "AonAiAi was banned for hacking. Thank you for reporting.",
+                "burned because they were made of wood",
+                "left since their application got denied by Josh.",
+                "forgot to add spooky in their name.",
+                "agrees with Tenebrous.",
+                "sent hate to LegoMaestro.",
+                "/hub",
+                "yeah, grow a brain and then come back, you brain-less guy."
 
         };
     }
@@ -159,12 +199,14 @@ public class WelcomeMessage extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-        event.getGuild().getTextChannelById("237363812842340363").sendMessage(event.getMember().getAsMention() + " " + welcomemsgs[random.nextInt(welcomemsgs.length)]).queue();
+        String joinformat = welcomemsgs[random.nextInt(welcomemsgs.length)].replaceAll("<player>", event.getMember().getAsMention());
+        event.getGuild().getTextChannelById("237363812842340363").sendMessage(event.getMember().getAsMention() + " " + joinformat).queue();
     }
 
     @Override
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
-        event.getGuild().getTextChannelById("237363812842340363").sendMessage("**" + event.getMember().getUser().getName() + "** " + goodbyemsgs[random.nextInt(goodbyemsgs.length)]).queue();
+        String leaveformat = goodbyemsgs[random.nextInt(goodbyemsgs.length)].replaceAll("<player>", event.getMember().getAsMention());
+        event.getGuild().getTextChannelById("237363812842340363").sendMessage("**" + event.getMember().getUser().getName() + "** " + leaveformat).queue();
     }
 
 }
