@@ -19,13 +19,17 @@ public class LockCommand extends Command {
     @Override
     protected void execute(CommandEvent e) {
         if (C.hasRole(e.getMember(), Roles.ADMIN)) {
-            PermissionOverride permissionOverride = e.getTextChannel().getPermissionOverride(Roles.EVERYONE.getRole());
 
-            PermOverrideManager manager = permissionOverride.getManager();
+            try {
+                PermissionOverride permissionOverride = e.getTextChannel().getPermissionOverride(Roles.EVERYONE.getRole());
+                PermOverrideManager manager = permissionOverride.getManager();
+                manager.deny(Permission.MESSAGE_WRITE).queue();
+                e.replySuccess(":lock: Channel has been locked!");
+            } catch (NullPointerException npe) {
+                e.replyError("An error occurred while locking the channel! Please make sure this channel is setup correctly.");
+            }
 
-            manager.deny(Permission.MESSAGE_WRITE).queue();
 
-            e.replySuccess(":lock: Channel has been locked!");
         } else {
             e.replyError(C.permMsg(Roles.ADMIN));
         }
