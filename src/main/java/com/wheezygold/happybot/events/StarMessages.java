@@ -24,10 +24,9 @@ public class StarMessages extends ListenerAdapter {
             e.getChannel().getMessageById(e.getMessageId()).queue(this::handleStar);
         } else if (e.getReactionEmote().getName().equals("gild")) {
             if (!C.hasRole(e.getMember(), Roles.MODERATOR)) {
-                e.getReaction().removeReaction().queue();
+                e.getReaction().removeReaction().complete();
                 return;
             }
-            //huh
             e.getChannel().getMessageById(e.getMessageId()).queue(this::handleGild);
         }
     }
@@ -68,8 +67,9 @@ public class StarMessages extends ListenerAdapter {
 
         @Override
         public void run() {
-            if (message.getChannel().getId().equals("369214529847951361") || message.getChannel().getId().equals("360544824434098188") || message.getChannel().getId().equals("362333614580432896") || message.getChannel().getId().equals("294588669682122752"))
+            if (message.getChannel().getId().equals(Channels.STARRED_MESSAGES.getId()) || message.getChannel().getId().equals(Channels.BOT_GIT.getId()) || message.getChannel().getId().equals(Channels.TWITTER.getId()) || message.getChannel().getId().equals(Channels.LIVE.getId())) {
                 return;
+            }
             int numberOfStars = 0;
             for (MessageReaction reaction : message.getReactions()) {
                 if (reaction.getEmote().getName().equals("⭐")) numberOfStars++;
