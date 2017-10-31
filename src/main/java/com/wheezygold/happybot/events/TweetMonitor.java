@@ -2,6 +2,7 @@ package com.wheezygold.happybot.events;
 
 import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Roles;
+import com.wheezygold.happybot.util.TwitterCentre;
 import net.dv8tion.jda.core.EmbedBuilder;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
@@ -10,9 +11,9 @@ import java.awt.*;
 
 public class TweetMonitor {
     public TweetMonitor(String cKey, String cSecret, String aToken, String aSecret) {
-        long happyid = Long.parseLong("865017489213673472");
+        long happyid = TwitterCentre.getHappyid();
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
+        cb.setDebugEnabled(false)
                 .setOAuthConsumerKey(cKey)
                 .setOAuthConsumerSecret(cSecret)
                 .setOAuthAccessToken(aToken)

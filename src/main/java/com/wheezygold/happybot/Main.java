@@ -4,6 +4,7 @@ import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.*;
 import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.TwitterCentre;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -26,6 +27,7 @@ public class Main extends ListenerAdapter {
     private static JDA jda;
     private static CommandClientBuilder clientBuilder;
     private static String theme;
+    private static TwitterCentre twitterCentre;
     private static TweetMonitor tweetMonitor;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
@@ -148,6 +150,8 @@ public class Main extends ListenerAdapter {
             C.log("Error loading the Twitter credentials: " + tex.getMessage());
         }
 
+        C.log("Loading Twitter Centre...");
+        twitterCentre = new TwitterCentre(cKey, cSecret, aToken, aSecret);
         C.log("Loading Twitter Monitor...");
         tweetMonitor = new TweetMonitor(cKey, cSecret, aToken, aSecret);
     }
