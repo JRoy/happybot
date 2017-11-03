@@ -2,9 +2,11 @@ package com.wheezygold.happybot.util;
 
 import com.kbrewster.hypixelapi.HypixelAPI;
 import com.kbrewster.hypixelapi.exceptions.APIException;
+import com.kbrewster.hypixelapi.exceptions.InvalidPlayerException;
 import com.kbrewster.hypixelapi.player.Player;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class Hypixel {
 
@@ -14,7 +16,7 @@ public class Hypixel {
         api = new HypixelAPI(apikey);
     }
 
-    public static Player getPlayer(String playerName) throws APIException {
+    public Player getPlayer(String playerName) throws APIException {
         try {
             return api.getPlayer(playerName);
         } catch (IOException e) {
@@ -23,31 +25,30 @@ public class Hypixel {
         return null;
     }
 
-    public static String getLevel(String playerName) throws APIException {
-        try {
-            return String.valueOf(api.getPlayer(playerName).getNetworkLevel());
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static HashMap<String, String> getAllFields(Player hypixelPlayer) {
+        HashMap<String, String> fields = new HashMap<>();
+        if (hypixelPlayer != null) {
+            fields.put("Network Level", String.valueOf(hypixelPlayer.getNetworkLevel()));
+            fields.put("Rank", hypixelPlayer.getCurrentRank());
+            fields.put("MC Version", hypixelPlayer.getMcVersionRp());
+            fields.put("Time in Game", String.valueOf(hypixelPlayer.getTimePlaying()));
+            fields.put("Bedwars Wins", String.valueOf(hypixelPlayer.getAchievements().getBedwarsWins()));
+            fields.put("Bedwars Level", String.valueOf(hypixelPlayer.getAchievements().getBedwarsLevel()));
+            fields.put("Karma", String.valueOf(hypixelPlayer.getKarma()));
         }
-        return null;
+        return fields;
     }
 
-    public static String getMC(String playerName) throws APIException {
+    public boolean isValidPlayer(String playerName) {
         try {
-            return api.getPlayer(playerName).getMcVersionRp();
-        } catch (IOException e) {
+            api.getPlayer(playerName);
+            return true;
+        } catch (APIException | IOException e) {
             e.printStackTrace();
+            return false;
+        } catch (InvalidPlayerException ie) {
+            return false;
         }
-        return null;
-    }
-
-    public static String getRank(String playerName) throws APIException {
-        try {
-            return api.getPlayer(playerName).getRank();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
 

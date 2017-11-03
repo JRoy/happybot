@@ -4,6 +4,7 @@ import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.*;
 import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Hypixel;
 import com.wheezygold.happybot.util.TwitterCentre;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -29,6 +30,7 @@ public class Main extends ListenerAdapter {
     private static String theme;
     private static TwitterCentre twitterCentre;
     private static TweetMonitor tweetMonitor;
+    private static Hypixel hypixel;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
         C.log("Initializing the bot...");
@@ -46,6 +48,8 @@ public class Main extends ListenerAdapter {
 
         //Load our SQL Stuff
 //        SQLManager sqlManager = new SQLManager("root", sqlpass);
+
+        loadHypixelAPI();
 
         List<EventListener> eventListeners = loadEventListeners();
         loadClientBuilder();
@@ -114,7 +118,8 @@ public class Main extends ListenerAdapter {
                 new VideoCommand(),
                 new SeasonCommand(),
                 new RandomSeasonCommand(),
-                new StatsCommand(),
+                new StatsCommand(hypixel),
+                new HypixelCommand(hypixel),
                 new WelcomeStatsCommand(),
                 new ServersCommand(),
                 new MentionCommand(),
@@ -135,6 +140,18 @@ public class Main extends ListenerAdapter {
                 new EvalCommand());
 
         clientBuilder.setHelpFunction(C::showHelp);
+    }
+
+    private static void loadHypixelAPI() throws IOException {
+        String apiKey = null;
+        BufferedReader hypixelReader = new BufferedReader(new FileReader("hypixel.yml"));
+        try {
+            apiKey = hypixelReader.readLine();
+            hypixelReader.close();
+        } catch (NullPointerException hex) {
+            C.log("Error loading the Hypixel api-key: " + hex.getMessage());
+        }
+        hypixel = new Hypixel(apiKey);
     }
 
     private static void loadTweetMonitor() throws IOException {
