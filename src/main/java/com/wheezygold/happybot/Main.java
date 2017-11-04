@@ -5,6 +5,7 @@ import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.*;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Hypixel;
+import com.wheezygold.happybot.util.ThemeManager;
 import com.wheezygold.happybot.util.TwitterCentre;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -44,6 +45,8 @@ public class Main extends ListenerAdapter {
         String sqlPassword = null;
         sqlPassword = readFirstLineOfFile("sql.yml", "Error receiving your SQL Password");
 
+        loadThemeManager();
+
         loadTweetMonitor();
 
         //Load our SQL Stuff
@@ -74,6 +77,10 @@ public class Main extends ListenerAdapter {
         }
 
         C.log("Bot has been loaded!");
+    }
+
+    private static ThemeManager loadThemeManager() {
+        return new ThemeManager();
     }
 
     private static List<EventListener> loadEventListeners() {
