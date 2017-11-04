@@ -32,6 +32,7 @@ public class Main extends ListenerAdapter {
     private static TwitterCentre twitterCentre;
     private static TweetMonitor tweetMonitor;
     private static Hypixel hypixel;
+    private static ThemeManager themeManager;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
         C.log("Initializing the bot...");
@@ -45,7 +46,7 @@ public class Main extends ListenerAdapter {
         String sqlPassword = null;
         sqlPassword = readFirstLineOfFile("sql.yml", "Error receiving your SQL Password");
 
-        loadThemeManager();
+        themeManager = loadThemeManager();
 
         loadTweetMonitor();
 
@@ -142,7 +143,7 @@ public class Main extends ListenerAdapter {
                 new PromoteCommand(),
                 new DemoteCommand(),
                 new StaffManagementCommand(),
-                new ThemeCommand(),
+                new ThemeCommand(themeManager),
                 new ShutdownCommand(),
                 new UpdateCommand(),
                 new EvalCommand());

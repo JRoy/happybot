@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ThemeManager {
 
-    private static HashMap<String, HashMap<String, String>> themeData = new HashMap<>();
+    private HashMap<String, HashMap<String, String>> themeData = new HashMap<>();
 
     public ThemeManager() {
         File[] rawThemes = new File("themes/").listFiles();
@@ -35,6 +35,10 @@ public class ThemeManager {
             C.log("No themes have been found!");
         }
 
+    }
+
+    public HashMap<String, HashMap<String, String>> getThemeData() {
+        return themeData;
     }
 
 }
