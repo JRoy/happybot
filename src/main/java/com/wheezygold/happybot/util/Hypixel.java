@@ -34,6 +34,8 @@ public class Hypixel {
             fields.put("Bedwars Wins", String.valueOf(hypixelPlayer.getAchievements().getBedwarsWins()));
             fields.put("Bedwars Level", String.valueOf(hypixelPlayer.getAchievements().getBedwarsLevel()));
             fields.put("Karma", String.valueOf(hypixelPlayer.getKarma()));
+            fields.put("Language", hypixelPlayer.getUserLanguage());
+            fields.put("Vanity Tokens", String.valueOf(hypixelPlayer.getVanityTokens()));
         }
         return fields;
     }
