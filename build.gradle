@@ -9,7 +9,7 @@ apply plugin: 'idea'
 dependencies {
     compile "com.github.KevinPriv:HypixelApi4J:API-1.2"
     compile 'com.jagrosh:JDA-Utilities:1.8'
-    compile 'net.dv8tion:JDA:3.3.1_298'
+    compile 'net.dv8tion:JDA:3.3.1_301'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
     compile group: 'org.sql2o', name: 'sql2o', version: '1.6.0-RC3'
     compile group: 'org.twitter4j', name: 'twitter4j-stream', version: '4.0.6'
