@@ -17,6 +17,7 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.7'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
     compile 'junit:junit:4.12'
+    compile 'com.udojava:EvalEx:1.16'
 }
 
 repositories {
