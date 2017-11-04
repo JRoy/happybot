@@ -7,38 +7,42 @@ import java.util.Scanner;
 
 public class ThemeManager {
 
-    private HashMap<String, HashMap<String, String>> themeData = new HashMap<>();
+	private HashMap<String, HashMap<String, String>> themeData = new HashMap<>();
 
-    public ThemeManager() {
-        File[] rawThemes = new File("themes/").listFiles();
+	public ThemeManager() {
+		loadThemes();
+	}
 
-        if (rawThemes != null) {
-            for (File curTheme : rawThemes) {
-                //Create a HashMap of our themes and theme ids.
-                Scanner target = null;
-                String fileDisplay = curTheme.getName().split("[.]")[0];
-                try {
-                    target = new Scanner(new File("themes/" + curTheme.getName()));
+	private void loadThemes() {
+		File[] rawThemes = new File("themes/").listFiles();
 
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                if (target != null) {
-                    while (target.hasNextLine()) {
-                        String[] parsedLine = target.nextLine().split("[:]");
-                        themeData.put(fileDisplay, new HashMap<String, String>());
-                        themeData.get(fileDisplay).put(parsedLine[0], parsedLine[1]);
-                    }
-                }
-            }
-        } else {
-            C.log("No themes have been found!");
-        }
+		if (rawThemes == null) {
+			C.log("No themes have been found!");
+			return;
+		}
 
-    }
+		for (File theme : rawThemes) {
+			try {
+				Scanner scanner = new Scanner(theme);
+				parseThemeFile(theme.getName(), scanner);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-    public HashMap<String, HashMap<String, String>> getThemeData() {
-        return themeData;
-    }
+	private void parseThemeFile(String themeName, Scanner themeFileScanner) {
+		// (Techno-coder) Wheezy you idiot if you put this inside the loop its going to clear the HashMap each time
+		themeData.put(themeName, new HashMap<>());
+		while (themeFileScanner.hasNextLine()) {
+			String[] lineTokens = themeFileScanner.nextLine().split("[:]");
+			themeData.get(themeName).put(lineTokens[0], lineTokens[1]);
+		}
+	}
+
+	// (Techno-coder) Wheezy you are an idiot dont make getters for the raw data; this is meant to be the manager class
+//    public HashMap<String, HashMap<String, String>> getThemeData() {
+//        return themeData;
+//    }
 
 }
