@@ -31,7 +31,6 @@ public class Hypixel {
             fields.put("Network Level", String.valueOf(hypixelPlayer.getNetworkLevel()));
             fields.put("Rank", hypixelPlayer.getCurrentRank());
             fields.put("MC Version", hypixelPlayer.getMcVersionRp());
-            fields.put("Time in Game", String.valueOf(hypixelPlayer.getTimePlaying()));
             fields.put("Bedwars Wins", String.valueOf(hypixelPlayer.getAchievements().getBedwarsWins()));
             fields.put("Bedwars Level", String.valueOf(hypixelPlayer.getAchievements().getBedwarsLevel()));
             fields.put("Karma", String.valueOf(hypixelPlayer.getKarma()));
