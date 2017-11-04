@@ -115,6 +115,7 @@ public class Main extends ListenerAdapter {
                 new RulesCommand(),
                 new ApplyCommand(),
                 new RewardsCommand(),
+                new MathCommand(),
                 new VideoCommand(),
                 new SeasonCommand(),
                 new RandomSeasonCommand(),

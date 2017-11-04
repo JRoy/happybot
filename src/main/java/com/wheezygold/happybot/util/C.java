@@ -282,4 +282,13 @@ public class C {
         m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(message).queue());
     }
 
+    /**
+     * Returns a codeblock of used value.
+     * @param value Text in the code block.
+     * @return The codeblock.
+     */
+    public static String codeblock(String value) {
+        return "```" + value + "```";
+    }
+
 }
