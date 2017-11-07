@@ -24,10 +24,18 @@ public class ThemeManager {
 	private void loadThemes() {
 		File[] rawThemes = new File("themes/").listFiles();
 
-		if (rawThemes == null) {
+		if (rawThemes == null || rawThemes.length == 0) {
 			C.log("No themes have been found!");
 			return;
 		}
+
+		C.log("Loaded Theme Files:");
+
+		for (File theme : rawThemes) {
+		    C.log("- " + theme.getName().split("[.]")[0]);
+        }
+
+		C.log("Parsing Theme Files...");
 
 		for (File theme : rawThemes) {
 			try {
@@ -44,39 +52,24 @@ public class ThemeManager {
         themeName = themeName.split("[.]")[0];
 		themeData.put(themeName, new HashMap<>());
 
-        C.log("-=-=-=Parsing Theme: " + themeName + "=-=-=-");
-
 		while (themeFileScanner.hasNextLine()) {
 			String[] lineTokens = themeFileScanner.nextLine().split("[:]");
 			if (!lineTokens[0].equalsIgnoreCase("MetaData")) {
                 themeData.get(themeName).put(lineTokens[0], lineTokens[1]);
-                C.log("-------------");
-                C.log("Role ID: " + lineTokens[0] + " Target: " + lineTokens[1]);
-                C.log("-------------");
             }
 		}
-
-        C.log("-=-=-=End Parsing Theme: " + themeName + "=-=-=-");
 	}
 
 	private void parseThemeFileMeta(String themeName, Scanner themeFileScanner) {
         themeName = themeName.split("[.]")[0];
         themeMetaData.put(themeName, new HashMap<>());
 
-        C.log("-=-=-=Parsing Meta For: " + themeName + "=-=-=-");
-
         while (themeFileScanner.hasNextLine()) {
             String[] lineTokens = themeFileScanner.nextLine().split("[:]");
             if (lineTokens[0].equalsIgnoreCase("MetaData")) {
                 themeMetaData.get(themeName).put(lineTokens[1], lineTokens[2]);
-                C.log("-------------");
-                C.log("Meta ID: " + lineTokens[1] + " Target: " + lineTokens[2]);
-                C.log("-------------");
             }
         }
-
-        C.log("-=-=-=End Parsing Meta For: " + themeName + "=-=-=-");
-
     }
 
 	public ArrayList<String> getThemes() {
