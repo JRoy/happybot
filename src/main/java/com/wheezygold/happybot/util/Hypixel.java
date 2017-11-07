@@ -6,6 +6,8 @@ import com.kbrewster.hypixelapi.exceptions.InvalidPlayerException;
 import com.kbrewster.hypixelapi.player.Player;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Hypixel {
@@ -36,6 +38,8 @@ public class Hypixel {
             fields.put("Karma", String.valueOf(hypixelPlayer.getKarma()));
             fields.put("Language", hypixelPlayer.getUserLanguage());
             fields.put("Vanity Tokens", String.valueOf(hypixelPlayer.getVanityTokens()));
+            fields.put("Join Date", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(hypixelPlayer.getFirstLogin())));
+            fields.put("Last Join", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(hypixelPlayer.getLastLogin())));
         }
         return fields;
     }
