@@ -11,7 +11,7 @@ public enum Roles {
     //Staff Ranks
     HAPPYHEART("264560287183667202", "Happoheart", "Spookoheart", "Santoheart", "Happoheart"),
     DEVELOPER("317386352763207702", "Developer", "Grim Reaper", "Toy Maker", "Developer"),
-    SUPER_ADMIN("264963855426256897", "Super Admin", "Sp00ky Skary Skelentons", "Gingerbread Things", "Super Admin"),
+    SUPER_ADMIN("264963855426256897", "Super Admin", "Sp00ky Skary Skeletons", "Gingerbread Things", "Super Admin"),
     CHANNEL_MANAGER("368172637182230549", "Channel Manager", "Rabid Werewolves", "Management Elfs", "Channel Manager"),
     ADMIN("295673671203291147", "Admin", "Glowing Pumpkins", "Tree Ornaments", "Admin"),
     MODERATOR("264964563517046784", "Moderators", "Fortune Tellers", "Frosty Snowmen", "Moderator"),

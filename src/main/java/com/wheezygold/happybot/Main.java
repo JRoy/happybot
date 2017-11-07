@@ -5,13 +5,15 @@ import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.*;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Hypixel;
-import com.wheezygold.happybot.util.ThemeManager;
+import com.wheezygold.happybot.theme.ThemeManager;
+import com.wheezygold.happybot.util.RichPresence;
 import com.wheezygold.happybot.util.TwitterCentre;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.impl.JDAImpl;
 import net.dv8tion.jda.core.events.ShutdownEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.EventListener;
@@ -76,6 +78,8 @@ public class Main extends ListenerAdapter {
             e.printStackTrace();
             C.log("#-#-#-#-#-#-#-#-# Ending Stack Trace #-#-#-#-#-#-#-#-#");
         }
+
+        new RichPresence((JDAImpl) jda);
 
         C.log("Bot has been loaded!");
     }
