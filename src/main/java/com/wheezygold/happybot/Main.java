@@ -61,25 +61,17 @@ public class Main extends ListenerAdapter {
         loadClientBuilder();
 
         C.log("Constructing the JDA Instance...");
-        try {
-            JDABuilder builder = new JDABuilder(AccountType.BOT)
-                    .setToken(token)
-                    .setStatus(OnlineStatus.DO_NOT_DISTURB)
-                    //Listens to the MessageReceivedEvent.
-                    .addEventListener(clientBuilder.build())
-                    .useSharding(0, 2)
-                    .setGame(Game.of("Loading"));
-            for (EventListener listener : eventListeners)
-                builder.addEventListener(listener);
-            jda = builder.buildBlocking();
-        } catch (InterruptedException e) {
-            C.log("Error while logging into JDA Instance!");
-            C.log("#-#-#-#-#-#-#-#-# Starting Stack Trace #-#-#-#-#-#-#-#-#");
-            e.printStackTrace();
-            C.log("#-#-#-#-#-#-#-#-# Ending Stack Trace #-#-#-#-#-#-#-#-#");
-        }
+        JDABuilder builder = new JDABuilder(AccountType.BOT)
+                .setToken(token)
+                .setStatus(OnlineStatus.DO_NOT_DISTURB)
+                //Listens to the MessageReceivedEvent.
+                .addEventListener(clientBuilder.build())
+                .setGame(Game.of("Loading"));
+        for (EventListener listener : eventListeners)
+            builder.addEventListener(listener);
+        jda = builder.buildAsync();
 
-        new RichPresence((JDAImpl) jda);
+//        new RichPresence((JDAImpl) jda);
 
         C.log("Bot has been loaded!");
     }
