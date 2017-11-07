@@ -41,6 +41,11 @@ public class Hypixel {
     }
 
     public boolean isValidPlayer(String playerName) {
+
+        if (playerName.contains(" ")) {
+            return false;
+        }
+
         try {
             api.getPlayer(playerName);
             return true;

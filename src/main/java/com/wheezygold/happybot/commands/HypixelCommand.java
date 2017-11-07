@@ -32,8 +32,10 @@ public class HypixelCommand extends Command {
                             .setDescription("Listing statistics:")
                             .setFooter("Stats provided by Hypixel's API", "https://media-curse.cursecdn.com/attachments/264/727/f7c76fdb4569546a9ddf0e58c8653823.png");
                     for (HashMap.Entry<String, String> entry : Hypixel.getAllFields(player).entrySet()) {
-                        if (entry.getValue() != null || entry.getValue() != "0") {
-                            embed.addField("**" + entry.getKey() + "**", entry.getValue(), true);
+                        if (entry.getValue() != null) {
+                            if (!entry.getValue().equals("0")) {
+                                embed.addField("**" + entry.getKey() + "**", entry.getValue(), true);
+                            }
                         }
                     }
                     e.reply(embed.build());
