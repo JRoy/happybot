@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class ThemeManager {
 
@@ -124,8 +125,10 @@ public class ThemeManager {
                 C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), roleMetaToken.get("nickname")).complete();
                 for (HashMap.Entry<String, String> entry : roleToken.entrySet()) {
                     C.getGuild().getRoleById(entry.getKey()).getManager().setName(entry.getValue()).queue();
+                    TimeUnit.MILLISECONDS.sleep(500);
                 }
-            } catch (IOException e) {
+                C.getGuild().getManager().setName(roleMetaToken.get("title")).complete();
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
