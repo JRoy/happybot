@@ -9,9 +9,6 @@ public class YouTube {
     private String apiKey = "AIzaSyAPiPPTl1ZAsI1k_dCxHj7_RS7mfC-Dvuw";
     private JSONObject jsonResponse;
 
-    public YouTube() {
-    }
-
     public YouTube pullAPI() {
         try {
             //Take the API Key idc, it's got nothing but youtube shit.

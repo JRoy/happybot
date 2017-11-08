@@ -15,9 +15,6 @@ public class StarMessages extends ListenerAdapter {
 
     private HashSet<String> alreadyUsedMessages = new HashSet<>();
 
-    public StarMessages() {
-    }
-
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
         if (e.getReactionEmote().getName().equals("⭐")) {

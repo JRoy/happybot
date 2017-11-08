@@ -5,8 +5,6 @@ import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.udojava.evalex.Expression;
 import com.wheezygold.happybot.util.C;
 
-import java.math.BigDecimal;
-
 public class MathCommand extends Command {
     public MathCommand() {
         this.name = "math";

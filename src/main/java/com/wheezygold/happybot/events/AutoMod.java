@@ -3,8 +3,6 @@ package com.wheezygold.happybot.events;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Roles;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -18,23 +16,17 @@ public class AutoMod extends ListenerAdapter {
 
     private List<Message> processedMessages;
 
-    /**
-     * Creates an AutoMod Instance!
-     */
-    public AutoMod() {
-    }
-
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-        checkForAdvertising(event.getGuild(), event.getMember(), event.getMessage(), event.getChannel());
+        checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
     }
 
     @Override
     public void onGuildMessageUpdate(GuildMessageUpdateEvent event) {
-        checkForAdvertising(event.getGuild(), event.getMember(), event.getMessage(), event.getChannel());
+        checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
     }
 
-    private void checkForAdvertising(Guild guild, Member member, Message message, TextChannel channel) {
+    private void checkForAdvertising(Member member, Message message, TextChannel channel) {
         if (C.hasRole(member, Roles.SUPER_ADMIN) || C.hasRole(member, Roles.BOT))
             return;
         if (!message.getContent().toLowerCase().contains("discord.gg/"))

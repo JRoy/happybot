@@ -12,7 +12,7 @@ public class SQLManager {
 
     private Map<Class, Collector> collectors = new HashMap<>();
 
-    public static Sql2o sql2o;
+    private static Sql2o sql2o;
 
     public SQLManager(String user, String password) {
         sql2o = new Sql2o("jdbc:mysql://127.0.0.1:3306/coins", "root", password);
