@@ -1,6 +1,7 @@
 package com.wheezygold.happybot.events;
 
 import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Roles;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Guild;
@@ -11,36 +12,40 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.util.List;
+
 public class AutoMod extends ListenerAdapter {
-    private final String owner;
+
+    private List<Message> processedMessages;
 
     /**
      * Creates an AutoMod Instance!
-     *
-     * @param owner The ID of the bot owner!
      */
-    public AutoMod(String owner) {
-        this.owner = owner;
+    public AutoMod() {
     }
 
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-        checkForAdvertising(event.getGuild(), event.getMember(), event.getMessage(), event.getChannel(), event.getJDA());
+        checkForAdvertising(event.getGuild(), event.getMember(), event.getMessage(), event.getChannel());
     }
 
     @Override
     public void onGuildMessageUpdate(GuildMessageUpdateEvent event) {
-        checkForAdvertising(event.getGuild(), event.getMember(), event.getMessage(), event.getChannel(), event.getJDA());
+        checkForAdvertising(event.getGuild(), event.getMember(), event.getMessage(), event.getChannel());
     }
 
-    private void checkForAdvertising(Guild guild, Member member, Message message, TextChannel channel, JDA jda) {
+    private void checkForAdvertising(Guild guild, Member member, Message message, TextChannel channel) {
         if (C.hasRole(member, Roles.SUPER_ADMIN) || C.hasRole(member, Roles.BOT))
             return;
         if (!message.getContent().toLowerCase().contains("discord.gg/"))
             return;
         message.delete().reason("Advertising Link with Message: " + message.getStrippedContent()).queue();
-        channel.sendMessage(member.getAsMention() + "! Do not advert other discord servers!").queue();
-        jda.getTextChannelById("318456047993880577").sendMessage(member.getAsMention() + " attempted to advert the following link: " + message.getContent()).queue();
+        Channels.LOG.getChannel().sendMessage(member.getAsMention() + " attempted to advert the following link: " + message.getContent()).queue();
+        C.privChannel(member, "You cannot advertise in the happyheart guild!");
+        if (!processedMessages.contains(message)) {
+            channel.sendMessage(member.getAsMention() + "! Do not advert other discord servers!").queue();
+            processedMessages.add(message);
+        }
     }
 
 }

@@ -84,7 +84,7 @@ public class Main extends ListenerAdapter {
         List<EventListener> eventListeners = new ArrayList<>();
 
         C.log("Loading AutoMod...");
-        eventListeners.add(new AutoMod("194473148161327104"));
+        eventListeners.add(new AutoMod());
 
         C.log("Loading Welcome Manager...");
         eventListeners.add(new WelcomeMessage());
