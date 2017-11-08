@@ -7,6 +7,7 @@ import com.kbrewster.hypixelapi.player.HypixelPlayer;
 
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,7 +32,8 @@ public class Hypixel {
     public static HashMap<String, String> getAllFields(HypixelPlayer hypixelPlayer) {
         HashMap<String, String> fields = new HashMap<>();
         if (hypixelPlayer != null) {
-            fields.put("Network Level", String.valueOf(hypixelPlayer.getAbsoluteLevel()));
+            DecimalFormat df = new DecimalFormat("#.#");
+            fields.put("Network Level", df.format(hypixelPlayer.getAbsoluteLevel()));
             fields.put("Rank", hypixelPlayer.getCurrentRank());
             fields.put("MC Version", hypixelPlayer.getMcVersionRp());
             fields.put("Bedwars Wins", String.valueOf(hypixelPlayer.getAchievements().getBedwarsWins()));
