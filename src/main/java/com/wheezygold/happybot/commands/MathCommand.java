@@ -30,6 +30,12 @@ public class MathCommand extends Command {
                 e.replySuccess("**Expression Evaluated!**\n**Result:**" + C.codeblock(result));
                 return;
             }
+            
+            if (e.getArgs().replace(" ", "").replace("π", "pi").equalsIgnoreCase("e^pi^i")) {
+                result = "-1";
+                e.replySuccess("**Expression Evaluated!**\n**Result:**" + C.codeblock(result));
+                return;
+            }
 
             try {
                 result = new Expression(e.getArgs()).eval().toPlainString();
