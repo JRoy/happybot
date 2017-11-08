@@ -1,9 +1,10 @@
 package com.wheezygold.happybot.util;
 
+import com.kbrewster.exceptions.APIException;
+import com.kbrewster.exceptions.InvalidPlayerException;
 import com.kbrewster.hypixelapi.HypixelAPI;
-import com.kbrewster.hypixelapi.exceptions.APIException;
-import com.kbrewster.hypixelapi.exceptions.InvalidPlayerException;
-import com.kbrewster.hypixelapi.player.Player;
+import com.kbrewster.hypixelapi.player.HypixelPlayer;
+
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,7 @@ public class Hypixel {
         api = new HypixelAPI(apikey);
     }
 
-    public Player getPlayer(String playerName) throws APIException {
+    public HypixelPlayer getPlayer(String playerName) throws APIException {
         try {
             return api.getPlayer(playerName);
         } catch (IOException e) {
@@ -27,10 +28,10 @@ public class Hypixel {
         return null;
     }
 
-    public static HashMap<String, String> getAllFields(Player hypixelPlayer) {
+    public static HashMap<String, String> getAllFields(HypixelPlayer hypixelPlayer) {
         HashMap<String, String> fields = new HashMap<>();
         if (hypixelPlayer != null) {
-            fields.put("Network Level", String.valueOf(hypixelPlayer.getNetworkLevel()));
+            fields.put("Network Level", String.valueOf(hypixelPlayer.getAbsoluteLevel()));
             fields.put("Rank", hypixelPlayer.getCurrentRank());
             fields.put("MC Version", hypixelPlayer.getMcVersionRp());
             fields.put("Bedwars Wins", String.valueOf(hypixelPlayer.getAchievements().getBedwarsWins()));
