@@ -2,8 +2,9 @@ package com.wheezygold.happybot.commands;
 
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
-import com.kbrewster.hypixelapi.exceptions.APIException;
-import com.kbrewster.hypixelapi.player.Player;
+
+import com.kbrewster.exceptions.APIException;
+import com.kbrewster.hypixelapi.player.HypixelPlayer;
 import com.wheezygold.happybot.util.Hypixel;
 import net.dv8tion.jda.core.EmbedBuilder;
 
@@ -26,7 +27,7 @@ public class HypixelCommand extends Command {
         if (!e.getArgs().isEmpty()) {
             if (hypixel.isValidPlayer(e.getArgs())) {
                 try {
-                    Player player = hypixel.getPlayer(e.getArgs());
+                    HypixelPlayer player = hypixel.getPlayer(e.getArgs());
                     EmbedBuilder embed = new EmbedBuilder()
                             .setTitle("Hypixel Player Statistics")
                             .setDescription("Listing statistics:")

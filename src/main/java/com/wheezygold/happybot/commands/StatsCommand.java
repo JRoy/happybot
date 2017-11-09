@@ -2,8 +2,9 @@ package com.wheezygold.happybot.commands;
 
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
-import com.kbrewster.hypixelapi.exceptions.APIException;
-import com.kbrewster.hypixelapi.player.Player;
+
+import com.kbrewster.exceptions.APIException;
+import com.kbrewster.hypixelapi.player.HypixelPlayer;
 import com.wheezygold.happybot.util.Hypixel;
 import com.wheezygold.happybot.util.YouTube;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -68,7 +69,7 @@ public class StatsCommand extends Command {
 
         @Override
         public void run() {
-            Player hypixelPlayer = null;
+            HypixelPlayer hypixelPlayer = null;
             try {
                 hypixelPlayer = hypixel.getPlayer("happyheart");
             } catch (APIException e1) {
