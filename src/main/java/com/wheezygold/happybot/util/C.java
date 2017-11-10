@@ -75,6 +75,16 @@ public class C {
     }
 
     /**
+     * Detects if a message contains a user mention.
+     *
+     * @param e The {@link com.jagrosh.jdautilities.commandclient.CommandEvent CommandEvent} where the mention is from.
+     * @return Returns if the message contains a mention.
+     */
+    public static boolean containsMention(CommandEvent e) {
+        return e.getMessage().getMentionedUsers().size() >= 1;
+    }
+
+    /**
      * Returns the perm message for a Role.
      *
      * @param r The role the message is made for.

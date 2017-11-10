@@ -5,6 +5,7 @@ import com.jagrosh.jdautilities.commandclient.CommandEvent;
 
 import com.kbrewster.exceptions.APIException;
 import com.kbrewster.hypixelapi.player.HypixelPlayer;
+import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Hypixel;
 import net.dv8tion.jda.core.EmbedBuilder;
 
@@ -25,6 +26,10 @@ public class HypixelCommand extends Command {
     @Override
     protected void execute(CommandEvent e) {
         if (!e.getArgs().isEmpty()) {
+            if (C.containsMention(e)) {
+                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                return;
+            }
             if (hypixel.isValidPlayer(e.getArgs())) {
                 try {
                     HypixelPlayer player = hypixel.getPlayer(e.getArgs());
