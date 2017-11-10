@@ -50,7 +50,7 @@ public class StatsCommand extends Command {
             e.reply(new EmbedBuilder()
                     .setTitle("Happyheart's YouTube Statistics")
                     .setDescription("Listing Statistics:")
-                    .setFooter("Stats provided by YouTube's Realtime API", "https://www.youtube.com/yts/img/favicon-vfl8qSV2F.ico")
+                    .setFooter("Stats provided by YouTube's Realtime API", "http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c545.png")
                     .addField("**Subscribers**", youTube.fetchSubs(), true)
                     .addField("**Videos**", youTube.fetchVids(), true)
                     .addField("**Views**", youTube.fetchViews(), true)
