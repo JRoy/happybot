@@ -6,6 +6,7 @@ import com.wheezygold.happybot.util.Roles;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageReaction;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -24,7 +25,13 @@ public class StarMessages extends ListenerAdapter {
                 e.getReaction().removeReaction().complete();
                 return;
             }
-            e.getChannel().getMessageById(e.getMessageId()).queue(this::handleGild);
+            e.getChannel().getMessageById(e.getMessageId()).queue(message -> {
+                if (e.getMember().getUser() == message.getAuthor()) {
+                    e.getReaction().removeReaction().complete();
+                    return;
+                }
+                handleGild(message);
+            });
         }
     }
 
