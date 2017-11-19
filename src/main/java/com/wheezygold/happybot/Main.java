@@ -135,6 +135,7 @@ public class Main extends ListenerAdapter {
                 new MentionCommand(),
                 new SpamCommand(),
                 new OgCommand(),
+                new FansCommand(),
                 new LockCommand(),
                 new UnlockCommand(),
                 new FanartCommand(),
