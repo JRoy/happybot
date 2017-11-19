@@ -34,7 +34,7 @@ public class UpdateCommand extends Command {
 
         @Override
         public void run() {
-            int exitCode = 0;
+            int exitCode;
             if (e.getArgs().equalsIgnoreCase("jenkins") || e.getArgs().equalsIgnoreCase("j")) {
                 e.reply(":white_check_mark: Downloading Update from Jenkins!");
                 exitCode = 20;
