@@ -1,6 +1,6 @@
 package com.wheezygold.happybot.theme;
 
-import com.wheezygold.happybot.exception.ThemeNotFoundException;
+import com.wheezygold.happybot.theme.exceptions.ThemeNotFoundException;
 import com.wheezygold.happybot.util.C;
 import net.dv8tion.jda.core.entities.Icon;
 

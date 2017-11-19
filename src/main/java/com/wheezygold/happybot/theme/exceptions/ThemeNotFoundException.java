@@ -1,4 +1,4 @@
-package com.wheezygold.happybot.exception;
+package com.wheezygold.happybot.theme.exceptions;
 
 public class ThemeNotFoundException extends Exception {
 
