@@ -11,6 +11,7 @@ public class UpdateCommand extends Command {
 
     public UpdateCommand() {
         this.name = "update";
+        this.arguments = "<j(enkins)/d(ropbox)>";
         this.help = "Downloads new code for the bot!";
         this.guildOnly = false;
         this.category = new Category("Bot Management");
@@ -33,7 +34,17 @@ public class UpdateCommand extends Command {
 
         @Override
         public void run() {
-            e.reply(":white_check_mark: Downloading Update!");
+            int exitCode = 0;
+            if (e.getArgs().equalsIgnoreCase("jenkins") || e.getArgs().equalsIgnoreCase("j")) {
+                e.reply(":white_check_mark: Downloading Update from Jenkins!");
+                exitCode = 20;
+            } else if (e.getArgs().equalsIgnoreCase("dropbox") || e.getArgs().equalsIgnoreCase("d")) {
+                e.reply(":white_check_mark: Downloading Update from Dropbox!");
+                exitCode = 10;
+            } else {
+                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                return;
+            }
             e.reply(":information_source: Restarting Bot...");
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -41,9 +52,8 @@ public class UpdateCommand extends Command {
                 e1.printStackTrace();
             }
             e.getJDA().shutdown();
-            C.dlFile("https://dl.dropbox.com/s/momoz7ciigj2msg/HappyBot.jar?dl=1", "HappyBot.jar");
-            C.log("The JDA instance has been shutdown...exiting the program.");
-            System.exit(0);
+            C.log("Updater - Updating Builds with exit code: " + String.valueOf(exitCode));
+            System.exit(exitCode);
         }
     }
 
