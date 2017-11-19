@@ -1,7 +1,9 @@
 package com.wheezygold.happybot.theme;
 
+import com.wheezygold.happybot.theme.exceptions.InvalidThemeFileException;
 import com.wheezygold.happybot.theme.exceptions.ThemeNotFoundException;
 import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Logger;
 import net.dv8tion.jda.core.entities.Icon;
 
 import java.io.File;
@@ -9,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -24,27 +27,38 @@ public class ThemeManager {
 	private void loadThemes() {
 		File[] rawThemes = new File("themes/").listFiles();
 
+        Logger.info("Loading Theme Manager...");
+
 		if (rawThemes == null || rawThemes.length == 0) {
-			C.log("No themes have been found!");
+            Logger.warn("No themes have been found!");
 			return;
 		}
 
-		C.log("Loaded Theme Files:");
+        Logger.info("Parsing Theme Files...");
 
 		for (File theme : rawThemes) {
-		    C.log("- " + theme.getName().split("[.]")[0]);
+		    if (!theme.isDirectory()) {
+                try {
+                    if (validateTheme(theme.getName(), false)) {
+                        parseThemeFileMeta(theme.getName(), new Scanner(theme));
+                        parseThemeFile(theme.getName(), new Scanner(theme));
+                    } else {
+                        Logger.error("Error Parsing Theme File: " + theme.getName());
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (InvalidThemeFileException e) {
+                    Logger.error(e.getMessage());
+                }
+            }
         }
 
-		C.log("Parsing Theme Files...");
 
-		for (File theme : rawThemes) {
-			try {
-                parseThemeFileMeta(theme.getName(), new Scanner(theme));
-				parseThemeFile(theme.getName(), new Scanner(theme));
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
+        Logger.info("Loaded Themes:");
+        for (Object themeLister : getThemes().toArray()) {
+            Logger.info("- " + themeLister);
+        }
+
 	}
 
 	private void parseThemeFile(String themeName, Scanner themeFileScanner) {
@@ -72,6 +86,38 @@ public class ThemeManager {
         }
     }
 
+    public boolean validateTheme(String themeName, boolean parse) throws FileNotFoundException, InvalidThemeFileException {
+	    Scanner validateScanner = new Scanner(new File("themes/" + themeName));
+        List<String> metaTokens = new ArrayList<>();
+        while (validateScanner.hasNextLine()) {
+            String curLine = validateScanner.nextLine();
+            /*
+            MetaData      :    title    :     Happyheart
+             ^^^^^^             ^^^            ^^^^^^
+             Token 1           Token 2         Token 3
+             */
+            String[] lineTokens = curLine.split("[:]");
+            if (lineTokens[0].equalsIgnoreCase("MetaData")) {
+                if (lineTokens.length != 3)
+                    throw new InvalidThemeFileException("Unparseable line in \"" + themeName + "\": " + curLine);
+                metaTokens.add(lineTokens[1]);
+            } else {
+                if (lineTokens.length != 2) {
+                    throw new InvalidThemeFileException("Unparseable line in \"" + themeName + "\": " + curLine);
+                }
+            }
+        }
+        if (metaTokens.contains("title") && metaTokens.contains("icon") && metaTokens.contains("nickname")) {
+            if (parse) {
+                File parseFile = new File("themes/" + themeName);
+                parseThemeFile(themeName, new Scanner(parseFile));
+                parseThemeFileMeta(themeName, new Scanner(parseFile));
+            }
+            return true;
+        }
+        return false;
+    }
+
 	public ArrayList<String> getThemes() {
 	    ArrayList<String> array = new ArrayList<>();
 	    for (HashMap.Entry<String, HashMap<String, String>> curEntry : themeData.entrySet()) {
@@ -80,13 +126,22 @@ public class ThemeManager {
 	    return array;
     }
 
-    public HashMap<String, String> getThemeData(String themeName) throws ThemeNotFoundException {
+    public void removeTheme(String themeName) throws ThemeNotFoundException {
+	    if (themeData.get(themeName) == null)
+	        throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
+	    if (themeMetaData.get(themeName) == null)
+            throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme meta data.");
+	    themeData.remove(themeName);
+	    themeMetaData.remove(themeName);
+    }
+
+    HashMap<String, String> getThemeData(String themeName) throws ThemeNotFoundException {
 	    if (themeData.get(themeName) == null)
 	        throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
         return themeData.get(themeName);
     }
 
-    public HashMap<String, String> getThemeMetaData(String themeName) throws ThemeNotFoundException {
+    HashMap<String, String> getThemeMetaData(String themeName) throws ThemeNotFoundException {
         if (themeMetaData.get(themeName) == null)
             throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
         return themeMetaData.get(themeName);

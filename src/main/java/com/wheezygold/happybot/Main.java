@@ -145,6 +145,7 @@ public class Main extends ListenerAdapter {
                 new DemoteCommand(),
                 new StaffManagementCommand(),
                 new ThemeCommand(themeManager),
+                new ThemeManagerCommand(themeManager),
                 new ShutdownCommand(),
                 new UpdateCommand(),
                 new EvalCommand());
