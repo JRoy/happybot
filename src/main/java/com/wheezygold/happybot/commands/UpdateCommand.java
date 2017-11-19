@@ -3,6 +3,7 @@ package com.wheezygold.happybot.commands;
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Logger;
 import com.wheezygold.happybot.util.Roles;
 
 import java.util.concurrent.TimeUnit;
@@ -52,7 +53,7 @@ public class UpdateCommand extends Command {
                 e1.printStackTrace();
             }
             e.getJDA().shutdown();
-            C.log("Updater - Updating Builds with exit code: " + String.valueOf(exitCode));
+            Logger.log("Updater - Updating Builds with exit code: " + String.valueOf(exitCode));
             System.exit(exitCode);
         }
     }

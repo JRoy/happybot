@@ -6,13 +6,13 @@ import com.wheezygold.happybot.events.*;
 import com.wheezygold.happybot.theme.ThemeManager;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Hypixel;
+import com.wheezygold.happybot.util.Logger;
 import com.wheezygold.happybot.util.TwitterCentre;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.events.ShutdownEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.EventListener;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -35,7 +35,12 @@ public class Main extends ListenerAdapter {
     private static ThemeManager themeManager;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
-        C.log("Initializing the bot...");
+
+        new Logger();
+
+        Logger.info("Initializing the bot...");
+
+        Logger.log("Loading Config Files...");
         createConfigFiles();
 
 
@@ -53,12 +58,14 @@ public class Main extends ListenerAdapter {
         //Load our SQL Stuff
 //        SQLManager sqlManager = new SQLManager("root", sqlpass);
 
+
+        Logger.info("Loading the Hypixel API...");
         loadHypixelAPI();
 
         List<EventListener> eventListeners = loadEventListeners();
         loadClientBuilder();
 
-        C.log("Constructing the JDA Instance...");
+        Logger.info("Constructing the JDA Instance...");
         JDABuilder builder = new JDABuilder(AccountType.BOT)
                 .setToken(token)
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
@@ -71,7 +78,7 @@ public class Main extends ListenerAdapter {
 
 //        new RichPresence((JDAImpl) jda);
 
-        C.log("Bot has been loaded!");
+        Logger.info("Bot has been loaded!");
     }
 
     private static ThemeManager loadThemeManager() {
@@ -81,23 +88,23 @@ public class Main extends ListenerAdapter {
     private static List<EventListener> loadEventListeners() {
         List<EventListener> eventListeners = new ArrayList<>();
 
-        C.log("Loading AutoMod...");
+        Logger.info("Loading AutoMod...");
         eventListeners.add(new AutoMod());
 
-        C.log("Loading Welcome Manager...");
+        Logger.info("Loading Welcome Manager...");
         eventListeners.add(new WelcomeMessage());
 
-        C.log("Loading AutoReact...");
+        Logger.info("Loading AutoReact...");
         eventListeners.add(new AutoReact());
 
-        C.log("Loading Message Starer...");
+        Logger.info("Loading Message Starer...");
         eventListeners.add(new StarMessages());
 
         return eventListeners;
     }
 
     private static void loadClientBuilder() {
-        C.log("Loading the command builder...");
+        Logger.info("Loading the command builder...");
 
         //Creates JDA-Util's Command Builder so we can use it later.
         clientBuilder = new CommandClientBuilder();
@@ -108,7 +115,7 @@ public class Main extends ListenerAdapter {
         //Used for the prefix of the bot, so we have an easy life.
         clientBuilder.setPrefix("^");
 
-        C.log("Adding commands...");
+        Logger.info("Adding commands...");
 
         //Loads all of our commands into JDA-Util's command handler.
         clientBuilder.addCommands(
@@ -152,7 +159,7 @@ public class Main extends ListenerAdapter {
             apiKey = hypixelReader.readLine();
             hypixelReader.close();
         } catch (NullPointerException hex) {
-            C.log("Error loading the Hypixel api-key: " + hex.getMessage());
+            Logger.error("Error loading the Hypixel api-key: " + hex.getMessage());
         }
         hypixel = new Hypixel(apiKey);
     }
@@ -167,12 +174,12 @@ public class Main extends ListenerAdapter {
             aSecret = twitterReader.readLine();
             twitterReader.close();
         } catch (NullPointerException tex) {
-            C.log("Error loading the Twitter credentials: " + tex.getMessage());
+            Logger.error("Error loading the Twitter credentials: " + tex.getMessage());
         }
 
-        C.log("Loading Twitter Centre...");
+        Logger.info("Loading Twitter Centre...");
         twitterCentre = new TwitterCentre(cKey, cSecret, aToken, aSecret);
-        C.log("Loading Twitter Monitor...");
+        Logger.info("Loading Twitter Monitor...");
         tweetMonitor = new TweetMonitor(cKey, cSecret, aToken, aSecret);
     }
 
@@ -183,7 +190,7 @@ public class Main extends ListenerAdapter {
             configReader.close();
             return line;
         } catch (NullPointerException cex) {
-            C.log(errorMessage);
+            Logger.error(errorMessage);
         }
         return "";
     }
@@ -219,10 +226,6 @@ public class Main extends ListenerAdapter {
         return file;
     }
 
-    @Override
-    public void onShutdown(ShutdownEvent event) {
-        C.log("The JDA instance has been shutdown!");
-    }
 
     /**
      * An easy way to get our JDA Instance!
@@ -252,15 +255,15 @@ public class Main extends ListenerAdapter {
             BufferedReader themereader = new BufferedReader(new FileReader("theme.yml"));
             //We will get the token just in case, I don't know, maybe we want to log in.
             theme = themereader.readLine();
-            C.log("Theme Loaded: " + theme + "!");
+            Logger.info("Theme Loaded: " + theme + "!");
             themereader.close();
         } catch (NullPointerException e) {
             //Let them know they are going to die.
-            C.log("Error receiving your theme: " + e.getMessage());
+            Logger.error("Error receiving your theme: " + e.getMessage());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            C.log("Error receiving your theme: " + e.getMessage());
+            Logger.error("Error receiving your theme: " + e.getMessage());
         }
     }
 

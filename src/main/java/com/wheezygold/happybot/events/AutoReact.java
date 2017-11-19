@@ -3,6 +3,7 @@ package com.wheezygold.happybot.events;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Emotes;
+import com.wheezygold.happybot.util.Logger;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -10,7 +11,7 @@ public class AutoReact extends ListenerAdapter {
 
 
     public AutoReact() {
-        C.log("AutoReact Loaded!");
+        Logger.info("AutoReact Loaded!");
     }
 
     @Override
