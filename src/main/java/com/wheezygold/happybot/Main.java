@@ -167,7 +167,10 @@ public class Main extends ListenerAdapter {
     }
 
     private static void loadTweetMonitor() throws IOException {
-        String cKey = null, cSecret = null, aToken = null, aSecret = null;
+        String cKey = null;
+        String cSecret = null;
+        String  aToken = null;
+        String aSecret = null;
         BufferedReader twitterReader = new BufferedReader(new FileReader("twitter.yml"));
         try {
             cKey = twitterReader.readLine();

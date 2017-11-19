@@ -35,7 +35,7 @@ public class ThemeManagerCommand extends Command {
             }
             String[] args = e.getArgs().split("[ ]");
             if (args[0].equalsIgnoreCase("load")) {
-                if (!(args.length == 3)) {
+                if (args.length != 3) {
                     e.replyError("**Correct Usage:** ^" + name + " " + arguments);
                     return;
                 }

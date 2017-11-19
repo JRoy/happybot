@@ -135,13 +135,13 @@ public class ThemeManager {
 	    themeMetaData.remove(themeName);
     }
 
-    HashMap<String, String> getThemeData(String themeName) throws ThemeNotFoundException {
+    protected HashMap<String, String> getThemeData(String themeName) throws ThemeNotFoundException {
 	    if (themeData.get(themeName) == null)
 	        throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
         return themeData.get(themeName);
     }
 
-    HashMap<String, String> getThemeMetaData(String themeName) throws ThemeNotFoundException {
+    protected HashMap<String, String> getThemeMetaData(String themeName) throws ThemeNotFoundException {
         if (themeMetaData.get(themeName) == null)
             throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
         return themeMetaData.get(themeName);

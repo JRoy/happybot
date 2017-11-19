@@ -14,7 +14,7 @@ public class SQLManager {
 
     private static Sql2o sql2o;
 
-    public SQLManager(String user, String password) {
+    public SQLManager(String userName, String password) {
         sql2o = new Sql2o("jdbc:mysql://127.0.0.1:3306/coins", "root", password);
         registerCollector(UserToken.class, ((obj, collectedData) -> {
             collectedData.table("user");

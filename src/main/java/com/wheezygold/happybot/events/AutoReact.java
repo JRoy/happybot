@@ -1,6 +1,5 @@
 package com.wheezygold.happybot.events;
 
-import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Emotes;
 import com.wheezygold.happybot.util.Logger;

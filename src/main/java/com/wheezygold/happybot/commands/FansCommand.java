@@ -21,11 +21,9 @@ public class FansCommand extends Command {
             e.reply("Loading...");
             int affected = 0;
             for (Member curM : C.getGuild().getMembers()) {
-                if (!curM.getUser().isBot()) {
-                    if (!C.hasRole(curM, Roles.FANS)) {
-                        C.giveRole(curM, Roles.FANS);
-                        affected++;
-                    }
+                if (!C.hasRole(curM, Roles.FANS) && !curM.getUser().isBot()) {
+                    C.giveRole(curM, Roles.FANS);
+                    affected++;
                 }
             }
             e.replySuccess("All Done!\n" + String.valueOf(affected) + " Users Affected!");
