@@ -4,10 +4,7 @@ import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.*;
 import com.wheezygold.happybot.theme.ThemeManager;
-import com.wheezygold.happybot.util.C;
-import com.wheezygold.happybot.util.Hypixel;
-import com.wheezygold.happybot.util.Logger;
-import com.wheezygold.happybot.util.TwitterCentre;
+import com.wheezygold.happybot.util.*;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -110,7 +107,7 @@ public class Main extends ListenerAdapter {
         clientBuilder = new CommandClientBuilder();
 
         //Used for "ownerOnly" commands in commands.
-        clientBuilder.setOwnerId("194473148161327104");
+        clientBuilder.setOwnerId(Constants.OWNER_ID.get());
 
         //Used for the prefix of the bot, so we have an easy life.
         clientBuilder.setPrefix("^");

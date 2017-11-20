@@ -155,7 +155,7 @@ public class C {
      * @return {@link net.dv8tion.jda.core.entities.Guild Guild} of happyheart fanbase.
      */
     public static Guild getGuild() {
-        return Main.getJda().getGuildById("237363812842340363");
+        return Main.getJda().getGuildById(Constants.GUILD_ID.get());
     }
 
     /**
@@ -164,7 +164,7 @@ public class C {
      * @return {@link net.dv8tion.jda.core.managers.GuildController GuildController} of happyheart guild.
      */
     public static GuildController getGuildCtrl() {
-        return Main.getJda().getGuildById("237363812842340363").getController();
+        return getGuild().getController();
     }
 
     /**

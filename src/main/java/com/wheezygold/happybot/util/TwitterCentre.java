@@ -8,7 +8,7 @@ public class TwitterCentre {
 
     private static Twitter twitter;
 
-    private static final long happyid = Long.parseLong("865017489213673472");
+    private static final long happyid = Long.parseLong(Constants.HAPPYHEART_TWITTER_ID.get());
 
     public TwitterCentre(String cKey, String cSecret, String aToken, String aSecret) {
         ConfigurationBuilder cb = new ConfigurationBuilder();
