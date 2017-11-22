@@ -17,7 +17,7 @@ public class MoneyCommand extends Command {
     public MoneyCommand(SQLManager sqlManager) {
         this.name = "money";
         this.help = "Command for your money needs.";
-        this.arguments = "<create/claim/bal/baltop>";
+        this.arguments = "<create/claim/check/bal/baltop>";
         this.guildOnly = true;
         this.category = new Category("Fun");
         this.sqlManager = sqlManager;
@@ -61,7 +61,7 @@ public class MoneyCommand extends Command {
                         }
                     }
                 } else {
-                    e.replyError("You do not have an account! Please run `^money create` to make one!");
+                    e.replyError(needAccount());
                 }
             } catch (SQLException e1) {
                 e.replyError("Oof error.");
@@ -72,7 +72,7 @@ public class MoneyCommand extends Command {
                 if (sqlManager.isActiveUser(e.getMember().getUser().getId())) {
                     e.reply("Your current balance is **" + C.prettyNum(sqlManager.getUser(e.getMember().getUser().getId()).getCoins()) + "** coins!");
                 } else {
-                    e.replyError("You do not have an account! Please run `^money create` to make one!");
+                    e.replyError(needAccount());
                 }
             } catch (SQLException e1) {
                 e.replyError("Oof error.");
@@ -95,9 +95,31 @@ public class MoneyCommand extends Command {
             } catch (SQLException e1) {
                 e.replyError("Oof error.");
             }
+        } else if (args[0].equalsIgnoreCase("check")) {
+            try {
+                if (sqlManager.isActiveUser(e.getMember().getUser().getId())) {
+                    int dif = new Long(System.currentTimeMillis()).intValue() - new Long(sqlManager.getUser(e.getMember().getUser().getId()).getEpoch()).intValue();
+                    int fin = (dif / 1000) / 60;
+                    String unit = " minutes!";
+                    if (fin > 60) {
+                        fin = fin / 60;
+                        unit = " hours!";
+                    }
+                    e.reply("You can reclaim your daily reward in: " + fin + unit);
+                } else {
+                    e.replyError(needAccount());
+                }
+            } catch (SQLException e1) {
+                e.reply("Oof error.");
+            }
         } else {
             e.replyError("**Correct Usage:** ^" + name + " " + arguments);
         }
 
     }
+
+    private String needAccount() {
+        return "You do not have an account! Please run `^money create` to make one!";
+    }
+
 }
