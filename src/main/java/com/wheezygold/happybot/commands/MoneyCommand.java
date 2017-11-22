@@ -46,14 +46,14 @@ public class MoneyCommand extends Command {
                 return;
             }
             if (!StringUtils.isNumeric(args[2])) {
-                e.replyError("You have supplied an invalid number!");
+                e.replyError("**Correct Usage:** ^" + name + " admin <give/take> **<amount>** <user>");
             }
             if (args[1].equalsIgnoreCase("give")) {
                 try {
                     Member target = C.getMentionedMember(e);
                     UserToken token = sqlManager.getUser(target.getUser().getId());
                     token.addCoins(Integer.parseInt(args[2]));
-                    e.replySuccess(C.bold("Success: ") + "Applied " + args[2] + " coins to " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(String.valueOf(token.getCoins())));
+                    e.replySuccess(C.bold("Success: ") + "Applied " + args[2] + " coins to " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
                 } catch (SQLException e1) {
                     e.replyError("Oof error.");
                 }
@@ -62,7 +62,7 @@ public class MoneyCommand extends Command {
                     Member target = C.getMentionedMember(e);
                     UserToken token = sqlManager.getUser(target.getUser().getId());
                     token.takeCoins(Integer.parseInt(args[2]));
-                    e.replySuccess(C.bold("Success: ") + "Took " + args[2] + " coins from " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(String.valueOf(token.getCoins())));
+                    e.replySuccess(C.bold("Success: ") + "Took " + args[2] + " coins from " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
                 } catch (SQLException e1) {
                     e.replyError("Oof error.");
                 }
