@@ -301,4 +301,31 @@ public class C {
         return "```" + value + "```";
     }
 
+    /**
+     * Returns a bold string.
+     * @param value Text to be bold.
+     * @return The bold text.
+     */
+    public static String bold(String value) {
+        return "**" + value + "**";
+    }
+
+    /**
+     * Returns an italicized string.
+     * @param value Text to be italicized.
+     * @return The italicized text.
+     */
+    public static String slant(String value) {
+        return "*" + value + "*";
+    }
+
+    /**
+     * Returns an underlined string.
+     * @param value Text to be underlined.
+     * @return The underlined text.
+     */
+    public static String underline(String value) {
+        return "__" + value + "__";
+    }
+
 }

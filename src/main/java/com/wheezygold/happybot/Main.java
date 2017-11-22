@@ -3,6 +3,7 @@ package com.wheezygold.happybot;
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.*;
+import com.wheezygold.happybot.sql.SQLManager;
 import com.wheezygold.happybot.theme.ThemeManager;
 import com.wheezygold.happybot.util.*;
 import net.dv8tion.jda.core.AccountType;
@@ -28,6 +29,7 @@ public class Main extends ListenerAdapter {
     private static String theme;
     private static TwitterCentre twitterCentre;
     private static TweetMonitor tweetMonitor;
+    private static SQLManager sqlManager;
     private static Hypixel hypixel;
     private static ThemeManager themeManager;
 
@@ -45,7 +47,7 @@ public class Main extends ListenerAdapter {
         theme = readFirstLineOfFile("theme.yml", "Error receiving theme");
 
         //Always init your strings! (Techno-coder: Wheezy, you are a sad, sad person)
-        String sqlPassword = null;
+        String sqlPassword;
         sqlPassword = readFirstLineOfFile("sql.yml", "Error receiving your SQL Password");
 
         themeManager = loadThemeManager();
@@ -53,7 +55,7 @@ public class Main extends ListenerAdapter {
         loadTweetMonitor();
 
         //Load our SQL Stuff
-//        SQLManager sqlManager = new SQLManager("root", sqlpass);
+        sqlManager = new SQLManager(sqlPassword);
 
 
         Logger.info("Loading the Hypixel API...");
@@ -127,6 +129,8 @@ public class Main extends ListenerAdapter {
                 new RandomSeasonCommand(),
                 new StatsCommand(hypixel),
                 new HypixelCommand(hypixel),
+                new MoneyCommand(sqlManager),
+                new GambleCommand(sqlManager),
                 new WelcomeStatsCommand(),
                 new ServersCommand(),
                 new MentionCommand(),

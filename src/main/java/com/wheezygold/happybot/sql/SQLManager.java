@@ -1,69 +1,80 @@
 package com.wheezygold.happybot.sql;
 
-import com.wheezygold.happybot.sql.exceptions.NoCollectorRegistredException;
 import com.wheezygold.happybot.util.C;
-import org.junit.Assert;
-import org.sql2o.Sql2o;
+import com.wheezygold.happybot.util.Constants;
+import com.wheezygold.happybot.util.Logger;
+import net.dv8tion.jda.core.entities.Member;
 
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SQLManager {
 
-    private Map<Class, Collector> collectors = new HashMap<>();
+    private Connection connection;
+    private String password;
+    private SQLManager instance;
 
-    private static Sql2o sql2o;
+    public SQLManager(String sqlPassword) {
+        password = sqlPassword;
+        Logger.info("Loading SQLManager...");
+        try {
+            connect();
+            Logger.info("Connected to SQL!");
+        } catch (SQLException | ClassNotFoundException e) {
+            Logger.error("Error connecting to the SQL Database: " + e.getMessage());
+        }
+        instance = this;
+    }
 
-    public SQLManager(String userName, String password) {
-        sql2o = new Sql2o("jdbc:mysql://127.0.0.1:3306/coins", "root", password);
-        registerCollector(UserToken.class, ((obj, collectedData) -> {
-            collectedData.table("user");
+    public UserToken getUser(String userId) throws SQLException {
+        if (isActiveUser(userId))
+            return new UserToken(instance, userId);
+        return null;
+    }
 
-            UserToken userToken = (UserToken) obj;
-            collectedData.data("coins", userToken.getCoins());
-            collectedData.data("userid", userToken.getUserid());
-//            collectedData.data("epoch", userToken.getEpoch());
-        }));
-        UserToken userToken = new UserToken();
-        userToken.setCoins(69);
-        userToken.setUserid("12345678910");
-        Long key = insert(userToken).insertAndFetchKey();
-        Assert.assertNotNull(key);
-        select(userToken).what("coins").where("id", 1).execute(resultSet -> {
-            while (resultSet.next()) {
-                C.log(String.valueOf(resultSet.getInt(1)));
+    public void newUser(String userId) throws SQLException {
+        if (!isActiveUser(userId)) {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO user (userid, coins, epoch) VALUES (?, ?, ?);");
+            statement.setString(1, userId);
+            statement.setInt(2, 0);
+            statement.setLong(3, 0);
+            statement.execute();
+        }
+    }
+
+    public boolean isActiveUser(String userId) throws SQLException {
+        ResultSet result = connection.createStatement().executeQuery("SELECT * FROM user WHERE userid = '" + userId + "';");
+        return result.next();
+    }
+
+    public Map<Integer, Map<Member, Integer>> getTop(int amount) throws SQLException {
+        Map<Integer, Map<Member, Integer>> topBal = new HashMap<>();
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM user ORDER BY coins DESC;");
+        for (int i = 0; i < amount; i++) {
+            resultSet.next();
+            topBal.put(i + 1, new HashMap<>());
+            topBal.get(i + 1).put(C.getGuild().getMemberById(resultSet.getString("userid")), resultSet.getInt("coins"));
+        }
+        return topBal;
+    }
+
+    private void connect() throws SQLException, ClassNotFoundException {
+        if (connection != null && !connection.isClosed()) {
+            return;
+        }
+
+        synchronized (this) {
+            if (connection != null && !connection.isClosed()) {
+                return;
             }
-            return null;
-        });
-
-    }
-
-    public void registerCollector(Class clazz, Collector collector) {
-        collectors.put(clazz, collector);
-    }
-
-    public Inserter insert(Object obj) {
-        Collector collector = collectors.get(obj.getClass());
-        if (collector == null) {
-            throw new NoCollectorRegistredException();
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/" + Constants.SQL_DATABASE_NAME.get(), Constants.SQL_USERNAME.get(), password);
         }
-        return new Inserter(collector, sql2o, obj);
+
     }
 
-    public Updater update(Object obj) {
-        Collector collector = collectors.get(obj.getClass());
-        if (collector == null) {
-            throw new NoCollectorRegistredException();
-        }
-        return new Updater(collector, sql2o, obj);
+    public Connection getConnection() {
+        return connection;
     }
-
-    public Selector select(Object obj) {
-        Collector collector = collectors.get(obj.getClass());
-        if (collector == null) {
-            throw new NoCollectorRegistredException();
-        }
-        return new Selector(collector, sql2o, obj);
-    }
-
 }
