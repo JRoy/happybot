@@ -38,6 +38,14 @@ public class UserToken {
         return coins;
     }
 
+    public void addCoins(int increment) throws SQLException {
+        setCoins(coins + increment);
+    }
+
+    public void takeCoins(int subtraction) throws SQLException {
+        setCoins(coins - subtraction);
+    }
+
     public long getEpoch() {
         return epoch;
     }
