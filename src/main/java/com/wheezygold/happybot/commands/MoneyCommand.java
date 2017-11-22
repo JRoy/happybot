@@ -99,13 +99,18 @@ public class MoneyCommand extends Command {
             try {
                 if (sqlManager.isActiveUser(e.getMember().getUser().getId())) {
                     int dif = new Long(System.currentTimeMillis()).intValue() - new Long(sqlManager.getUser(e.getMember().getUser().getId()).getEpoch()).intValue();
-                    int fin = (dif / 1000) / 60;
-                    String unit = " minutes!";
-                    if (fin > 60) {
-                        fin = fin / 60;
-                        unit = " hours!";
+                    int wait = 24 - (((dif / 1000) / 60) / 60);
+                    System.out.print(wait);
+                    if (dif >= 86400000) {
+                        e.reply("You can reclaim your daily reward RIGHT NOW YOU NUT!");
+                        return;
                     }
-                    e.reply("You can reclaim your daily reward in: " + fin + unit);
+                    String unit = " hours!";
+                    if (wait < 1) {
+                        wait = wait * 60;
+                        unit = " minutes!";
+                    }
+                    e.reply("You can reclaim your daily reward in: " + wait + unit);
                 } else {
                     e.replyError(needAccount());
                 }
