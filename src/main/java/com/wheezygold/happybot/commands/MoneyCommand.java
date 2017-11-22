@@ -102,7 +102,7 @@ public class MoneyCommand extends Command {
                     int wait = 24 - (((dif / 1000) / 60) / 60);
                     System.out.print(wait);
                     if (dif >= 86400000) {
-                        e.reply("You can reclaim your daily reward RIGHT NOW YOU NUT!");
+                        e.reply("You can reclaim your daily reward RIGHT NOW YOU DUM!");
                         return;
                     }
                     String unit = " hours!";
