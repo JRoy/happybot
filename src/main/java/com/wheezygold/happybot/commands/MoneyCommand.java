@@ -37,6 +37,13 @@ public class MoneyCommand extends Command {
                 e.replyError(C.permMsg(Roles.ADMIN));
                 return;
             }
+
+//            if (args.length >= 2) {
+//                if (args[1].equalsIgnoreCase("reset-time")) {
+//
+//                }
+//            }
+
             if (!(args.length >= 3)) {
                 e.replyError("**Correct Usage:** ^" + name + " admin **<give/take> <amount> <user>**");
                 return;
@@ -86,14 +93,23 @@ public class MoneyCommand extends Command {
             try {
                 if (sqlManager.isActiveUser(e.getMember().getUser().getId())) {
                     UserToken userToken = sqlManager.getUser(e.getMember().getUser().getId());
+                    int reward = payout(userToken.getUserId());
                     if (userToken.getEpoch() == 0) {
-                        userToken.setCoins(userToken.getCoins() + 200);
+                        userToken.addCoins(reward);
                         userToken.setEpoch(System.currentTimeMillis());
+                        if (reward != 200) {
+                            e.replySuccess("Here is your FIRST daily money nose! +" + String.valueOf(reward) + "! \n+" + String.valueOf(reward - 200) + " Bonus!");
+                            return;
+                        }
                         e.replySuccess("Here is your FIRST daily money nose! +200");
                     } else {
                         if ((System.currentTimeMillis() - userToken.getEpoch()) >= 86400000) {
-                            userToken.setCoins(userToken.getCoins() + 200);
+                            userToken.addCoins(reward);
                             userToken.setEpoch(System.currentTimeMillis());
+                            if (reward != 200) {
+                                e.replySuccess("Here is your daily money nose! +" + String.valueOf(reward) + "! \n+" + String.valueOf(reward - 200) + " Bonus!");
+                                return;
+                            }
                             e.replySuccess("Here is your daily money nose! +200");
                         } else {
                             e.replyError("You may only claim liquid money once a day!!1!");
@@ -164,6 +180,18 @@ public class MoneyCommand extends Command {
 
     private String needAccount() {
         return "You do not have an account! Please run `^money create` to make one!";
+    }
+
+    private int payout(String userId) {
+        int reward = 200;
+        Member member = C.getGuild().getMemberById(userId);
+        if (C.hasRole(member, Roles.HELPER)) {
+            reward = reward + 5;
+        }
+        if (C.hasRole(member, Roles.OG)) {
+            reward = reward + 5;
+        }
+        return reward;
     }
 
 }

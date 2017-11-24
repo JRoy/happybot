@@ -53,6 +53,9 @@ public class SQLManager {
         ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM user ORDER BY coins DESC;");
         for (int i = 0; i < amount; i++) {
             resultSet.next();
+            if (C.getGuild().getMemberById(resultSet.getString("userid")) == null) {
+                resultSet.next();
+            }
             topBal.put(i + 1, new HashMap<>());
             topBal.get(i + 1).put(C.getGuild().getMemberById(resultSet.getString("userid")), resultSet.getInt("coins"));
         }
