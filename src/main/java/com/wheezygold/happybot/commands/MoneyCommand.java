@@ -38,11 +38,27 @@ public class MoneyCommand extends Command {
                 return;
             }
 
-//            if (args.length >= 2) {
-//                if (args[1].equalsIgnoreCase("reset-time")) {
-//
-//                }
-//            }
+            if (args.length >= 2) {
+                if (args[1].equalsIgnoreCase("reset-time")) {
+                    if (C.containsMention(e)) {
+                        if (sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
+                            try {
+                                sqlManager.getUser(C.getMentionedMember(e).getUser().getId()).setEpoch(0);
+                                e.reply("Reset target users time!");
+                                return;
+                            } catch (SQLException e1) {
+                                e.replyError("Oof Error.");
+                            }
+                        } else {
+                            e.replyError("Target user does not have an account");
+                            return;
+                        }
+                    } else {
+                        e.replyError("**Correct Usage:** ^" + name + " admin reset-time **<user>**");
+                        return;
+                    }
+                }
+            }
 
             if (!(args.length >= 3)) {
                 e.replyError("**Correct Usage:** ^" + name + " admin **<give/take> <amount> <user>**");
@@ -52,9 +68,17 @@ public class MoneyCommand extends Command {
                 e.replyError("**Correct Usage:** ^" + name + " admin <give/take> <amount> **<user>**");
                 return;
             }
+
+            if (!sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
+                e.replyError("**Correct Usage:** ^" + name + " admin <give/take> <amount> **<user>**");
+                return;
+            }
+
             if (!StringUtils.isNumeric(args[2])) {
                 e.replyError("**Correct Usage:** ^" + name + " admin <give/take> **<amount>** <user>");
+                return;
             }
+
             if (args[1].equalsIgnoreCase("give")) {
                 try {
                     Member target = C.getMentionedMember(e);
@@ -153,17 +177,18 @@ public class MoneyCommand extends Command {
         } else if (args[0].equalsIgnoreCase("check")) {
             try {
                 if (sqlManager.isActiveUser(e.getMember().getUser().getId())) {
-                    int dif = new Long(System.currentTimeMillis()).intValue() - new Long(sqlManager.getUser(e.getMember().getUser().getId()).getEpoch()).intValue();
+                    UserToken userToken = (sqlManager.getUser(e.getMember().getUser().getId()));
+                    int dif = new Long(System.currentTimeMillis()).intValue() - new Long(userToken.getEpoch()).intValue();
                     int wait = 24 - (((dif / 1000) / 60) / 60);
                     System.out.print(wait);
-                    if (dif >= 86400000) {
+                    if (dif >= 86400000 || userToken.getEpoch() == 0) {
                         e.reply("You can reclaim your daily reward RIGHT NOW YOU DUM!");
                         return;
                     }
-                    String unit = " hours!";
+                    String unit = " hour(s)!";
                     if (wait < 1) {
                         wait = wait * 60;
-                        unit = " minutes!";
+                        unit = " minute(s)!";
                     }
                     e.reply("You can reclaim your daily reward in: " + wait + unit);
                 } else {

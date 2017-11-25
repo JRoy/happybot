@@ -48,6 +48,16 @@ public class SQLManager {
         return result.next();
     }
 
+    public boolean isActiveUserH(String userId) {
+        try {
+            ResultSet result = connection.createStatement().executeQuery("SELECT * FROM user WHERE userid = '" + userId + "';");
+            return result.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public Map<Integer, Map<Member, Integer>> getTop(int amount) throws SQLException {
         Map<Integer, Map<Member, Integer>> topBal = new HashMap<>();
         ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM user ORDER BY coins DESC;");
