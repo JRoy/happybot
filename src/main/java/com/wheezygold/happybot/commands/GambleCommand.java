@@ -79,7 +79,7 @@ public class GambleCommand extends Command {
 
             if (p < 0.5) {
                 userToken.addCoins(bet);
-                e.reply("YOU BET ON YEEZY WELL! +" + String.valueOf(bet) + " coins!");
+                e.reply(e.getMember().getAsMention() + " YOU BET ON YEEZY WELL! +" + String.valueOf(bet) + " coins!");
             } else {
                 userToken.takeCoins(bet);
                 e.reply("Should have aimed smaller... -" + String.valueOf(bet) + " coins.");
