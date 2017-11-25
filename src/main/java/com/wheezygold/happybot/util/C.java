@@ -22,6 +22,7 @@ import java.util.Objects;
 /**
  * The C Class provides lots of *sometimes* useful methods that make things ez-pz.
  */
+@SuppressWarnings("ConstantConditions")
 public class C {
 
     /**
@@ -56,6 +57,7 @@ public class C {
      *
      * @param s Message that you wish to log in the bot format.
      */
+    @Deprecated
     public static void log(String s) {
         System.out.println("[HappyBot] " + s);
     }
