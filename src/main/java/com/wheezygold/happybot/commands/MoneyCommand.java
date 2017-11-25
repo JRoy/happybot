@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.sql.SQLException;
 import java.util.Map;
 
+@SuppressWarnings("ConstantConditions")
 public class MoneyCommand extends Command {
 
     private SQLManager sqlManager;
@@ -215,6 +216,21 @@ public class MoneyCommand extends Command {
         }
         if (C.hasRole(member, Roles.OG)) {
             reward = reward + 5;
+        }
+        if (C.hasRole(member, Roles.REGULAR)) {
+            reward++;
+        }
+        if (C.hasRole(member, Roles.TRYHARD)) {
+            reward++;
+        }
+        if (C.hasRole(member, Roles.OBSESSIVE)) {
+            reward++;
+        }
+        if (C.hasRole(member, Roles.PATRON_BOYS)) {
+            reward = reward + 4;
+        }
+        if (C.hasRole(member, Roles.SUPPORTER)) {
+            reward = reward + 2;
         }
         return reward;
     }
