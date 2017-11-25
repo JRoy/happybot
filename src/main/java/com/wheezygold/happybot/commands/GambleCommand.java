@@ -33,7 +33,7 @@ public class GambleCommand extends Command {
         if (e.getArgs().isEmpty() || e.getArgs().equalsIgnoreCase("help")) {
             e.reply("**Gamble System Overview:**\n" +
                     "You may only gamble away your life savings every 3 minutes to avoid life destruction.\n" +
-                    "Patron Boys and Mods+ may gamble their collage savings every minute.\n" +
+                    "Patron Boys and Mods+ may gamble their college savings every minute.\n" +
                     "To start a gamble you can do `^gamble <amount of coins ranging from 100-10000>`\n" +
                     "You have a 50% chance of you getting your bet  and a 50% chance of your bet being lost.\n");
             return;
