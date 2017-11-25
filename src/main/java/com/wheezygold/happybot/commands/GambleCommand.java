@@ -82,7 +82,7 @@ public class GambleCommand extends Command {
                 e.reply(e.getMember().getAsMention() + " YOU BET ON YEEZY WELL! +" + String.valueOf(bet) + " coins!");
             } else {
                 userToken.takeCoins(bet);
-                e.reply("Should have aimed smaller... -" + String.valueOf(bet) + " coins.");
+                e.reply(e.getMember().getAsMention() + " Should have aimed smaller... -" + String.valueOf(bet) + " coins.");
             }
         } catch (SQLException e1) {
             e.replyError("Error while executing: " + e1.getMessage());
