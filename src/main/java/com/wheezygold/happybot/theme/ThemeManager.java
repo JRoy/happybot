@@ -19,9 +19,11 @@ public class ThemeManager {
 
 	private HashMap<String, HashMap<String, String>> themeData = new HashMap<>();
 	private HashMap<String, HashMap<String, String>> themeMetaData = new HashMap<>();
+	private ThemeManager instace;
 
 	public ThemeManager() {
-		loadThemes();
+		instace = this;
+	    loadThemes();
 	}
 
 	private void loadThemes() {
@@ -107,7 +109,7 @@ public class ThemeManager {
                 }
             }
         }
-        if (metaTokens.contains("title") && metaTokens.contains("icon") && metaTokens.contains("nickname")) {
+        if (metaTokens.contains("title") && metaTokens.contains("icon") && metaTokens.contains("nickname") && metaTokens.contains("name")) {
             if (parse) {
                 File parseFile = new File("themes/" + themeName);
                 parseThemeFile(themeName, new Scanner(parseFile));
@@ -124,6 +126,10 @@ public class ThemeManager {
 	        array.add(curEntry.getKey());
         }
 	    return array;
+    }
+
+    public ThemeToken asToken(String themeName) throws ThemeNotFoundException {
+	    return new ThemeToken(instace, themeName);
     }
 
     public void removeTheme(String themeName) throws ThemeNotFoundException {
@@ -161,6 +167,7 @@ public class ThemeManager {
             this.themeManager = themeManager;
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         public void run() {
             HashMap<String, String> roleToken = null;
@@ -175,13 +182,13 @@ public class ThemeManager {
 
             try {
                 C.getGuild().getManager().setIcon(Icon.from(new File(roleMetaToken.get("icon") + ".png"))).queue();
-                C.getGuild().getManager().setName(roleMetaToken.get("title")).complete();
-                C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), roleMetaToken.get("nickname")).complete();
+                C.getGuild().getManager().setName(roleMetaToken.get("title")).queue();
+                C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), roleMetaToken.get("nickname")).queue();
                 for (HashMap.Entry<String, String> entry : roleToken.entrySet()) {
                     C.getGuild().getRoleById(entry.getKey()).getManager().setName(entry.getValue()).queue();
-                    TimeUnit.MILLISECONDS.sleep(500);
+                    TimeUnit.MILLISECONDS.sleep(100);
                 }
-                C.getGuild().getManager().setName(roleMetaToken.get("title")).complete();
+                C.getGuild().getManager().setName(roleMetaToken.get("title")).queue();
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
