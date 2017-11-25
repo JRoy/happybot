@@ -9,7 +9,7 @@ apply plugin: 'idea'
 dependencies {
     compile 'com.github.KevinPriv:HypixelApi4J:API-1.4'
     compile 'com.jagrosh:JDA-Utilities:1.8'
-    compile 'net.dv8tion:JDA:3.3.1_301'
+    compile 'net.dv8tion:JDA:3.3.1_307'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
     compile group: 'org.twitter4j', name: 'twitter4j-stream', version: '4.0.6'
