@@ -106,7 +106,7 @@ public class MoneyCommand extends Command {
             try {
                 if (!sqlManager.isActiveUser(e.getMember().getUser().getId())) {
                     sqlManager.newUser(e.getMember().getUser().getId());
-                    e.replySuccess("Your gamble account has been made!");
+                    e.replySuccess("Your gamble account has been made!\nYou should try `^money claim` :wink:");
                 } else {
                     e.replyError("You already have an account!");
                 }
