@@ -8,7 +8,7 @@ public class ServersCommand extends Command {
         this.name = "servers";
         this.help = "Gives a list of servers happyheart has played on!";
         this.guildOnly = false;
-        this.category = new Category("Misc");
+        this.category = new Category("General");
     }
 
     @Override

@@ -119,21 +119,28 @@ public class Main extends ListenerAdapter {
         //Loads all of our commands into JDA-Util's command handler.
         clientBuilder.addCommands(
 
+                //General
                 new PingCommand(),
                 new RulesCommand(),
                 new ApplyCommand(),
                 new RewardsCommand(),
+                new MentionCommand(),
+                new ServersCommand(),
+                new SeasonCommand(),
+
+                //Fun
+
                 new MathCommand(),
                 new VideoCommand(),
-                new SeasonCommand(),
                 new RandomSeasonCommand(),
                 new StatsCommand(hypixel),
                 new HypixelCommand(hypixel),
+                new WelcomeStatsCommand(),
                 new MoneyCommand(sqlManager),
                 new GambleCommand(sqlManager),
-                new WelcomeStatsCommand(),
-                new ServersCommand(),
-                new MentionCommand(),
+
+                //Staff Tools
+
                 new SpamCommand(),
                 new OgCommand(),
                 new FansCommand(),
@@ -146,6 +153,9 @@ public class Main extends ListenerAdapter {
                 new PromoteCommand(),
                 new DemoteCommand(),
                 new StaffManagementCommand(),
+
+                //Bot Management
+
                 new ThemeCommand(themeManager),
                 new ThemeManagerCommand(themeManager),
                 new ShutdownCommand(),

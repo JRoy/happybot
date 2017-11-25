@@ -8,7 +8,7 @@ public class SeasonCommand extends Command {
         this.name = "seasons";
         this.help = "Lists happyheart's seasons.";
         this.guildOnly = false;
-        this.category = new Category("Fun");
+        this.category = new Category("General");
     }
 
     @Override
