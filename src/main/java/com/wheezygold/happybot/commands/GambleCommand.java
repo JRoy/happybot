@@ -79,10 +79,10 @@ public class GambleCommand extends Command {
 
             if (p < 0.5) {
                 userToken.addCoins(bet);
-                e.reply(e.getMember().getAsMention() + " YOU BET ON YEEZY WELL! +" + String.valueOf(bet) + " coins!");
+                e.reply(e.getMember().getAsMention() + " YOU BET ON YEEZY WELL! +" + String.valueOf(bet) + " coins!" + " You now have a balance of " + C.bold(C.prettyNum(userToken.getCoins()) + " coins!"));
             } else {
                 userToken.takeCoins(bet);
-                e.reply(e.getMember().getAsMention() + " Should have aimed smaller... -" + String.valueOf(bet) + " coins.");
+                e.reply(e.getMember().getAsMention() + " Should have aimed smaller... -" + String.valueOf(bet) + " coins." + " You now have a balance of " + C.bold(C.prettyNum(userToken.getCoins()) + " coins!"));
             }
         } catch (SQLException e1) {
             e.replyError("Error while executing: " + e1.getMessage());
