@@ -20,7 +20,7 @@ public class MoneyCommand extends Command {
     public MoneyCommand(SQLManager sqlManager) {
         this.name = "money";
         this.help = "Command for your money needs.";
-        this.arguments = "<create/claim/check/bal/baltop/admin>";
+        this.arguments = "<create/claim/check/bal/baltop/pay/admin>";
         this.guildOnly = true;
         this.category = new Category("Fun");
         this.sqlManager = sqlManager;
@@ -197,6 +197,37 @@ public class MoneyCommand extends Command {
                 }
             } catch (SQLException e1) {
                 e.reply("Oof error.");
+            }
+        } else if (args[0].equalsIgnoreCase("pay")) {
+            if (!(args.length >= 2)) {
+                e.replyError("**Correct Usage:** ^" + name + " pay <amount> <user>");
+                return;
+            }
+            if (!C.containsMention(e)) {
+                e.replyError("**Correct Usage:** ^" + name + " pay <amount> **<user>**");
+                return;
+            }
+            if (!StringUtils.isNumeric(args[1])) {
+                e.replyError("**Correct Usage:** ^" + name + " pay **<amount>** <user>");
+                return;
+            }
+            if (!sqlManager.isActiveUserH(e.getMember().getUser().getId()) || !sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
+                e.replyError("Both parties must have a money account please do `^money create` to get one!");
+                return;
+            }
+            try {
+                UserToken fromToken = sqlManager.getUser(e.getMember().getUser().getId());
+                UserToken toToken = sqlManager.getUser(C.getMentionedMember(e).getUser().getId());
+                int amount = Integer.parseInt(args[1]);
+                if (fromToken.getCoins() < amount) {
+                    e.replyError("You do not have valid funds to complete this transaction.");
+                    return;
+                }
+                fromToken.takeCoins(amount);
+                toToken.addCoins(amount);
+                e.replySuccess("Successfully payed " + C.bold(C.getMentionedMember(e).getEffectiveName()) + " " + C.underline(String.valueOf(amount) + " coins!"));
+            } catch (SQLException e1) {
+                e.replyError("Oof Error");
             }
         } else {
             e.replyError("**Correct Usage:** ^" + name + " " + arguments);
