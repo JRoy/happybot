@@ -223,8 +223,8 @@ public class MoneyCommand extends Command {
                     e.replyError("You do not have valid funds to complete this transaction.");
                     return;
                 }
-                fromToken.takeCoins(amount);
-                toToken.addCoins(amount);
+                //fromToken.takeCoins(amount);
+                //toToken.addCoins(amount);
                 e.replySuccess("Successfully payed " + C.bold(C.getMentionedMember(e).getEffectiveName()) + " " + C.underline(String.valueOf(amount) + " coins!"));
             } catch (SQLException e1) {
                 e.replyError("Oof Error");
