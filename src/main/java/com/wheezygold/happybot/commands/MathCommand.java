@@ -10,6 +10,7 @@ public class MathCommand extends Command {
         this.name = "math";
         this.help = "Evaluates math!";
         this.arguments = "<math>";
+        this.aliases = new String[] { "maths" };
         this.category = new Category("Fun");
     }
 
@@ -17,7 +18,7 @@ public class MathCommand extends Command {
     protected void execute(CommandEvent e) {
 
         if (!e.getArgs().isEmpty()) {
-            String  result = null;
+            String result;
 
             if (e.getArgs().equalsIgnoreCase("quick maths")) {
                 result = "2 + 2 - 1 = that's 3 quick maths.";

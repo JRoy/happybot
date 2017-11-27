@@ -167,7 +167,11 @@ public class MoneyCommand extends Command {
 
                 for (int i = 0; i < 10; i++) {
                     for (Map.Entry<Member, Integer> curEntry : result.get(i + 1).entrySet()) {
-                        topBal.append("\n" + C.bold("- #" + String.valueOf(curPos)) + " " + C.underline(curEntry.getKey().getEffectiveName()) + C.slant(" with " + C.bold(C.prettyNum(curEntry.getValue()) + " coins")));
+                        topBal.append("\n")
+                                .append(C.bold("- #" + String.valueOf(curPos)))
+                                .append(" ")
+                                .append(C.underline(curEntry.getKey().getEffectiveName()))
+                                .append(C.slant(" with " + C.bold(C.prettyNum(curEntry.getValue()) + " coins")));
                         curPos++;
                     }
                 }
@@ -179,7 +183,7 @@ public class MoneyCommand extends Command {
             try {
                 if (sqlManager.isActiveUser(e.getMember().getUser().getId())) {
                     UserToken userToken = (sqlManager.getUser(e.getMember().getUser().getId()));
-                    int dif = new Long(System.currentTimeMillis()).intValue() - new Long(userToken.getEpoch()).intValue();
+                    int dif = (int) (System.currentTimeMillis() - userToken.getEpoch());
                     int wait = 24 - (((dif / 1000) / 60) / 60);
                     System.out.print(wait);
                     if (dif >= 86400000 || userToken.getEpoch() == 0) {
@@ -225,7 +229,7 @@ public class MoneyCommand extends Command {
                 }
                 //fromToken.takeCoins(amount);
                 //toToken.addCoins(amount);
-                e.replySuccess("Successfully payed " + C.bold(C.getMentionedMember(e).getEffectiveName()) + " " + C.underline(String.valueOf(amount) + " coins!"));
+                e.replySuccess("Successfully paid " + C.bold(C.getMentionedMember(e).getEffectiveName()) + " " + C.underline(String.valueOf(amount) + " coins!"));
             } catch (SQLException e1) {
                 e.replyError("Oof Error");
             }
