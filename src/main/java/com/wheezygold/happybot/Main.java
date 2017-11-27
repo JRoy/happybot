@@ -70,7 +70,7 @@ public class Main extends ListenerAdapter {
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
                 //Listens to the MessageReceivedEvent.
                 .addEventListener(clientBuilder.build())
-                .setGame(Game.of("Loading"));
+                .setGame(Game.of(Game.GameType.DEFAULT, "Loading"));
         for (EventListener listener : eventListeners)
             builder.addEventListener(listener);
         jda = builder.buildAsync();
@@ -130,6 +130,7 @@ public class Main extends ListenerAdapter {
 
                 //Fun
 
+                new HecktownCommand(),
                 new MathCommand(),
                 new VideoCommand(),
                 new RandomSeasonCommand(),
@@ -268,11 +269,11 @@ public class Main extends ListenerAdapter {
 
     public static void updateTheme() {
         try {
-            BufferedReader themereader = new BufferedReader(new FileReader("theme.yml"));
+            BufferedReader themeReader = new BufferedReader(new FileReader("theme.yml"));
             //We will get the token just in case, I don't know, maybe we want to log in.
-            theme = themereader.readLine();
+            theme = themeReader.readLine();
             Logger.info("Theme Loaded: " + theme + "!");
-            themereader.close();
+            themeReader.close();
         } catch (NullPointerException e) {
             //Let them know they are going to die.
             Logger.error("Error receiving your theme: " + e.getMessage());

@@ -75,9 +75,7 @@ public class GambleCommand extends Command {
                 gambleTimes.put(e.getMember(), OffsetDateTime.now().plusSeconds(180));
             }
 
-            double p = Math.random();
-
-            if (p < 0.5) {
+            if (Math.random() < 0.5) {
                 userToken.addCoins(bet);
                 e.reply(e.getMember().getAsMention() + " YOU BET ON YEEZY WELL! +" + String.valueOf(bet) + " coins!" + " You now have a balance of " + C.bold(C.prettyNum(userToken.getCoins()) + " coins!"));
             } else {
