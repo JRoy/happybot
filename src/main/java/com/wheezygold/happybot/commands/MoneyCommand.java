@@ -219,6 +219,11 @@ public class MoneyCommand extends Command {
                 e.replyError("Both parties must have a money account please do `^money create` to get one!");
                 return;
             }
+            if (C.getMentionedMember(e) == e.getMember()) {
+                e.replyError("You may not pay yourself! I know wut ur trying to do...");
+                return;
+            }
+
             try {
                 UserToken fromToken = sqlManager.getUser(e.getMember().getUser().getId());
                 UserToken toToken = sqlManager.getUser(C.getMentionedMember(e).getUser().getId());
@@ -227,8 +232,8 @@ public class MoneyCommand extends Command {
                     e.replyError("You do not have valid funds to complete this transaction.");
                     return;
                 }
-                //fromToken.takeCoins(amount);
-                //toToken.addCoins(amount);
+                fromToken.takeCoins(amount);
+                toToken.addCoins(amount);
                 e.replySuccess("Successfully paid " + C.bold(C.getMentionedMember(e).getEffectiveName()) + " " + C.underline(String.valueOf(amount) + " coins!"));
             } catch (SQLException e1) {
                 e.replyError("Oof Error");
