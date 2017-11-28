@@ -20,7 +20,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class Main extends ListenerAdapter {
 
     private Main instance = this;
