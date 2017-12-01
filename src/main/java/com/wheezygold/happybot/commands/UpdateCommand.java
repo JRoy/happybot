@@ -3,8 +3,10 @@ package com.wheezygold.happybot.commands;
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Logger;
 import com.wheezygold.happybot.util.Roles;
+import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.util.concurrent.TimeUnit;
 
@@ -38,9 +40,11 @@ public class UpdateCommand extends Command {
             int exitCode;
             if (e.getArgs().equalsIgnoreCase("jenkins") || e.getArgs().equalsIgnoreCase("j")) {
                 e.reply(":white_check_mark: Downloading Update from Jenkins!");
+                new Thread(new ImpendRestart(e, "Jenkins")).start();
                 exitCode = 20;
             } else if (e.getArgs().equalsIgnoreCase("dropbox") || e.getArgs().equalsIgnoreCase("d")) {
                 e.reply(":white_check_mark: Downloading Update from Dropbox!");
+                new Thread(new ImpendRestart(e, "Dropbox")).start();
                 exitCode = 10;
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
@@ -55,6 +59,25 @@ public class UpdateCommand extends Command {
             e.getJDA().shutdown();
             Logger.log("Updater - Updating Builds with exit code: " + String.valueOf(exitCode));
             System.exit(exitCode);
+        }
+    }
+
+    class ImpendRestart implements Runnable {
+
+        private CommandEvent e;
+        private String s;
+
+        ImpendRestart(CommandEvent e, String source) {
+            this.e = e;
+            this.s = source;
+        }
+
+        @Override
+        public void run() {
+            Channels.BOT_META.getChannel().sendMessage(new EmbedBuilder()
+                    .setTitle("Impending Update")
+                    .setDescription("New Impending Update from " + s + ". Bot is currently restarting")
+                    .build()).queue();
         }
     }
 

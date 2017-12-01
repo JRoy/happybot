@@ -1,20 +1,46 @@
 package com.wheezygold.happybot.events;
 
+import com.wheezygold.happybot.Main;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Channels;
+import com.wheezygold.happybot.util.Constants;
 import com.wheezygold.happybot.util.Roles;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.lang.management.ManagementFactory;
 import java.util.List;
 
 public class AutoMod extends ListenerAdapter {
 
     private List<Message> processedMessages;
+    private Message[] lastMessage;
+
+    public AutoMod() {
+    }
+
+    @Override
+    public void onStatusChange(StatusChangeEvent event) {
+        if (event.getStatus() == JDA.Status.CONNECTED) {
+            Channels.BOT_META.getChannel().getHistory().retrievePast(10).queue(messages -> messages.forEach(message -> {
+                message.getEmbeds().forEach(messageEmbed -> {
+                    if (messageEmbed != null && messageEmbed.getTitle().equalsIgnoreCase("Impending Update") && message.getAuthor() == Main.getJda().getUserById(Constants.BOT_ID.get()) && !message.isWebhookMessage()) {
+                        message.editMessage(new EmbedBuilder()
+                                .setTitle("Update Complete")
+                                .setDescription("This update has been finished in PID: " + ManagementFactory.getRuntimeMXBean().getName().split("[@]")[0])
+                                .build()).queue();
+                    }
+                });
+            }));
+        }
+    }
 
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {

@@ -70,7 +70,7 @@ public class StarMessages extends ListenerAdapter {
 
         @Override
         public void run() {
-            if (message.getChannel().getId().equals(Channels.STARRED_MESSAGES.getId()) || message.getChannel().getId().equals(Channels.BOT_GIT.getId()) || message.getChannel().getId().equals(Channels.TWITTER.getId()) || message.getChannel().getId().equals(Channels.LIVE.getId())) {
+            if (message.getChannel().getId().equals(Channels.STARRED_MESSAGES.getId()) || message.getChannel().getId().equals(Channels.BOT_META.getId()) || message.getChannel().getId().equals(Channels.TWITTER.getId()) || message.getChannel().getId().equals(Channels.LIVE.getId())) {
                 return;
             }
             int numberOfStars = 0;

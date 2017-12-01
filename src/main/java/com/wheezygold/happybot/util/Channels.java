@@ -1,6 +1,5 @@
 package com.wheezygold.happybot.util;
 
-import com.wheezygold.happybot.Main;
 import net.dv8tion.jda.core.entities.TextChannel;
 
 public enum Channels {
@@ -37,6 +36,6 @@ public enum Channels {
     }
 
     public TextChannel getChannel() {
-        return Main.getJda().getTextChannelById(channelId);
+        return C.getGuild().getTextChannelById(channelId);
     }
 }
