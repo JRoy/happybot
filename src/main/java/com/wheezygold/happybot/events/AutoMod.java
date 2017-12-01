@@ -16,12 +16,12 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AutoMod extends ListenerAdapter {
 
-    private List<Message> processedMessages;
-    private Message[] lastMessage;
+    private List<Message> processedMessages = new ArrayList<>();
 
     public AutoMod() {
     }
