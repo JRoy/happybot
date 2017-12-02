@@ -2,10 +2,10 @@ package com.wheezygold.happybot.events;
 
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Channels;
+import com.wheezygold.happybot.util.Logger;
 import com.wheezygold.happybot.util.Roles;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageReaction;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -70,17 +70,26 @@ public class StarMessages extends ListenerAdapter {
 
         @Override
         public void run() {
-            if (message.getChannel().getId().equals(Channels.STARRED_MESSAGES.getId()) || message.getChannel().getId().equals(Channels.BOT_META.getId()) || message.getChannel().getId().equals(Channels.TWITTER.getId()) || message.getChannel().getId().equals(Channels.LIVE.getId())) {
+            if (message.getChannel().getId().equals(
+                    Channels.STARRED_MESSAGES.getId()) || message.getChannel().getId().equals(
+                    Channels.BOT_META.getId()) || message.getChannel().getId().equals(
+                    Channels.TWITTER.getId()) || message.getChannel().getId().equals(Channels.LIVE.getId())) {
                 return;
             }
-            int numberOfStars = 0;
-            for (MessageReaction reaction : message.getReactions()) {
-                if (reaction.getEmote().getName().equals("⭐")) numberOfStars++;
-            }
-            if (numberOfStars == NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
-                String footer = "New Starred Message from #" + message.getChannel().getName();
-                String privateMessageText = "Congrats! One of your messages has been stared:";
-                sendStarredMessage(footer, message, privateMessageText);
+
+            try {
+                //noinspection ConstantConditions
+                int numberOfStars = message.getReactions().stream()
+                        .filter(reaction -> reaction.getReactionEmote().getName().equals("⭐"))
+                        .findAny().orElse(null).getCount();
+
+                if (numberOfStars == NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
+                    String footer = "New Starred Message from #" + message.getChannel().getName();
+                    String privateMessageText = "Congrats! One of your messages has been stared:";
+                    sendStarredMessage(footer, message, privateMessageText);
+                }
+            } catch (NullPointerException | IllegalStateException e) {
+                Logger.error("Star reaction is in invalid state!");
             }
         }
 
