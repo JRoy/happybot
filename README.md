@@ -6,7 +6,7 @@ We handle all dependencies via gradle but if you must have all of them here they
 * [JDA-Utilities](https://github.com/JDA-Applications/JDA-Utilities)
 * [Hypixel4J](https://github.com/KevinPriv/HypixelApi4J)
 * [SLF4J](https://www.slf4j.org/)
-* [sql2o](https://github.com/aaberg/sql2o)
+* [Apache Commons Lang3](https://github.com/apache/commons-lang)
 * [Twitter4J](https://github.com/yusuke/twitter4j)
 * [gson](https://github.com/google/gson)
 * [JUnit 4](https://github.com/junit-team/junit4/)
