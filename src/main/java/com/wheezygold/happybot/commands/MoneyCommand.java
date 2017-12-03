@@ -192,7 +192,6 @@ public class MoneyCommand extends Command {
                     UserToken userToken = (sqlManager.getUser(e.getMember().getUser().getId()));
                     int dif = (int) (System.currentTimeMillis() - userToken.getEpoch());
                     int wait = 24 - (((dif / 1000) / 60) / 60);
-
                     if (dif >= 86400000 || userToken.getEpoch() == 0) {
                         e.reply("You can reclaim your daily reward RIGHT NOW YOU DUM!");
                         return;

@@ -85,7 +85,7 @@ public class StarMessages extends ListenerAdapter {
 
                 if (numberOfStars == NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
                     String footer = "New Starred Message from #" + message.getChannel().getName();
-                    String privateMessageText = "Congrats! One of your messages has been stared:";
+                    String privateMessageText = "Congrats! One of your messages has been starred:";
                     sendStarredMessage(footer, message, privateMessageText);
                 }
             } catch (NullPointerException | IllegalStateException e) {
