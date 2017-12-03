@@ -241,7 +241,7 @@ public class MoneyCommand extends Command {
                 }
                 fromToken.takeCoins(amount);
                 toToken.addCoins(amount);
-                e.replySuccess("Successfully paid " + C.bold(C.getMentionedMember(e).getEffectiveName()) + " " + C.underline(String.valueOf(amount) + " coins!"));
+                e.replySuccess("Successfully paid " + C.bold(C.getMentionedMember(e).getEffectiveName()) + " " + C.underline(C.prettyNum(amount) + " coins!"));
             } catch (SQLException e1) {
                 e.replyError("Oof Error");
             }
