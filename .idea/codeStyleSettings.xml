@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectCodeStyleSettingsManager">
+    <option name="PER_PROJECT_SETTINGS">
+      <value>
+        <JavaCodeStyleSettings>
+          <option name="ANNOTATION_PARAMETER_WRAP" value="1" />
+          <option name="ALIGN_MULTILINE_ANNOTATION_PARAMETERS" value="true" />
+        </JavaCodeStyleSettings>
+        <codeStyleSettings language="JAVA">
+          <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
+          <option name="CALL_PARAMETERS_WRAP" value="1" />
+          <option name="METHOD_PARAMETERS_WRAP" value="1" />
+          <indentOptions>
+            <option name="SMART_TABS" value="true" />
+          </indentOptions>
+        </codeStyleSettings>
+      </value>
+    </option>
+    <option name="USE_PER_PROJECT_SETTINGS" value="true" />
+  </component>
+</project>

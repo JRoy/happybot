@@ -14,30 +14,30 @@ import java.util.concurrent.TimeUnit;
 
 public class ThemeManager {
 
-	private HashMap<String, HashMap<String, String>> themeData = new HashMap<>();
-	private HashMap<String, HashMap<String, String>> themeMetaData = new HashMap<>();
-	private ThemeManager instance;
+    private HashMap<String, HashMap<String, String>> themeData = new HashMap<>();
+    private HashMap<String, HashMap<String, String>> themeMetaData = new HashMap<>();
+    private ThemeManager instance;
 
-	public ThemeManager() {
-		instance = this;
-	    loadThemes();
-	}
+    public ThemeManager() {
+        instance = this;
+        loadThemes();
+    }
 
-	private void loadThemes() {
-		File[] rawThemes = new File("themes/").listFiles();
+    private void loadThemes() {
+        File[] rawThemes = new File("themes/").listFiles();
 
         Logger.info("Loading Theme Manager...");
 
-		if (rawThemes == null || rawThemes.length == 0) {
+        if (rawThemes == null || rawThemes.length == 0) {
             Logger.warn("No themes have been found!");
-			return;
-		}
+            return;
+        }
 
         Logger.info("Parsing Theme Files...");
 
-		for (File theme : rawThemes) {
-		    if (!theme.isDirectory()) {
-		    	parseTheme(theme, theme.getName());
+        for (File theme : rawThemes) {
+            if (!theme.isDirectory()) {
+                parseTheme(theme, theme.getName());
             }
         }
 
@@ -47,42 +47,42 @@ public class ThemeManager {
             Logger.info("- " + themeLister);
         }
 
-	}
+    }
 
-	/**
-	 * @return True if the theme was parsed successfully
-	 */
-	private boolean parseTheme(File file, String themeName) {
-		try {
-			if (validateTheme(themeName, false)) {
-				parseThemeFileMeta(themeName, new Scanner(file));
-				parseThemeFile(themeName, new Scanner(file));
-				return true;
-			} else {
-				Logger.error("Error Parsing Theme File: " + themeName);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (InvalidThemeFileException e) {
-			Logger.error(e.getMessage());
-		}
-		return false;
-	}
+    /**
+     * @return True if the theme was parsed successfully
+     */
+    private boolean parseTheme(File file, String themeName) {
+        try {
+            if (validateTheme(themeName, false)) {
+                parseThemeFileMeta(themeName, new Scanner(file));
+                parseThemeFile(themeName, new Scanner(file));
+                return true;
+            } else {
+                Logger.error("Error Parsing Theme File: " + themeName);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (InvalidThemeFileException e) {
+            Logger.error(e.getMessage());
+        }
+        return false;
+    }
 
-	private void parseThemeFile(String themeName, Scanner themeFileScanner) {
-		// (Techno-coder) Wheezy you idiot if you put this inside the loop its going to clear the HashMap each time
+    private void parseThemeFile(String themeName, Scanner themeFileScanner) {
+        // (Techno-coder) Wheezy you idiot if you put this inside the loop its going to clear the HashMap each time
         themeName = themeName.split("[.]")[0];
-		themeData.put(themeName, new HashMap<>());
+        themeData.put(themeName, new HashMap<>());
 
-		while (themeFileScanner.hasNextLine()) {
-			String[] lineTokens = themeFileScanner.nextLine().split("[:]");
-			if (!lineTokens[0].equalsIgnoreCase("MetaData")) {
+        while (themeFileScanner.hasNextLine()) {
+            String[] lineTokens = themeFileScanner.nextLine().split("[:]");
+            if (!lineTokens[0].equalsIgnoreCase("MetaData")) {
                 themeData.get(themeName).put(lineTokens[0], lineTokens[1]);
             }
-		}
-	}
+        }
+    }
 
-	private void parseThemeFileMeta(String themeName, Scanner themeFileScanner) {
+    private void parseThemeFileMeta(String themeName, Scanner themeFileScanner) {
         themeName = themeName.split("[.]")[0];
         themeMetaData.put(themeName, new HashMap<>());
 
@@ -94,8 +94,9 @@ public class ThemeManager {
         }
     }
 
-    public boolean validateTheme(String themeName, boolean parse) throws FileNotFoundException, InvalidThemeFileException {
-	    Scanner validateScanner = new Scanner(new File("themes/" + themeName));
+    public boolean validateTheme(String themeName,
+                                 boolean parse) throws FileNotFoundException, InvalidThemeFileException {
+        Scanner validateScanner = new Scanner(new File("themes/" + themeName));
         List<String> metaTokens = new ArrayList<>();
         while (validateScanner.hasNextLine()) {
             String curLine = validateScanner.nextLine();
@@ -115,7 +116,8 @@ public class ThemeManager {
                 }
             }
         }
-        if (metaTokens.contains("title") && metaTokens.contains("icon") && metaTokens.contains("nickname") && metaTokens.contains("name")) {
+        if (metaTokens.contains("title") && metaTokens.contains("icon") && metaTokens.contains(
+                "nickname") && metaTokens.contains("name")) {
             if (parse) {
                 File parseFile = new File("themes/" + themeName);
                 parseThemeFile(themeName, new Scanner(parseFile));
@@ -126,48 +128,49 @@ public class ThemeManager {
         return false;
     }
 
-	public ArrayList<String> getThemes() {
-	    ArrayList<String> array = new ArrayList<>();
-	    for (HashMap.Entry<String, HashMap<String, String>> curEntry : themeData.entrySet()) {
-	        array.add(curEntry.getKey());
+    public ArrayList<String> getThemes() {
+        ArrayList<String> array = new ArrayList<>();
+        for (HashMap.Entry<String, HashMap<String, String>> curEntry : themeData.entrySet()) {
+            array.add(curEntry.getKey());
         }
-	    return array;
+        return array;
     }
 
     public ThemeToken asToken(String themeName) throws ThemeNotFoundException {
-	    return new ThemeToken(instance, themeName);
+        return new ThemeToken(instance, themeName);
     }
 
     public void removeTheme(String themeName) throws ThemeNotFoundException {
-	    if (themeData.get(themeName) == null)
-	        throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
-	    if (themeMetaData.get(themeName) == null)
+        if (themeData.get(themeName) == null)
+            throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
+        if (themeMetaData.get(themeName) == null)
             throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme meta data.");
-	    themeData.remove(themeName);
-	    themeMetaData.remove(themeName);
+        themeData.remove(themeName);
+        themeMetaData.remove(themeName);
     }
 
     public void reloadTheme(String themeName) throws ThemeNotFoundException {
-		if (!themeData.containsKey(themeName))
-			throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
+        if (!themeData.containsKey(themeName))
+            throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
 
-		File[] files = new File("themes/").listFiles();
-	    if (files == null || files.length == 0) {
-		    Logger.warn("No themes have been found!");
-		    return;
-	    }
+        File[] files = new File("themes/").listFiles();
+        if (files == null || files.length == 0) {
+            Logger.warn("No themes have been found!");
+            return;
+        }
 
-	    Optional<File> optionalTheme = Arrays.stream(files).filter(file -> file.getName().equalsIgnoreCase(themeName)).findAny();
-	    if (!optionalTheme.isPresent())
-	    	throw new ThemeNotFoundException("Theme file: " + themeName + " was not found.");
+        Optional<File> optionalTheme = Arrays.stream(files).filter(
+                file -> file.getName().equalsIgnoreCase(themeName)).findAny();
+        if (!optionalTheme.isPresent())
+            throw new ThemeNotFoundException("Theme file: " + themeName + " was not found.");
 
-	    File theme = optionalTheme.get();
-	    parseTheme(theme, themeName);
+        File theme = optionalTheme.get();
+        parseTheme(theme, themeName);
     }
 
     protected HashMap<String, String> getThemeData(String themeName) throws ThemeNotFoundException {
-	    if (themeData.get(themeName) == null)
-	        throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
+        if (themeData.get(themeName) == null)
+            throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
         return themeData.get(themeName);
     }
 
@@ -178,7 +181,7 @@ public class ThemeManager {
     }
 
     public void switchTheme(String themeName) {
-	    new Thread(new SwitchTheme(themeName, this)).start();
+        new Thread(new SwitchTheme(themeName, this)).start();
     }
 
     private static class SwitchTheme implements Runnable {
@@ -207,7 +210,8 @@ public class ThemeManager {
             try {
                 C.getGuild().getManager().setIcon(Icon.from(new File(roleMetaToken.get("icon") + ".png"))).queue();
                 C.getGuild().getManager().setName(roleMetaToken.get("title")).queue();
-                C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), roleMetaToken.get("nickname")).queue();
+                C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"),
+                                             roleMetaToken.get("nickname")).queue();
                 for (HashMap.Entry<String, String> entry : roleToken.entrySet()) {
                     C.getGuild().getRoleById(entry.getKey()).getManager().setName(entry.getValue()).queue();
                     TimeUnit.MILLISECONDS.sleep(100);
