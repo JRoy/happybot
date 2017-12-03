@@ -137,7 +137,14 @@ public class MoneyCommand extends Command {
                             }
                             e.replySuccess("Here is your daily money nose! +200");
                         } else {
-                            e.replyError("You may only claim liquid money once a day!!1!");
+                            int dif = (int) (System.currentTimeMillis() - userToken.getEpoch());
+                            int wait = 24 - (((dif / 1000) / 60) / 60);
+                            String unit = " hour(s)!";
+                            if (wait < 1) {
+                                wait = wait * 60;
+                                unit = " minute(s)!";
+                            }
+                            e.replyError("You may only claim liquid money once a day!!1!\n" + "You can reclaim your daily reward in: " + wait + unit);
                         }
                     }
                 } else {
@@ -185,7 +192,7 @@ public class MoneyCommand extends Command {
                     UserToken userToken = (sqlManager.getUser(e.getMember().getUser().getId()));
                     int dif = (int) (System.currentTimeMillis() - userToken.getEpoch());
                     int wait = 24 - (((dif / 1000) / 60) / 60);
-                    System.out.print(wait);
+
                     if (dif >= 86400000 || userToken.getEpoch() == 0) {
                         e.reply("You can reclaim your daily reward RIGHT NOW YOU DUM!");
                         return;
