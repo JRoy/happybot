@@ -10,8 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9fc484c-1b66-42a1-8557-961d11aec9d6" name="Default" comment="Fix Starred Messages (Fixes #49)">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ShopCommand.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/WarningManager.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ShopCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ShopCommand.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/WarningManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/WarningManager.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -122,8 +122,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="378">
+              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -731,7 +731,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$USER_HOME$/Documents/Eclipse/Libraries/JDA/twitter4j-stream-4.0.4.jar!/" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/joshr/IdeaProjects/HappyBot/src/main/java/com/wheezygold/happybot/sql/UserToken.java" />
     <property name="add_unversioned_files" value="true" />
@@ -1754,8 +1754,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="378">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
