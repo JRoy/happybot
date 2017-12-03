@@ -47,7 +47,7 @@ public class AutoMod extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         Message message = event.getMessage();
         checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
-        if (message.getChannel() == Channels.BOT_META) {
+        if (message.getChannel() == Channels.BOT_META.getChannel() && message.isWebhookMessage()) {
             Roles.GIT.getRole().getManager().setMentionable(true).queue();
             Channels.BOT_META.getChannel().sendMessage(Roles.GIT.getRole().getAsMention()).queue();
             try {
