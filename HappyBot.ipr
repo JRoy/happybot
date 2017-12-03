@@ -1,79 +1,286 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Javac"/>
     <resourceExtensions>
-      <entry name=".+\.(properties|xml|html|dtd|tld)"/>
-      <entry name=".+\.(gif|png|jpeg|jpg)"/>
+      <entry name=".+\.(properties|xml|html|dtd|tld)" />
+      <entry name=".+\.(gif|png|jpeg|jpg)" />
     </resourceExtensions>
     <wildcardResourcePatterns>
-      <entry name="!?*.class"/>
-      <entry name="!?*.scala"/>
-      <entry name="!?*.java"/>
-      <entry name="!?*.groovy"/>
+      <entry name="!?*.class" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.java" />
+      <entry name="!?*.groovy" />
     </wildcardResourcePatterns>
-    <annotationProcessing enabled="false" useClasspath="true"/>
-    <bytecodeTargetLevel target="1.8"/>
+    <bytecodeTargetLevel target="1.8">
+      <module name="happyheartDiscordBot_main" target="1.8" />
+      <module name="happyheartDiscordBot_test" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
-  <component name="CopyrightManager" default="">
-    <module2copyright/>
-  </component>
+  <component name="CopyrightManager" default="" />
   <component name="DependencyValidationManager">
-    <option name="SKIP_IMPORT_STATEMENTS" value="false"/>
+    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false"/>
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
   <component name="GradleUISettings">
-    <setting name="root"/>
+    <setting name="root" />
   </component>
   <component name="GradleUISettings2">
-    <setting name="root"/>
+    <setting name="root" />
   </component>
-  <component name="IdProvider" IDEtalkID="11DA1DB66DD62DDA1ED602B7079FE97C"/>
+  <component name="IdProvider" IDEtalkID="11DA1DB66DD62DDA1ED602B7079FE97C" />
+  <component name="InspectionProjectProfileManager">
+    <profile version="1.0">
+      <option name="myName" value="Project Default" />
+    </profile>
+    <version value="1.0" />
+  </component>
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY"/>
-    <option name="OPTION_SCOPE" value="protected"/>
-    <option name="OPTION_HIERARCHY" value="true"/>
-    <option name="OPTION_NAVIGATOR" value="true"/>
-    <option name="OPTION_INDEX" value="true"/>
-    <option name="OPTION_SEPARATE_INDEX" value="true"/>
-    <option name="OPTION_DOCUMENT_TAG_USE" value="false"/>
-    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false"/>
-    <option name="OPTION_DOCUMENT_TAG_VERSION" value="false"/>
-    <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true"/>
-    <option name="OPTION_DEPRECATED_LIST" value="true"/>
-    <option name="OTHER_OPTIONS" value=""/>
-    <option name="HEAP_SIZE"/>
-    <option name="LOCALE"/>
-    <option name="OPEN_IN_BROWSER" value="true"/>
+    <option name="OUTPUT_DIRECTORY" />
+    <option name="OPTION_SCOPE" value="protected" />
+    <option name="OPTION_HIERARCHY" value="true" />
+    <option name="OPTION_NAVIGATOR" value="true" />
+    <option name="OPTION_INDEX" value="true" />
+    <option name="OPTION_SEPARATE_INDEX" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_USE" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_VERSION" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true" />
+    <option name="OPTION_DEPRECATED_LIST" value="true" />
+    <option name="OTHER_OPTIONS" value="" />
+    <option name="HEAP_SIZE" />
+    <option name="LOCALE" />
+    <option name="OPEN_IN_BROWSER" value="true" />
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module filepath="$PROJECT_DIR$/HappyBot.iml" fileurl="file://$PROJECT_DIR$/HappyBot.iml"/>
+      <module fileurl="file://$PROJECT_DIR$/happyheartDiscordBot.iml" filepath="$PROJECT_DIR$/happyheartDiscordBot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/happyheartDiscordBot_main.iml" filepath="$PROJECT_DIR$/happyheartDiscordBot_main.iml" group="happyheartDiscordBot" />
+      <module fileurl="file://$PROJECT_DIR$/happyheartDiscordBot_test.iml" filepath="$PROJECT_DIR$/happyheartDiscordBot_test.iml" group="happyheartDiscordBot" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true" project-jdk-type="JavaSDK" assert-jdk-15="true" project-jdk-name="1.8">
-    <output url="file://$PROJECT_DIR$/out"/>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SvnBranchConfigurationManager">
-    <option name="mySupportsUserInfoFilter" value="true"/>
+    <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs=""/>
+    <mapping directory="" vcs="Git" />
+  </component>
+  <component name="libraryTable">
+    <library name="Gradle: com.github.KevinPriv:HypixelApi4J:API-1.4">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.KevinPriv/HypixelApi4J/API-1.4/2f010ff529393463b58f1e94a9faca59be159c4/HypixelApi4J-API-1.4.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="Gradle: com.google.code.findbugs:jsr305:3.0.2">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/b19b5927c2c25b6c70f093767041e641ae0b1b35/jsr305-3.0.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.google.code.gson:gson:2.8.2">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.2/3edcfe49d2c6053a70a2a47e4e1c2f94998a49cf/gson-2.8.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.2/b2da9f8444128651758719856de579eacff7f387/gson-2.8.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.jagrosh:JDA-Utilities:1.8">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jagrosh/JDA-Utilities/1.8/d55ab3210bb834c54853b9ce32b551a03e121d5c/JDA-Utilities-1.8.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jagrosh/JDA-Utilities/1.8/a88111a55562ef5430a868c129e326bcf16325f2/JDA-Utilities-1.8-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.neovisionaries:nv-websocket-client:2.2">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.neovisionaries/nv-websocket-client/2.2/225e2a6eb3efa44b3bede68b19f5a26ae9cc17c1/nv-websocket-client-2.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.neovisionaries/nv-websocket-client/2.2/21006ec7aba15737d03dc6b1fe31c7572f6343fa/nv-websocket-client-2.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.squareup.okhttp3:okhttp:3.9.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.9.0/1b6c10b5120995a7542c1a31b7828fb8593c8ba/okhttp-3.9.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.9.0/43d4e686afe2f8bb360bc4890123f205955dfd5d/okhttp-3.9.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.squareup.okio:okio:1.13.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/f4c91e12121af963e3ef76e81c82aa75ba6e8533/okio-1.13.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.udojava:EvalEx:1.16">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.udojava/EvalEx/1.16/89110c97bf926a681615d1f50ac76ee0c010e4a6/EvalEx-1.16.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.udojava/EvalEx/1.16/a63de966770c811859e3270eefc6dffc8f7412c0/EvalEx-1.16-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: junit:junit:4.12">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: mysql:mysql-connector-java:5.1.6">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.6/380ef5226de2c85ff3b38cbfefeea881c5fce09d/mysql-connector-java-5.1.6.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="Gradle: net.dv8tion:JDA:3.3.1_308">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.dv8tion/JDA/3.3.1_308/81840cae64a403752ccad604477c00c53e15ebb9/JDA-3.3.1_308.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.dv8tion/JDA/3.3.1_308/b43b533253b5baaff08a6c03f904688bfc096afc/JDA-3.3.1_308-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: net.java.dev.jna:jna:4.4.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/4.4.0/cb208278274bf12ebdb56c61bd7407e6f774d65a/jna-4.4.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/4.4.0/9d45d3dc35711eef7267d8b4fc2c0dc482ef9fd2/jna-4.4.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: net.sf.trove4j:trove4j:3.0.3">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.trove4j/trove4j/3.0.3/42ccaf4761f0dfdfa805c9e340d99a755907e2dd/trove4j-3.0.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.trove4j/trove4j/3.0.3/109c5be93362e6e651e417c51d1863477a22969c/trove4j-3.0.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.apache.commons:commons-collections4:4.1">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-collections4/4.1/a4cf4688fe1c7e3a63aa636cc96d013af537768e/commons-collections4-4.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-collections4/4.1/f305f3aa45a3b208c013ef92328f8f230329f20e/commons-collections4-4.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.apache.commons:commons-lang3:3.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.0/8873bd0bb5cb9ee37f1b04578eb7e26fcdd44cb0/commons-lang3-3.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.0/d48f964b56a931ec2712ce5d411a40d114a69753/commons-lang3-3.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.hamcrest:hamcrest-core:1.3">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.json:json:20160810">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20160810/aca5eb39e2a12fddd6c472b240afe9ebea3a6733/json-20160810.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20160810/92f4b89bc0bb4c7c3f7b52724568a901b7e0195b/json-20160810-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.slf4j:slf4j-api:1.7.25">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/da76ca59f6a57ee3102f8f9bd9cee742973efa8a/slf4j-api-1.7.25.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/962153db4a9ea71b79d047dfd1b2a0d80d8f4739/slf4j-api-1.7.25-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.slf4j:slf4j-simple:1.6.1">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-simple/1.6.1/58e59bfb3e247097b8122243b3bfe0049c8cfae8/slf4j-simple-1.6.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-simple/1.6.1/b0d4139adb22b57dc8e713fc0aa7ad396604efc8/slf4j-simple-1.6.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.twitter4j:twitter4j-core:4.0.6">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.twitter4j/twitter4j-core/4.0.6/f3722af4568b96ee66739267e13211b8b66ac7d4/twitter4j-core-4.0.6.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.twitter4j/twitter4j-core/4.0.6/5a3a910793c3510a3e25cea3c51672bb88124527/twitter4j-core-4.0.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.twitter4j:twitter4j-stream:4.0.6">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.twitter4j/twitter4j-stream/4.0.6/d631a279e4747bdc7c87ec7698184a390bb8d859/twitter4j-stream-4.0.6.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.twitter4j/twitter4j-stream/4.0.6/48484d20fe65f0af745b1e5cea8173c5b5d9610d/twitter4j-stream-4.0.6-sources.jar!/" />
+      </SOURCES>
+    </library>
   </component>
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
         <UIState>
           <splitter-proportions>
-            <SplitterProportionsDataImpl/>
+            <SplitterProportionsDataImpl />
           </splitter-proportions>
-          <settings/>
+          <settings />
         </UIState>
       </state>
       <state key="Copyright.UI">
         <UIState>
           <splitter-proportions>
-            <SplitterProportionsDataImpl/>
+            <SplitterProportionsDataImpl />
           </splitter-proportions>
         </UIState>
       </state>
@@ -83,7 +290,7 @@
             <SplitterProportionsDataImpl>
               <option name="proportions">
                 <list>
-                  <option value="0.2"/>
+                  <option value="0.2" />
                 </list>
               </option>
             </SplitterProportionsDataImpl>
@@ -94,9 +301,9 @@
       <state key="ScopeChooserConfigurable.UI">
         <UIState>
           <splitter-proportions>
-            <SplitterProportionsDataImpl/>
+            <SplitterProportionsDataImpl />
           </splitter-proportions>
-          <settings/>
+          <settings />
         </UIState>
       </state>
     </states>

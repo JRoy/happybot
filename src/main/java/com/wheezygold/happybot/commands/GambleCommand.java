@@ -22,7 +22,7 @@ public class GambleCommand extends Command {
     public GambleCommand(SQLManager sqlManager) {
         this.name = "gamble";
         this.help = "Gambling Command, please type `^gamble help` for details.";
-        this.arguments = "help";
+        this.arguments = "<help/check>";
         this.guildOnly = true;
         this.category = new Category("Fun");
         this.sqlManager = sqlManager;
@@ -38,6 +38,18 @@ public class GambleCommand extends Command {
                     "You have a 50% chance of you getting your bet  and a 50% chance of your bet being lost.\n");
             return;
         }
+
+        if (e.getArgs().equalsIgnoreCase("check")) {
+        	if (isGambleMember(e.getMember())) {
+        		int timeRemaining = getTimeRemaining(e.getMember());
+        		if (timeRemaining > 0) {
+                    e.reply("You have " + String.valueOf(timeRemaining) + " seconds before using the gamble command!");
+                } else {
+        		    e.reply("You can use the gamble command now!");
+                }
+            }
+        }
+
         if (!StringUtils.isNumeric(e.getArgs())) {
             e.replyError("Please do `^gamble help` for the correct usage!");
             return;
@@ -48,9 +60,9 @@ public class GambleCommand extends Command {
                 return;
             }
 
-            if (gambleTimes.containsKey(e.getMember())) {
-                int time = (int) OffsetDateTime.now().until(gambleTimes.get(e.getMember()), ChronoUnit.SECONDS);
-                if (time>0) {
+            if (isGambleMember(e.getMember())) {
+            	int time = getTimeRemaining(e.getMember());
+                if (time > 0) {
                     e.replyError("You must wait " + String.valueOf(time) + " seconds before preforming this again!" );
                     return;
                 }
@@ -85,5 +97,13 @@ public class GambleCommand extends Command {
         } catch (SQLException e1) {
             e.replyError("Error while executing: " + e1.getMessage());
         }
+    }
+
+    private boolean isGambleMember(Member member) {
+        return gambleTimes.containsKey(member);
+    }
+
+    private int getTimeRemaining(Member member) {
+        return (int) OffsetDateTime.now().until(gambleTimes.get(member), ChronoUnit.SECONDS);
     }
 }
