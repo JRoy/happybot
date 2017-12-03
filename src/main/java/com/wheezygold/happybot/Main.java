@@ -11,6 +11,7 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.impl.JDAImpl;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.EventListener;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -33,7 +34,8 @@ public class Main extends ListenerAdapter {
     private static Hypixel hypixel;
     private static ThemeManager themeManager;
 
-    public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
+    public static void main(
+            String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
 
         new Logger();
 
@@ -43,7 +45,8 @@ public class Main extends ListenerAdapter {
         createConfigFiles();
 
 
-        String token = readFirstLineOfFile("config.yml", "There is no token in your config, welcome to stack trace city!");
+        String token = readFirstLineOfFile("config.yml",
+                                           "There is no token in your config, welcome to stack trace city!");
         theme = readFirstLineOfFile("theme.yml", "Error receiving theme");
 
         //Always init your strings! (Techno-coder: Wheezy, you are a sad, sad person)
@@ -54,7 +57,7 @@ public class Main extends ListenerAdapter {
 
         loadTweetMonitor();
 
-        //Load our SQL Stuff
+//        Load our SQL Stuff
         sqlManager = new SQLManager(sqlPassword);
 
 
@@ -75,7 +78,7 @@ public class Main extends ListenerAdapter {
             builder.addEventListener(listener);
         jda = builder.buildAsync();
 
-//        new RichPresence((JDAImpl) jda);
+        new RichPresence((JDAImpl) jda);
 
         Logger.info("Bot has been loaded!");
     }
@@ -134,11 +137,11 @@ public class Main extends ListenerAdapter {
                 new MathCommand(),
                 new VideoCommand(),
                 new RandomSeasonCommand(),
-                new StatsCommand(hypixel),
-                new HypixelCommand(hypixel),
+//                new StatsCommand(hypixel),
+//                new HypixelCommand(hypixel),
                 new WelcomeStatsCommand(),
-                new MoneyCommand(sqlManager),
-                new GambleCommand(sqlManager),
+//                new MoneyCommand(sqlManager),
+//                new GambleCommand(sqlManager),
 
                 //Staff Tools
 
@@ -181,7 +184,7 @@ public class Main extends ListenerAdapter {
     private static void loadTweetMonitor() throws IOException {
         String cKey = null;
         String cSecret = null;
-        String  aToken = null;
+        String aToken = null;
         String aSecret = null;
         BufferedReader twitterReader = new BufferedReader(new FileReader("twitter.yml"));
         try {

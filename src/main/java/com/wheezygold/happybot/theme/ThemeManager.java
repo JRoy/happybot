@@ -94,7 +94,8 @@ public class ThemeManager {
         }
     }
 
-    public boolean validateTheme(String themeName, boolean parse) throws FileNotFoundException, InvalidThemeFileException {
+    public boolean validateTheme(String themeName,
+                                 boolean parse) throws FileNotFoundException, InvalidThemeFileException {
         Scanner validateScanner = new Scanner(new File("themes/" + themeName));
         List<String> metaTokens = new ArrayList<>();
         while (validateScanner.hasNextLine()) {
@@ -115,7 +116,8 @@ public class ThemeManager {
                 }
             }
         }
-        if (metaTokens.contains("title") && metaTokens.contains("icon") && metaTokens.contains("nickname") && metaTokens.contains("name")) {
+        if (metaTokens.contains("title") && metaTokens.contains("icon") && metaTokens.contains(
+                "nickname") && metaTokens.contains("name")) {
             if (parse) {
                 File parseFile = new File("themes/" + themeName);
                 parseThemeFile(themeName, new Scanner(parseFile));
@@ -157,7 +159,8 @@ public class ThemeManager {
             return;
         }
 
-        Optional<File> optionalTheme = Arrays.stream(files).filter(file -> file.getName().equalsIgnoreCase(themeName)).findAny();
+        Optional<File> optionalTheme = Arrays.stream(files).filter(
+                file -> file.getName().equalsIgnoreCase(themeName)).findAny();
         if (!optionalTheme.isPresent())
             throw new ThemeNotFoundException("Theme file: " + themeName + " was not found.");
 
@@ -207,7 +210,8 @@ public class ThemeManager {
             try {
                 C.getGuild().getManager().setIcon(Icon.from(new File(roleMetaToken.get("icon") + ".png"))).queue();
                 C.getGuild().getManager().setName(roleMetaToken.get("title")).queue();
-                C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), roleMetaToken.get("nickname")).queue();
+                C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"),
+                                             roleMetaToken.get("nickname")).queue();
                 for (HashMap.Entry<String, String> entry : roleToken.entrySet()) {
                     C.getGuild().getRoleById(entry.getKey()).getManager().setName(entry.getValue()).queue();
                     TimeUnit.MILLISECONDS.sleep(100);
