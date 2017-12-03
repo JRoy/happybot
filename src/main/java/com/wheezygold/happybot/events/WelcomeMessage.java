@@ -250,13 +250,17 @@ public class WelcomeMessage extends ListenerAdapter {
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
         String joinformat = welcomemsgs[random.nextInt(welcomemsgs.length)].replaceAll("<player>", event.getMember().getAsMention());
-        event.getGuild().getTextChannelById("237363812842340363").sendMessage(event.getMember().getAsMention() + " " + joinformat).queue();
+        if (!joinformat.startsWith("'s"))
+            joinformat = " " + joinformat;
+        event.getGuild().getTextChannelById("237363812842340363").sendMessage(event.getMember().getAsMention() + joinformat).queue();
     }
 
     @Override
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
         String leaveformat = goodbyemsgs[random.nextInt(goodbyemsgs.length)].replaceAll("<player>", event.getMember().getAsMention());
-        event.getGuild().getTextChannelById("237363812842340363").sendMessage("**" + event.getMember().getUser().getName() + "** " + leaveformat).queue();
+        if (!leaveformat.startsWith("'s"))
+            leaveformat = " " + leaveformat;
+        event.getGuild().getTextChannelById("237363812842340363").sendMessage("**" + event.getMember().getUser().getName() + "**" + leaveformat).queue();
     }
 
 }

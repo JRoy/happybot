@@ -18,6 +18,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class AutoMod extends ListenerAdapter {
 
@@ -44,7 +45,20 @@ public class AutoMod extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+        Message message = event.getMessage();
         checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
+        if (message.getChannel() == Channels.BOT_META.getChannel() && message.isWebhookMessage()) {
+            Roles.GIT.getRole().getManager().setMentionable(true).queue();
+            Channels.BOT_META.getChannel().sendMessage(Roles.GIT.getRole().getAsMention()).queue();
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                Roles.GIT.getRole().getManager().setMentionable(false).queue();
+            }
+        }
+            
     }
 
     @Override

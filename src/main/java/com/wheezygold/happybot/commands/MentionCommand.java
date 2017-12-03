@@ -17,19 +17,19 @@ public class MentionCommand extends Command {
     @Override
     protected void execute(CommandEvent e) {
         if (!e.getArgs().isEmpty()) {
-            if (e.getArgs().equals("twitter")) {
+            if (e.getArgs().equalsIgnoreCase("twitter")) {
                 if (C.toggleRole(e.getMember(), Roles.TWITTER)) {
                     e.reply("You will now receive notifications when happyheart tweets!");
                 } else {
                     e.reply("You will no longer receive notifications when happyheart tweets!");
                 }
-            } else if (e.getArgs().equals("git")) {
+            } else if (e.getArgs().equalsIgnoreCase("git")) {
                 if (C.toggleRole(e.getMember(), Roles.GIT)) {
                     e.reply("You will now receive notifications from git!");
                 } else {
                     e.reply("You will no longer receive notifications from git!");
                 }
-            } else if (e.getArgs().equals("updates")) {
+            } else if (e.getArgs().equalsIgnoreCase("updates")) {
                 if (C.toggleRole(e.getMember(), Roles.UPDATES)) {
                     e.reply("You will now receive notifications for updates!");
                 } else {
