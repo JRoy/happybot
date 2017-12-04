@@ -30,6 +30,7 @@ public class Main extends ListenerAdapter {
     private static TwitterCentre twitterCentre;
     private static TweetMonitor tweetMonitor;
     private static SQLManager sqlManager;
+    private static WarningManager warningManager;
     private static Hypixel hypixel;
     private static ThemeManager themeManager;
 
@@ -57,6 +58,7 @@ public class Main extends ListenerAdapter {
         //Load our SQL Stuff
         sqlManager = new SQLManager(sqlPassword);
 
+        warningManager = new WarningManager(sqlManager);
 
         Logger.info("Loading the Hypixel API...");
         loadHypixelAPI();
@@ -142,6 +144,8 @@ public class Main extends ListenerAdapter {
 
                 //Staff Tools
 
+                new WarnCommand(warningManager),
+                new WarningsCommand(warningManager),
                 new SpamCommand(),
                 new OgCommand(),
                 new FansCommand(),
