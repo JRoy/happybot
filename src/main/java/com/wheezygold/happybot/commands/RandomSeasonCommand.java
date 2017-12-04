@@ -12,7 +12,7 @@ public class RandomSeasonCommand extends Command {
 
     public RandomSeasonCommand() {
         this.name = "randomseason";
-        this.help = "Gives you a m happyheart's season!";
+        this.help = "Gives you a random happyheart season!";
         this.guildOnly = false;
         this.category = new Category("Fun");
 
