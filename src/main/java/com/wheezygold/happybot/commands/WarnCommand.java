@@ -39,6 +39,7 @@ public class WarnCommand extends Command {
 
             try {
                 warningManager.spawnWarning(target.getUser().getId(), e.getMember().getUser().getId(), reason);
+                C.privChannel(target, "You have been warned for: " + C.bold(reason) + "! To review the rules please type `^rules` in the random channel.");
                 e.reply("Warned User!");
             } catch (SQLException e1) {
                 e.replyError("Oof Error: " + e1.getMessage());
