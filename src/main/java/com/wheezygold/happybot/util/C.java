@@ -307,7 +307,7 @@ public class C {
      * @return The bold text.
      */
     public static String bold(String value) {
-        return "**" + value + "**";
+        return "**" + escape(value) + "**";
     }
 
     /**
@@ -316,7 +316,7 @@ public class C {
      * @return The italicized text.
      */
     public static String slant(String value) {
-        return "*" + value + "*";
+        return "*" + escape(value) + "*";
     }
 
     /**
@@ -325,7 +325,19 @@ public class C {
      * @return The underlined text.
      */
     public static String underline(String value) {
-        return "__" + value + "__";
+        return "__" + escape(value) + "__";
+    }
+
+    /**
+     * Escape a string so no formatting is applied on discord
+     * @param value Text to be escaped.
+     * @return The escaped text.
+     */
+    public static String escape(String value) {
+        return value
+                .replace("*", "\\*")
+                .replace("_", "\\_")
+                .replace("`", "\\`");
     }
 
 }
