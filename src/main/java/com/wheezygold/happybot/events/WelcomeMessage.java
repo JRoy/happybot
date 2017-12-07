@@ -257,7 +257,7 @@ public class WelcomeMessage extends ListenerAdapter {
 
     @Override
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
-        String leaveformat = goodbyemsgs[random.nextInt(goodbyemsgs.length)].replaceAll("<player>", event.getMember().getAsMention());
+        String leaveformat = goodbyemsgs[random.nextInt(goodbyemsgs.length)].replaceAll("<player>", "**"+ event.getMember().getUser().getName() + "**");
         if (!leaveformat.startsWith("'s"))
             leaveformat = " " + leaveformat;
         event.getGuild().getTextChannelById("237363812842340363").sendMessage("**" + event.getMember().getUser().getName() + "**" + leaveformat).queue();
