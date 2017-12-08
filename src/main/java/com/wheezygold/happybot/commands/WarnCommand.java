@@ -3,10 +3,13 @@ package com.wheezygold.happybot.commands;
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Roles;
 import com.wheezygold.happybot.util.WarningManager;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 
+import java.awt.*;
 import java.sql.SQLException;
 
 public class WarnCommand extends Command {
@@ -41,6 +44,12 @@ public class WarnCommand extends Command {
                 warningManager.spawnWarning(target.getUser().getId(), e.getMember().getUser().getId(), reason);
                 C.privChannel(target, "You have been warned for: " + C.bold(reason) + "! To review the rules please type `^rules` in the random channel.");
                 e.reply("Warned User!");
+                Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
+                        .setAuthor(e.getMember().getUser().getName() + "#" + e.getMember().getUser().getDiscriminator(), null,  e.getMember().getUser().getAvatarUrl())
+                        .setColor(Color.YELLOW)
+                        .setThumbnail(target.getUser().getAvatarUrl())
+                        .setDescription("⚠ " + C.bold("Warned " + target.getUser().getName() + "#" + target.getUser().getDiscriminator()) + "\n:page_facing_up: " + C.bold("Reason: ") + reason )
+                        .build()).queue();
             } catch (SQLException e1) {
                 e.replyError("Oof Error: " + e1.getMessage());
             }

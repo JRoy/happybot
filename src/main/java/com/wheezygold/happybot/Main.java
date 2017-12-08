@@ -145,6 +145,7 @@ public class Main extends ListenerAdapter {
                 //Staff Tools
 
                 new WarnCommand(warningManager),
+                new DeleteWarnCommand(warningManager),
                 new WarningsCommand(warningManager),
                 new SpamCommand(),
                 new OgCommand(),
