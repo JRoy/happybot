@@ -178,7 +178,8 @@ public class MoneyCommand extends Command {
                                 .append(C.bold("- #" + String.valueOf(curPos)))
                                 .append(" ")
                                 .append(C.underline(curEntry.getKey().getEffectiveName()))
-                                .append(C.slant(" with ") + C.bold(C.prettyNum(curEntry.getValue()) + " coins"));
+                                .append(C.slant(" with "))
+                                .append(C.bold(C.prettyNum(curEntry.getValue()) + " coins"));
                         curPos++;
                     }
                 }
@@ -272,12 +273,19 @@ public class MoneyCommand extends Command {
         if (C.hasRole(member, Roles.OBSESSIVE)) {
             reward++;
         }
-        if (C.hasRole(member, Roles.PATRON_BOYS)) {
+        if (C.hasRole(member, Roles.PATRON_BOYS) || C.hasRole(member, Roles.ETHAN)) {
             reward = reward + 4;
         }
         if (C.hasRole(member, Roles.SUPPORTER)) {
             reward = reward + 2;
         }
+
+        if (C.hasRole(member, Roles.GAMBLE2))
+            return reward * 2;
+
+        if (C.hasRole(member, Roles.GAMBLE1))
+            return (int) (reward * 1.5);
+
         return reward;
     }
 

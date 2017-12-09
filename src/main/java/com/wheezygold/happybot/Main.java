@@ -142,6 +142,7 @@ public class Main extends ListenerAdapter {
                 new WelcomeStatsCommand(),
                 new MoneyCommand(sqlManager),
                 new GambleCommand(sqlManager),
+                new ShopCommand(sqlManager),
 
                 //Staff Tools
 

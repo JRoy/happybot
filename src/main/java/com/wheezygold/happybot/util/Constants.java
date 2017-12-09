@@ -7,7 +7,8 @@ public enum Constants {
     BOT_ID("354736186516045835"),
     HAPPYHEART_TWITTER_ID("865017489213673472"),
     SQL_USERNAME("root"),
-    SQL_DATABASE_NAME("coins");
+    SQL_DATABASE_NAME("coins"),
+    HAPPYHEART_DISCORD_ID("206547133338222592");
 
     private String value;
 
