@@ -31,7 +31,7 @@ public class WarningsCommand extends Command {
                 return;
             }
             try {
-                ResultSet resultSet =warningManager.fetchWarnings(C.getMentionedMember(e).getUser().getId());
+                ResultSet resultSet = warningManager.fetchWarnings(C.getMentionedMember(e).getUser().getId());
                 StringBuilder builder = new StringBuilder();
                 Member targetM = C.getMentionedMember(e);
                 builder.append(targetM.getEffectiveName()).append("'s Warnings\n");
@@ -46,7 +46,7 @@ public class WarningsCommand extends Command {
                 e.replyError("Oof Error: " + e1.getMessage());
             }
         } else {
-            C.permMsg(Roles.HELPER);
+            e.reply(C.permMsg(Roles.HELPER));
         }
     }
 }
