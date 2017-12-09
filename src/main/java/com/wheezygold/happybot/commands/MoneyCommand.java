@@ -178,7 +178,7 @@ public class MoneyCommand extends Command {
                                 .append(C.bold("- #" + String.valueOf(curPos)))
                                 .append(" ")
                                 .append(C.underline(curEntry.getKey().getEffectiveName()))
-                                .append(C.slant(" with " + C.bold(C.prettyNum(curEntry.getValue()) + " coins")));
+                                .append(C.slant(" with ") + C.bold(C.prettyNum(curEntry.getValue()) + " coins"));
                         curPos++;
                     }
                 }
