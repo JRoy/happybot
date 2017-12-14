@@ -22,6 +22,7 @@ public class WarnCommand extends Command {
         this.help = "Warns the target user.";
         this.guildOnly = true;
         this.category = new Category("Staff Tools");
+        this.aliases = new String[]{"warning"};
         this.warningManager = warningManager;
     }
 
