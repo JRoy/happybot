@@ -33,12 +33,12 @@ public class WarnCommand extends Command {
                 e.replyError("**Correct Usage:** ^" + name + " **<user>** <reason>");
                 return;
             }
-            if (e.getArgs().replaceAll("\\<(.*?)\\>", "").isEmpty()) {
+            if (e.getArgs().replaceAll("<(.*?)>", "").isEmpty()) {
                 e.replyError("**Correct Usage:** ^" + name + " <user> **<reason>**");
                 return;
             }
 
-            String reason = e.getArgs().replaceAll("\\<(.*?)\\>", "");
+            String reason = e.getArgs().replaceFirst("<(.*?)> ", "");
             Member target = C.getMentionedMember(e);
 
             try {

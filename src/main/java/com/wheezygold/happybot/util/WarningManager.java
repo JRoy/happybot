@@ -12,7 +12,7 @@ public class WarningManager {
 
     private Connection connection;
 
-    private String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `warnings` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `targetid` VARCHAR(50) NOT NULL , `staffid` VARCHAR(50) NOT NULL , `reason` VARCHAR(100) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+    private String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `warnings` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `targetid` VARCHAR(50) NOT NULL , `staffid` VARCHAR(50) NOT NULL , `reason` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
     private String SELECT_USER = "SELECT * FROM warnings WHERE targetid = ?;";
     private String CREATE_WARNING = "INSERT INTO warnings (targetid, staffid, reason) VALUES (?, ?, ?);";
     private String DELETE_WARNING = "DELETE FROM `warnings` WHERE id = ?;";
