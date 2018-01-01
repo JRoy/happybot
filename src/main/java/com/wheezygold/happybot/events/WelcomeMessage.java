@@ -116,7 +116,21 @@ public class WelcomeMessage extends ListenerAdapter {
                 "If this is a good welcome submit, Josh will pin it and <player> joins with satisfaction",
                 "is ban evading!!!",
                 "has lost faith in the human race",
-                "has chosen to become a 1 star"
+                "has chosen to become a 1 star",
+                "Why don't you just leave.",
+                "came for more bad quality videos.",
+                "Josh counts as a security system.",
+                "we got a big beautiful boy right here!",
+                "Sector is clear-- NOT CLEAR, NOT CLEAR!",
+                ", Welcome to hell, may I take your order?",
+                ", I hope you like getting pinged. <player> <player> <player> <player>.",
+                "hi do you support net neutrality?",
+                "make sure to leave the shoes on the mat pls.",
+                "walked into the wrong side of New York.",
+                "is not in Kansas anymore...",
+                "did not hit her.",
+                "I did not hit her. It's not true. It's bullshit. I did not hit her, I DID NOT! oh hi <user>."
+
         };
         goodbyemsgs = new String[]{
                 "just left happyheart Fanbase. You smel.",
@@ -233,7 +247,25 @@ public class WelcomeMessage extends ListenerAdapter {
                 "-5 Karma!",
                 "yeah heck off",
                 "wasn't depressed enough",
-                "chose technoblade over happyheart"
+                "chose technoblade over happyheart",
+                "found out that everyone is a 1 star.",
+                "got demoted from staff.",
+                "it's too dangerous to go alo- oh wait you're gone.",
+                "lost their net neutrality and forgot to pay their monthly $9.99 for communication.",
+                "tried to raid us.",
+                "was probably more of Monika person anyway...",
+                "more like @invalid-user!",
+                "wanted to find MINECRAFT SEXUL ABUSE and was disappointed.",
+                "did not like happy's LoL main.",
+                "didn't like getting pined every 3 seconds.",
+                "oh.",
+                ", oh well they were useless anyways.",
+                "oof.",
+                "left cause happy wasn't doing MC content.",
+                "was beaned by admin boi.",
+                "\"Does't like league\" they said. \"Unsubscribed\" they said, blah blah blah...",
+                "liked minecraft over league.",
+                "losed."
 
         };
     }
@@ -249,16 +281,16 @@ public class WelcomeMessage extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-        String joinformat = welcomemsgs[random.nextInt(welcomemsgs.length)].replaceAll("<player>", event.getMember().getAsMention());
-        if (!joinformat.startsWith("'s"))
+        String joinformat = welcomemsgs[random.nextInt(welcomemsgs.length)].replaceAll("<player>", event.getMember().getAsMention()).replaceAll("<user>", event.getMember().getAsMention());
+        if (!joinformat.startsWith("'s") || !joinformat.startsWith(","))
             joinformat = " " + joinformat;
         event.getGuild().getTextChannelById("237363812842340363").sendMessage(event.getMember().getAsMention() + joinformat).queue();
     }
 
     @Override
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
-        String leaveformat = goodbyemsgs[random.nextInt(goodbyemsgs.length)].replaceAll("<player>", "**"+ event.getMember().getUser().getName() + "**");
-        if (!leaveformat.startsWith("'s"))
+        String leaveformat = goodbyemsgs[random.nextInt(goodbyemsgs.length)].replaceAll("<player>", "**"+ event.getMember().getUser().getName() + "**").replaceAll("<user>", "**"+ event.getMember().getUser().getName() + "**");
+        if (!leaveformat.startsWith("'s") || !leaveformat.startsWith(","))
             leaveformat = " " + leaveformat;
         event.getGuild().getTextChannelById("237363812842340363").sendMessage("**" + event.getMember().getUser().getName() + "**" + leaveformat).queue();
     }
