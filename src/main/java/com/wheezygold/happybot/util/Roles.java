@@ -15,7 +15,7 @@ public enum Roles {
     CHANNEL_MANAGER("368172637182230549", "Channel Manager", "Channel Manager"),
     ADMIN("295673671203291147", "Admin", "Admin"),
     MODERATOR("264964563517046784", "Moderators", "Moderator"),
-    HELPER("264965005949009920", "Helpers", "Helper"),
+    HELPER("264965005949009920", "Trial Moderators", "Trial Mod"),
     RECRUITER("299632971319869451", "Recruiter", "Recruiter"),
 
     //Punish Ranks
