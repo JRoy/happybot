@@ -58,9 +58,9 @@ public class UpdateCommand extends Command {
             }
             e.getJDA().shutdown();
             Logger.log("Updater - Updating Builds with exit code: " + String.valueOf(exitCode));
-            Logger.info("{Updater] ");
+            Logger.info("[Updater] ");
             Logger.info("[Updater] Updater has stopped JDA and is impeding a new update now.");
-            Logger.info("{Updater] ");
+            Logger.info("[Updater] ");
             System.exit(exitCode);
         }
     }
