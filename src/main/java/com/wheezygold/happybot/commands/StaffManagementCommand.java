@@ -22,7 +22,7 @@ public class StaffManagementCommand extends Command {
                 if (e.getArgs().startsWith("deny ")) {
                     if (e.getMessage().getMentionedUsers().size() == 1) {
                         C.privChannel(C.getMentionedMember(e),
-                                "Hey! I am sorry to say but your application has been denied due to **lack of detail**. You may reapply in 1 week!");
+                                "Hey! I am sorry to say but your application has been denied due to **lack of detail**. You may reapply in 5 days!");
                         e.replySuccess("Application Denied!");
                     } else {
                         e.replyError("^staffmng <deny/deny-level/approve> <user>");
@@ -30,7 +30,7 @@ public class StaffManagementCommand extends Command {
                 } else if (e.getArgs().startsWith("deny-level ")) {
                     if (e.getMessage().getMentionedUsers().size() == 1) {
                         C.privChannel(C.getMentionedMember(e),
-                                "Hey! I am sorry to say but your application has been denied due to lack of **community involvement**. You may reapply in 1 week!");
+                                "Hey! I am sorry to say but your application has been denied due to lack of **community involvement**. You may reapply in 5 days!");
                         e.replySuccess("Application Denied!");
                     } else {
                         e.replyError("^staffmng <deny/deny-level/approve> <user>");
