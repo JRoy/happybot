@@ -17,7 +17,7 @@ public class AutoReact extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
         if (e.getChannel().getId().equals(Channels.UPDATES.getId())) {
             e.getMessage().addReaction(Emotes.getRandom().getEmote()).queue();
-        } else if (e.getChannel().getId().equals(Channels.STAFF_ANNOUNCEMENTS)) {
+        } else if (e.getChannel().getId().equals(Channels.STAFF_ANNOUNCEMENTS.getId())) {
             e.getMessage().addReaction(Emotes.getRandom().getEmote()).queue();
         }
     }
