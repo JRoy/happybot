@@ -13,7 +13,7 @@ public class DeleteWarnCommand extends Command {
 
     public DeleteWarnCommand(WarningManager warningManager) {
         this.name = "delwarn";
-        this.aliases = new String[]{"delwarning", "deletewarn", "deletewarning"};
+        this.aliases = new String[]{"delwarning", "deletewarn", "deletewarning", "dwarn"};
         this.arguments = "<warning ID>";
         this.help = "Deletes the target warning.";
         this.guildOnly = true;
