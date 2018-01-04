@@ -40,11 +40,11 @@ public class UpdateCommand extends Command {
             int exitCode;
             if (e.getArgs().equalsIgnoreCase("jenkins") || e.getArgs().equalsIgnoreCase("j")) {
                 e.reply(":white_check_mark: Downloading Update from Jenkins!");
-                new Thread(new ImpendRestart(e, "Jenkins")).start();
+                new Thread(new ImpendRestart("Jenkins")).start();
                 exitCode = 20;
             } else if (e.getArgs().equalsIgnoreCase("dropbox") || e.getArgs().equalsIgnoreCase("d")) {
                 e.reply(":white_check_mark: Downloading Update from Dropbox!");
-                new Thread(new ImpendRestart(e, "Dropbox")).start();
+                new Thread(new ImpendRestart("Dropbox")).start();
                 exitCode = 10;
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
@@ -67,11 +67,9 @@ public class UpdateCommand extends Command {
 
     class ImpendRestart implements Runnable {
 
-        private CommandEvent e;
         private String s;
 
-        ImpendRestart(CommandEvent e, String source) {
-            this.e = e;
+        ImpendRestart(String source) {
             this.s = source;
         }
 
