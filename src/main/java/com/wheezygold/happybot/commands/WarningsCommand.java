@@ -17,6 +17,7 @@ public class WarningsCommand extends Command {
 
     public WarningsCommand(WarningManager warningManager) {
         this.name = "warnings";
+        this.aliases = new String[]{"warns"};
         this.arguments = "<user>";
         this.help = "Warns the target user.";
         this.guildOnly = true;

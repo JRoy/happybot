@@ -40,6 +40,11 @@ public class WarnCommand extends Command {
             String reason = e.getArgs().replaceFirst("<(.*?)> ", "");
             Member target = C.getMentionedMember(e);
 
+            if (reason.contains("^rules")) {
+                e.replyError("Please do not mention to review the rules, the bot does that for us now!");
+                return;
+            }
+
             try {
                 int warnId = warningManager.spawnWarning(target.getUser().getId(), e.getMember().getUser().getId(), reason);
                 C.privChannel(target, "You have been warned for: " + C.bold(reason) + "! To review the rules please type `^rules` in the random channel.");
