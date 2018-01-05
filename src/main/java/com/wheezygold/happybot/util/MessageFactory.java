@@ -56,7 +56,9 @@ public class MessageFactory {
                 "Initiating \"Josh is not Gay\" guidance program...",
                 "Hey Vsauce, Michael Here.",
                 "Not this again *smh*",
-                "Recruiting Junglers."
+                "Recruiting Junglers.",
+                "Adding new messages from the ~~slaves~~ I mean creative people...",
+                "loading screens? Pfft, we got- wait uh"
         };
         updateEndMessages = new String[]{
                 "Activating Witch Time...",
@@ -86,7 +88,10 @@ public class MessageFactory {
                 "<player> guess you'll die ¯\\_(ツ)_/¯.",
                 "I too have a warn button, but it is much bigger & more powerful one than his, and my button works!",
                 "<player> complained that their warn message wasn't picked and rampaged.",
-                "Oh boy, they're gonna complain about this one for sure."
+                "Oh boy, they're gonna complain about this one for sure.",
+                "Hmm.. you forgot ^rules for rules.",
+                "<player> wrote something in fanart...",
+                "<player> you've met with a terrible fate, haven't you?"
         };
     }
 
@@ -347,7 +352,8 @@ public class MessageFactory {
                 "didn't like happyhearts new style.",
                 "became self-aware.",
                 "annoyed the staff some more.",
-                "\"orianna is stinky\" - <player>, 2018"
+                "\"orianna is stinky\" - <player>, 2018",
+                ", don't forget to unsub!"
 
         };
     }

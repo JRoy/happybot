@@ -83,11 +83,11 @@ public class WarningsCommand extends Command {
             this.warnings = warnings;
         }
 
-        StringBuilder getBuilder() {
+        private StringBuilder getBuilder() {
             return builder;
         }
 
-        int getWarnings() {
+        private int getWarnings() {
             return warnings;
         }
     }
