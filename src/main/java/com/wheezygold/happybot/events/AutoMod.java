@@ -72,10 +72,10 @@ public class AutoMod extends ListenerAdapter {
     private void checkForAdvertising(Member member, Message message, TextChannel channel) {
         if (C.hasRole(member, Roles.SUPER_ADMIN) || C.hasRole(member, Roles.BOT))
             return;
-        if (!message.getContent().toLowerCase().contains("discord.gg/"))
+        if (!message.getContentRaw().toLowerCase().contains("discord.gg/"))
             return;
-        message.delete().reason("Advertising Link with Message: " + message.getStrippedContent()).queue();
-        Channels.LOG.getChannel().sendMessage(member.getAsMention() + " attempted to advert the following link: " + message.getContent()).queue();
+        message.delete().reason("Advertising Link with Message: " + message.getContentStripped()).queue();
+        Channels.LOG.getChannel().sendMessage(member.getAsMention() + " attempted to advert the following link: " + message.getContentRaw()).queue();
         C.privChannel(member, "You cannot advertise in the happyheart guild!");
         if (!processedMessages.contains(message)) {
             channel.sendMessage(member.getAsMention() + "! Do not advert other discord servers!").queue();
