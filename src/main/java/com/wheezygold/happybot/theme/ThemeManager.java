@@ -71,33 +71,34 @@ public class ThemeManager {
 
     private void parseThemeFile(String themeName, Scanner themeFileScanner) {
         // (Techno-coder) Wheezy you idiot if you put this inside the loop its going to clear the HashMap each time
-        themeName = themeName.split("[.]")[0];
-        themeData.put(themeName, new HashMap<>());
+        String editThemeName = themeName.split("[.]")[0];
+        themeData.put(editThemeName, new HashMap<>());
 
         while (themeFileScanner.hasNextLine()) {
             String[] lineTokens = themeFileScanner.nextLine().split("[:]");
             if (!lineTokens[0].equalsIgnoreCase("MetaData")) {
-                themeData.get(themeName).put(lineTokens[0], lineTokens[1]);
+                themeData.get(editThemeName).put(lineTokens[0], lineTokens[1]);
             }
         }
     }
 
     private void parseThemeFileMeta(String themeName, Scanner themeFileScanner) {
-        themeName = themeName.split("[.]")[0];
-        themeMetaData.put(themeName, new HashMap<>());
+        String editThemeName = themeName.split("[.]")[0];
+        themeMetaData.put(editThemeName, new HashMap<>());
 
         while (themeFileScanner.hasNextLine()) {
             String[] lineTokens = themeFileScanner.nextLine().split("[:]");
             if (lineTokens[0].equalsIgnoreCase("MetaData")) {
-                themeMetaData.get(themeName).put(lineTokens[1], lineTokens[2]);
+                themeMetaData.get(editThemeName).put(lineTokens[1], lineTokens[2]);
             }
         }
     }
 
     public boolean validateTheme(String themeName, boolean parse) throws FileNotFoundException, InvalidThemeFileException {
-        if (!themeName.contains(".dat"))
-            themeName = themeName + ".dat";
-        Scanner validateScanner = new Scanner(new File("themes/" + themeName));
+        String editThemeName = themeName;
+        if (!editThemeName.contains(".dat"))
+            editThemeName = editThemeName + ".dat";
+        Scanner validateScanner = new Scanner(new File("themes/" + editThemeName));
         List<String> metaTokens = new ArrayList<>();
         while (validateScanner.hasNextLine()) {
             String curLine = validateScanner.nextLine();
@@ -109,19 +110,19 @@ public class ThemeManager {
             String[] lineTokens = curLine.split("[:]");
             if (lineTokens[0].equalsIgnoreCase("MetaData")) {
                 if (lineTokens.length != 3)
-                    throw new InvalidThemeFileException("Unparseable line in \"" + themeName + "\": " + curLine);
+                    throw new InvalidThemeFileException("Unparseable line in \"" + editThemeName + "\": " + curLine);
                 metaTokens.add(lineTokens[1]);
             } else {
                 if (lineTokens.length != 2) {
-                    throw new InvalidThemeFileException("Unparseable line in \"" + themeName + "\": " + curLine);
+                    throw new InvalidThemeFileException("Unparseable line in \"" + editThemeName + "\": " + curLine);
                 }
             }
         }
         if (metaTokens.contains("title") && metaTokens.contains("icon") && metaTokens.contains("nickname") && metaTokens.contains("name")) {
             if (parse) {
-                File parseFile = new File("themes/" + themeName);
-                parseThemeFile(themeName, new Scanner(parseFile));
-                parseThemeFileMeta(themeName, new Scanner(parseFile));
+                File parseFile = new File("themes/" + editThemeName);
+                parseThemeFile(editThemeName, new Scanner(parseFile));
+                parseThemeFileMeta(editThemeName, new Scanner(parseFile));
             }
             return true;
         }

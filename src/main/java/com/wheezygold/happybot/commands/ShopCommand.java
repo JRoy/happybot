@@ -17,6 +17,13 @@ public class ShopCommand extends Command {
 
     private SQLManager sqlManager;
 
+    private String currentShopHelp = "**Happyheart Shop Help**\n" +
+            "This shop allows for you to spend your money on\n" +
+            "stuff. To view the products we offer please do\n" +
+            "`^shop items` to get the list of the shop items.\n" +
+            "If you would like to buy an item do the following:\n" +
+            "`^shop buy <id>` This will buy it from your account!";
+
     public ShopCommand(SQLManager sqlManager) {
         this.name = "shop";
         this.help = "Fun activity thing let's you do things.";
@@ -25,13 +32,6 @@ public class ShopCommand extends Command {
         this.category = new Category("Fun");
         this.sqlManager = sqlManager;
     }
-
-    private String currentShopHelp = "**Happyheart Shop Help**\n" +
-            "This shop allows for you to spend your money on\n" +
-            "stuff. To view the products we offer please do\n" +
-            "`^shop items` to get the list of the shop items.\n" +
-            "If you would like to buy an item do the following:\n" +
-            "`^shop buy <id>` This will buy it from your account!";
 
     @Override
     protected void execute(CommandEvent e) {

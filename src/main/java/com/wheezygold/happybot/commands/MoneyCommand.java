@@ -39,29 +39,27 @@ public class MoneyCommand extends Command {
                 return;
             }
 
-            if (args.length >= 2) {
-                if (args[1].equalsIgnoreCase("reset-time")) {
-                    if (C.containsMention(e)) {
-                        if (sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
-                            try {
-                                sqlManager.getUser(C.getMentionedMember(e).getUser().getId()).setEpoch(0);
-                                e.reply("Reset target users time!");
-                                return;
-                            } catch (SQLException e1) {
-                                e.replyError("Oof Error.");
-                            }
-                        } else {
-                            e.replyError("Target user does not have an account");
+            if (args.length >= 2 && args[1].equalsIgnoreCase("reset-time")) {
+                if (C.containsMention(e)) {
+                    if (sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
+                        try {
+                            sqlManager.getUser(C.getMentionedMember(e).getUser().getId()).setEpoch(0);
+                            e.reply("Reset target users time!");
                             return;
+                        } catch (SQLException e1) {
+                            e.replyError("Oof Error.");
                         }
                     } else {
-                        e.replyError("**Correct Usage:** ^" + name + " admin reset-time **<user>**");
+                        e.replyError("Target user does not have an account");
                         return;
                     }
+                } else {
+                    e.replyError("**Correct Usage:** ^" + name + " admin reset-time **<user>**");
+                    return;
                 }
             }
 
-            if (!(args.length >= 3)) {
+            if (args.length != 4) {
                 e.replyError("**Correct Usage:** ^" + name + " admin **<give/take> <amount> <user>**");
                 return;
             }
@@ -210,7 +208,7 @@ public class MoneyCommand extends Command {
                 e.reply("Oof error.");
             }
         } else if (args[0].equalsIgnoreCase("pay")) {
-            if (!(args.length >= 2)) {
+            if (args.length != 3) {
                 e.replyError("**Correct Usage:** ^" + name + " pay <amount> <user>");
                 return;
             }

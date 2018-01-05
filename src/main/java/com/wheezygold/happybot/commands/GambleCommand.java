@@ -39,14 +39,12 @@ public class GambleCommand extends Command {
             return;
         }
 
-        if (e.getArgs().equalsIgnoreCase("check")) {
-        	if (isGambleMember(e.getMember())) {
-        		int timeRemaining = getTimeRemaining(e.getMember());
-        		if (timeRemaining > 0) {
-                    e.reply("You have " + String.valueOf(timeRemaining) + " seconds before using the gamble command!");
-                } else {
-        		    e.reply("You can use the gamble command now!");
-                }
+        if (e.getArgs().equalsIgnoreCase("check") && isGambleMember(e.getMember())) {
+            int timeRemaining = getTimeRemaining(e.getMember());
+            if (timeRemaining > 0) {
+                e.reply("You have " + String.valueOf(timeRemaining) + " seconds before using the gamble command!");
+            } else {
+                e.reply("You can use the gamble command now!");
             }
         }
 

@@ -81,7 +81,7 @@ public class StatsCommand extends Command {
                     .setDescription("Listing statistics:")
                     .setFooter("Stats provided by Hypixel's API", "https://media-curse.cursecdn.com/attachments/264/727/f7c76fdb4569546a9ddf0e58c8653823.png");
 
-            for (HashMap.Entry<String, String> entry : Hypixel.getAllFields(hypixelPlayer).entrySet()) {
+            for (HashMap.Entry<String, String> entry : hypixel.getAllFields(hypixelPlayer).entrySet()) {
                 if (entry.getValue() != null) {
                     embed.addField("**" + entry.getKey() + "**", entry.getValue(), true);
                 }

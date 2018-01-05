@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class Hypixel {
 
-    private static HypixelAPI api;
+    private final HypixelAPI api;
 
     public Hypixel(String apikey) {
         api = new HypixelAPI(apikey);
@@ -29,7 +29,7 @@ public class Hypixel {
         return null;
     }
 
-    public static HashMap<String, String> getAllFields(HypixelPlayer hypixelPlayer) {
+    public HashMap<String, String> getAllFields(HypixelPlayer hypixelPlayer) {
         HashMap<String, String> fields = new HashMap<>();
         if (hypixelPlayer != null) {
             DecimalFormat df = new DecimalFormat("#.#");

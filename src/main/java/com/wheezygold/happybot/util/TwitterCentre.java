@@ -6,7 +6,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterCentre {
 
-    private static Twitter twitter;
+    private final Twitter twitter;
 
     private static final long happyid = Long.parseLong(Constants.HAPPYHEART_TWITTER_ID.get());
 
@@ -21,8 +21,11 @@ public class TwitterCentre {
         twitter = twitterFactory.getInstance();
     }
 
-    public static long getHappyid() {
+    public long getHappyid() {
         return happyid;
     }
 
+    public Twitter getTwitter() {
+        return twitter;
+    }
 }

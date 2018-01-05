@@ -5,22 +5,18 @@ import com.wheezygold.happybot.util.Roles;
 import com.wheezygold.happybot.util.TwitterCentre;
 import net.dv8tion.jda.core.EmbedBuilder;
 import twitter4j.*;
-import twitter4j.conf.ConfigurationBuilder;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 public class TweetMonitor {
-    public TweetMonitor(String cKey, String cSecret, String aToken, String aSecret) {
-        long happyid = TwitterCentre.getHappyid();
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(false)
-                .setOAuthConsumerKey(cKey)
-                .setOAuthConsumerSecret(cSecret)
-                .setOAuthAccessToken(aToken)
-                .setOAuthAccessTokenSecret(aSecret);
-        TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
-        StatusListener listener = new StatusListener() {
+
+    private final TwitterCentre twitterCentre;
+
+    public TweetMonitor(TwitterCentre twitterCentre) {
+        this.twitterCentre = twitterCentre;
+        TwitterStream twitterStream = new TwitterStreamFactory(twitterCentre.getTwitter().getConfiguration()).getInstance();
+        twitterStream.addListener(new StatusListener() {
             @Override
             public void onStatus(Status status) {
                 new Thread(new HandleTweet(status)).start();
@@ -50,10 +46,9 @@ public class TweetMonitor {
             public void onException(Exception e) {
 
             }
-        };
-        twitterStream.addListener(listener);
+        });
         FilterQuery filter = new FilterQuery();
-        filter.follow(happyid);
+        filter.follow(twitterCentre.getHappyid());
         twitterStream.filter(filter);
     }
 
@@ -77,7 +72,7 @@ public class TweetMonitor {
                 builder.addField("In reply to..", "[In reply to this @" + status.getInReplyToScreenName() + "'s tweet]" +
                         "(https://twitter.com/" + status.getInReplyToScreenName() + "/status/" + status.getInReplyToStatusId() + ")", false);
             }
-            if (status.getUser().getId() == TwitterCentre.getHappyid()) {
+            if (status.getUser().getId() == twitterCentre.getHappyid()) {
                 Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getRole().getAsMention()).queue();
                 Channels.TWITTER.getChannel().sendMessage(builder.build()).queue();
             }

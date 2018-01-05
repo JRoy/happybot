@@ -13,17 +13,15 @@ public class UserToken {
     private SQLManager sqlManager;
 
     UserToken(SQLManager sqlManager, String userID) throws SQLException {
-        if (sqlManager.getConnection() != null || !sqlManager.getConnection().isClosed()) {
-            ResultSet resultSet = sqlManager.getConnection().createStatement().executeQuery("SELECT * FROM user WHERE userid = " + userID + ";");
-            resultSet.next();
+        ResultSet resultSet = sqlManager.getConnection().createStatement().executeQuery("SELECT * FROM user WHERE userid = " + userID + ";");
+        resultSet.next();
 
-            this.id = resultSet.getInt("id");
-            this.userId = resultSet.getString("userid");
-            this.coins = resultSet.getInt("coins");
-            this.epoch = resultSet.getLong("epoch");
+        this.id = resultSet.getInt("id");
+        this.userId = resultSet.getString("userid");
+        this.coins = resultSet.getInt("coins");
+        this.epoch = resultSet.getLong("epoch");
 
-            this.sqlManager = sqlManager;
-        }
+        this.sqlManager = sqlManager;
     }
 
     public int getId() {

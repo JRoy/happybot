@@ -207,7 +207,7 @@ public class Main extends ListenerAdapter {
         Logger.info("Loading Twitter Centre...");
         twitterCentre = new TwitterCentre(cKey, cSecret, aToken, aSecret);
         Logger.info("Loading Twitter Monitor...");
-        tweetMonitor = new TweetMonitor(cKey, cSecret, aToken, aSecret);
+        tweetMonitor = new TweetMonitor(twitterCentre);
     }
 
     private static String readFirstLineOfFile(String filename, String errorMessage) throws IOException {

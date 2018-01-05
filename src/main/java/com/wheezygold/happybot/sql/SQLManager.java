@@ -5,6 +5,7 @@ import com.wheezygold.happybot.util.Constants;
 import com.wheezygold.happybot.util.Logger;
 import net.dv8tion.jda.core.entities.Member;
 
+import javax.annotation.Nonnull;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,6 +87,7 @@ public class SQLManager {
 
     }
 
+    @Nonnull
     public Connection getConnection() {
         return connection;
     }

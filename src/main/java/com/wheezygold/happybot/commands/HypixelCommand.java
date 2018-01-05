@@ -37,7 +37,7 @@ public class HypixelCommand extends Command {
                             .setTitle("Hypixel Player Statistics")
                             .setDescription("Listing statistics:")
                             .setFooter("Stats provided by Hypixel's API", "https://media-curse.cursecdn.com/attachments/264/727/f7c76fdb4569546a9ddf0e58c8653823.png");
-                    for (HashMap.Entry<String, String> entry : Hypixel.getAllFields(player).entrySet()) {
+                    for (HashMap.Entry<String, String> entry : hypixel.getAllFields(player).entrySet()) {
                         if (entry.getValue() != null && !entry.getValue().equals("0")) {
                             embed.addField("**" + entry.getKey() + "**", entry.getValue(), true);
                         }
