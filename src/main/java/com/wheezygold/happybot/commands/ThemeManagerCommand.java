@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+@SuppressWarnings("ignored")
 public class ThemeManagerCommand extends Command {
 
     private ThemeManager themeManager;
@@ -20,7 +21,7 @@ public class ThemeManagerCommand extends Command {
     public ThemeManagerCommand(ThemeManager themeManager) {
         this.name = "thememngr";
         this.help = "A command to manage themes.";
-        this.arguments = "<load/delete> <link/theme name> <theme name>";
+        this.arguments = "<load/delete/reload> <link/theme name> <theme name>";
         this.guildOnly = true;
         this.category = new Category("Bot Management");
         this.themeManager = themeManager;
@@ -53,12 +54,14 @@ public class ThemeManagerCommand extends Command {
                         e.replySuccess("Loaded Theme: " + args[2]);
                     }
                     e.replyError("The provided theme file was invalid!");
-                    new File(args[2] + ".dat").delete();
+                    if (!new File(args[2] + ".dat").delete())
+                        e.replyError("Unable to delete file!");
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
                 } catch (InvalidThemeFileException e1) {
                     e.replyError("An InvalidThemeFileException was thrown when parsing your file:" + C.codeblock(e1.getMessage()));
-                    new File("themes"+args[2]+".dat").delete();
+                    if (!new File("themes"+args[2]+".dat").delete())
+                        e.replyError("Unable to delete file!");
                 }
             } else if (args[0].equalsIgnoreCase("delete")) {
                 if (args.length != 2) {
@@ -69,10 +72,26 @@ public class ThemeManagerCommand extends Command {
                     try {
                         themeManager.removeTheme(args[1]);
                         e.replySuccess("Deleted Theme: "+args[1]);
-                        new File(args[1] + ".dat").renameTo(new File("themes/deleted/"+args[1]+".dat"));
+                        if (!new File(args[1] + ".dat").renameTo(new File("themes/deleted/"+args[1]+".dat")))
+                            e.replyError("Unable to move file!");
                     } catch (ThemeNotFoundException e1) {
                         e.replyError("The target theme was not found!");
                     }
+                }
+            } else if (args[0].equalsIgnoreCase("reload")) {
+                if (args.length != 2) {
+                    e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                    return;
+                }
+                if (themeManager.getThemes().contains(args[1])) {
+                    try {
+                        themeManager.reloadTheme(args[1]);
+                        e.replySuccess("Reloaded theme!");
+                    } catch (ThemeNotFoundException | InvalidThemeFileException e1) {
+                        e.replyError("Error while reloading theme: " + e1.getMessage());
+                    }
+                } else {
+                    e.replyError("The target theme was not found!");
                 }
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);

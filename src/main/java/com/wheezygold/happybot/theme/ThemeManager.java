@@ -95,6 +95,8 @@ public class ThemeManager {
     }
 
     public boolean validateTheme(String themeName, boolean parse) throws FileNotFoundException, InvalidThemeFileException {
+        if (!themeName.contains(".dat"))
+            themeName = themeName + ".dat";
         Scanner validateScanner = new Scanner(new File("themes/" + themeName));
         List<String> metaTokens = new ArrayList<>();
         while (validateScanner.hasNextLine()) {
@@ -147,7 +149,7 @@ public class ThemeManager {
         themeMetaData.remove(themeName);
     }
 
-    public void reloadTheme(String themeName) throws ThemeNotFoundException {
+    public void reloadTheme(String themeName) throws ThemeNotFoundException, InvalidThemeFileException {
         if (!themeData.containsKey(themeName))
             throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
 
@@ -157,12 +159,13 @@ public class ThemeManager {
             return;
         }
 
-        Optional<File> optionalTheme = Arrays.stream(files).filter(file -> file.getName().equalsIgnoreCase(themeName)).findAny();
+        Optional<File> optionalTheme = Arrays.stream(files).filter(file -> file.getName().equalsIgnoreCase(themeName + ".dat")).findAny();
         if (!optionalTheme.isPresent())
             throw new ThemeNotFoundException("Theme file: " + themeName + " was not found.");
 
         File theme = optionalTheme.get();
-        parseTheme(theme, themeName);
+        if (!parseTheme(theme, themeName))
+            throw new InvalidThemeFileException("Unparseable Theme");
     }
 
     protected HashMap<String, String> getThemeData(String themeName) throws ThemeNotFoundException {
