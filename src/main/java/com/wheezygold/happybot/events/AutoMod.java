@@ -6,6 +6,7 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
@@ -47,6 +48,9 @@ public class AutoMod extends ListenerAdapter {
         Message message = event.getMessage();
         checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
         if (message.getChannel() == Channels.BOT_META.getChannel() && message.isWebhookMessage()) {
+            MessageEmbed embed = message.getEmbeds().get(0);
+            if (embed.getTitle().startsWith("[WheezyGold7931/happybot] Issue closed:"))
+                return;
             Roles.GIT.getRole().getManager().setMentionable(true).queue();
             Channels.BOT_META.getChannel().sendMessage(Roles.GIT.getRole().getAsMention()).queue();
             try {
