@@ -33,6 +33,7 @@ public class Main extends ListenerAdapter {
     private static WarningManager warningManager;
     private static Hypixel hypixel;
     private static ThemeManager themeManager;
+    private static MessageFactory messageFactory;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
 
@@ -43,15 +44,14 @@ public class Main extends ListenerAdapter {
         Logger.log("Loading Config Files...");
         createConfigFiles();
 
-
         String token = readFirstLineOfFile("config.yml", "There is no token in your config, welcome to stack trace city!");
         theme = readFirstLineOfFile("theme.yml", "Error receiving theme");
 
-        //Always init your strings! (Techno-coder: Wheezy, you are a sad, sad person)
         String sqlPassword;
         sqlPassword = readFirstLineOfFile("sql.yml", "Error receiving your SQL Password");
 
         themeManager = loadThemeManager();
+        messageFactory = loadMessageFactory();
 
         loadTweetMonitor();
 
@@ -82,6 +82,8 @@ public class Main extends ListenerAdapter {
         Logger.info("Bot has been loaded!");
     }
 
+    public static MessageFactory loadMessageFactory() { return new MessageFactory(); }
+
     private static ThemeManager loadThemeManager() {
         return new ThemeManager();
     }
@@ -93,7 +95,7 @@ public class Main extends ListenerAdapter {
         eventListeners.add(new AutoMod());
 
         Logger.info("Loading Welcome Manager...");
-        eventListeners.add(new WelcomeMessage());
+        eventListeners.add(new WelcomeMessage(messageFactory));
 
         Logger.info("Loading AutoReact...");
         eventListeners.add(new AutoReact());
@@ -139,7 +141,7 @@ public class Main extends ListenerAdapter {
                 new RandomSeasonCommand(),
                 new StatsCommand(hypixel),
                 new HypixelCommand(hypixel),
-                new WelcomeStatsCommand(),
+                new WelcomeStatsCommand(messageFactory),
                 new MoneyCommand(sqlManager),
                 new GambleCommand(sqlManager),
                 new ShopCommand(sqlManager),
