@@ -17,6 +17,7 @@ public class ThemeManager {
     private HashMap<String, HashMap<String, String>> themeData = new HashMap<>();
     private HashMap<String, HashMap<String, String>> themeMetaData = new HashMap<>();
     private ThemeManager instance;
+    private boolean busyTransferring = false;
 
     public ThemeManager() {
         instance = this;
@@ -24,7 +25,7 @@ public class ThemeManager {
     }
 
     private void loadThemes() {
-        File[] rawThemes = new File("themes/").listFiles();
+        File[] rawThemes = new File("themes/data/").listFiles();
 
         Logger.info("Loading Theme Manager...");
 
@@ -98,7 +99,7 @@ public class ThemeManager {
         String editThemeName = themeName;
         if (!editThemeName.contains(".dat"))
             editThemeName = editThemeName + ".dat";
-        Scanner validateScanner = new Scanner(new File("themes/" + editThemeName));
+        Scanner validateScanner = new Scanner(new File("themes/data/" + editThemeName));
         List<String> metaTokens = new ArrayList<>();
         while (validateScanner.hasNextLine()) {
             String curLine = validateScanner.nextLine();
@@ -120,7 +121,7 @@ public class ThemeManager {
         }
         if (metaTokens.contains("title") && metaTokens.contains("icon") && metaTokens.contains("nickname") && metaTokens.contains("name")) {
             if (parse) {
-                File parseFile = new File("themes/" + editThemeName);
+                File parseFile = new File("themes/data/" + editThemeName);
                 parseThemeFile(editThemeName, new Scanner(parseFile));
                 parseThemeFileMeta(editThemeName, new Scanner(parseFile));
             }
@@ -154,7 +155,7 @@ public class ThemeManager {
         if (!themeData.containsKey(themeName))
             throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
 
-        File[] files = new File("themes/").listFiles();
+        File[] files = new File("themes/data/").listFiles();
         if (files == null || files.length == 0) {
             Logger.warn("No themes have been found!");
             return;
@@ -167,6 +168,14 @@ public class ThemeManager {
         File theme = optionalTheme.get();
         if (!parseTheme(theme, themeName))
             throw new InvalidThemeFileException("Unparseable Theme");
+    }
+
+    public boolean isBusyTransferring() {
+        return busyTransferring;
+    }
+
+    protected void setBusyTransferring(boolean b) {
+        busyTransferring = b;
     }
 
     protected HashMap<String, String> getThemeData(String themeName) throws ThemeNotFoundException {
@@ -182,7 +191,10 @@ public class ThemeManager {
     }
 
     public void switchTheme(String themeName) {
-        new Thread(new SwitchTheme(themeName, this)).start();
+        if (!isBusyTransferring()) {
+            busyTransferring = true;
+            new Thread(new SwitchTheme(themeName, this)).start();
+        }
     }
 
     private static class SwitchTheme implements Runnable {
@@ -198,6 +210,9 @@ public class ThemeManager {
         @SuppressWarnings("ConstantConditions")
         @Override
         public void run() {
+            if (themeManager.isBusyTransferring()) {
+                return;
+            }
             HashMap<String, String> roleToken = null;
             HashMap<String, String> roleMetaToken = null;
 
@@ -209,7 +224,7 @@ public class ThemeManager {
             }
 
             try {
-                C.getGuild().getManager().setIcon(Icon.from(new File(roleMetaToken.get("icon") + ".png"))).queue();
+                C.getGuild().getManager().setIcon(Icon.from(new File("themes/icons/" + roleMetaToken.get("icon") + ".png"))).queue();
                 C.getGuild().getManager().setName(roleMetaToken.get("title")).queue();
                 C.getGuildCtrl().setNickname(C.getGuild().getMemberById("354736186516045835"), roleMetaToken.get("nickname")).queue();
                 for (HashMap.Entry<String, String> entry : roleToken.entrySet()) {
@@ -217,6 +232,8 @@ public class ThemeManager {
                     TimeUnit.MILLISECONDS.sleep(100);
                 }
                 C.getGuild().getManager().setName(roleMetaToken.get("title")).queue();
+                themeManager.setBusyTransferring(false);
+                Logger.warn("Done Switching");
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }

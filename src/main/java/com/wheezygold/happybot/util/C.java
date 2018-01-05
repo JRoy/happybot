@@ -56,6 +56,7 @@ public class C {
      *
      * @param s Message that you wish to log in the bot format.
      */
+    @Deprecated
     public static void log(String s) {
         System.out.println("[HappyBot] " + s);
     }
