@@ -92,7 +92,7 @@ public class Main extends ListenerAdapter {
         List<EventListener> eventListeners = new ArrayList<>();
 
         Logger.info("Loading AutoMod...");
-        eventListeners.add(new AutoMod());
+        eventListeners.add(new AutoMod(messageFactory));
 
         Logger.info("Loading Welcome Manager...");
         eventListeners.add(new WelcomeMessage(messageFactory));
@@ -141,14 +141,14 @@ public class Main extends ListenerAdapter {
                 new RandomSeasonCommand(),
                 new StatsCommand(hypixel),
                 new HypixelCommand(hypixel),
-                new WelcomeStatsCommand(messageFactory),
+                new MessageStatsCommand(messageFactory),
                 new MoneyCommand(sqlManager),
                 new GambleCommand(sqlManager),
                 new ShopCommand(sqlManager),
 
                 //Staff Tools
 
-                new WarnCommand(warningManager),
+                new WarnCommand(warningManager, messageFactory),
                 new EditWarningCommand(warningManager),
                 new DeleteWarnCommand(warningManager),
                 new WarningsCommand(warningManager),
@@ -170,7 +170,7 @@ public class Main extends ListenerAdapter {
                 new ThemeCommand(themeManager),
                 new ThemeManagerCommand(themeManager),
                 new ShutdownCommand(),
-                new UpdateCommand(),
+                new UpdateCommand(messageFactory),
                 new EvalCommand());
 
         clientBuilder.setHelpFunction(C::showHelp);

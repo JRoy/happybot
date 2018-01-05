@@ -29,12 +29,18 @@ public class WarningManager {
         }
     }
 
-    public void spawnWarning(String targetID, String staffID, String reason) throws SQLException {
+    public int spawnWarning(String targetID, String staffID, String reason) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(CREATE_WARNING);
         statement.setString(1, targetID);
         statement.setString(2, staffID);
         statement.setString(3, reason);
         statement.execute();
+        ResultSet rs = statement.getGeneratedKeys();
+        int key = -1;
+        if (rs.next()) {
+            key = rs.getInt(1);
+        }
+        return key;
     }
 
     public ResultSet fetchWarnings(String targetID) throws SQLException {

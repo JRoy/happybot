@@ -8,10 +8,15 @@ public class MessageFactory {
     private final Random random;
     private static String[] joinMessages;
     private static String[] leaveMessages;
+    private static String[] updateStartMessages;
+    private static String[] updateEndMessages;
+    private static String[] warningMessages;
 
     public MessageFactory() {
         random = new Random();
         loadWelcomeMessages();
+        loadUpdateMessages();
+        loadWarningMessages();
     }
 
     @Nonnull
@@ -20,6 +25,12 @@ public class MessageFactory {
             return joinMessages[random.nextInt(joinMessages.length)];
         if (messageType == MessageType.LEAVE)
             return leaveMessages[random.nextInt(leaveMessages.length)];
+        if (messageType == MessageType.WARN)
+            return warningMessages[random.nextInt(warningMessages.length)];
+        if (messageType == MessageType.UPDATE_START)
+            return updateStartMessages[random.nextInt(updateStartMessages.length)];
+        if (messageType == MessageType.UPDATE_END)
+            return updateEndMessages[random.nextInt(updateEndMessages.length)];
         return "";
     }
 
@@ -28,7 +39,55 @@ public class MessageFactory {
             return joinMessages.length;
         if (messageType == MessageType.LEAVE)
             return leaveMessages.length;
+        if (messageType == MessageType.UPDATE_START)
+            return updateStartMessages.length;
+        if (messageType == MessageType.UPDATE_END)
+            return updateEndMessages.length;
         return 0;
+    }
+
+    private void loadUpdateMessages() {
+        updateStartMessages = new String[]{
+                "Constructing additional pylons...",
+                "Oh boy, what's it gonna be this time!",
+                "Installing Update 2 of 94. Do not turn off your PC!",
+                "How important can this really be...",
+                "Closing out of LoL...",
+                "Initiating \"Josh is not Gay\" guidance program...",
+                "Hey Vsauce, Michael Here.",
+                "Not this again *smh*",
+                "Recruiting Junglers."
+        };
+        updateEndMessages = new String[]{
+                "Activating Witch Time...",
+                "We are now ready to play E-Sports!",
+                "\"league of legends theme song fills the room\"",
+                "I wonder what surprises lie within this high quality update!",
+                "Oh, it didn't do anything.",
+                "LoL is starting...",
+                "Update finished! Release Notes: Nut Memes have been Added!",
+                "Awww look, Joshie's little bot boy is growing up.",
+                "I think Windows 96...launched?"
+        };
+    }
+
+    private void loadWarningMessages() {
+        warningMessages = new String[]{
+                "<player> has been pranked!",
+                "<player> is having a midlife crisis for being warned.",
+                "<player> oh.",
+                "<player> annoyed the staff.",
+                "<player> oops.",
+                "<player> got dabbed on!",
+                "<player> will remember that.",
+                "<player> got detention in french class.",
+                "<player> I suggest not doing that again!",
+                "<player> wow you fucked up.",
+                "<player> guess you'll die ¯\\_(ツ)_/¯.",
+                "I too have a warn button, but it is much bigger & more powerful one than his, and my button works!",
+                "<player> complained that their warn message wasn't picked and rampaged.",
+                "Oh boy, they're gonna complain about this one for sure."
+        };
     }
 
     private void loadWelcomeMessages() {
@@ -144,13 +203,15 @@ public class MessageFactory {
                 "walked into the wrong side of New York.",
                 "is not in Kansas anymore...",
                 "did not hit her.",
-                "I did not hit her. It's not true. It's bullshit. I did not hit her, I DID NOT! oh hi <user>."
+                "I did not hit her. It's not true. It's bullshit. I did not hit her, I DID NOT! oh hi <user>.",
+                "Wow who let <player> in, eugh!"
 
         };
         leaveMessages = new String[]{
                 "just left happyheart Fanbase. You smel.",
                 "come back pls ur not ugly.",
                 "left, kthxbai.",
+                "Finally <player> gone!",
                 "left, who made this guy get triggered and leave?",
                 "left, maybe the totino gods didnt like him?",
                 "lose a nosewave.",
@@ -280,14 +341,23 @@ public class MessageFactory {
                 "was beaned by admin boi.",
                 "\"Does't like league\" they said. \"Unsubscribed\" they said, blah blah blah...",
                 "liked minecraft over league.",
-                "losed."
+                "losed.",
+                "Let it go... Let it goooo... can't hold me back anymore...eh okay bye then.",
+                "has lost their brain and m0ney!",
+                "didn't like happyhearts new style.",
+                "became self-aware.",
+                "annoyed the staff some more.",
+                "\"orianna is stinky\" - <player>, 2018"
 
         };
     }
 
     public enum MessageType {
         JOIN,
-        LEAVE;
+        LEAVE,
+        UPDATE_START,
+        UPDATE_END,
+        WARN
     }
 
 }

@@ -1,10 +1,7 @@
 package com.wheezygold.happybot.events;
 
 import com.wheezygold.happybot.Main;
-import com.wheezygold.happybot.util.C;
-import com.wheezygold.happybot.util.Channels;
-import com.wheezygold.happybot.util.Constants;
-import com.wheezygold.happybot.util.Roles;
+import com.wheezygold.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Member;
@@ -23,8 +20,10 @@ import java.util.concurrent.TimeUnit;
 public class AutoMod extends ListenerAdapter {
 
     private List<Message> processedMessages = new ArrayList<>();
+    private MessageFactory messageFactory;
 
-    public AutoMod() {
+    public AutoMod(MessageFactory messageFactory) {
+        this.messageFactory = messageFactory;
     }
 
     @Override
@@ -35,7 +34,7 @@ public class AutoMod extends ListenerAdapter {
                     if (messageEmbed != null && messageEmbed.getTitle().equalsIgnoreCase("Impending Update") && message.getAuthor() == Main.getJda().getUserById(Constants.BOT_ID.get()) && !message.isWebhookMessage()) {
                         message.editMessage(new EmbedBuilder()
                                 .setTitle("Update Complete")
-                                .setDescription("This update has been finished in PID: " + ManagementFactory.getRuntimeMXBean().getName().split("[@]")[0])
+                                .setDescription(messageFactory.getRawMessage(MessageFactory.MessageType.UPDATE_END) + "\nThis update has been finished in PID: " + ManagementFactory.getRuntimeMXBean().getName().split("[@]")[0])
                                 .build()).queue();
                     }
                 });

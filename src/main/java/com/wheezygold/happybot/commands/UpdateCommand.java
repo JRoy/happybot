@@ -2,22 +2,22 @@ package com.wheezygold.happybot.commands;
 
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
-import com.wheezygold.happybot.util.C;
-import com.wheezygold.happybot.util.Channels;
-import com.wheezygold.happybot.util.Logger;
-import com.wheezygold.happybot.util.Roles;
+import com.wheezygold.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.util.concurrent.TimeUnit;
 
 public class UpdateCommand extends Command {
 
-    public UpdateCommand() {
+    private MessageFactory messageFactory;
+
+    public UpdateCommand(MessageFactory messageFactory) {
         this.name = "update";
         this.arguments = "<j(enkins)/d(ropbox)>";
         this.help = "Downloads new code for the bot!";
         this.guildOnly = false;
         this.category = new Category("Bot Management");
+        this.messageFactory = messageFactory;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class UpdateCommand extends Command {
         public void run() {
             Channels.BOT_META.getChannel().sendMessage(new EmbedBuilder()
                     .setTitle("Impending Update")
-                    .setDescription("New Impending Update from " + s + ". Bot is currently restarting")
+                    .setDescription(messageFactory.getRawMessage(MessageFactory.MessageType.UPDATE_START) + "\nNew Impending Update from " + s + ". Bot is currently restarting")
                     .build()).queue();
         }
     }

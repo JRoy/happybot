@@ -2,10 +2,7 @@ package com.wheezygold.happybot.commands;
 
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
-import com.wheezygold.happybot.util.C;
-import com.wheezygold.happybot.util.Channels;
-import com.wheezygold.happybot.util.Roles;
-import com.wheezygold.happybot.util.WarningManager;
+import com.wheezygold.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 
@@ -15,8 +12,9 @@ import java.sql.SQLException;
 public class WarnCommand extends Command {
 
     private WarningManager warningManager;
+    private MessageFactory messageFactory;
 
-    public WarnCommand(WarningManager warningManager) {
+    public WarnCommand(WarningManager warningManager, MessageFactory messageFactory) {
         this.name = "warn";
         this.arguments = "<user> <reason>";
         this.help = "Warn the target user.";
@@ -24,6 +22,7 @@ public class WarnCommand extends Command {
         this.category = new Category("Staff Tools");
         this.aliases = new String[]{"warning"};
         this.warningManager = warningManager;
+        this.messageFactory = messageFactory;
     }
 
     @Override
@@ -42,14 +41,14 @@ public class WarnCommand extends Command {
             Member target = C.getMentionedMember(e);
 
             try {
-                warningManager.spawnWarning(target.getUser().getId(), e.getMember().getUser().getId(), reason);
+                int warnId = warningManager.spawnWarning(target.getUser().getId(), e.getMember().getUser().getId(), reason);
                 C.privChannel(target, "You have been warned for: " + C.bold(reason) + "! To review the rules please type `^rules` in the random channel.");
-                e.reply("Warned User!");
+                e.reply(messageFactory.getRawMessage(MessageFactory.MessageType.WARN).replaceAll("<player>", "**"+ target.getAsMention() + "**").replaceAll("<user>", "**"+ target.getAsMention() + "**"));
                 Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
                         .setAuthor(e.getMember().getUser().getName() + "#" + e.getMember().getUser().getDiscriminator(), null,  e.getMember().getUser().getAvatarUrl())
                         .setColor(Color.YELLOW)
                         .setThumbnail(target.getUser().getAvatarUrl())
-                        .setDescription("⚠ " + C.bold("Warned " + target.getUser().getName() + "#" + target.getUser().getDiscriminator()) + "\n:page_facing_up: " + C.bold("Reason: ") + reason )
+                        .setDescription("⚠ " + C.bold("Warned " + target.getUser().getName() + "#" + target.getUser().getDiscriminator()) + "\n:page_facing_up: " + C.bold("Reason: ") + reason + "\n:id: **Warn ID** " + String.valueOf(warnId))
                         .build()).queue();
             } catch (SQLException e1) {
                 e.replyError("Oof Error: " + e1.getMessage());
