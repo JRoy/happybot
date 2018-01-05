@@ -43,6 +43,8 @@ public class MessageFactory {
             return updateStartMessages.length;
         if (messageType == MessageType.UPDATE_END)
             return updateEndMessages.length;
+        if (messageType == MessageType.WARN)
+            return warningMessages.length;
         return 0;
     }
 
