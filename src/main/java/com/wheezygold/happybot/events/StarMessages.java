@@ -48,7 +48,7 @@ public class StarMessages extends ListenerAdapter {
     private void sendStarredMessage(String footer, Message message, String privateMessageText) {
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle(message.getMember().getEffectiveName())
-                .setDescription(message.getStrippedContent())
+                .setDescription(message.getContentDisplay())
                 .setFooter(footer, "https://google.com")
                 .setThumbnail(message.getMember().getUser().getAvatarUrl())
                 .setColor(message.getMember().getColor());
