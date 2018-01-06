@@ -49,7 +49,7 @@ public class AutoMod extends ListenerAdapter {
         checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
         if (message.getChannel() == Channels.BOT_META.getChannel() && message.isWebhookMessage()) {
             MessageEmbed embed = message.getEmbeds().get(0);
-            if (embed.getTitle().startsWith("[WheezyGold7931/happybot] Issue closed:"))
+            if (embed.getTitle().startsWith("[WheezyGold7931/happybot] Issue closed:") && !RuntimeEditor.isPingIssueClose())
                 return;
             Roles.GIT.getRole().getManager().setMentionable(true).queue();
             Channels.BOT_META.getChannel().sendMessage(Roles.GIT.getRole().getAsMention()).queue();
@@ -66,7 +66,8 @@ public class AutoMod extends ListenerAdapter {
 
     @Override
     public void onGuildMessageUpdate(GuildMessageUpdateEvent event) {
-        checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
+        if (RuntimeEditor.isFilteringAdverts())
+            checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
     }
 
     private void checkForAdvertising(Member member, Message message, TextChannel channel) {

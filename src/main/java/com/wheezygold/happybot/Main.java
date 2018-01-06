@@ -82,7 +82,7 @@ public class Main extends ListenerAdapter {
         Logger.info("Bot has been loaded!");
     }
 
-    public static MessageFactory loadMessageFactory() { return new MessageFactory(); }
+    private static MessageFactory loadMessageFactory() { return new MessageFactory(); }
 
     private static ThemeManager loadThemeManager() {
         return new ThemeManager();
@@ -167,6 +167,7 @@ public class Main extends ListenerAdapter {
 
                 //Bot Management
 
+                new RuntimeCommand(),
                 new ThemeCommand(themeManager),
                 new ThemeManagerCommand(themeManager),
                 new ShutdownCommand(),

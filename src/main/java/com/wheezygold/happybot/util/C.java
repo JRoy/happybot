@@ -9,6 +9,7 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.managers.GuildController;
 
+import javax.annotation.Nonnull;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -67,6 +68,7 @@ public class C {
      * @param e The Command Event that you need the member from.
      * @return Returns a member from the event.
      */
+    @Nonnull
     public static Member getMentionedMember(CommandEvent e) {
         try {
             return e.getGuild().getMember(e.getMessage().getMentionedUsers().get(0));

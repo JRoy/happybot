@@ -6,6 +6,7 @@ import com.wheezygold.happybot.sql.SQLManager;
 import com.wheezygold.happybot.sql.UserToken;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Roles;
+import com.wheezygold.happybot.util.RuntimeEditor;
 import net.dv8tion.jda.core.entities.Member;
 import org.apache.commons.lang3.StringUtils;
 
@@ -34,7 +35,7 @@ public class GambleCommand extends Command {
             e.reply("**Gamble System Overview:**\n" +
                     "You may only gamble away your life savings every 3 minutes to avoid life destruction.\n" +
                     "Patron Boys and Mods+ may gamble their college savings every minute.\n" +
-                    "To start a gamble you can do `^gamble <amount of coins ranging from 100-10000>`\n" +
+                    "To start a gamble you can do `^gamble <amount of coins ranging from 100-"+ String.valueOf(RuntimeEditor.getGambleMax()) + ">`\n" +
                     "You have a 50% chance of you getting your bet  and a 50% chance of your bet being lost.\n");
             return;
         }
@@ -69,7 +70,7 @@ public class GambleCommand extends Command {
             UserToken userToken = sqlManager.getUser(e.getMember().getUser().getId());
             int bet = Integer.parseInt(e.getArgs());
 
-            if (bet > 10000 || bet < 100) {
+            if (bet > RuntimeEditor.getGambleMax() || bet < 100) {
                 e.replyError("Your placed bet is out of the bet range, please do `^gamble help` to learn more!");
                 return;
             }

@@ -4,6 +4,7 @@ import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Roles;
+import com.wheezygold.happybot.util.RuntimeEditor;
 import com.wheezygold.happybot.util.WarningManager;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
@@ -27,7 +28,7 @@ public class WarningsCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.HELPER)) {
+        if (C.hasRole(e.getMember(), Roles.HELPER) || RuntimeEditor.isPermittingWarningExposement()) {
             if (!C.containsMention(e)) {
                 try {
                     WarningToken token = grabWarnings(e.getAuthor());

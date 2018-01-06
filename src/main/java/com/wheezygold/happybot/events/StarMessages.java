@@ -1,9 +1,6 @@
 package com.wheezygold.happybot.events;
 
-import com.wheezygold.happybot.util.C;
-import com.wheezygold.happybot.util.Channels;
-import com.wheezygold.happybot.util.Logger;
-import com.wheezygold.happybot.util.Roles;
+import com.wheezygold.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
@@ -21,13 +18,15 @@ public class StarMessages extends ListenerAdapter {
             e.getChannel().getMessageById(e.getMessageId()).queue(this::handleStar);
         } else if (e.getReactionEmote().getName().equals("gild")) {
             if (!C.hasRole(e.getMember(), Roles.MODERATOR)) {
-                e.getReaction().removeReaction().complete();
+                e.getReaction().removeReaction().queue();
                 return;
             }
             e.getChannel().getMessageById(e.getMessageId()).queue(message -> {
-                if (e.getMember().getUser() == message.getAuthor()) {
-                    e.getReaction().removeReaction().complete();
-                    return;
+                if (!RuntimeEditor.isAllowSelfGilds()) {
+                    if (e.getMember().getUser() == message.getAuthor()) {
+                        e.getReaction().removeReaction().queue();
+                        return;
+                    }
                 }
                 handleGild(message);
             });
