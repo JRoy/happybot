@@ -4,6 +4,7 @@ import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Roles;
+import com.wheezygold.happybot.util.RuntimeEditor;
 import com.wheezygold.happybot.util.WarningManager;
 import org.apache.commons.lang3.StringUtils;
 
@@ -39,7 +40,7 @@ public class EditWarningCommand extends Command {
                 e.replyError("**Correct Usage:** ^" + name + " **<warning ID>** <new reason>");
                 return;
             }
-            if (!warningManager.getWarnAuthorId(id).equals(e.getMember().getUser().getId()) && !C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
+            if (!warningManager.getWarnAuthorId(id).equals(e.getMember().getUser().getId()) && !C.hasRole(e.getMember(), Roles.SUPER_ADMIN) && !RuntimeEditor.isAllowEditOtherUserWarn()) {
                 e.replyError(C.permMsg(Roles.SUPER_ADMIN) + " (For editing other staff members warnings.)");
                 return;
             }

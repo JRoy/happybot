@@ -12,7 +12,7 @@ public class RuntimeCommand extends Command {
     public RuntimeCommand() {
         this.name = "runtime";
         this.help = "Edit variables in runtime.";
-        this.arguments = "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/gambleMax>";
+        this.arguments = "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax>";
         this.category = new Category("Bot Management");
     }
 
@@ -34,6 +34,9 @@ public class RuntimeCommand extends Command {
                     e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
                 } else if (target.equalsIgnoreCase("filterAdvert") && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
                     RuntimeEditor.setFilteringAdverts(Boolean.parseBoolean(value.toLowerCase()));
+                    e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
+                } else if (target.equalsIgnoreCase("editUserWarns") && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
+                    RuntimeEditor.setAllowEditOtherUserWarn(Boolean.parseBoolean(value.toLowerCase()));
                     e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
                 } else if (target.equalsIgnoreCase("publicWarns") && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
                     RuntimeEditor.setPermittingWarningExposement(Boolean.parseBoolean(value.toLowerCase()));

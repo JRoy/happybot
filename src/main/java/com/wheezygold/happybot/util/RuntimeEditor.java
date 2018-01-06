@@ -7,6 +7,7 @@ public class RuntimeEditor {
     private static boolean pingIssueClose = false;
     private static boolean filteringAdverts = true;
     private static boolean permittingWarningExposement = false;
+    private static boolean allowEditOtherUserWarn = false;
 
     private static int gambleMax = 10000;
 
@@ -56,5 +57,13 @@ public class RuntimeEditor {
 
     public static void setPermittingWarningExposement(boolean permittingWarningExposement) {
         RuntimeEditor.permittingWarningExposement = permittingWarningExposement;
+    }
+
+    public static boolean isAllowEditOtherUserWarn() {
+        return allowEditOtherUserWarn;
+    }
+
+    public static void setAllowEditOtherUserWarn(boolean allowEditOtherUserWarn) {
+        RuntimeEditor.allowEditOtherUserWarn = allowEditOtherUserWarn;
     }
 }
