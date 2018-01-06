@@ -108,6 +108,7 @@ public class StarMessages extends ListenerAdapter {
                 String footer = "New Gilded Message from #" + message.getChannel().getName();
                 String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
                 sendStarredMessage(footer, message, privateMessageText);
+                alreadyUsedMessages.add(message.getId());
             }
 
         }

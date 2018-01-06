@@ -86,6 +86,36 @@ public class WarningManager {
         }
     }
 
+    public String getWarnReason(int warnId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_WARNING);
+            statement.setInt(1, warnId);
+            ResultSet set = statement.executeQuery();
+            if (set.next()) {
+                return set.getString("reason");
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    public String getWarnTargetId(int warnId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_WARNING);
+            statement.setInt(1, warnId);
+            ResultSet set = statement.executeQuery();
+            if (set.next()) {
+                return set.getString("targetid");
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
     public boolean updateWarningReason(int warnId, String newReason) {
         try {
             PreparedStatement statement = connection.prepareStatement(UPDATE_WARNING);

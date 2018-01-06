@@ -53,7 +53,7 @@ public class WarnCommand extends Command {
                         .setAuthor(e.getMember().getUser().getName() + "#" + e.getMember().getUser().getDiscriminator(), null,  e.getMember().getUser().getAvatarUrl())
                         .setColor(Color.YELLOW)
                         .setThumbnail(target.getUser().getAvatarUrl())
-                        .setDescription("⚠ " + C.bold("Warned " + target.getUser().getName() + "#" + target.getUser().getDiscriminator()) + "\n:page_facing_up: " + C.bold("Reason: ") + reason + "\n:id: **Warn ID** " + String.valueOf(warnId))
+                        .setDescription(":information_source: **Warning Created**\n" + "⚠ " + C.bold("Warned " + target.getUser().getName() + "#" + target.getUser().getDiscriminator()) + "\n:page_facing_up: " + C.bold("Reason: ") + reason + "\n:id: **Warn ID** " + String.valueOf(warnId))
                         .build()).queue();
             } catch (SQLException e1) {
                 e.replyError("Oof Error: " + e1.getMessage());
