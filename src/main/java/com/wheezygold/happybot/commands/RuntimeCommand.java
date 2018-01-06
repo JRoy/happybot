@@ -23,30 +23,74 @@ public class RuntimeCommand extends Command {
             if (args.length == 2) {
                 String target = args[0];
                 String value = args[1];
-                if (target.equalsIgnoreCase("selfGilds") && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
-                    RuntimeEditor.setAllowSelfGilds(Boolean.parseBoolean(value.toLowerCase()));
-                    e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
-                } else if (target.equalsIgnoreCase("evalOwner") && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
-                    RuntimeEditor.setEvalOwnerOnly(Boolean.parseBoolean(value.toLowerCase()));
-                    e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
-                } else if (target.equalsIgnoreCase("pingIssueClose") && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
-                    RuntimeEditor.setPingIssueClose(Boolean.parseBoolean(value.toLowerCase()));
-                    e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
-                } else if (target.equalsIgnoreCase("filterAdvert") && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
-                    RuntimeEditor.setFilteringAdverts(Boolean.parseBoolean(value.toLowerCase()));
-                    e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
-                } else if (target.equalsIgnoreCase("editUserWarns") && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
-                    RuntimeEditor.setAllowEditOtherUserWarn(Boolean.parseBoolean(value.toLowerCase()));
-                    e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
-                } else if (target.equalsIgnoreCase("publicWarns") && (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
-                    RuntimeEditor.setPermittingWarningExposement(Boolean.parseBoolean(value.toLowerCase()));
-                    e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
-                } else if (target.equalsIgnoreCase("gambleMax") && StringUtils.isNumeric(value)) {
-                    RuntimeEditor.setGambleMax(Integer.parseInt(value));
-                    e.replySuccess(":gear: Updated value to **" + value + "**!");
-                } else {
-                    e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                boolean valid = true;
+                switch (target) {
+                    case "selfGilds": {
+                        if (C.isBool(value)){
+                            RuntimeEditor.setAllowSelfGilds(Boolean.parseBoolean(value.toLowerCase()));
+                        } else {
+                            valid = false;
+                        }
+                        break;
+                    }
+                    case "evalOwner": {
+                        if (C.isBool(value)) {
+                            RuntimeEditor.setEvalOwnerOnly(Boolean.parseBoolean(value.toLowerCase()));
+                        } else {
+                            valid = false;
+                        }
+                        break;
+                    }
+                    case "pingIssueClose": {
+                        if (C.isBool(value)) {
+                            RuntimeEditor.setPingIssueClose(Boolean.parseBoolean(value.toLowerCase()));
+                        } else {
+                            valid = false;
+                        }
+                        break;
+                    }
+                    case "filterAdvert": {
+                        if (C.isBool(value)) {
+                            RuntimeEditor.setFilteringAdverts(Boolean.parseBoolean(value.toLowerCase()));
+                        } else {
+                            valid = false;
+                        }
+                        break;
+                    }
+                    case "editUserWarns": {
+                        if (C.isBool(value)) {
+                            RuntimeEditor.setAllowEditOtherUserWarn(Boolean.parseBoolean(value.toLowerCase()));
+                        } else {
+                            valid = false;
+                        }
+                        break;
+                    }
+                    case "publicWarns": {
+                        if (C.isBool(value)) {
+                            RuntimeEditor.setPermittingWarningExposement(Boolean.parseBoolean(value.toLowerCase()));
+                        } else {
+                            valid = false;
+                        }
+                        break;
+                    }
+                    case "gambleMax": {
+                        if (StringUtils.isNumeric(value)) {
+                            RuntimeEditor.setGambleMax(Integer.parseInt(value));
+                        } else {
+                            valid = false;
+                        }
+                        break;
+                    }
+                    default: {
+                        e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                        return;
+                    }
                 }
+                if (valid) {
+                    e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
+                    return;
+                }
+                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }

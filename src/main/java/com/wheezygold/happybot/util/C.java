@@ -343,4 +343,12 @@ public class C {
                 .replace("`", "\\`");
     }
 
+    /**
+     * Test to see if a string can be parsed as a boolean.
+     * @param check String to be tested.
+     * @return If string can be parsed
+     */
+    public static boolean isBool(String check) {
+        return check.equalsIgnoreCase("true") || check.equalsIgnoreCase("false");
+    }
 }
