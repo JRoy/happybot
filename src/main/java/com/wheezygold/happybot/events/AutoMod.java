@@ -17,14 +17,17 @@ import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class AutoMod extends ListenerAdapter {
 
     private List<Message> processedMessages = new ArrayList<>();
     private MessageFactory messageFactory;
+    private final Pattern pattern;
 
     public AutoMod(MessageFactory messageFactory) {
         this.messageFactory = messageFactory;
+        pattern = Pattern.compile("(?:https?://)?discord(?:app\\.com/invite|\\.gg)/(\\S+)", Pattern.CASE_INSENSITIVE);
     }
 
     @Override
@@ -73,7 +76,7 @@ public class AutoMod extends ListenerAdapter {
     private void checkForAdvertising(Member member, Message message, TextChannel channel) {
         if (C.hasRole(member, Roles.SUPER_ADMIN) || C.hasRole(member, Roles.BOT))
             return;
-        if (!message.getContentRaw().toLowerCase().contains("discord.gg/"))
+        if (!pattern.matcher(message.getContentRaw()).matches())
             return;
         message.delete().reason("Advertising Link with Message: " + message.getContentStripped()).queue();
         Channels.LOG.getChannel().sendMessage(member.getAsMention() + " attempted to advert the following link: " + message.getContentRaw()).queue();
