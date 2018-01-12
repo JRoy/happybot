@@ -45,6 +45,7 @@ public class EvalCommand extends Command {
                     "java.lang," +
                     "java.util," +
                     "com.wheezygold.happybot.util.C," +
+                    "com.wheezygold.happybot.util.Roles," +
                     "Packages.net.dv8tion.jda.core," +
                     "Packages.net.dv8tion.jda.core.entities," +
                     "Packages.net.dv8tion.jda.core.entities.impl," +
