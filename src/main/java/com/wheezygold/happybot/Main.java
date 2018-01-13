@@ -3,7 +3,9 @@ package com.wheezygold.happybot;
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.events.*;
+import com.wheezygold.happybot.sql.ReportManager;
 import com.wheezygold.happybot.sql.SQLManager;
+import com.wheezygold.happybot.sql.WarningManager;
 import com.wheezygold.happybot.theme.ThemeManager;
 import com.wheezygold.happybot.util.*;
 import net.dv8tion.jda.core.AccountType;
@@ -31,6 +33,7 @@ public class Main extends ListenerAdapter {
     private static TweetMonitor tweetMonitor;
     private static SQLManager sqlManager;
     private static WarningManager warningManager;
+    private static ReportManager reportManager;
     private static Hypixel hypixel;
     private static ThemeManager themeManager;
     private static MessageFactory messageFactory;
@@ -58,7 +61,11 @@ public class Main extends ListenerAdapter {
         //Load our SQL Stuff
         sqlManager = new SQLManager(sqlPassword);
 
+        Logger.info("Loading Warning Manager...");
         warningManager = new WarningManager(sqlManager);
+
+        Logger.info("Loading Report Manager...");
+        reportManager = new ReportManager(sqlManager);
 
         Logger.info("Loading the Hypixel API...");
         loadHypixelAPI();
@@ -132,6 +139,7 @@ public class Main extends ListenerAdapter {
                 new ServersCommand(),
                 new SeasonCommand(),
                 new SelfWarningsCommand(warningManager),
+                new ReportCommand(reportManager),
 
                 //Fun
 
@@ -164,6 +172,7 @@ public class Main extends ListenerAdapter {
                 new PromoteCommand(),
                 new DemoteCommand(),
                 new StaffManagementCommand(),
+                new HandleReportCommand(reportManager),
 
                 //Bot Management
 

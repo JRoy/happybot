@@ -1,6 +1,6 @@
-package com.wheezygold.happybot.util;
+package com.wheezygold.happybot.sql;
 
-import com.wheezygold.happybot.sql.SQLManager;
+import com.wheezygold.happybot.util.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,12 +12,12 @@ public class WarningManager {
 
     private Connection connection;
 
-    private String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS warnings ( `id` INT(50) NOT NULL AUTO_INCREMENT , `targetid` VARCHAR(50) NOT NULL , `staffid` VARCHAR(50) NOT NULL , `reason` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-    private String SELECT_USER = "SELECT * FROM `warnings` WHERE targetid = ?;";
-    private String CREATE_WARNING = "INSERT INTO `warnings` (targetid, staffid, reason) VALUES (?, ?, ?);";
-    private String DELETE_WARNING = "DELETE FROM `warnings` WHERE id = ?;";
-    private String SELECT_WARNING = "SELECT * FROM `warnings` WHERE id = ?;";
-    private String UPDATE_WARNING = "UPDATE `warnings` SET reason = ? WHERE id = ?;";
+    private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS warnings ( `id` INT(50) NOT NULL AUTO_INCREMENT , `targetid` VARCHAR(50) NOT NULL , `staffid` VARCHAR(50) NOT NULL , `reason` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+    private final String SELECT_USER = "SELECT * FROM `warnings` WHERE targetid = ?;";
+    private final String CREATE_WARNING = "INSERT INTO `warnings` (targetid, staffid, reason) VALUES (?, ?, ?);";
+    private final String DELETE_WARNING = "DELETE FROM `warnings` WHERE id = ?;";
+    private final String SELECT_WARNING = "SELECT * FROM `warnings` WHERE id = ?;";
+    private final String UPDATE_WARNING = "UPDATE `warnings` SET reason = ? WHERE id = ?;";
 
 
     public WarningManager(SQLManager sqlManager) {

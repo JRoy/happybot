@@ -6,7 +6,7 @@ import com.wheezygold.happybot.Main;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Roles;
-import com.wheezygold.happybot.util.WarningManager;
+import com.wheezygold.happybot.sql.WarningManager;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.User;
 import org.apache.commons.lang3.StringUtils;

@@ -305,6 +305,15 @@ public class C {
     }
 
     /**
+     * Returns a small codeblock of used value.
+     * @param value Text in the small code block.
+     * @return The small codeblock.
+     */
+    public static String smallCodeblock(String value) {
+        return "`" + value + "`";
+    }
+
+    /**
      * Returns a bold string.
      * @param value Text to be bold.
      * @return The bold text.

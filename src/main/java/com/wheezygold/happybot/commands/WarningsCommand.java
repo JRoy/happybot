@@ -5,7 +5,7 @@ import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Roles;
 import com.wheezygold.happybot.util.RuntimeEditor;
-import com.wheezygold.happybot.util.WarningManager;
+import com.wheezygold.happybot.sql.WarningManager;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
 
