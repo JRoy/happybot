@@ -53,8 +53,8 @@ public class StarMessages extends ListenerAdapter {
                 .setThumbnail(message.getMember().getUser().getAvatarUrl())
                 .setColor(message.getMember().getColor());
         Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
-        message.getAuthor().openPrivateChannel().queue(pc -> pc.sendMessage(privateMessageText).queue());
-        message.getAuthor().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed.build()).queue());
+        C.privChannel(message.getMember(), privateMessageText);
+        C.privChannel(message.getMember(), embed.build());
         alreadyUsedMessages.add(message.getId());
     }
 

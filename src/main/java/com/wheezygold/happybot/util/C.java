@@ -3,10 +3,7 @@ package com.wheezygold.happybot.util;
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.Main;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.managers.GuildController;
 
 import javax.annotation.Nonnull;
@@ -292,7 +289,19 @@ public class C {
      * @param message The message to send via private channel.
      */
     public static void privChannel(Member m, String message) {
-        m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(message).queue());
+        try {
+            m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(message).queue());
+        } catch (UnsupportedOperationException e) {
+            Logger.error("Tried to open a private channel but got error: " + e.getMessage());
+        }
+    }
+
+    public static void privChannel(Member m, MessageEmbed embed) {
+        try {
+            m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed).queue());
+        } catch (UnsupportedOperationException e) {
+            Logger.error("Tried to open a private channel but got error: " + e.getMessage());
+        }
     }
 
     /**
