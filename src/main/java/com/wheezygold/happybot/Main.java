@@ -2,6 +2,11 @@ package com.wheezygold.happybot;
 
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
+import com.wheezygold.happybot.commands.report.HandleReportCommand;
+import com.wheezygold.happybot.commands.report.ReportCommand;
+import com.wheezygold.happybot.commands.warn.DeleteWarnCommand;
+import com.wheezygold.happybot.commands.warn.EditWarningCommand;
+import com.wheezygold.happybot.commands.warn.WarnCommand;
 import com.wheezygold.happybot.events.*;
 import com.wheezygold.happybot.sql.ReportManager;
 import com.wheezygold.happybot.sql.SQLManager;
@@ -201,7 +206,7 @@ public class Main extends ListenerAdapter {
     private static void loadTweetMonitor() throws IOException {
         String cKey = null;
         String cSecret = null;
-        String  aToken = null;
+        String aToken = null;
         String aSecret = null;
         BufferedReader twitterReader = new BufferedReader(new FileReader("twitter.yml"));
         try {

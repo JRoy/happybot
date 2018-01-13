@@ -1,4 +1,4 @@
-package com.wheezygold.happybot.commands;
+package com.wheezygold.happybot.commands.report;
 
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
