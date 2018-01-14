@@ -3,6 +3,7 @@ package com.wheezygold.happybot;
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.commands.report.HandleReportCommand;
+import com.wheezygold.happybot.commands.report.LookupReportCommand;
 import com.wheezygold.happybot.commands.report.ReportCommand;
 import com.wheezygold.happybot.commands.warn.DeleteWarnCommand;
 import com.wheezygold.happybot.commands.warn.EditWarningCommand;
@@ -178,6 +179,7 @@ public class Main extends ListenerAdapter {
                 new DemoteCommand(),
                 new StaffManagementCommand(),
                 new HandleReportCommand(reportManager),
+                new LookupReportCommand(reportManager),
 
                 //Bot Management
 

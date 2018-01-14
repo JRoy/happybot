@@ -2,6 +2,7 @@ package com.wheezygold.happybot.sql;
 
 import com.wheezygold.happybot.util.Logger;
 
+import javax.annotation.CheckForNull;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +40,23 @@ public class ReportManager {
             key = rs.getInt(1);
         }
         return key;
+    }
+
+    @CheckForNull
+    public ReportToken getReportAsToken(int reportId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_REPORT);
+            statement.setInt(1, reportId);
+            ResultSet set = statement.executeQuery();
+            if (set.next()) {
+                return new ReportToken(reportId, set.getString("reporterid"), set.getString("reportedid"), set.getString("channelid"), set.getString("reason"), set.getString("handleid"), set.getString("handlereason"), set.getInt("status"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public boolean isValidReport(int reportId) {
