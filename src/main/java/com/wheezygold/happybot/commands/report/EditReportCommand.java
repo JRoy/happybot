@@ -63,7 +63,7 @@ public class EditReportCommand extends Command {
                 return;
             }
 
-            if (!token.getHandler().getId().equals(e.getMember().getUser().getId()) || !C.hasRole(e.getMember(), Roles.DEVELOPER)) {
+            if (!token.getHandler().getId().equals(e.getMember().getUser().getId()) && !C.hasRole(e.getMember(), Roles.DEVELOPER)) {
                 e.replyError("You may not edit another user's report handle reasons! (Dev+)");
                 return;
             }
