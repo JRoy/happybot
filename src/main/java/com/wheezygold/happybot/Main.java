@@ -2,6 +2,7 @@ package com.wheezygold.happybot;
 
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import com.wheezygold.happybot.commands.*;
+import com.wheezygold.happybot.commands.report.EditReportCommand;
 import com.wheezygold.happybot.commands.report.HandleReportCommand;
 import com.wheezygold.happybot.commands.report.LookupReportCommand;
 import com.wheezygold.happybot.commands.report.ReportCommand;
@@ -180,6 +181,7 @@ public class Main extends ListenerAdapter {
                 new StaffManagementCommand(),
                 new HandleReportCommand(reportManager),
                 new LookupReportCommand(reportManager),
+                new EditReportCommand(reportManager),
 
                 //Bot Management
 

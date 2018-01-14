@@ -17,6 +17,7 @@ public class ReportManager {
     private final String CREATE_REPORT = "INSERT INTO `reports` (reportedid, reporterid, channelid, reason) VALUES (?, ?, ?, ?);";
     private final String SELECT_REPORT = "SELECT * FROM `reports` WHERE id = ?;";
     private final String UPDATE_STATUS = "UPDATE `reports` SET handleid = ?, handlereason = ?, status = ? WHERE id = ?";
+    private final String UPDATE_REASON = "UPDATE `reports` SET handlereason = ? WHERE id = ?";
 
     public ReportManager(SQLManager sqlManager) {
         connection = sqlManager.getConnection();
@@ -139,4 +140,16 @@ public class ReportManager {
             e.printStackTrace();
         }
     }
+
+    public void setHandleReason(int reportId, String newHandleReason) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(UPDATE_REASON);
+            statement.setString(1, newHandleReason);
+            statement.setInt(2, reportId);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
