@@ -11,7 +11,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.github.KevinPriv:HypixelApi4J:API-1.4" level="project" />
     <orderEntry type="library" name="Gradle: com.jagrosh:JDA-Utilities:1.9" level="project" />
-    <orderEntry type="library" name="Gradle: net.dv8tion:JDA:3.4.0_320" level="project" />
+    <orderEntry type="library" name="Gradle: net.dv8tion:JDA:3.5.0_327" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-simple:1.6.1" level="project" />
     <orderEntry type="library" name="Gradle: mysql:mysql-connector-java:5.1.6" level="project" />
     <orderEntry type="library" name="Gradle: org.twitter4j:twitter4j-stream:4.0.6" level="project" />
