@@ -290,7 +290,9 @@ public class C {
      */
     public static void privChannel(Member m, String message) {
         try {
-            m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(message).queue());
+            if (!m.getUser().isBot()) {
+                m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(message).queue());
+            }
         } catch (UnsupportedOperationException e) {
             Logger.error("Tried to open a private channel but got error: " + e.getMessage());
         }
@@ -298,7 +300,9 @@ public class C {
 
     public static void privChannel(Member m, MessageEmbed embed) {
         try {
-            m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed).queue());
+            if (!m.getUser().isBot()) {
+                m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed).queue());
+            }
         } catch (UnsupportedOperationException e) {
             Logger.error("Tried to open a private channel but got error: " + e.getMessage());
         }
