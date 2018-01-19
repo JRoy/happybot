@@ -17,7 +17,6 @@ public class ThemeManager {
     private HashMap<String, HashMap<String, String>> themeData = new HashMap<>();
     private HashMap<String, HashMap<String, String>> themeMetaData = new HashMap<>();
     private ThemeManager instance;
-    private boolean busyTransferring = false;
 
     public ThemeManager() {
         instance = this;
@@ -71,7 +70,6 @@ public class ThemeManager {
     }
 
     private void parseThemeFile(String themeName, Scanner themeFileScanner) {
-        // (Techno-coder) Wheezy you idiot if you put this inside the loop its going to clear the HashMap each time
         String editThemeName = themeName.split("[.]")[0];
         themeData.put(editThemeName, new HashMap<>());
 
@@ -170,14 +168,6 @@ public class ThemeManager {
             throw new InvalidThemeFileException("Unparseable Theme");
     }
 
-    public boolean isBusyTransferring() {
-        return busyTransferring;
-    }
-
-    protected void setBusyTransferring(boolean b) {
-        busyTransferring = b;
-    }
-
     protected HashMap<String, String> getThemeData(String themeName) throws ThemeNotFoundException {
         if (themeData.get(themeName) == null)
             throw new ThemeNotFoundException("Theme: " + themeName + " was not found in the loaded theme data.");
@@ -191,10 +181,7 @@ public class ThemeManager {
     }
 
     public void switchTheme(String themeName) {
-        if (!isBusyTransferring()) {
-            busyTransferring = true;
-            new Thread(new SwitchTheme(themeName, this)).start();
-        }
+        new Thread(new SwitchTheme(themeName, this)).start();
     }
 
     private static class SwitchTheme implements Runnable {
@@ -210,9 +197,6 @@ public class ThemeManager {
         @SuppressWarnings("ConstantConditions")
         @Override
         public void run() {
-            if (themeManager.isBusyTransferring()) {
-                return;
-            }
             HashMap<String, String> roleToken = null;
             HashMap<String, String> roleMetaToken = null;
 
@@ -232,7 +216,6 @@ public class ThemeManager {
                     TimeUnit.MILLISECONDS.sleep(100);
                 }
                 C.getGuild().getManager().setName(roleMetaToken.get("title")).queue();
-                themeManager.setBusyTransferring(false);
                 Logger.warn("Done Switching");
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();

@@ -35,17 +35,13 @@ public class ThemeCommand extends Command {
                 return;
             }
             if (themeManager.getThemes().contains(e.getArgs())) {
-                if (!themeManager.isBusyTransferring()) {
-                    try {
-                        C.writeFile("theme.yml", e.getArgs());
-                        themeManager.switchTheme(e.getArgs());
-                        Main.updateTheme();
-                        e.replySuccess(":gear: Switching over to " + themeManager.asToken(e.getArgs()).getName() + " Theme!");
-                    } catch (ThemeNotFoundException e1) {
-                        e.replyError(":x: Error while switching themes: " + e1.getMessage());
-                    }
-                } else {
-                    e.replyError(":x: The theme system is currently busy!");
+                try {
+                    C.writeFile("theme.yml", e.getArgs());
+                    themeManager.switchTheme(e.getArgs());
+                    Main.updateTheme();
+                    e.replySuccess(":gear: Switching over to " + themeManager.asToken(e.getArgs()).getName() + " Theme!");
+                } catch (ThemeNotFoundException e1) {
+                    e.replyError(":x: Error while switching themes: " + e1.getMessage());
                 }
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
