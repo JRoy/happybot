@@ -3,19 +3,14 @@ package com.wheezygold.happybot.commands;
 import com.jagrosh.jdautilities.commandclient.Command;
 import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.wheezygold.happybot.util.C;
-import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Roles;
 import com.wheezygold.happybot.util.RuntimeEditor;
-import net.dv8tion.jda.core.entities.Game;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class EvalCommand extends Command {
-
-    private C CClass = new C();
-
 
     public EvalCommand() {
         this.name = "eval";
@@ -46,6 +41,10 @@ public class EvalCommand extends Command {
                     "java.util," +
                     "com.wheezygold.happybot.util.C," +
                     "com.wheezygold.happybot.util.Roles," +
+                    "com.wheezygold.happybot.util.Channels," +
+                    "com.wheezygold.happybot.util.RuntimeEditor," +
+                    "net.dv8tion.jda.core.entities.Game," +
+                    "Packages.com.wheezygold.happybot.util," +
                     "Packages.net.dv8tion.jda.core," +
                     "Packages.net.dv8tion.jda.core.entities," +
                     "Packages.net.dv8tion.jda.core.entities.impl," +
@@ -59,10 +58,8 @@ public class EvalCommand extends Command {
         se.put("jda", e.getJDA());
         se.put("guild", e.getGuild());
         se.put("channel", e.getChannel());
+        se.put("textchannel", e.getTextChannel());
         se.put("member", e.getMember());
-        se.put("Roles", Roles.class);
-        se.put("Channels", Channels.class);
-        se.put("Game", Game.class);
         try {
             e.reply(e.getClient().getSuccess() + " Evaluated Successfully:\n```\n" + se.eval("(function() {" +
                     "with (imports) {" +

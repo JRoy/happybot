@@ -4,8 +4,6 @@
     <list default="true" id="0ce73aba-e015-4506-a741-efe76012875a" name="Default" comment="Remove un-needed RateLimitedException throw">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/EvalCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/EvalCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/theme/ThemeManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/theme/ThemeManager.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -66,8 +64,8 @@
       <file leaf-file-name="EvalCommand.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/EvalCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+            <state relative-caret-position="189">
+              <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1101,7 +1099,14 @@
       <option name="project" value="LOCAL" />
       <updated>1516325281763</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Removed isBusy check, due to an out of sync var. (Thread issue?)">
+      <created>1516327605040</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1516327605040</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1181,7 +1186,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Move away from deprecated methods." />
     <MESSAGE value="Prevent staff from saying review rules in warns (Closes #106)" />
     <MESSAGE value="Fix Codacy Issues" />
     <MESSAGE value="Add more messages. Fix more Codacy Issues..." />
@@ -1206,7 +1210,8 @@
     <MESSAGE value="Update JDA" />
     <MESSAGE value="Disable DM's between bots" />
     <MESSAGE value="Remove un-needed RateLimitedException throw" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove un-needed RateLimitedException throw" />
+    <MESSAGE value="Removed isBusy check, due to an out of sync var. (Thread issue?)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed isBusy check, due to an out of sync var. (Thread issue?)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1592,8 +1597,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/EvalCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        <state relative-caret-position="189">
+          <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
