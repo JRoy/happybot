@@ -20,7 +20,6 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.EventListener;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -45,7 +44,7 @@ public class Main extends ListenerAdapter {
     private static ThemeManager themeManager;
     private static MessageFactory messageFactory;
 
-    public static void main(String[] args) throws IOException, IllegalArgumentException, RateLimitedException, LoginException {
+    public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException {
 
         new Logger();
 
