@@ -1,9 +1,14 @@
-package com.wheezygold.happybot.util;
+package com.wheezygold.happybot.apis;
 
+import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.JSON;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
+/**
+ * While is does use an API Call, I could not be bothered to make a full wrapper for the YouTube API (That retains the instance). This should be used as a token based system.
+ */
 public class YouTube {
 
     private String apiKey = "AIzaSyAPiPPTl1ZAsI1k_dCxHj7_RS7mfC-Dvuw";

@@ -17,6 +17,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     compile 'junit:junit:4.12'
     compile 'com.udojava:EvalEx:1.16'
+    compile 'com.github.taycaldwell:riot-api-java:4.0.1'
 }
 
 repositories {

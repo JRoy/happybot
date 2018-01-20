@@ -5,8 +5,8 @@ import com.jagrosh.jdautilities.commandclient.CommandEvent;
 
 import com.kbrewster.exceptions.APIException;
 import com.kbrewster.hypixelapi.player.HypixelPlayer;
-import com.wheezygold.happybot.util.Hypixel;
-import com.wheezygold.happybot.util.YouTube;
+import com.wheezygold.happybot.apis.Hypixel;
+import com.wheezygold.happybot.apis.YouTube;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.util.HashMap;

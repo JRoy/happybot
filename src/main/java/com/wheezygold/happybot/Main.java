@@ -1,6 +1,11 @@
 package com.wheezygold.happybot;
 
 import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
+import com.wheezygold.happybot.apis.APIBase;
+import com.wheezygold.happybot.apis.Hypixel;
+import com.wheezygold.happybot.apis.League;
+import com.wheezygold.happybot.apis.TwitterCentre;
+import com.wheezygold.happybot.apis.exceptions.IllegalAPIState;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.commands.report.EditReportCommand;
 import com.wheezygold.happybot.commands.report.HandleReportCommand;
@@ -43,6 +48,7 @@ public class Main extends ListenerAdapter {
     private static Hypixel hypixel;
     private static ThemeManager themeManager;
     private static MessageFactory messageFactory;
+    private static League league;
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException {
 
@@ -52,6 +58,8 @@ public class Main extends ListenerAdapter {
 
         Logger.log("Loading Config Files...");
         createConfigFiles();
+
+        loadApis();
 
         String token = readFirstLineOfFile("config.yml", "There is no token in your config, welcome to stack trace city!");
         theme = readFirstLineOfFile("theme.yml", "Error receiving theme");
@@ -73,9 +81,6 @@ public class Main extends ListenerAdapter {
         Logger.info("Loading Report Manager...");
         reportManager = new ReportManager(sqlManager);
 
-        Logger.info("Loading the Hypixel API...");
-        loadHypixelAPI();
-
         List<EventListener> eventListeners = loadEventListeners();
         loadClientBuilder();
 
@@ -93,6 +98,36 @@ public class Main extends ListenerAdapter {
 //        new RichPresence((JDAImpl) jda);
 
         Logger.info("Bot has been loaded!");
+    }
+
+    private static void loadApis() throws IOException {
+        Logger.info("Initializing APIs...");
+        List<APIBase> apis = new ArrayList<>();
+        apis.add(hypixel = new Hypixel(readFirstLineOfFile("hypixel.yml", "Error receiving hypixel api key.")));
+        String cKey;
+        String cSecret;
+        String aToken;
+        String aSecret;
+        BufferedReader twitterReader = new BufferedReader(new FileReader("twitter.yml"));
+        cKey = twitterReader.readLine();
+        cSecret = twitterReader.readLine();
+        aToken = twitterReader.readLine();
+        aSecret = twitterReader.readLine();
+        twitterReader.close();
+        apis.add(twitterCentre = new TwitterCentre(cKey, cSecret, aToken, aSecret));
+        apis.add(league = new League(readFirstLineOfFile("lol.yml", "Error receiving lol api key.")));
+        Logger.info("Logging into API's...");
+        for (APIBase api : apis) {
+            try {
+                api.loginApi();
+            } catch (IllegalAPIState illegalAPIState) {
+                Logger.error("Could not not load an API: " + illegalAPIState.getMessage());
+            }
+        }
+        Logger.info("Loaded APIS:");
+        for (APIBase api : apis) {
+            Logger.info("- " + api.getApiName());
+        }
     }
 
     private static MessageFactory loadMessageFactory() { return new MessageFactory(); }
@@ -155,6 +190,7 @@ public class Main extends ListenerAdapter {
                 new RandomSeasonCommand(),
                 new StatsCommand(hypixel),
                 new HypixelCommand(hypixel),
+                new LeagueCommand(league),
                 new MessageStatsCommand(messageFactory),
                 new MoneyCommand(sqlManager),
                 new GambleCommand(sqlManager),
@@ -194,36 +230,7 @@ public class Main extends ListenerAdapter {
         clientBuilder.setHelpFunction(C::showHelp);
     }
 
-    private static void loadHypixelAPI() throws IOException {
-        String apiKey = null;
-        BufferedReader hypixelReader = new BufferedReader(new FileReader("hypixel.yml"));
-        try {
-            apiKey = hypixelReader.readLine();
-            hypixelReader.close();
-        } catch (NullPointerException hex) {
-            Logger.error("Error loading the Hypixel api-key: " + hex.getMessage());
-        }
-        hypixel = new Hypixel(apiKey);
-    }
-
-    private static void loadTweetMonitor() throws IOException {
-        String cKey = null;
-        String cSecret = null;
-        String aToken = null;
-        String aSecret = null;
-        BufferedReader twitterReader = new BufferedReader(new FileReader("twitter.yml"));
-        try {
-            cKey = twitterReader.readLine();
-            cSecret = twitterReader.readLine();
-            aToken = twitterReader.readLine();
-            aSecret = twitterReader.readLine();
-            twitterReader.close();
-        } catch (NullPointerException tex) {
-            Logger.error("Error loading the Twitter credentials: " + tex.getMessage());
-        }
-
-        Logger.info("Loading Twitter Centre...");
-        twitterCentre = new TwitterCentre(cKey, cSecret, aToken, aSecret);
+    private static void loadTweetMonitor() {
         Logger.info("Loading Twitter Monitor...");
         tweetMonitor = new TweetMonitor(twitterCentre);
     }
@@ -246,6 +253,7 @@ public class Main extends ListenerAdapter {
         File twitterfile = createFile("twitter.yml");
         File sqlfile = createFile("sql.yml");
         File themefile = new File("theme.yml");
+        File leaguefile = createFile("lol.yml");
 
         //Create theme file with defaults if it does not exist
         boolean themeFileNotExists = themefile.createNewFile();

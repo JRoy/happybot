@@ -1,4 +1,4 @@
-package com.wheezygold.happybot.util;
+package com.wheezygold.happybot.apis;
 
 import com.kbrewster.exceptions.APIException;
 import com.kbrewster.exceptions.InvalidPlayerException;
@@ -12,12 +12,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Hypixel {
+public class Hypixel extends APIBase {
 
-    private final HypixelAPI api;
+    private HypixelAPI api;
+    private final String apiKey;
 
-    public Hypixel(String apikey) {
-        api = new HypixelAPI(apikey);
+    public Hypixel(String apiKey) {
+        super("Hypixel");
+        this.apiKey = apiKey;
+    }
+
+    @Override
+    public void loadApi() {
+        api = new HypixelAPI(apiKey);
     }
 
     public HypixelPlayer getPlayer(String playerName) throws APIException {

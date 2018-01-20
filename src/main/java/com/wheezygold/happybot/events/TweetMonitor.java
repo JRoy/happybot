@@ -2,7 +2,7 @@ package com.wheezygold.happybot.events;
 
 import com.wheezygold.happybot.util.Channels;
 import com.wheezygold.happybot.util.Roles;
-import com.wheezygold.happybot.util.TwitterCentre;
+import com.wheezygold.happybot.apis.TwitterCentre;
 import net.dv8tion.jda.core.EmbedBuilder;
 import twitter4j.*;
 
