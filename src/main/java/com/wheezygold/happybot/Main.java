@@ -188,7 +188,7 @@ public class Main extends ListenerAdapter {
                 new MathCommand(),
                 new VideoCommand(),
                 new RandomSeasonCommand(),
-                new StatsCommand(hypixel),
+                new StatsCommand(hypixel, league),
                 new HypixelCommand(hypixel),
                 new LeagueCommand(league),
                 new MessageStatsCommand(messageFactory),

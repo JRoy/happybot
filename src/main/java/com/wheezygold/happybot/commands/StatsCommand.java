@@ -6,21 +6,26 @@ import com.jagrosh.jdautilities.commandclient.CommandEvent;
 import com.kbrewster.exceptions.APIException;
 import com.kbrewster.hypixelapi.player.HypixelPlayer;
 import com.wheezygold.happybot.apis.Hypixel;
+import com.wheezygold.happybot.apis.League;
 import com.wheezygold.happybot.apis.YouTube;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.rithms.riot.api.RiotApiException;
+import net.rithms.riot.constant.Platform;
 
 import java.util.HashMap;
 
 public class StatsCommand extends Command {
 
+    private League league;
     private Hypixel hypixel;
 
-    public StatsCommand(Hypixel hypixel) {
+    public StatsCommand(Hypixel hypixel, League league) {
         this.name = "stats";
         this.help = "Gives stats of a happy's channel and hypixel player.";
-        this.arguments = "<youtube/hypixel>";
+        this.arguments = "<youtube/hypixel/league>";
         this.category = new Category("Fun");
         this.hypixel = hypixel;
+        this.league = league;
     }
 
     @Override
@@ -29,8 +34,38 @@ public class StatsCommand extends Command {
             new Thread(new GetYoutubeStats(e)).start();
         } else if (e.getArgs().equalsIgnoreCase("hypixel")) {
             new Thread(new GetHypixelStats(e)).start();
+        } else if (e.getArgs().equalsIgnoreCase("league")) {
+            new Thread(new GetLoLStats(e)).start();
         } else {
             e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+        }
+    }
+
+    class GetLoLStats implements Runnable {
+
+        private CommandEvent e;
+
+        GetLoLStats(CommandEvent e) {
+            this.e = e;
+        }
+
+        @Override
+        public void run() {
+
+            EmbedBuilder embed = new EmbedBuilder()
+                    .setTitle("LoL Player Statistics")
+                    .setDescription("Listing statistics:")
+                    .setFooter("Stats provided by Riot Games's API", "http://i.imgur.com/xNLs83T.png");
+            try {
+                for (HashMap.Entry<String, String> entry : league.getAllFields("happyheart", Platform.NA).entrySet()) {
+                    if (entry.getValue() != null && !entry.getValue().equals("0")) {
+                        embed.addField("**" + entry.getKey() + "**", entry.getValue(), true);
+                    }
+                }
+            } catch (RiotApiException e1) {
+                e1.printStackTrace();
+            }
+            e.reply(embed.build());
         }
     }
 
