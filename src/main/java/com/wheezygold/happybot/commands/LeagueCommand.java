@@ -19,7 +19,7 @@ public class LeagueCommand extends Command {
         this.league = league;
         this.name = "league";
         this.help = "Shows league stats for target.";
-        this.arguments = "<" + Arrays.toString(Platform.values()) + "> <league username>";
+        this.arguments = "<" + Arrays.toString(Platform.values()).replaceAll("[1]", "") + "> <league username>";
         this.guildOnly = false;
         this.category = new Category("Fun");
     }
