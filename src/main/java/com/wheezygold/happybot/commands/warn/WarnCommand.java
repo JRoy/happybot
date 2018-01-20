@@ -1,7 +1,7 @@
 package com.wheezygold.happybot.commands.warn;
 
-import com.jagrosh.jdautilities.commandclient.Command;
-import com.jagrosh.jdautilities.commandclient.CommandEvent;
+import com.jagrosh.jdautilities.command.Command;
+import com.jagrosh.jdautilities.command.CommandEvent;
 import com.wheezygold.happybot.sql.WarningManager;
 import com.wheezygold.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;

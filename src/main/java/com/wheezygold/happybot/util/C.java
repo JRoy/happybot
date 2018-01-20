@@ -1,9 +1,11 @@
 package com.wheezygold.happybot.util;
 
-import com.jagrosh.jdautilities.commandclient.Command;
-import com.jagrosh.jdautilities.commandclient.CommandEvent;
+import com.jagrosh.jdautilities.command.CommandEvent;
 import com.wheezygold.happybot.Main;
-import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.managers.GuildController;
 
 import javax.annotation.Nonnull;
@@ -15,7 +17,6 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.Objects;
 
 /**
  * The C Class provides lots of *sometimes* useful methods that make things ez-pz.
@@ -60,7 +61,7 @@ public class C {
     }
 
     /**
-     * Gets the member/sender from the {@link com.jagrosh.jdautilities.commandclient.CommandEvent CommandEvent} in the JDA Member Format.
+     * Gets the member/sender from the {@link com.jagrosh.jdautilities.command.CommandEvent CommandEvent} in the JDA Member Format.
      *
      * @param e The Command Event that you need the member from.
      * @return Returns a member from the event.
@@ -77,7 +78,7 @@ public class C {
     /**
      * Detects if a message contains a user mention.
      *
-     * @param e The {@link com.jagrosh.jdautilities.commandclient.CommandEvent CommandEvent} where the mention is from.
+     * @param e The {@link com.jagrosh.jdautilities.command.CommandEvent CommandEvent} where the mention is from.
      * @return Returns if the message contains a mention.
      */
     public static boolean containsMention(CommandEvent e) {
@@ -95,9 +96,9 @@ public class C {
     }
 
     /**
-     * Gets the {@link net.dv8tion.jda.core.managers.GuildController GuildController} Class from a {@link com.jagrosh.jdautilities.commandclient.CommandEvent CommandEvent}.
+     * Gets the {@link net.dv8tion.jda.core.managers.GuildController GuildController} Class from a {@link com.jagrosh.jdautilities.command.CommandEvent CommandEvent}.
      *
-     * @param e The target {@link com.jagrosh.jdautilities.commandclient.CommandEvent CommandEvent}
+     * @param e The target {@link com.jagrosh.jdautilities.command.CommandEvent CommandEvent}
      * @return The requested {@link net.dv8tion.jda.core.managers.GuildController GuildController}
      */
     public static GuildController getCtrl(CommandEvent e) {
@@ -165,34 +166,6 @@ public class C {
      */
     public static GuildController getGuildCtrl() {
         return getGuild().getController();
-    }
-
-    /**
-     * Sends the help message for the registered commands.
-     *
-     * @param event The {@link com.jagrosh.jdautilities.commandclient.CommandEvent CommandEvent} that handles the reply.
-     * @return The help message.
-     */
-    public static String showHelp(CommandEvent event) {
-        event.replySuccess("Help is on the way! :sparkles:");
-        StringBuilder builder = new StringBuilder("**" + event.getSelfUser().getName() + "** commands:\n");
-        Command.Category category = null;
-        for (Command command : event.getClient().getCommands())
-            if (!command.isOwnerCommand() || event.isOwner() || event.isCoOwner()) {
-                if (!Objects.equals(category, command.getCategory())) {
-                    category = command.getCategory();
-                    builder.append("\n\n  __").append(category == null ? "No Category" : category.getName()).append("__:\n");
-                }
-                builder.append("\n`").append(event.getClient().getPrefix()).append(command.getName())
-                        .append(command.getArguments() == null ? "`" : " " + command.getArguments() + "`")
-                        .append(" **-** ").append(command.getHelp());
-            }
-        User owner = event.getJDA().getUserById(event.getClient().getOwnerId());
-        if (owner != null) {
-            builder.append("\n\nFor additional help, contact **").append(owner.getName()).append("**#").append(owner.getDiscriminator());
-
-        }
-        return builder.toString();
     }
 
     /**

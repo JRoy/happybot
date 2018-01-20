@@ -11,8 +11,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="HappyBot_main" />
     <orderEntry type="library" name="Gradle: com.github.KevinPriv:HypixelApi4J:API-1.4" level="project" />
-    <orderEntry type="library" name="Gradle: com.jagrosh:JDA-Utilities:1.9" level="project" />
     <orderEntry type="library" name="Gradle: net.dv8tion:JDA:3.5.0_327" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.JDA-Applications:JDA-Utilities:version-major~2.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-simple:1.6.1" level="project" />
     <orderEntry type="library" name="Gradle: mysql:mysql-connector-java:5.1.6" level="project" />
     <orderEntry type="library" name="Gradle: org.twitter4j:twitter4j-stream:4.0.6" level="project" />
@@ -21,7 +21,10 @@
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.0" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Gradle: com.udojava:EvalEx:1.16" level="project" />
-    <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.9.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.JDA-Applications.JDA-Utilities:jda-utilities-examples:version-major~2.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.JDA-Applications.JDA-Utilities:jda-utilities-command:version-major~2.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.9.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.JDA-Applications.JDA-Utilities:jda-utilities-menu:version-major~2.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-collections4:4.1" level="project" />
@@ -29,6 +32,8 @@
     <orderEntry type="library" name="Gradle: net.sf.trove4j:trove4j:3.0.3" level="project" />
     <orderEntry type="library" name="Gradle: net.java.dev.jna:jna:4.4.0" level="project" />
     <orderEntry type="library" name="Gradle: com.neovisionaries:nv-websocket-client:2.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.JDA-Applications.JDA-Utilities:jda-utilities-doc:version-major~2.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.JDA-Applications.JDA-Utilities:jda-utilities-commons:version-major~2.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: org.twitter4j:twitter4j-core:4.0.6" level="project" />
     <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.13.0" level="project" />

@@ -1,6 +1,7 @@
 package com.wheezygold.happybot;
 
-import com.jagrosh.jdautilities.commandclient.CommandClientBuilder;
+import com.jagrosh.jdautilities.command.Command;
+import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.wheezygold.happybot.apis.APIBase;
 import com.wheezygold.happybot.apis.Hypixel;
 import com.wheezygold.happybot.apis.League;
@@ -19,12 +20,16 @@ import com.wheezygold.happybot.sql.ReportManager;
 import com.wheezygold.happybot.sql.SQLManager;
 import com.wheezygold.happybot.sql.WarningManager;
 import com.wheezygold.happybot.theme.ThemeManager;
-import com.wheezygold.happybot.util.*;
+import com.wheezygold.happybot.util.Constants;
+import com.wheezygold.happybot.util.Logger;
+import com.wheezygold.happybot.util.MessageFactory;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.hooks.EventListener;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -32,6 +37,7 @@ import javax.security.auth.login.LoginException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class Main extends ListenerAdapter {
@@ -168,6 +174,36 @@ public class Main extends ListenerAdapter {
 
         Logger.info("Adding commands...");
 
+        clientBuilder.setHelpConsumer(e -> {
+            e.replySuccess("Help is on the way! :sparkles:");
+            StringBuilder builder = new StringBuilder("**"+e.getSelfUser().getName()+"** commands:\n");
+            Command.Category category = null;
+            for(Command command : e.getClient().getCommands())
+            {
+                if(!command.isHidden() && (!command.isOwnerCommand() || e.isOwner()))
+                {
+                    if(!Objects.equals(category, command.getCategory()))
+                    {
+                        category = command.getCategory();
+                        builder.append("\n\n  __").append(category==null ? "No Category" : category.getName()).append("__:\n");
+                    }
+                    builder.append("\n`").append(e.getClient().getPrefix()).append((e.getClient().getPrefix()==null?" ":"")).append(command.getName())
+                            .append(command.getArguments()==null ? "`" : " "+command.getArguments()+"`")
+                            .append(" - ").append(command.getHelp());
+                }
+            }
+            User owner = e.getJDA().getUserById(e.getClient().getOwnerId());
+            if(owner!=null)
+            {
+                builder.append("\n\nFor additional help, contact **").append(owner.getName()).append("**#").append(owner.getDiscriminator());
+                if(e.getClient().getServerInvite()!=null)
+                    builder.append(" or join ").append(e.getClient().getServerInvite());
+            }
+            if(e.isFromType(ChannelType.TEXT))
+                e.reactSuccess();
+            e.replyInDm(builder.toString(), unused -> {}, t -> e.replyWarning("Help cannot be sent because you are blocking Direct Messages."));
+        });
+
         //Loads all of our commands into JDA-Util's command handler.
         clientBuilder.addCommands(
 
@@ -226,8 +262,6 @@ public class Main extends ListenerAdapter {
                 new ShutdownCommand(),
                 new UpdateCommand(messageFactory),
                 new EvalCommand());
-
-        clientBuilder.setHelpFunction(C::showHelp);
     }
 
     private static void loadTweetMonitor() {

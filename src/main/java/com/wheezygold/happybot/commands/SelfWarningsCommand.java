@@ -1,7 +1,7 @@
 package com.wheezygold.happybot.commands;
 
-import com.jagrosh.jdautilities.commandclient.Command;
-import com.jagrosh.jdautilities.commandclient.CommandEvent;
+import com.jagrosh.jdautilities.command.Command;
+import com.jagrosh.jdautilities.command.CommandEvent;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.sql.WarningManager;
 import net.dv8tion.jda.core.entities.Member;
@@ -37,7 +37,7 @@ public class SelfWarningsCommand extends Command {
                     builder.append("#").append(resultSet.getString("id")).append(" ").append(C.bold(staffMem.getUser().getName() + "#" + staffMem.getUser().getDiscriminator())).append(" - ").append(C.bold(resultSet.getString("reason"))).append("\n");
                 }
             }
-            e.replyInDM(builder.toString());
+            e.replyInDm(builder.toString());
         } catch (SQLException e1) {
             e.replyError("Oof Error: " + e1.getMessage());
         }

@@ -1,12 +1,11 @@
 package com.wheezygold.happybot.commands;
 
-import com.jagrosh.jdautilities.commandclient.Command;
-import com.jagrosh.jdautilities.commandclient.CommandEvent;
-
+import com.jagrosh.jdautilities.command.Command;
+import com.jagrosh.jdautilities.command.CommandEvent;
 import com.kbrewster.exceptions.APIException;
 import com.kbrewster.hypixelapi.player.HypixelPlayer;
-import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.apis.Hypixel;
+import com.wheezygold.happybot.util.C;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.util.HashMap;

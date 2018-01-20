@@ -1,7 +1,7 @@
 package com.wheezygold.happybot.commands;
 
-import com.jagrosh.jdautilities.commandclient.Command;
-import com.jagrosh.jdautilities.commandclient.CommandEvent;
+import com.jagrosh.jdautilities.command.Command;
+import com.jagrosh.jdautilities.command.CommandEvent;
 import com.wheezygold.happybot.sql.SQLManager;
 import com.wheezygold.happybot.sql.UserToken;
 import com.wheezygold.happybot.util.C;
