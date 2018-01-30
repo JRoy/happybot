@@ -2,10 +2,7 @@ package com.wheezygold.happybot.util;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.wheezygold.happybot.Main;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.managers.GuildController;
 
 import javax.annotation.Nonnull;
@@ -346,4 +343,26 @@ public class C {
     public static boolean isBool(String check) {
         return check.equalsIgnoreCase("true") || check.equalsIgnoreCase("false");
     }
+
+    /**
+     * Tests for an image in target message.
+     * @param message The target message to be tested.
+     * @return If the message contains an image.
+     */
+    public static boolean containsImage(Message message) {
+        if(message.getAttachments().stream().anyMatch(Message.Attachment::isImage))
+            return true;
+        return message.getEmbeds().stream().anyMatch(e -> e.getImage() != null || e.getVideoInfo() != null);
+    }
+
+    /**
+     * Gets the image url from a message.
+     * @param message The target message.
+     * @return The image url.
+     */
+    public static String getImage(Message message) {
+        return message.getAttachments().get(0).getUrl();
+    }
+
+
 }

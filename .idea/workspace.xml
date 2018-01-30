@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ce73aba-e015-4506-a741-efe76012875a" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PurgeCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/WarningsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarningsCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -38,7 +36,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
@@ -46,18 +44,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1809#1857#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PurgeCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PurgeCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -77,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StarMessages.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StarMessages.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="52" column="75" selection-start-line="52" selection-start-column="75" selection-end-line="52" selection-end-column="75" />
+            <state relative-caret-position="347">
+              <caret line="50" column="60" lean-forward="true" selection-start-line="50" selection-start-column="60" selection-end-line="50" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -560,12 +546,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/SelfWarningsCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarnCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/EditReportCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PurgeCommand.java" />
         <option value="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" />
       </list>
     </option>
   </component>
@@ -815,13 +801,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512613337762</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Fix Format Issues">
-      <created>1512778788394</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1512778788394</updated>
     </task>
     <task id="LOCAL-00004" summary="Add ^shop Command (Closes #66)">
       <created>1512849591758</created>
@@ -1159,7 +1138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517339764083</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Add purge command (Closes #123)">
+      <created>1517339822257</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1517339822257</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1239,7 +1225,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add logging when warnings are deleted" />
     <MESSAGE value="Add logging when warnings are deleted (Closes #109)" />
     <MESSAGE value="Add support for images in gilded messages" />
     <MESSAGE value="Remove git mentioning for issue replies" />
@@ -1264,7 +1249,8 @@
     <MESSAGE value="Fix malformed example" />
     <MESSAGE value="Refactor entire command structure to JDA-Utilities 2.0" />
     <MESSAGE value="Update Gradle Wrapper &amp; Setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Gradle Wrapper &amp; Setup" />
+    <MESSAGE value="Add purge command (Closes #123)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add purge command (Closes #123)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1586,18 +1572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="715">
-          <caret line="360" column="29" selection-start-line="360" selection-start-column="29" selection-end-line="360" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#11497#11498#0" expanded="true" />
-            <element signature="e#11560#11561#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PurgeCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="265">
@@ -1605,13 +1579,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="52" column="75" selection-start-line="52" selection-start-column="75" selection-end-line="52" selection-end-column="75" />
         </state>
       </provider>
     </entry>
@@ -1637,6 +1604,25 @@
             <element signature="imports" expanded="true" />
             <element signature="e#1809#1857#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="715">
+          <caret line="360" column="29" selection-start-line="360" selection-start-column="29" selection-end-line="360" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#11497#11498#0" expanded="true" />
+            <element signature="e#11560#11561#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="50" column="60" lean-forward="true" selection-start-line="50" selection-start-column="60" selection-end-line="50" selection-end-column="60" />
         </state>
       </provider>
     </entry>

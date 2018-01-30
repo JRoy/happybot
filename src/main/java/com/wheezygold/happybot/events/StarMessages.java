@@ -52,6 +52,8 @@ public class StarMessages extends ListenerAdapter {
                 .setFooter(footer, "https://google.com")
                 .setThumbnail(message.getMember().getUser().getAvatarUrl())
                 .setColor(message.getMember().getColor());
+        if (C.containsImage(message))
+            embed.setImage(C.getImage(message));
         Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
         C.privChannel(message.getMember(), privateMessageText);
         C.privChannel(message.getMember(), embed.build());
