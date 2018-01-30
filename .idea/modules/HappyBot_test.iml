@@ -11,7 +11,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="HappyBot_main" />
     <orderEntry type="library" name="Gradle: com.github.KevinPriv:HypixelApi4J:API-1.4" level="project" />
-    <orderEntry type="library" name="Gradle: net.dv8tion:JDA:3.5.0_327" level="project" />
+    <orderEntry type="library" name="Gradle: net.dv8tion:JDA:3.5.0_331" level="project" />
     <orderEntry type="library" name="Gradle: com.github.JDA-Applications:JDA-Utilities:version-major~2.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-simple:1.6.1" level="project" />
     <orderEntry type="library" name="Gradle: mysql:mysql-connector-java:5.1.6" level="project" />

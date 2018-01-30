@@ -1,65 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ce73aba-e015-4506-a741-efe76012875a" name="Default" comment="Fix malformed example">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_3_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_neovisionaries_nv_websocket_client_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_9_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_dev_jna_jna_4_4_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_trove4j_trove4j_3_0_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_collections4_4_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_json_json_20160810.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_25.xml" beforeDir="false" />
+    <list default="true" id="0ce73aba-e015-4506-a741-efe76012875a" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PurgeCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/HappyBot_main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/HappyBot_main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/HappyBot_test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/HappyBot_test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ApplyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ApplyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/BanCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/BanCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/DemoteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/DemoteCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/EvalCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/EvalCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/FanartCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/FanartCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/FansCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/FansCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/GambleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/GambleCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/HecktownCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/HecktownCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/HypixelCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/HypixelCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/KickCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/KickCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/LeagueCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/LeagueCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/LockCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/LockCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/MathCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/MathCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/MentionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/MentionCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/MessageStatsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/MessageStatsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/MoneyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/MoneyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/OgCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/OgCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PardonCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PardonCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PingCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PingCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PromoteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PromoteCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RandomSeasonCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RandomSeasonCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RewardsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RewardsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RulesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RulesCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RuntimeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RuntimeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/SeasonCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/SeasonCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/SelfWarningsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/SelfWarningsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ServersCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ServersCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ShopCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ShopCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ShutdownCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ShutdownCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/SpamCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/SpamCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/StaffManagementCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/StaffManagementCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/StatsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/StatsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeManagerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeManagerCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/UnlockCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/UnlockCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/UpdateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/UpdateCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/VideoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/VideoCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/WarningsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/WarningsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/EditReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/EditReportCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/HandleReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/HandleReportCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/LookupReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/LookupReportCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/ReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/ReportCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/DeleteWarnCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/DeleteWarnCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/EditWarningCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/EditWarningCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarnCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarnCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/WarningsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarningsCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -92,11 +42,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="557">
-              <caret line="203" column="24" selection-start-line="203" selection-start-column="24" selection-end-line="203" selection-end-column="24" />
+            <state relative-caret-position="510">
+              <caret line="107" column="63" selection-start-line="107" selection-start-column="63" selection-end-line="107" selection-end-column="63" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1809#1857#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gradle-wrapper.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="69" selection-start-line="5" selection-start-column="69" selection-end-line="5" selection-end-column="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PurgeCommand.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PurgeCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="265">
+              <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -104,26 +85,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="C.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="C.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="168" column="5" selection-start-line="168" selection-start-column="5" selection-end-line="168" selection-end-column="5" />
+            <state relative-caret-position="715">
+              <caret line="360" column="29" selection-start-line="360" selection-start-column="29" selection-end-line="360" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#9645#9646#0" expanded="true" />
-                <element signature="e#9714#9715#0" expanded="true" />
-                <element signature="e#10971#10972#0" expanded="true" />
-                <element signature="e#11015#11016#0" expanded="true" />
-                <element signature="e#11222#11223#0" expanded="true" />
-                <element signature="e#11262#11263#0" expanded="true" />
-                <element signature="e#11422#11423#0" expanded="true" />
-                <element signature="e#11472#11473#0" expanded="true" />
-                <element signature="e#11652#11653#0" expanded="true" />
-                <element signature="e#11700#11701#0" expanded="true" />
-                <element signature="e#11884#11885#0" expanded="true" />
-                <element signature="e#11934#11935#0" expanded="true" />
+                <element signature="e#11497#11498#0" expanded="true" />
+                <element signature="e#11560#11561#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StarMessages.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="690">
+              <caret line="52" column="75" selection-start-line="52" selection-start-column="75" selection-end-line="52" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -151,6 +131,7 @@
       <find>loadHypixelAPI</find>
       <find>import com.jagrosh.jdautilities.commandclient.Command;</find>
       <find>import com.jagrosh.jdautilities.commandclient.CommandEvent;</find>
+      <find>image</find>
     </findStrings>
     <replaceStrings>
       <replace>id</replace>
@@ -164,12 +145,12 @@
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
       <map>
-        <entry key="$PROJECT_DIR$" value="C:\Users\joshr\.gradle\wrapper\dists\gradle-4.3-rc-2-all\5okqwrscnzl4cji580k86y04n\gradle-4.3-rc-2" />
+        <entry key="$PROJECT_DIR$" value="C:\Users\joshr\.gradle\wrapper\dists\gradle-4.5-rc-2-all\d8hguabssksz7x90cbdcuu7ui\gradle-4.5-rc-2" />
       </map>
     </option>
     <option name="myGradleVersions">
       <map>
-        <entry key="$PROJECT_DIR$" value="4.3" />
+        <entry key="$PROJECT_DIR$" value="4.5" />
       </map>
     </option>
     <option name="availableProjects">
@@ -349,9 +330,9 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="3032273461714" />
-        <entry key="$PROJECT_DIR$/build.gradle" value="1366706419" />
-        <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="563599123" />
+        <entry key="$PROJECT_DIR$" value="3034669759282" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="2612273100" />
+        <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="3646266533" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -366,22 +347,22 @@
                       <ExternalModuleBuildClasspathPojo>
                         <option name="entries">
                           <list>
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jengelman.gradle.plugins/shadow/2.0.0/8e3fcef62357311fe909647d5b78ffb0cdf8cd35/shadow-2.0.0-sources.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jengelman.gradle.plugins/shadow/2.0.0/1bd2c5bcaa103021f1a3cf725da6c1bb9d0dc836/shadow-2.0.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jengelman.gradle.plugins/shadow/2.0.2/3807e2b318177ddbab5b1d7df202a1dde44492f/shadow-2.0.2-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jengelman.gradle.plugins/shadow/2.0.2/963416053472408f1d694ea3d08407a06d9e6567/shadow-2.0.2.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jdom/jdom2/2.0.6/3dcf8ba7582eeac3b67ed5155ee3659e16c8dadc/jdom2-2.0.6-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jdom/jdom2/2.0.6/6f14738ec2e9dd0011e343717fa624a10f8aab64/jdom2-2.0.6.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/5.2/ed60d4287d18996bc940f26656c570532b20d863/asm-5.2-sources.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/5.2/4ce3ecdc7115bcbf9d4ff4e6ec638e60760819df/asm-5.2.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/5.2/ed60d4287d18996bc940f26656c570532b20d863/asm-commons-5.2-sources.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/5.2/2f916f2c20f1d04404276cb1c2e6d5d6793dca3f/asm-commons-5.2.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/6.0/66e3ec9f4ff0d70713868456142040111cc201c/asm-6.0-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/6.0/bc6fa6b19424bb9592fe43bbc20178f92d403105/asm-6.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/6.0/66e3ec9f4ff0d70713868456142040111cc201c/asm-commons-6.0-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/6.0/f256fd215d8dd5a4fa2ab3201bf653de266ed4ec/asm-commons-6.0.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.5/caf033a4a7c37b4a8ff3ea084cba591539b0b69/commons-io-2.5-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.5/2852e6e05fbb95076fc091f6d1780f1f8fe35e0f/commons-io-2.5.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant/1.9.7/c8c6f25c99bc5fcb1acb13f09f11d0045bedc256/ant-1.9.7-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant/1.9.7/3b2a10512ee6537d3852c9b693a0284dcab5de68/ant-1.9.7.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/3.0.24/325807d7e6393ae4f0f389277d7ef993e3aebdfe/plexus-utils-3.0.24-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/3.0.24/b4ac9780b37cb1b736eae9fbcef27609b7c911ef/plexus-utils-3.0.24.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/5.2/ed60d4287d18996bc940f26656c570532b20d863/asm-tree-5.2-sources.jar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/5.2/733a8d67f6f4174d12142b7bbcfc496a6d99882e/asm-tree-5.2.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/6.0/66e3ec9f4ff0d70713868456142040111cc201c/asm-tree-6.0-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/6.0/a624f1a6e4e428dcd680a01bab2d4c56b35b18f0/asm-tree-6.0.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant-launcher/1.9.7/74cef5ca08d158fa5dc0d31a40a75c893ca00e6e/ant-launcher-1.9.7-sources.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.ant/ant-launcher/1.9.7/224857a490283e72da13ffe3082dea62c558ec76/ant-launcher-1.9.7.jar" />
                           </list>
@@ -395,149 +376,149 @@
               <option name="name" value="HappyBot" />
               <option name="projectBuildClasspath">
                 <list>
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/announce" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/antlr" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/base-services" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/base-services-groovy" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/build-cache" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/build-cache-http" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/build-comparison" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/build-init" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/build-option" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/cli" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/code-quality" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/composite-builds" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/core" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/core-api" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/dependency-management" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/diagnostics" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/ear" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/ide" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/ide-native" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/ide-play" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/installation-beacon" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/internal-android-performance-testing" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/internal-integ-testing" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/internal-performance-testing" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/internal-testing" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/ivy" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/jacoco" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/javascript" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/jvm-services" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/language-groovy" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/language-java" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/language-jvm" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/language-native" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/language-scala" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/launcher" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/logging" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/maven" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/messaging" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/model-core" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/model-groovy" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/native" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/osgi" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/persistent-cache" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/platform-base" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/platform-jvm" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/platform-native" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/platform-play" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/plugin-development" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/plugin-use" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/plugins" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/process-services" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/publish" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/reporting" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/resources" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/resources-gcs" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/resources-http" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/resources-s3" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/resources-sftp" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/scala" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/signing" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/test-kit" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/testing-base" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/testing-jvm" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/testing-native" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/tooling-api" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/tooling-api-builders" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/version-control" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/workers" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/src/wrapper" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/ant-1.9.6.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/ant-launcher-1.9.6.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-base-services-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-base-services-groovy-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-build-cache-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-build-option-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-cli-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-core-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-core-api-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-docs-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-installation-beacon-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-jvm-services-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-kotlin-dsl-0.12.1.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-kotlin-dsl-tooling-builders-0.12.1.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-kotlin-dsl-tooling-models-0.12.1.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-launcher-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-logging-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-messaging-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-model-core-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-model-groovy-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-native-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-persistent-cache-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-process-services-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-resources-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-runtime-api-info-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-tooling-api-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/gradle-wrapper-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/groovy-all-2.4.12.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-announce-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-antlr-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-build-cache-http-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-build-comparison-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-build-init-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-code-quality-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-composite-builds-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-dependency-management-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-diagnostics-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-ear-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-ide-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-ide-native-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-ide-play-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-ivy-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-jacoco-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-javascript-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-language-groovy-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-language-java-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-language-jvm-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-language-native-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-language-scala-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-maven-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-osgi-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-platform-base-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-platform-jvm-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-platform-native-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-platform-play-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-plugin-development-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-plugin-use-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-plugins-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-publish-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-reporting-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-resources-gcs-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-resources-http-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-resources-s3-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-resources-sftp-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-scala-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-signing-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-test-kit-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-testing-base-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-testing-jvm-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-testing-native-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-tooling-api-builders-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-version-control-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/gradle-workers-4.3.jar" />
-                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.3-rc-2-all/5okqwrscnzl4cji580k86y04n/gradle-4.3-rc-2/lib/plugins/ivy-2.2.0.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/announce" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/antlr" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/base-services" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/base-services-groovy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/build-cache" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/build-cache-http" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/build-comparison" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/build-init" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/build-option" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/cli" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/code-quality" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/composite-builds" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/core" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/core-api" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/dependency-management" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/diagnostics" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/ear" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/ide" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/ide-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/ide-play" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/installation-beacon" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/internal-android-performance-testing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/internal-integ-testing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/internal-performance-testing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/internal-testing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/ivy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/jacoco" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/javascript" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/jvm-services" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/language-groovy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/language-java" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/language-jvm" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/language-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/language-scala" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/launcher" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/logging" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/maven" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/messaging" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/model-core" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/model-groovy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/osgi" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/persistent-cache" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/platform-base" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/platform-jvm" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/platform-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/platform-play" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/plugin-development" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/plugin-use" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/plugins" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/process-services" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/publish" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/reporting" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/resources" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/resources-gcs" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/resources-http" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/resources-s3" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/resources-sftp" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/scala" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/signing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/test-kit" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/testing-base" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/testing-jvm" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/testing-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/tooling-api" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/tooling-api-builders" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/version-control" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/workers" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/src/wrapper" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/ant-1.9.9.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/ant-launcher-1.9.9.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-base-services-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-base-services-groovy-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-build-cache-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-build-option-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-cli-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-core-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-core-api-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-docs-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-installation-beacon-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-jvm-services-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-kotlin-dsl-0.14.2.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-kotlin-dsl-tooling-builders-0.14.2.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-kotlin-dsl-tooling-models-0.14.2.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-launcher-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-logging-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-messaging-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-model-core-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-model-groovy-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-native-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-persistent-cache-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-process-services-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-resources-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-runtime-api-info-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-tooling-api-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/gradle-wrapper-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/groovy-all-2.4.12.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-announce-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-antlr-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-build-cache-http-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-build-comparison-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-build-init-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-code-quality-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-composite-builds-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-dependency-management-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-diagnostics-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-ear-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-ide-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-ide-native-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-ide-play-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-ivy-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-jacoco-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-javascript-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-language-groovy-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-language-java-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-language-jvm-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-language-native-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-language-scala-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-maven-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-osgi-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-platform-base-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-platform-jvm-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-platform-native-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-platform-play-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-plugin-development-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-plugin-use-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-plugins-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-publish-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-reporting-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-resources-gcs-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-resources-http-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-resources-s3-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-resources-sftp-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-scala-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-signing-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-test-kit-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-testing-base-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-testing-jvm-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-testing-native-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-tooling-api-builders-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-version-control-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/gradle-workers-4.5.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.5-rc-2-all/d8hguabssksz7x90cbdcuu7ui/gradle-4.5-rc-2/lib/plugins/ivy-2.2.0.jar" />
                   <option value="$PROJECT_DIR$/buildSrc/src/main/java" />
                   <option value="$PROJECT_DIR$/buildSrc/src/main/groovy" />
                 </list>
@@ -556,7 +537,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/MessageFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/WarningsCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/GambleCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/RuntimeEditor.java" />
@@ -567,22 +547,18 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/WarnCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/sql/WarningManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/AutoMod.java" />
-        <option value="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ReportManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ReportCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeManagerCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/HandleReportCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/KickCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/DeleteWarnCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/EditWarningCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarnCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/ReportCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/HandleReportCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/sql/ReportToken.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/LookupReportCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/sql/ReportManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/EditReportCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Logger.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/theme/ThemeManager.java" />
@@ -603,10 +579,15 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/EvalCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/FanartCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ShopCommand.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/SelfWarningsCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarnCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/EditReportCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PurgeCommand.java" />
+        <option value="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" />
       </list>
     </option>
   </component>
@@ -621,14 +602,25 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
               <item name="HappyBot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HappyBot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="gradle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HappyBot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="gradle" type="462c0819:PsiDirectoryNode" />
+              <item name="wrapper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
@@ -655,6 +647,15 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="happybot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HappyBot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="happybot" type="462c0819:PsiDirectoryNode" />
+              <item name="apis" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
@@ -672,26 +673,8 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="happybot" type="462c0819:PsiDirectoryNode" />
-              <item name="sql" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HappyBot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="happybot" type="462c0819:PsiDirectoryNode" />
-              <item name="theme" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HappyBot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="happybot" type="462c0819:PsiDirectoryNode" />
-              <item name="theme" type="462c0819:PsiDirectoryNode" />
-              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
+              <item name="commands" type="462c0819:PsiDirectoryNode" />
+              <item name="report" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
@@ -706,7 +689,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -854,13 +837,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512613337762</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Add Warning System (Closes #94)">
-      <created>1512775090250</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1512775090250</updated>
     </task>
     <task id="LOCAL-00002" summary="Add Self Warning Commands">
       <created>1512778096115</created>
@@ -1198,7 +1174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1516467592487</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Refactor entire command structure to JDA-Utilities 2.0">
+      <created>1516475815553</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1516475815553</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1212,7 +1195,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-444" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3293617" />
@@ -1221,8 +1203,8 @@
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50416666" side_tool="true" weight="0.32851064" />
       <window_info anchor="right" id="Maven Projects" order="4" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49583334" visible="true" weight="0.23117709" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32851064" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49583334" visible="true" weight="0.23117709" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
@@ -1233,29 +1215,29 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="right" id="Theme Preview" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32873806" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.49791667" weight="0.32851064" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32873806" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Gradle" order="6" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49583334" weight="0.23148936" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32851064" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19416666" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3293617" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32851064" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49583334" weight="0.23148936" />
       <window_info id="Image Layers" order="6" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -1278,7 +1260,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add another runtime option" />
     <MESSAGE value="Improve runtime command layout" />
     <MESSAGE value="Add logging when warnings are deleted" />
     <MESSAGE value="Add logging when warnings are deleted (Closes #109)" />
@@ -1303,7 +1284,8 @@
     <MESSAGE value="Add Multi-Region Support" />
     <MESSAGE value="Include new files and depends" />
     <MESSAGE value="Fix malformed example" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix malformed example" />
+    <MESSAGE value="Refactor entire command structure to JDA-Utilities 2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor entire command structure to JDA-Utilities 2.0" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1311,20 +1293,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/RuntimeEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="61" column="54" selection-start-line="61" selection-start-column="54" selection-end-line="61" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PardonCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/SpamCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -1350,13 +1318,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="72" column="43" lean-forward="true" selection-start-line="72" selection-start-column="43" selection-end-line="72" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="30" lean-forward="true" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -1388,24 +1349,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/EditWarningCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="14" column="38" lean-forward="true" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarnCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1423,13 +1370,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/ReportCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="47" column="28" lean-forward="true" selection-start-line="42" selection-start-column="53" selection-end-line="47" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PingCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -1441,20 +1381,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="43" column="12" lean-forward="true" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/LookupReportCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="24" column="43" lean-forward="true" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/EditReportCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1449">
-          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
         </state>
       </provider>
     </entry>
@@ -1542,13 +1468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/Hypixel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="45" column="75" lean-forward="true" selection-start-line="45" selection-start-column="75" selection-end-line="45" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/theme/ThemeManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -1575,25 +1494,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="105">
-            <caret line="19" column="59" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/LeagueCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
           <caret line="47" column="58" lean-forward="true" selection-start-line="47" selection-start-column="58" selection-end-line="47" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1601,9 +1506,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="25" lean-forward="true" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1618,9 +1520,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1628,13 +1527,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="39" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="15" column="82" selection-start-line="15" selection-start-column="82" selection-end-line="15" selection-end-column="82" />
         </state>
       </provider>
     </entry>
@@ -1673,34 +1565,98 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/Hypixel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="203" column="24" selection-start-line="203" selection-start-column="24" selection-end-line="203" selection-end-column="24" />
+        <state relative-caret-position="295">
+          <caret line="41" column="56" selection-start-line="41" selection-start-column="56" selection-end-line="41" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarningsCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="44" column="23" lean-forward="true" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarnCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="32" column="52" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/LookupReportCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="55" column="28" lean-forward="true" selection-start-line="55" selection-start-column="28" selection-end-line="55" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/ReportCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="34" column="19" lean-forward="true" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/report/EditReportCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="715">
+          <caret line="360" column="29" selection-start-line="360" selection-start-column="29" selection-end-line="360" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#11497#11498#0" expanded="true" />
+            <element signature="e#11560#11561#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PurgeCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="168" column="5" selection-start-line="168" selection-start-column="5" selection-end-line="168" selection-end-column="5" />
+        <state relative-caret-position="690">
+          <caret line="52" column="75" selection-start-line="52" selection-start-column="75" selection-end-line="52" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="69" selection-start-line="5" selection-start-column="69" selection-end-line="5" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="107" column="63" selection-start-line="107" selection-start-column="63" selection-end-line="107" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9645#9646#0" expanded="true" />
-            <element signature="e#9714#9715#0" expanded="true" />
-            <element signature="e#10971#10972#0" expanded="true" />
-            <element signature="e#11015#11016#0" expanded="true" />
-            <element signature="e#11222#11223#0" expanded="true" />
-            <element signature="e#11262#11263#0" expanded="true" />
-            <element signature="e#11422#11423#0" expanded="true" />
-            <element signature="e#11472#11473#0" expanded="true" />
-            <element signature="e#11652#11653#0" expanded="true" />
-            <element signature="e#11700#11701#0" expanded="true" />
-            <element signature="e#11884#11885#0" expanded="true" />
-            <element signature="e#11934#11935#0" expanded="true" />
+            <element signature="e#1809#1857#0" expanded="true" />
           </folding>
         </state>
       </provider>
