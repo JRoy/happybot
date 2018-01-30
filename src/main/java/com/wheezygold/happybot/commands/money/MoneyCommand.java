@@ -1,4 +1,4 @@
-package com.wheezygold.happybot.commands;
+package com.wheezygold.happybot.commands.money;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -78,9 +78,11 @@ public class MoneyCommand extends Command {
                 return;
             }
 
+            Member target = C.getMentionedMember(e);
+
             if (args[1].equalsIgnoreCase("give")) {
                 try {
-                    Member target = C.getMentionedMember(e);
+
                     UserToken token = sqlManager.getUser(target.getUser().getId());
                     token.addCoins(Integer.parseInt(args[2]));
                     e.replySuccess(C.bold("Success: ") + "Applied " + args[2] + " coins to " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
@@ -89,7 +91,6 @@ public class MoneyCommand extends Command {
                 }
             } else if (args[1].equalsIgnoreCase("take")) {
                 try {
-                    Member target = C.getMentionedMember(e);
                     UserToken token = sqlManager.getUser(target.getUser().getId());
                     token.takeCoins(Integer.parseInt(args[2]));
                     e.replySuccess(C.bold("Success: ") + "Took " + args[2] + " coins from " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
