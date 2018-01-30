@@ -15,6 +15,7 @@ import com.wheezygold.happybot.commands.report.ReportCommand;
 import com.wheezygold.happybot.commands.warn.DeleteWarnCommand;
 import com.wheezygold.happybot.commands.warn.EditWarningCommand;
 import com.wheezygold.happybot.commands.warn.WarnCommand;
+import com.wheezygold.happybot.commands.warn.WarningsCommand;
 import com.wheezygold.happybot.events.*;
 import com.wheezygold.happybot.sql.ReportManager;
 import com.wheezygold.happybot.sql.SQLManager;
@@ -60,7 +61,7 @@ public class Main extends ListenerAdapter {
 
         new Logger();
 
-        Logger.info("Initializing the bot...");
+        Logger.info("Initializing happybot...");
 
         Logger.log("Loading Config Files...");
         createConfigFiles();
@@ -99,11 +100,12 @@ public class Main extends ListenerAdapter {
                 .setGame(Game.of(Game.GameType.DEFAULT, "Loading"));
         for (EventListener listener : eventListeners)
             builder.addEventListener(listener);
+        Logger.info("Logging into Discord...");
         jda = builder.buildAsync();
 
 //        new RichPresence((JDAImpl) jda);
 
-        Logger.info("Bot has been loaded!");
+        Logger.info("Bot has been loaded & Connected to Discord!");
     }
 
     private static void loadApis() throws IOException {
@@ -253,6 +255,7 @@ public class Main extends ListenerAdapter {
                 new HandleReportCommand(reportManager),
                 new LookupReportCommand(reportManager),
                 new EditReportCommand(reportManager),
+                new PurgeCommand(),
 
                 //Bot Management
 
