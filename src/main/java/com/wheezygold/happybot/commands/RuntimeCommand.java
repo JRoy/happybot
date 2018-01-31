@@ -12,7 +12,7 @@ public class RuntimeCommand extends Command {
     public RuntimeCommand() {
         this.name = "runtime";
         this.help = "Edit variables in runtime.";
-        this.arguments = "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax>";
+        this.arguments = "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/teddySpam>";
         this.category = new Category("Bot Management");
     }
 
@@ -76,6 +76,14 @@ public class RuntimeCommand extends Command {
                     case "gambleMax": {
                         if (StringUtils.isNumeric(value)) {
                             RuntimeEditor.setGambleMax(Integer.parseInt(value));
+                        } else {
+                            valid = false;
+                        }
+                        break;
+                    }
+                    case "teddySpam": {
+                        if (C.isBool(value)) {
+                            RuntimeEditor.setTeddySpam(Boolean.parseBoolean(value.toLowerCase()));
                         } else {
                             valid = false;
                         }

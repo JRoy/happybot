@@ -61,6 +61,8 @@ public enum Roles {
 
     }
 
+    public String getId() { return id; }
+
     public String getRoleName() {
         return nrole;
     }

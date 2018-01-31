@@ -9,6 +9,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
+import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -87,4 +88,15 @@ public class AutoMod extends ListenerAdapter {
         }
     }
 
+    @Override
+    public void onGuildMemberRoleRemove(GuildMemberRoleRemoveEvent event) {
+        if (!RuntimeEditor.isTeddySpam()) {
+            return;
+        }
+        if (event.getUser().getId().equals(Constants.TEDDY_ID.get())) {
+            if (event.getRoles().get(0).getId().equals(Roles.EXP_SPAMMER.getId())) {
+                C.giveRole(event.getMember(), Roles.EXP_SPAMMER);
+            }
+        }
+    }
 }
