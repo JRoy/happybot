@@ -1,4 +1,4 @@
-# happybot [![Travis](https://img.shields.io/travis/WheezyGold7931/happybot.svg?style=for-the-badge)](https://travis-ci.org/WheezyGold7931/happybot) [![Jenkins Download](https://img.shields.io/badge/jenkins-download-blue.svg?style=for-the-badge)](http://142.44.162.101:8080/job/happybot//) [![GitHub last commit](https://img.shields.io/github/last-commit/WheezyGold7931/happybot.svg?style=for-the-badge)](https://github.com/WheezyGold7931/happybot/commits/master) [![Codacy grade](https://img.shields.io/codacy/grade/8c61619d7c67461083fc9386bd5b6c87.svg?style=for-the-badge)]()
+# happybot [![Travis](https://img.shields.io/travis/WheezyGold7931/happybot.svg?style=for-the-badge)](https://travis-ci.org/WheezyGold7931/happybot) [![Jenkins Download](https://img.shields.io/badge/jenkins-download-blue.svg?style=for-the-badge)](http://142.44.162.101:8080/job/happybot//)  [![Codacy grade](https://img.shields.io/codacy/grade/8c61619d7c67461083fc9386bd5b6c87.svg?style=for-the-badge)]()
 The moderation bot used on the happyheart discord server located here: https://discord.gg/smZmhKa
 # Dependencies
 We handle all dependencies via gradle but if you must have all of them here they are:
@@ -12,6 +12,7 @@ We handle all dependencies via gradle but if you must have all of them here they
 * [JUnit 4](https://github.com/junit-team/junit4/)
 * [EvalEx](https://github.com/uklimaschewski/EvalEx)
 * [riot-api-java](https://github.com/taycaldwell/riot-api-java)
+* [YouTube Data API](https://developers.google.com/api-client-library/java/apis/youtube/v3)
 
 # Setup
 Now this bot is made to only work with one guild, as we depend on very specific roles/channels and their respective ids.

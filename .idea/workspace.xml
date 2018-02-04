@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ce73aba-e015-4506-a741-efe76012875a" name="Default" comment="">
+    <list default="true" id="0ce73aba-e015-4506-a741-efe76012875a" name="Default" comment="Add YouTube upload notifications">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/ChannelBase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/YouTubeAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/HappyBot_main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/HappyBot_main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/HappyBot_test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/HappyBot_test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RuntimeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RuntimeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/AutoMod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/AutoMod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/YouTube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/YouTubeRealTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/StatsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/StatsCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Roles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Roles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/RuntimeEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/RuntimeEditor.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -42,61 +47,77 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="865">
-              <caret line="235" column="20" selection-start-line="235" selection-start-column="20" selection-end-line="235" selection-end-column="20" />
+            <state relative-caret-position="565">
+              <caret line="146" column="11" selection-start-line="146" selection-start-column="11" selection-end-line="146" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2051#2099#0" expanded="true" />
+                <element signature="e#6140#6141#0" expanded="true" />
+                <element signature="e#6188#6189#0" expanded="true" />
+                <element signature="e#13057#13084#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RuntimeEditor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/RuntimeEditor.java">
+      <file leaf-file-name="YouTubeAPI.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/YouTubeAPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="58" selection-start-line="58" selection-end-line="58" />
+            <state relative-caret-position="286">
+              <caret line="58" column="45" lean-forward="true" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
               <folding>
-                <element signature="method#setFilteringAdverts#0;class#RuntimeEditor#0" />
-                <element signature="method#setPermittingWarningExposement#0;class#RuntimeEditor#0" />
-                <element signature="method#setAllowEditOtherUserWarn#0;class#RuntimeEditor#0" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#1373#1374#0" expanded="true" />
+                <element signature="e#1402#1403#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AutoMod.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/AutoMod.java">
+      <file leaf-file-name="ChannelBase.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/ChannelBase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
-              <caret line="97" column="65" selection-start-line="97" selection-start-column="65" selection-end-line="97" selection-end-column="65" />
+            <state relative-caret-position="302">
+              <caret line="48" column="37" selection-start-line="48" selection-start-column="37" selection-end-line="48" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#650#1795#0" expanded="true" />
+                <element signature="e#1794#1795#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Roles.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Roles.java">
+      <file leaf-file-name="YouTubeRealTime.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/YouTubeRealTime.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="467">
-              <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
+            <state relative-caret-position="360">
+              <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#233#269#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RuntimeCommand.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RuntimeCommand.java">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-765">
-              <caret line="14" column="120" selection-start-line="14" selection-start-column="120" selection-end-line="14" selection-end-column="120" />
+            <state relative-caret-position="360">
+              <caret line="24" column="56" lean-forward="true" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="210">
+                <caret line="14" column="90" selection-start-line="14" selection-start-column="90" selection-end-line="14" selection-end-column="90" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -324,8 +345,8 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="3034669759282" />
-        <entry key="$PROJECT_DIR$/build.gradle" value="2612273100" />
+        <entry key="$PROJECT_DIR$" value="3035037672656" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="1368830079" />
         <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="3646266533" />
       </map>
     </option>
@@ -531,11 +552,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/WarnCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/sql/WarningManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ReportManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ReportCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeManagerCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/HandleReportCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/KickCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/DeleteWarnCommand.java" />
@@ -548,15 +564,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Logger.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/theme/ThemeManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/YouTube.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/TwitterCentre.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/Hypixel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/exceptions/IllegalAPIState.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/APIBase.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/UglyCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/League.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/StatsCommand.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/LeagueCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/HypixelCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ApplyCommand.java" />
@@ -571,31 +584,40 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PurgeCommand.java" />
         <option value="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/MoneyCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/GambleCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/money/MoneyCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/RuntimeEditor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Roles.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/AutoMod.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/RuntimeCommand.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/YouTube.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/StatsCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/YouTubeRealTime.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/YouTubeAPI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/ChannelBase.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/YouTubeRealTime.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/YouTubeAPI.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2426" />
-    <option name="y" value="-574" />
+    <option name="x" value="2164" />
+    <option name="y" value="-450" />
     <option name="width" value="1767" />
-    <option name="height" value="1010" />
+    <option name="height" value="1024" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -656,7 +678,8 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="happybot" type="462c0819:PsiDirectoryNode" />
-              <item name="commands" type="462c0819:PsiDirectoryNode" />
+              <item name="apis" type="462c0819:PsiDirectoryNode" />
+              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
@@ -665,8 +688,8 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="happybot" type="462c0819:PsiDirectoryNode" />
-              <item name="commands" type="462c0819:PsiDirectoryNode" />
-              <item name="money" type="462c0819:PsiDirectoryNode" />
+              <item name="apis" type="462c0819:PsiDirectoryNode" />
+              <item name="youtube" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
@@ -690,7 +713,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
@@ -840,13 +862,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512613337762</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Add more welcome messages.">
-      <created>1514838728072</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1514838728072</updated>
     </task>
     <task id="LOCAL-00007" summary="Convert Mod to Trial Mod">
       <created>1514854351216</created>
@@ -1184,7 +1199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517340809355</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Fixed Critical Bug (#Closes #124)">
+      <created>1517364907168</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1517364907169</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1198,20 +1220,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-444" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3293617" />
+      <window_info active="true" anchor="bottom" id="Messages" order="9" sideWeight="0.49791667" visible="true" weight="0.32767764" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info id="Image Layers" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50416666" side_tool="true" weight="0.32851064" />
       <window_info anchor="right" id="Maven Projects" order="4" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32851064" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49583334" visible="true" weight="0.23117709" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49583334" weight="0.23117709" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19375" />
+      <window_info anchor="bottom" id="Build" order="8" weight="0.3244963" />
       <window_info anchor="right" id="Gradle" order="6" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1224,47 +1249,13 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Build" order="8" weight="0.3244963" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32873806" />
-      <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.49791667" weight="0.32767764" />
     </layout>
-    <layout-to-restore>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Gradle" order="6" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49583334" weight="0.23148936" />
-      <window_info anchor="right" id="Theme Preview" order="7" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19416666" />
-      <window_info id="Structure" order="1" weight="0.25" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3293617" />
-      <window_info id="Image Layers" order="6" />
-      <window_info id="Designer" order="3" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50416666" side_tool="true" weight="0.32851064" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32851064" />
-      <window_info anchor="bottom" id="Build" order="8" weight="0.32486188" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.49791667" weight="0.32851064" />
-      <window_info anchor="right" id="Maven Projects" order="4" />
-      <window_info id="Favorites" order="5" side_tool="true" />
-    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Remove git mentioning for issue replies" />
-    <MESSAGE value="Improve advert filter (Closes #119)" />
     <MESSAGE value="Yep, so techno is pretty stupid" />
     <MESSAGE value="Add report system (Closes #118)" />
     <MESSAGE value="Fix private channel issues (Fixes #117)" />
@@ -1288,7 +1279,9 @@
     <MESSAGE value="Add purge command (Closes #123)" />
     <MESSAGE value="Add support for images in Gilds &amp; Stars" />
     <MESSAGE value="Fixed exception when not an active user (Fixes #122)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed exception when not an active user (Fixes #122)" />
+    <MESSAGE value="Fixed Critical Bug (#Closes #124)" />
+    <MESSAGE value="Add YouTube upload notifications" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add YouTube upload notifications" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1296,20 +1289,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/sql/WarningManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="73" column="4" lean-forward="true" selection-start-line="73" selection-start-column="4" selection-end-line="86" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/KickCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="27" column="56" lean-forward="true" selection-start-line="26" selection-start-column="16" selection-end-line="27" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/EditWarningCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -1373,20 +1352,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/YouTube.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/TwitterCentre.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
@@ -1394,24 +1359,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/exceptions/IllegalAPIState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="42" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/theme/exceptions/InvalidThemeFileException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="48" selection-start-column="38" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/APIBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="19" column="64" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -1429,13 +1380,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/StatsCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="32" column="48" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/League.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -1443,7 +1387,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/LeagueCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
@@ -1507,13 +1450,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/Hypixel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="41" column="56" selection-start-line="41" selection-start-column="56" selection-end-line="41" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarningsCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -1563,22 +1499,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/C.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="715">
           <caret line="360" column="29" selection-start-line="360" selection-start-column="29" selection-end-line="360" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#11497#11498#0" expanded="true" />
-            <element signature="e#11560#11561#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1600,9 +1524,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="46" lean-forward="true" selection-start-column="46" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1613,23 +1534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="865">
-          <caret line="235" column="20" selection-start-line="235" selection-start-column="20" selection-end-line="235" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Roles.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="467">
@@ -1637,22 +1541,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/AutoMod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="97" column="65" selection-start-line="97" selection-start-column="65" selection-end-line="97" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/RuntimeEditor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="58" selection-start-line="58" selection-end-line="58" />
-          <folding>
-            <element signature="method#setFilteringAdverts#0;class#RuntimeEditor#0" />
-            <element signature="method#setPermittingWarningExposement#0;class#RuntimeEditor#0" />
-            <element signature="method#setAllowEditOtherUserWarn#0;class#RuntimeEditor#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1660,6 +1552,121 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-765">
           <caret line="14" column="120" selection-start-line="14" selection-start-column="120" selection-end-line="14" selection-end-column="120" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/Hypixel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="41" column="56" selection-start-line="41" selection-start-column="56" selection-end-line="41" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/StatsCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="78" column="17" lean-forward="true" selection-start-line="78" selection-start-column="17" selection-end-line="78" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="51" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/exceptions/IllegalAPIState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="42" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/APIBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="64" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/AutoMod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="35" column="56" lean-forward="true" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="146" column="11" selection-start-line="146" selection-start-column="11" selection-end-line="146" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2051#2099#0" expanded="true" />
+            <element signature="e#6140#6141#0" expanded="true" />
+            <element signature="e#6188#6189#0" expanded="true" />
+            <element signature="e#13057#13084#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/ChannelBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="48" column="37" selection-start-line="48" selection-start-column="37" selection-end-line="48" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#650#1795#0" expanded="true" />
+            <element signature="e#1794#1795#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/YouTubeRealTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#233#269#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="56" lean-forward="true" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="210">
+            <caret line="14" column="90" selection-start-line="14" selection-start-column="90" selection-end-line="14" selection-end-column="90" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/apis/youtube/YouTubeAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="58" column="45" lean-forward="true" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1373#1374#0" expanded="true" />
+            <element signature="e#1402#1403#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -7,6 +7,7 @@ import com.wheezygold.happybot.apis.Hypixel;
 import com.wheezygold.happybot.apis.League;
 import com.wheezygold.happybot.apis.TwitterCentre;
 import com.wheezygold.happybot.apis.exceptions.IllegalAPIState;
+import com.wheezygold.happybot.apis.youtube.YouTubeAPI;
 import com.wheezygold.happybot.commands.*;
 import com.wheezygold.happybot.commands.money.GambleCommand;
 import com.wheezygold.happybot.commands.money.MoneyCommand;
@@ -59,6 +60,7 @@ public class Main extends ListenerAdapter {
     private static ThemeManager themeManager;
     private static MessageFactory messageFactory;
     private static League league;
+    private static List<EventListener> eventListeners = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException {
 
@@ -127,7 +129,8 @@ public class Main extends ListenerAdapter {
         twitterReader.close();
         apis.add(twitterCentre = new TwitterCentre(cKey, cSecret, aToken, aSecret));
         apis.add(league = new League(readFirstLineOfFile("lol.yml", "Error receiving lol api key.")));
-        Logger.info("Logging into API's...");
+        apis.add(new YouTubeAPI("AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE")); //API Key is restricted to the VM this bot runs on, don't waist your time...
+        Logger.info("Logging into APIs...");
         for (APIBase api : apis) {
             try {
                 api.loginApi();
@@ -141,6 +144,10 @@ public class Main extends ListenerAdapter {
         }
     }
 
+    public static void registerEventListener(EventListener eventListener) {
+        eventListeners.add(eventListener);
+    }
+
     private static MessageFactory loadMessageFactory() { return new MessageFactory(); }
 
     private static ThemeManager loadThemeManager() {
@@ -148,7 +155,6 @@ public class Main extends ListenerAdapter {
     }
 
     private static List<EventListener> loadEventListeners() {
-        List<EventListener> eventListeners = new ArrayList<>();
 
         Logger.info("Loading AutoMod...");
         eventListeners.add(new AutoMod(messageFactory));
@@ -346,12 +352,10 @@ public class Main extends ListenerAdapter {
     public static void updateTheme() {
         try {
             BufferedReader themeReader = new BufferedReader(new FileReader("theme.yml"));
-            //We will get the token just in case, I don't know, maybe we want to log in.
             theme = themeReader.readLine();
             Logger.info("Theme Loaded: " + theme + "!");
             themeReader.close();
         } catch (NullPointerException e) {
-            //Let them know they are going to die.
             Logger.error("Error receiving your theme: " + e.getMessage());
         } catch (FileNotFoundException e) {
             e.printStackTrace();

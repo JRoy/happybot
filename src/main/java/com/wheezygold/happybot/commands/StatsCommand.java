@@ -2,12 +2,11 @@ package com.wheezygold.happybot.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-
 import com.kbrewster.exceptions.APIException;
 import com.kbrewster.hypixelapi.player.HypixelPlayer;
 import com.wheezygold.happybot.apis.Hypixel;
 import com.wheezygold.happybot.apis.League;
-import com.wheezygold.happybot.apis.YouTube;
+import com.wheezygold.happybot.apis.youtube.YouTubeRealTime;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.constant.Platform;
@@ -80,7 +79,7 @@ public class StatsCommand extends Command {
         @Override
         public void run() {
 
-            YouTube youTube = new YouTube().pullAPI();
+            YouTubeRealTime youTube = new YouTubeRealTime().pullAPI();
 
             e.reply(new EmbedBuilder()
                     .setTitle("Happyheart's YouTube Statistics")

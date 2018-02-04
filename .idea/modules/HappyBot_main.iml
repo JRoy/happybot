@@ -20,10 +20,15 @@
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.0" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Gradle: com.udojava:EvalEx:1.16" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.apis:google-api-services-youtube:v3-rev191-1.23.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.JDA-Applications.JDA-Utilities:jda-utilities-examples:version-major~2.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: com.github.JDA-Applications.JDA-Utilities:jda-utilities-command:version-major~2.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.9.1" level="project" />
     <orderEntry type="library" name="Gradle: com.github.JDA-Applications.JDA-Utilities:jda-utilities-menu:version-major~2.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.api-client:google-api-client:1.23.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.oauth-client:google-oauth-client:1.23.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.http-client:google-http-client-jackson2:1.23.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.http-client:google-http-client:1.23.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-collections4:4.1" level="project" />
@@ -35,6 +40,12 @@
     <orderEntry type="library" name="Gradle: com.github.JDA-Applications.JDA-Utilities:jda-utilities-commons:version-major~2.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: org.twitter4j:twitter4j-core:4.0.6" level="project" />
     <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava-jdk5:17.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.1.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpcore:4.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.1.1" level="project" />
+    <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.3" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.13.0" level="project" />
   </component>
 </module>

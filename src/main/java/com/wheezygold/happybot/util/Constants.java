@@ -9,7 +9,8 @@ public enum Constants {
     SQL_USERNAME("root"),
     SQL_DATABASE_NAME("coins"),
     HAPPYHEART_DISCORD_ID("206547133338222592"),
-    TEDDY_ID("242849297685544962");
+    TEDDY_ID("242849297685544962"),
+    HAPPYHEART_CHANNEL_ID("UC-enFKOrEf6N2Kq_YG3sFcQ");
 
     private String value;
 

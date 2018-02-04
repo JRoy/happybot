@@ -1,23 +1,24 @@
-package com.wheezygold.happybot.apis;
+package com.wheezygold.happybot.apis.youtube;
 
 import com.wheezygold.happybot.util.C;
+import com.wheezygold.happybot.util.Constants;
 import com.wheezygold.happybot.util.JSON;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-/**
- * While is does use an API Call, I could not be bothered to make a full wrapper for the YouTube API (That retains the instance). This should be used as a token based system.
- */
-public class YouTube {
+@SuppressWarnings("FieldCanBeLocal")
+public class YouTubeRealTime {
 
-    private String apiKey = "AIzaSyAPiPPTl1ZAsI1k_dCxHj7_RS7mfC-Dvuw";
+    /**
+     * Key is restricted to the VM this lives on. (Nice try)
+     */
+    private String apiKey = "AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE";
     private JSONObject jsonResponse;
 
-    public YouTube pullAPI() {
+    public YouTubeRealTime pullAPI() {
         try {
-            //Take the API Key idc, it's got nothing but youtube shit.
-            JSONObject fullResponse = JSON.readJsonFromUrl("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UC-enFKOrEf6N2Kq_YG3sFcQ&key=" + apiKey);
+            JSONObject fullResponse = JSON.readJsonFromUrl("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" + Constants.HAPPYHEART_CHANNEL_ID.get() +"&key=" + apiKey);
             jsonResponse = JSON.readFromText(JSON.readFromText(fullResponse.getJSONArray("items").get(0).toString()).get("statistics").toString());
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -40,6 +41,5 @@ public class YouTube {
     public void finish() {
         jsonResponse = null;
     }
-
 
 }

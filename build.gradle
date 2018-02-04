@@ -22,6 +22,7 @@ dependencies {
     compile 'junit:junit:4.12'
     compile 'com.udojava:EvalEx:1.16'
     compile 'com.github.taycaldwell:riot-api-java:4.0.1'
+    compile 'com.google.apis:google-api-services-youtube:v3-rev191-1.23.0'
 }
 
 repositories {
