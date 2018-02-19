@@ -9,6 +9,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
+import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
@@ -85,6 +86,20 @@ public class AutoMod extends ListenerAdapter {
         if (!processedMessages.contains(message)) {
             channel.sendMessage(member.getAsMention() + "! Do not advert other discord servers!").queue();
             processedMessages.add(message);
+        }
+    }
+
+    @Override
+    public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
+        if (event.getMember().getUser().getId().equals("194473148161327104") && event.getRoles().get(0).getId().equals(Roles.EXP_SPAMMER.getId())) {
+            C.removeRole(event.getMember(), Roles.EXP_SPAMMER);
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
         }
     }
 
