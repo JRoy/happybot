@@ -8,12 +8,8 @@ apply plugin: 'idea'
 
 dependencies {
     compile 'com.github.KevinPriv:HypixelApi4J:API-1.4'
-    //compile 'com.jagrosh:jda-utilities:2.0'
     compile 'net.dv8tion:JDA:3.5.0_331'
-    //compile 'com.jagrosh:jda-utilities-command:2.0'
-    //compile group: 'com.jagrosh', name: 'jda-utilities-command', version: '2.0'
-    //compile group: 'com.jagrosh', name: 'jda-utilities', version: '2.0'
-    compile 'com.github.JDA-Applications:JDA-Utilities:version-major~2.0-SNAPSHOT'
+    compile 'com.jagrosh:jda-utilities:2.1'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
     compile group: 'org.twitter4j', name: 'twitter4j-stream', version: '4.0.6'

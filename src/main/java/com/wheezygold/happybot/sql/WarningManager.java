@@ -101,6 +101,21 @@ public class WarningManager {
         }
     }
 
+    public String getWarnTime(int warnId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_WARNING);
+            statement.setInt(1, warnId);
+            ResultSet set = statement.executeQuery();
+            if (set.next()) {
+                return set.getTimestamp("time").toString();
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
     public String getWarnTargetId(int warnId) {
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_WARNING);

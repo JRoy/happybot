@@ -67,7 +67,10 @@ public class WarningsCommand extends Command {
         while (resultSet.next()) {
             Member staffMem = C.getGuild().getMemberById(resultSet.getString("staffid"));
             if (staffMem != null) {
-                builder.append("#").append(resultSet.getString("id")).append(" ").append(C.bold(staffMem.getUser().getName() + "#" + staffMem.getUser().getDiscriminator())).append(" - ").append(C.bold(resultSet.getString("reason"))).append("\n");
+                builder.append("#").append(resultSet.getString("id")).append(" ")
+                        .append(C.bold(staffMem.getUser().getName() + "#" + staffMem.getUser().getDiscriminator())).append(" - ").append(C.bold(resultSet.getString("reason")))
+                        .append(" (").append(resultSet.getTimestamp("time").toString()).append(")")
+                        .append("\n");
                 warnings++;
             }
         }
