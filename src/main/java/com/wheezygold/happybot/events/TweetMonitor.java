@@ -62,7 +62,7 @@ public class TweetMonitor {
 
         @Override
         public void run() {
-            Roles.TWITTER.getRole().getManager().setMentionable(true).queue();
+            Roles.TWITTER.getRole().getManager().setMentionable(true).complete();
             EmbedBuilder builder = new EmbedBuilder()
                     .setThumbnail(status.getUser().getBiggerProfileImageURL())
                     .setTitle("@" + status.getUser().getScreenName() + " has just tweeted", "https://twitter.com/" + status.getUser().getScreenName() + "/status/" + status.getId())
@@ -73,8 +73,8 @@ public class TweetMonitor {
                         "(https://twitter.com/" + status.getInReplyToScreenName() + "/status/" + status.getInReplyToStatusId() + ")", false);
             }
             if (status.getUser().getId() == twitterCentre.getHappyid()) {
-                Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getRole().getAsMention()).queue();
-                Channels.TWITTER.getChannel().sendMessage(builder.build()).queue();
+                Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getRole().getAsMention()).complete();
+                Channels.TWITTER.getChannel().sendMessage(builder.build()).complete();
             }
             try {
                 TimeUnit.SECONDS.sleep(1);
