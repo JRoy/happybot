@@ -100,7 +100,31 @@ public class MoneyCommand extends Command {
             } else {
                 e.replyError("**Correct Usage:** ^" + name + " admin **<give/take>** <amount> <user>");
             }
-        } else if (args[0].equalsIgnoreCase("create")) {
+        }
+
+        if (args.length >= 2) {
+            if (args[0].equalsIgnoreCase("bal")) {
+                if (C.containsMention(e)) {
+                    if (sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
+                        try {
+                            e.replySuccess("User Balance is: " + C.prettyNum(sqlManager.getUser(C.getMentionedMember(e).getUser().getId()).getCoins()) + " coins!");
+                            return;
+                        } catch (SQLException e1) {
+                            e.replyError("Oof Error!");
+                            e1.printStackTrace();
+                        }
+                    } else {
+                        e.replyError("User does not have an active money account!");
+                        return;
+                    }
+                } else {
+                    e.replyError("**Correct Usage:** ^" + name + " bal **<user>**");
+                    return;
+                }
+            }
+        }
+
+        if (args[0].equalsIgnoreCase("create")) {
 
             try {
                 if (!sqlManager.isActiveUser(e.getMember().getUser().getId())) {
