@@ -49,7 +49,7 @@ public class StarMessages extends ListenerAdapter {
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle(message.getMember().getEffectiveName())
                 .setDescription(message.getContentDisplay())
-                .setFooter(footer, "https://google.com")
+                .setFooter(footer, "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/star-icon.png")
                 .setThumbnail(message.getMember().getUser().getAvatarUrl())
                 .setColor(message.getMember().getColor());
         if (C.containsImage(message))
