@@ -3,15 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0ce73aba-e015-4506-a741-efe76012875a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/DemoteCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/DemoteCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/FansCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/FansCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/LockCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/LockCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/OgCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/OgCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PromoteCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PromoteCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeManagerCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeManagerCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/UnlockCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/UnlockCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/money/MoneyCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/money/MoneyCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Roles.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Roles.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -43,17 +35,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="StarMessages.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StarMessages.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="76" column="47" lean-forward="false" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="47" />
+            <state relative-caret-position="323">
+              <caret line="98" column="5" lean-forward="true" selection-start-line="98" selection-start-column="5" selection-end-line="98" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Roles.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Roles.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Roles.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
@@ -535,7 +527,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/warn/WarningsCommand.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/TweetMonitor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Roles.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/DemoteCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/FansCommand.java" />
@@ -545,6 +536,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/PromoteCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/ThemeManagerCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/UnlockCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java" />
       </list>
     </option>
   </component>
@@ -826,14 +818,7 @@
       <workItem from="1521164840712" duration="1377000" />
       <workItem from="1521341718468" duration="587000" />
       <workItem from="1521422262725" duration="2112000" />
-      <workItem from="1521506639728" duration="758000" />
-    </task>
-    <task id="LOCAL-00013" summary="Fix being stupid">
-      <created>1515090212020</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1515090212020</updated>
+      <workItem from="1521506639728" duration="1611000" />
     </task>
     <task id="LOCAL-00014" summary="Update lockout time">
       <created>1515105180588</created>
@@ -1171,11 +1156,18 @@
       <option name="project" value="LOCAL" />
       <updated>1521423531502</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="I hate Zilence (Fixes #136)">
+      <created>1521507480793</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1521507480794</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4834000" />
+    <option name="totallyTimeSpent" value="5687000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1229,7 +1221,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add report lookup command" />
     <MESSAGE value="Add edit report command" />
     <MESSAGE value="Include Setup Guide in README" />
     <MESSAGE value="Update JDA" />
@@ -1254,7 +1245,8 @@
     <MESSAGE value="Block Thread to assure ping!" />
     <MESSAGE value="Allow grabbing balance of other users (Closes #134)" />
     <MESSAGE value="Add actual footer icon (Fixes #129)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add actual footer icon (Fixes #129)" />
+    <MESSAGE value="I hate Zilence (Fixes #136)" />
+    <option name="LAST_COMMIT_MESSAGE" value="I hate Zilence (Fixes #136)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1562,7 +1554,7 @@
         <state relative-caret-position="415">
           <caret line="28" column="59" lean-forward="false" selection-start-line="28" selection-start-column="59" selection-end-line="28" selection-end-column="59" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1623,18 +1615,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="76" column="47" lean-forward="false" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/util/Roles.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/events/StarMessages.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="98" column="5" lean-forward="true" selection-start-line="98" selection-start-column="5" selection-end-line="98" selection-end-column="5" />
           <folding />
         </state>
       </provider>

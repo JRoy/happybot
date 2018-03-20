@@ -15,7 +15,7 @@ public class StarMessages extends ListenerAdapter {
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
         if (e.getReactionEmote().getName().equals("⭐")) {
-            e.getChannel().getMessageById(e.getMessageId()).queue(this::handleStar);
+            handleStar(e);
         } else if (e.getReactionEmote().getName().equals("gild")) {
             if (!C.hasRole(e.getMember(), Roles.MODERATOR)) {
                 e.getReaction().removeReaction().queue();
@@ -28,19 +28,19 @@ public class StarMessages extends ListenerAdapter {
                         return;
                     }
                 }
-                handleGild(message);
+                handleGild(e);
             });
         }
     }
 
-    private void handleStar(Message message) {
-        HandleStar handleStar = new HandleStar(message);
+    private void handleStar(GuildMessageReactionAddEvent e) {
+        HandleStar handleStar = new HandleStar(e);
         Thread t = new Thread(handleStar);
         t.start();
     }
 
-    private void handleGild(Message message) {
-        HandleGild handleGild = new HandleGild(message);
+    private void handleGild(GuildMessageReactionAddEvent e) {
+        HandleGild handleGild = new HandleGild(e);
         Thread t = new Thread(handleGild);
         t.start();
     }
@@ -62,19 +62,21 @@ public class StarMessages extends ListenerAdapter {
 
     private class HandleStar implements Runnable {
 
+        private GuildMessageReactionAddEvent e;
         private Message message;
         private static final int NUM_STARS_REQUIRED = 5;
 
-        HandleStar(Message message) {
-            this.message = message;
+        HandleStar(GuildMessageReactionAddEvent e) {
+            this.e = e;
+            message = e.getChannel().getMessageById(e.getMessageId()).complete();
         }
 
         @Override
         public void run() {
-            if (message.getChannel().getId().equals(
-                    Channels.STARRED_MESSAGES.getId()) || message.getChannel().getId().equals(
-                    Channels.BOT_META.getId()) || message.getChannel().getId().equals(
-                    Channels.TWITTER.getId()) || message.getChannel().getId().equals(Channels.LIVE.getId())) {
+            if (e.getChannel().getId().equals(
+                    Channels.STARRED_MESSAGES.getId()) || e.getChannel().getId().equals(
+                    Channels.BOT_META.getId()) || e.getChannel().getId().equals(
+                    Channels.TWITTER.getId()) || e.getChannel().getId().equals(Channels.LIVE.getId())) {
                 return;
             }
 
@@ -98,16 +100,18 @@ public class StarMessages extends ListenerAdapter {
 
     private class HandleGild implements Runnable {
 
+        private GuildMessageReactionAddEvent e;
         private Message message;
 
-        HandleGild(Message message) {
-            this.message = message;
+        HandleGild(GuildMessageReactionAddEvent e) {
+            this.e = e;
+            message = e.getChannel().getMessageById(e.getMessageId()).complete();
         }
 
         @Override
         public void run() {
             if (!alreadyUsedMessages.contains(message.getId())) {
-                String footer = "New Gilded Message from #" + message.getChannel().getName();
+                String footer = "New Gilded Message from #" + message.getChannel().getName() + " (" + e.getUser().getName() + "#" + e.getUser().getDiscriminator() + ")";
                 String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
                 sendStarredMessage(footer, message, privateMessageText);
                 alreadyUsedMessages.add(message.getId());
