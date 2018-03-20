@@ -1,5 +1,5 @@
-# happybot [![Travis](https://img.shields.io/travis/WheezyGold7931/happybot.svg?style=for-the-badge)](https://travis-ci.org/WheezyGold7931/happybot) [![Jenkins Download](https://img.shields.io/badge/jenkins-download-blue.svg?style=for-the-badge)](http://142.44.162.101:8080/job/happybot//)  [![Codacy grade](https://img.shields.io/codacy/grade/8c61619d7c67461083fc9386bd5b6c87.svg?style=for-the-badge)]()
-The moderation bot used on the happyheart discord server located here: https://discord.gg/smZmhKa
+# happybot [![Travis](https://img.shields.io/travis/JRoy/happybot.svg?style=for-the-badge)](https://travis-ci.org/JRoy/happybot) [![Jenkins Download](https://img.shields.io/badge/jenkins-download-blue.svg?style=for-the-badge)](http://142.44.162.101:8080/job/happybot//)  [![Codacy grade](https://img.shields.io/codacy/grade/8c61619d7c67461083fc9386bd5b6c87.svg?style=for-the-badge)]()
+The moderation bot used on the happyheart discord server.
 # Dependencies
 We handle all dependencies via gradle but if you must have all of them here they are:
 * [JDA](https://github.com/DV8FromTheWorld/JDA)
