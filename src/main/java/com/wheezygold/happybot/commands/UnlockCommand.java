@@ -18,7 +18,7 @@ public class UnlockCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.ADMIN)) {
+        if (C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
             try {
                 PermissionOverride permissionOverride = e.getTextChannel().getPermissionOverride(Roles.EVERYONE.getRole());
                 PermOverrideManager manager = permissionOverride.getManager();
@@ -28,7 +28,7 @@ public class UnlockCommand extends Command {
                 e.replyError("An error occurred while un-locking the channel! Please make sure this channel is setup correctly.");
             }
         } else {
-            e.replyError(C.permMsg(Roles.ADMIN));
+            e.replyError(C.permMsg(Roles.SUPER_ADMIN));
         }
     }
 }

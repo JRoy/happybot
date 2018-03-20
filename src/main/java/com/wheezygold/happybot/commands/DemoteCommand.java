@@ -27,7 +27,6 @@ public class DemoteCommand extends Command {
                     return;
                 }
                 removeIfHasRole(member, Roles.SUPER_ADMIN);
-                removeIfHasRole(member, Roles.ADMIN);
                 removeIfHasRole(member, Roles.MODERATOR);
                 removeIfHasRole(member, Roles.HELPER);
                 e.replySuccess("User has been demoted!");

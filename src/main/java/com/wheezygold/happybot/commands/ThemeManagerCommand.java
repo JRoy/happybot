@@ -29,7 +29,7 @@ public class ThemeManagerCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.ADMIN)) {
+        if (C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
             if (e.getArgs().isEmpty()) {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
                 return;
@@ -97,7 +97,7 @@ public class ThemeManagerCommand extends Command {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }
         } else {
-            e.replyError(C.permMsg(Roles.ADMIN));
+            e.replyError(C.permMsg(Roles.SUPER_ADMIN));
         }
     }
 }

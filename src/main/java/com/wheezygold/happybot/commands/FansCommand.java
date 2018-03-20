@@ -17,7 +17,7 @@ public class FansCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.ADMIN)) {
+        if (C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
             e.reply("Loading...");
             int affected = 0;
             for (Member curM : C.getGuild().getMembers()) {
@@ -28,7 +28,7 @@ public class FansCommand extends Command {
             }
             e.replySuccess("All Done!\n" + String.valueOf(affected) + " Users Affected!");
         } else {
-            e.replyError(C.permMsg(Roles.ADMIN));
+            e.replyError(C.permMsg(Roles.SUPER_ADMIN));
         }
     }
 }

@@ -13,7 +13,7 @@ public enum Roles {
     DEVELOPER("317386352763207702", "Developer", "Developer"),
     SUPER_ADMIN("264963855426256897", "Super Admin", "Super Admin"),
     CHANNEL_MANAGER("368172637182230549", "Channel Manager", "Channel Manager"),
-    ADMIN("295673671203291147", "Admin", "Admin"),
+    //ADMIN("295673671203291147", "Admin", "Admin"),
     MODERATOR("264964563517046784", "Moderators", "Moderator"),
     HELPER("264965005949009920", "Trial Moderators", "Trial Mod"),
     RECRUITER("299632971319869451", "Recruiter", "Recruiter"),

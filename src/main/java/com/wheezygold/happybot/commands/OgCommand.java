@@ -17,7 +17,7 @@ public class OgCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.ADMIN)) {
+        if (C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
             if (e.getMessage().getMentionedUsers().size() == 1) {
                 Member u = C.getMentionedMember(e);
                 if (C.hasRole(u, Roles.OG)) {
@@ -31,7 +31,7 @@ public class OgCommand extends Command {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }
         } else {
-            e.replyError(C.permMsg(Roles.ADMIN));
+            e.replyError(C.permMsg(Roles.SUPER_ADMIN));
         }
     }
 }

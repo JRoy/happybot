@@ -34,8 +34,7 @@ public class PromoteCommand extends Command {
     private void promoteMember(Member member, CommandEvent event) {
         if (C.hasRole(member, Roles.SUPER_ADMIN)) {
             event.replySuccess("User is already the on highest level of promotion!");
-        } else if (!promoteIfHasRole(Roles.ADMIN, Roles.SUPER_ADMIN, member, event)
-                && !promoteIfHasRole(Roles.MODERATOR, Roles.ADMIN, member, event)
+        } else if (!promoteIfHasRole(Roles.MODERATOR, Roles.SUPER_ADMIN, member, event)
                 && !promoteIfHasRole(Roles.HELPER, Roles.MODERATOR, member, event)
                 && !promoteIfHasRole(Roles.FANS, Roles.HELPER, member, event)) {
             event.replyError("User has a malformed role!");

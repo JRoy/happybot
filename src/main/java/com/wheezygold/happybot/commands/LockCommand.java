@@ -18,7 +18,7 @@ public class LockCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.ADMIN)) {
+        if (C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
 
             try {
                 PermissionOverride permissionOverride = e.getTextChannel().getPermissionOverride(Roles.EVERYONE.getRole());
@@ -31,7 +31,7 @@ public class LockCommand extends Command {
 
 
         } else {
-            e.replyError(C.permMsg(Roles.ADMIN));
+            e.replyError(C.permMsg(Roles.SUPER_ADMIN));
         }
     }
 }

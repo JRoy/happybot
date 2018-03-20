@@ -34,8 +34,8 @@ public class MoneyCommand extends Command {
         }
         String[] args = e.getArgs().split("[ ]");
         if (args[0].equalsIgnoreCase("admin")) {
-            if (!C.hasRole(e.getMember(), Roles.ADMIN) ) {
-                e.replyError(C.permMsg(Roles.ADMIN));
+            if (!C.hasRole(e.getMember(), Roles.SUPER_ADMIN) ) {
+                e.replyError(C.permMsg(Roles.SUPER_ADMIN));
                 return;
             }
 
