@@ -81,9 +81,9 @@ public class GambleCommand extends Command {
             }
 
             if (C.hasRole(e.getMember(), Roles.PATRON_BOYS) || C.hasRole(e.getMember(), Roles.MODERATOR) || C.hasRole(e.getMember(), Roles.ETHAN)) {
-                gambleTimes.put(e.getMember(), OffsetDateTime.now().plusSeconds(60));
+                gambleTimes.put(e.getMember(), OffsetDateTime.now().plusSeconds(30));
             } else {
-                gambleTimes.put(e.getMember(), OffsetDateTime.now().plusSeconds(180));
+                gambleTimes.put(e.getMember(), OffsetDateTime.now().plusSeconds(60));
             }
 
             if (Math.random() < 0.5) {
