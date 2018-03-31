@@ -6,6 +6,7 @@ import com.wheezygold.happybot.sql.SQLManager;
 import com.wheezygold.happybot.sql.UserToken;
 import com.wheezygold.happybot.util.C;
 import com.wheezygold.happybot.util.Roles;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import org.apache.commons.lang3.StringUtils;
 
@@ -195,8 +196,15 @@ public class MoneyCommand extends Command {
                 StringBuilder topBal = new StringBuilder();
                 topBal.append(C.bold("Top Balances:"));
 
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.setTitle("Top Balances");
+                builder.setDescription("Here are the top 10 balances in the gamble system!");
+
                 for (int i = 0; i < 10; i++) {
                     for (Map.Entry<Member, Integer> curEntry : result.get(i + 1).entrySet()) {
+
+                        builder.addField(C.bold("#"+ String.valueOf(curPos)) + " " + curEntry.getKey().getEffectiveName(), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
+
                         topBal.append("\n")
                                 .append(C.bold("- #" + String.valueOf(curPos)))
                                 .append(" ")
@@ -206,7 +214,7 @@ public class MoneyCommand extends Command {
                         curPos++;
                     }
                 }
-                e.reply(topBal.toString());
+                e.reply(builder.build());
             } catch (SQLException e1) {
                 e.replyError("Oof error.");
             }
