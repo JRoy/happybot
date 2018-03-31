@@ -60,7 +60,8 @@ public class MessageFactory {
                 "Not this again *smh*",
                 "Recruiting Junglers.",
                 "Adding new messages from the ~~slaves~~ I mean creative people...",
-                "loading screens? Pfft, we got- wait uh"
+                "loading screens? Pfft, we got- wait uh",
+                "League of Legends requires an update. Restart Now?"
         };
         updateEndMessages = new String[]{
                 "Activating Witch Time...",
@@ -71,7 +72,8 @@ public class MessageFactory {
                 "LoL is starting...",
                 "Update finished! Release Notes: Nut Memes have been Added!",
                 "Awww look, Joshie's little bot boy is growing up.",
-                "I think Windows 96...launched?"
+                "I think Windows 96...launched?",
+                "well that wasn't too tiring."
         };
     }
 
@@ -93,7 +95,19 @@ public class MessageFactory {
                 "Oh boy, they're gonna complain about this one for sure.",
                 "Hmm.. you forgot ^rules for rules.",
                 "<player> wrote something in fanart...",
-                "<player> you've met with a terrible fate, haven't you?"
+                "<player> you've met with a terrible fate, haven't you?",
+                "<player>, when will you learn that your actions have consequences? Fricking Frick!",
+                "<player> accident did !rank in general.",
+                "User Warmed!",
+                "<player> warned themselves.",
+                "<user>, next time, don't break the rules!",
+                "<user> accused a staff of touching their spaget.",
+                ":joy: :joy: :joy: WHO DID THIS? :joy: :joy: :joy:",
+                "<user> deserved what they got, what a bad!",
+                "<user> was arrested for stealing Josh's totinos.",
+                "You know I had to do it to em.",
+                "<user>, how are you going to get e-girls now?",
+                "<user>, ya done goofed."
         };
     }
 
@@ -211,7 +225,11 @@ public class MessageFactory {
                 "is not in Kansas anymore...",
                 "did not hit her.",
                 "I did not hit her. It's not true. It's bullshit. I did not hit her, I DID NOT! oh hi <user>.",
-                "Wow who let <player> in, eugh!"
+                "Wow who let <player> in, eugh!",
+                "is here to chew bubblegum and use stale memes, and they're all out of bubblegum!",
+                "I like rape.",
+                "Welcome to Canada!",
+                "Brain Power: 0! Teeth Count: 24!"
 
         };
         leaveMessages = new String[]{
@@ -355,8 +373,19 @@ public class MessageFactory {
                 "became self-aware.",
                 "annoyed the staff some more.",
                 "\"orianna is stinky\" - <player>, 2018",
-                ", don't forget to unsub!"
-
+                ", don't forget to unsub!",
+                "was illegal in Canada and was sent back to suck-town.",
+                "didn't understand how many braincells Josh really had.",
+                "'s nose count: 0!",
+                "their application got denied.",
+                "finally found de way.",
+                "spit on em my bruddas.",
+                "needed the recipe for totinos.",
+                "wasn't hygienic enough in their dental area.",
+                "hey welc-",
+                "left. Another one bites the dust!",
+                "anotha one.",
+                "somehow managed to cross the Berlin wall."
         };
     }
 
