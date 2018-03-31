@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.Random;
 
 public class GambleCommand extends Command {
 
@@ -86,7 +87,7 @@ public class GambleCommand extends Command {
                 gambleTimes.put(e.getMember(), OffsetDateTime.now().plusSeconds(60));
             }
 
-            if (Math.random() < 0.5) {
+            if (new Random().nextInt(1) == 1) {
                 userToken.addCoins(bet);
                 e.reply(e.getMember().getAsMention() + " YOU BET ON YEEZY WELL! +" + String.valueOf(bet) + " coins!" + " You now have a balance of " + C.bold(C.prettyNum(userToken.getCoins()) + " coins!"));
             } else {
