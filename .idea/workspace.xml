@@ -1,36 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ce73aba-e015-4506-a741-efe76012875a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_KevinPriv_HypixelApi4J_API_1_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_3_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_neovisionaries_nv_websocket_client_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_13_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_udojava_EvalEx_1_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__mysql_mysql_connector_java_5_1_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_dev_jna_jna_4_4_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_trove4j_trove4j_3_0_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_collections4_4_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_lang3_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_json_json_20160810.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_25.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_simple_1_6_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_twitter4j_twitter4j_core_4_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_twitter4j_twitter4j_stream_4_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/HappyBot_main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/HappyBot_test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-    </list>
     <list id="8b5c663f-3148-415d-b48e-a447de07691c" name="unnamed" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/money/GambleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/money/GambleCommand.java" afterDir="false" />
     </list>
+    <list default="true" id="0ce73aba-e015-4506-a741-efe76012875a" name="Default" comment="Mess part 2" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -64,8 +38,8 @@
       <file leaf-file-name="GambleCommand.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/money/GambleCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="41" selection-start-line="40" selection-start-column="9" selection-end-line="41" />
+            <state relative-caret-position="150">
+              <caret line="37" column="60" lean-forward="true" selection-start-line="37" selection-start-column="60" selection-end-line="37" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -851,14 +825,7 @@
       <workItem from="1521667132062" duration="1384000" />
       <workItem from="1521838592425" duration="1438000" />
       <workItem from="1522508860338" duration="3844000" />
-      <workItem from="1522512868889" duration="195000" />
-    </task>
-    <task id="LOCAL-00019" summary="Move away from deprecated methods.">
-      <created>1515165452524</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1515165452524</updated>
+      <workItem from="1522512868889" duration="351000" />
     </task>
     <task id="LOCAL-00020" summary="Prevent staff from saying review rules in warns (Closes #106)">
       <created>1515166724882</created>
@@ -1196,11 +1163,18 @@
       <option name="project" value="LOCAL" />
       <updated>1522513006081</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Mess part 2">
+      <created>1522513112164</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1522513112164</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12810000" />
+    <option name="totallyTimeSpent" value="12932000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1213,14 +1187,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-213" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3293617" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info id="Image Layers" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.50416666" side_tool="true" visible="true" weight="0.32837406" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50416666" side_tool="true" visible="true" weight="0.32837406" />
       <window_info anchor="right" id="Maven Projects" order="4" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32851064" />
@@ -1229,7 +1202,7 @@
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19375" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19375" />
       <window_info anchor="right" id="Database" order="9" />
       <window_info anchor="right" id="Gradle" order="6" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -1255,7 +1228,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Removed isBusy check, due to an out of sync var. (Thread issue?)" />
     <MESSAGE value="Add more static imports, and objects. Remove me being stupid." />
     <MESSAGE value="Add an APIBase Superclass for all APIs, Add LoL stats" />
     <MESSAGE value="Add league to stats command" />
@@ -1280,7 +1252,8 @@
     <MESSAGE value="Downgrade to JDK8 &amp; Make gamble more random?" />
     <MESSAGE value="Revamp Baltop (Close #131)" />
     <MESSAGE value="Mess" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mess" />
+    <MESSAGE value="Mess part 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mess part 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1640,8 +1613,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wheezygold/happybot/commands/money/GambleCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="41" selection-start-line="40" selection-start-column="9" selection-end-line="41" />
+        <state relative-caret-position="150">
+          <caret line="37" column="60" lean-forward="true" selection-start-line="37" selection-start-column="60" selection-end-line="37" selection-end-column="60" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
