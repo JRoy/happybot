@@ -331,7 +331,7 @@ public class MessageFactory {
                 "prefers the old rickroll",
                 "thought Gwen was an anti-cheat",
                 "couldn't handle all the drama",
-                "<player>'s bed was destroyed!",
+                "'s bed was destroyed!",
                 "saw Mr. Dants",
                 "had good judgement after all",
                 "was Mr. Dants in disguise!",
