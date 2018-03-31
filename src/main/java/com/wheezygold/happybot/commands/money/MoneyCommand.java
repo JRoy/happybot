@@ -193,8 +193,6 @@ public class MoneyCommand extends Command {
             try {
                 Map<Integer, Map<Member, Integer>> result = sqlManager.getTop(10);
                 int curPos = 1;
-                StringBuilder topBal = new StringBuilder();
-                topBal.append(C.bold("Top Balances:"));
 
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.setTitle("Top Balances");
@@ -202,15 +200,7 @@ public class MoneyCommand extends Command {
 
                 for (int i = 0; i < 10; i++) {
                     for (Map.Entry<Member, Integer> curEntry : result.get(i + 1).entrySet()) {
-
                         builder.addField(C.bold("#"+ String.valueOf(curPos)) + " " + curEntry.getKey().getEffectiveName(), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
-
-                        topBal.append("\n")
-                                .append(C.bold("- #" + String.valueOf(curPos)))
-                                .append(" ")
-                                .append(C.underline(curEntry.getKey().getEffectiveName()))
-                                .append(C.slant(" with "))
-                                .append(C.bold(C.prettyNum(curEntry.getValue()) + " coins"));
                         curPos++;
                     }
                 }
