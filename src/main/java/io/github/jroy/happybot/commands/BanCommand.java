@@ -26,6 +26,12 @@ public class BanCommand extends Command {
                 }
                 String reason = e.getArgs().replaceFirst("<(.*?)> ", "");
                 Member target = C.getMentionedMember(e);
+
+                if (target.getUser().getId().equalsIgnoreCase(e.getMember().getUser().getId())) {
+                    e.replyError("You may not ban yourself! :wink:");
+                    return;
+                }
+
                 C.getCtrl(e).ban(target.getUser(), 7, "Banned by Moderator: " + e.getMember().getUser().getName()).reason("Banned by Moderator: " + e.getMember().getUser().getName() + ". With Reason: " + reason).queue();
                 e.replySuccess("User " + target.getUser().getName() + "#" + target.getUser().getDiscriminator() + " has been **FRIGGING BANNED** by " + e.getMember().getEffectiveName());
             } else {

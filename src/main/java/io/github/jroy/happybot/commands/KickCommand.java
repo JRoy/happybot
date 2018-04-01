@@ -26,6 +26,12 @@ public class KickCommand extends Command {
                 }
                 String reason = e.getArgs().replaceFirst("<(.*?)> ", "");
                 Member target = C.getMentionedMember(e);
+
+                if (target.getUser().getId().equalsIgnoreCase(e.getMember().getUser().getId())) {
+                    e.replyError("You may not kick yourself! :wink:");
+                    return;
+                }
+
                 C.getCtrl(e).kick(target).reason("Kicked by Moderator: " + e.getMember().getUser().getName() + ". With Reason: " + reason).queue();
                 e.replySuccess("User " + target.getUser().getName() + "#" + target.getUser().getDiscriminator() + " has been **FLIPPIN KICKED** by " + e.getMember().getEffectiveName());
             } else {
