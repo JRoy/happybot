@@ -20,6 +20,7 @@ import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.*;
 import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.sql.SQLManager;
+import io.github.jroy.happybot.sql.SpamManager;
 import io.github.jroy.happybot.sql.WarningManager;
 import io.github.jroy.happybot.theme.ThemeManager;
 import io.github.jroy.happybot.util.Constants;
@@ -56,6 +57,7 @@ public class Main extends ListenerAdapter {
     private static Hypixel hypixel;
     private static ThemeManager themeManager;
     private static MessageFactory messageFactory;
+    private static SpamManager spamManager;
     private static League league;
     private static List<EventListener> eventListeners = new ArrayList<>();
 
@@ -89,6 +91,9 @@ public class Main extends ListenerAdapter {
 
         Logger.info("Loading Report Manager...");
         reportManager = new ReportManager(sqlManager);
+
+        Logger.info("Loading Spam Manager...");
+        spamManager = new SpamManager(sqlManager);
 
         List<EventListener> eventListeners = loadEventListeners();
         loadClientBuilder();
@@ -246,7 +251,7 @@ public class Main extends ListenerAdapter {
                 new EditWarningCommand(warningManager),
                 new DeleteWarnCommand(warningManager),
                 new WarningsCommand(warningManager),
-                new SpamCommand(),
+                new SpamCommand(spamManager),
                 new OgCommand(),
                 new FansCommand(),
                 new LockCommand(),
