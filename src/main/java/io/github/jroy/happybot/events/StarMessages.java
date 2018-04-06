@@ -47,11 +47,17 @@ public class StarMessages extends ListenerAdapter {
 
     private void sendStarredMessage(String footer, Message message, String privateMessageText) {
         EmbedBuilder embed = new EmbedBuilder()
-                .setTitle(message.getMember().getEffectiveName())
-                .setDescription(message.getContentDisplay())
-                .setFooter(footer, "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/star-icon.png")
-                .setThumbnail(message.getMember().getUser().getAvatarUrl())
-                .setColor(message.getMember().getColor());
+        .setTitle(message.getAuthor().getName() + "#" + message.getAuthor().getDiscriminator())
+        .setDescription(message.getContentDisplay());
+
+        embed.setFooter(footer, "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/star-icon.png");
+
+        if (footer.startsWith("New Gilded Message")) {
+            embed.setFooter(footer, "https://cdn.discordapp.com/emojis/371121885997694976.png?v=1");
+        }
+
+        embed.setThumbnail(message.getMember().getUser().getAvatarUrl())
+        .setColor(message.getMember().getColor());
         if (C.containsImage(message))
             embed.setImage(C.getImage(message));
         Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
