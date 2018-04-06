@@ -48,7 +48,7 @@ public class StarMessages extends ListenerAdapter {
     private void sendStarredMessage(String footer, Message message, String privateMessageText) {
         EmbedBuilder embed = new EmbedBuilder()
         .setTitle(message.getAuthor().getName() + "#" + message.getAuthor().getDiscriminator())
-        .setDescription(message.getContentDisplay());
+        .setDescription(message.getContentRaw());
 
         embed.setFooter(footer, "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/star-icon.png");
 
