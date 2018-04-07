@@ -49,6 +49,11 @@ public class WarnCommand extends Command {
                 return;
             }
 
+            String channelId = e.getChannel().getId();
+
+            if (Channels.GENERAL.getId().equalsIgnoreCase(channelId) || Channels.RANDOM.getId().equalsIgnoreCase(channelId) || Channels.GAMBLE.getId().equalsIgnoreCase(channelId) || Channels.MUSIC_REQUEST.getId().equalsIgnoreCase(channelId))
+                e.getMessage().delete().queue();
+
             try {
                 int warnId = warningManager.spawnWarning(target.getUser().getId(), e.getMember().getUser().getId(), reason);
                 C.privChannel(target, "You have been warned for: " + C.bold(reason) + "! To review the rules please type `^rules` in the random channel.");

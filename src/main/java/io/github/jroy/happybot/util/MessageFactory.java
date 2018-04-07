@@ -385,7 +385,8 @@ public class MessageFactory {
                 "hey welc-",
                 "left. Another one bites the dust!",
                 "anotha one.",
-                "somehow managed to cross the Berlin wall."
+                "somehow managed to cross the Berlin wall.",
+                "deleted the Admin role."
         };
     }
 

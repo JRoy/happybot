@@ -3,6 +3,7 @@ package io.github.jroy.happybot.commands.warn;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import io.github.jroy.happybot.util.RuntimeEditor;
 import io.github.jroy.happybot.sql.WarningManager;
@@ -44,6 +45,14 @@ public class WarningsCommand extends Command {
                 e.replyError("**Correct Usage:** ^" + name + " **<user>**");
                 return;
             }
+
+            String channelId = e.getChannel().getId();
+
+            if ((Channels.GENERAL.getId().equalsIgnoreCase(channelId) || Channels.RANDOM.getId().equalsIgnoreCase(channelId) || Channels.GAMBLE.getId().equalsIgnoreCase(channelId) || Channels.MUSIC_REQUEST.getId().equalsIgnoreCase(channelId)) && !C.hasRole(e.getMember(), Roles.SUPER_ADMIN) && !RuntimeEditor.isPermittingWarningExposement()) {
+                e.reply("Please use a staff channel to view user warnings...");
+                return;
+            }
+
             try {
                 WarningToken token = grabWarnings(C.getMentionedMember(e).getUser());
                 if (token.getWarnings() == 0) {
