@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 public class TwitterCentre extends APIBase {
 
-    private Twitter twitter;
     private final String cKey;
     private final String cSecret;
     private final String aToken;
@@ -37,7 +36,7 @@ public class TwitterCentre extends APIBase {
                 .setOAuthAccessToken(aToken)
                 .setOAuthAccessTokenSecret(aSecret);
         TwitterFactory twitterFactory = new TwitterFactory(cb.build());
-        twitter = twitterFactory.getInstance();
+        Twitter twitter = twitterFactory.getInstance();
         TwitterStream twitterStream = new TwitterStreamFactory(twitter.getConfiguration()).getInstance();
         twitterStream.addListener(new StatusListener() {
             @Override
