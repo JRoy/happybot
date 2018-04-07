@@ -32,6 +32,7 @@ public class AutoMod extends ListenerAdapter {
         pattern = Pattern.compile("(?:https?://)?discord(?:app\\.com/invite|\\.gg)/(\\S+)", Pattern.CASE_INSENSITIVE);
     }
 
+    //Update Notification Resolver
     @Override
     public void onStatusChange(StatusChangeEvent event) {
         if (event.getStatus() == JDA.Status.CONNECTED) {
@@ -48,10 +49,23 @@ public class AutoMod extends ListenerAdapter {
         }
     }
 
+    /*
+    Advert Filter
+    Auto React
+    Git Ping Handler
+     */
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         Message message = event.getMessage();
-        checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
+
+        //Advert Checker
+        checkForAdvertising(event.getMember(), message, event.getChannel());
+
+        //Auto React
+        if (event.getChannel().getId().equals(Channels.UPDATES.getId()) || event.getChannel().getId().equals(Channels.STAFF_ANNOUNCEMENTS.getId()))
+            message.addReaction(Emotes.getRandom().getEmote()).queue();
+
+        //Git Ping Handler
         if (message.getChannel() == Channels.BOT_META.getChannel() && message.isWebhookMessage()) {
             MessageEmbed embed = message.getEmbeds().get(0);
             if ((embed.getTitle().startsWith("[JRoy/happybot] Issue closed:") || embed.getTitle().startsWith("[JRoy/happybot] New comment on issue") ) && !RuntimeEditor.isPingIssueClose())
@@ -69,6 +83,7 @@ public class AutoMod extends ListenerAdapter {
             
     }
 
+    //Advert Filter
     @Override
     public void onGuildMessageUpdate(GuildMessageUpdateEvent event) {
         if (RuntimeEditor.isFilteringAdverts())
@@ -89,18 +104,19 @@ public class AutoMod extends ListenerAdapter {
         }
     }
 
+    //Teddy is hoe
     @Override
     public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
-//        if (event.getMember().getUser().getId().equals("194473148161327104") && event.getRoles().get(0).getId().equals(Roles.EXP_SPAMMER.getId())) {
-//            C.removeRole(event.getMember(), Roles.EXP_SPAMMER);
-//            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-//            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-//            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-//            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-//            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-//            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-//            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-//        }
+        if (event.getMember().getUser().getId().equals("194473148161327104") && event.getRoles().get(0).getId().equals(Roles.EXP_SPAMMER.getId())) {
+            C.removeRole(event.getMember(), Roles.EXP_SPAMMER);
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+            Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+        }
     }
 
     @Override

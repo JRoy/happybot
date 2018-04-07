@@ -50,7 +50,6 @@ public class Main extends ListenerAdapter {
     private static CommandClientBuilder clientBuilder;
     private static String theme;
     private static TwitterCentre twitterCentre;
-    private static TweetMonitor tweetMonitor;
     private static SQLManager sqlManager;
     private static WarningManager warningManager;
     private static ReportManager reportManager;
@@ -80,8 +79,6 @@ public class Main extends ListenerAdapter {
 
         themeManager = loadThemeManager();
         messageFactory = loadMessageFactory();
-
-        loadTweetMonitor();
 
         //Load our SQL Stuff
         sqlManager = new SQLManager(sqlPassword);
@@ -163,9 +160,6 @@ public class Main extends ListenerAdapter {
 
         Logger.info("Loading Welcome Manager...");
         eventListeners.add(new WelcomeMessage(messageFactory));
-
-        Logger.info("Loading AutoReact...");
-        eventListeners.add(new AutoReact());
 
         Logger.info("Loading Message Starer...");
         eventListeners.add(new StarMessages());
@@ -276,11 +270,6 @@ public class Main extends ListenerAdapter {
                 new ShutdownCommand(),
                 new UpdateCommand(messageFactory),
                 new EvalCommand());
-    }
-
-    private static void loadTweetMonitor() {
-        Logger.info("Loading Twitter Monitor...");
-        tweetMonitor = new TweetMonitor(twitterCentre);
     }
 
     private static String readFirstLineOfFile(String filename, String errorMessage) throws IOException {

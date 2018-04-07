@@ -1,9 +1,14 @@
 package io.github.jroy.happybot.apis;
 
+import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Constants;
-import twitter4j.Twitter;
-import twitter4j.TwitterFactory;
+import io.github.jroy.happybot.util.Roles;
+import net.dv8tion.jda.core.EmbedBuilder;
+import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
+
+import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 public class TwitterCentre extends APIBase {
 
@@ -33,6 +38,41 @@ public class TwitterCentre extends APIBase {
                 .setOAuthAccessTokenSecret(aSecret);
         TwitterFactory twitterFactory = new TwitterFactory(cb.build());
         twitter = twitterFactory.getInstance();
+        TwitterStream twitterStream = new TwitterStreamFactory(twitter.getConfiguration()).getInstance();
+        twitterStream.addListener(new StatusListener() {
+            @Override
+            public void onStatus(Status status) {
+                new Thread(new TwitterCentre.HandleTweet(status)).start();
+            }
+
+            @Override
+            public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
+
+            }
+
+            @Override
+            public void onTrackLimitationNotice(int i) {
+
+            }
+
+            @Override
+            public void onScrubGeo(long l, long l1) {
+
+            }
+
+            @Override
+            public void onStallWarning(StallWarning stallWarning) {
+
+            }
+
+            @Override
+            public void onException(Exception e) {
+
+            }
+        });
+        FilterQuery filter = new FilterQuery();
+        filter.follow(happyid);
+        twitterStream.filter(filter);
     }
 
     public long getHappyid() {
@@ -41,6 +81,41 @@ public class TwitterCentre extends APIBase {
 
     public Twitter getTwitter() {
         return twitter;
+    }
+
+    private class HandleTweet implements Runnable {
+
+        private Status status;
+
+        HandleTweet(Status status) {
+            this.status = status;
+        }
+
+        @Override
+        public void run() {
+            Roles.TWITTER.getRole().getManager().setMentionable(true).complete();
+            EmbedBuilder builder = new EmbedBuilder()
+                    .setThumbnail(status.getUser().getBiggerProfileImageURL())
+                    .setTitle("@" + status.getUser().getScreenName() + " has just tweeted", "https://twitter.com/" + status.getUser().getScreenName() + "/status/" + status.getId())
+                    .setDescription(status.getText())
+                    .setColor(new Color(0, 172, 237));
+            if (status.getInReplyToScreenName() != null) {
+                builder.addField("In reply to..", "[In reply to this @" + status.getInReplyToScreenName() + "'s tweet]" +
+                        "(https://twitter.com/" + status.getInReplyToScreenName() + "/status/" + status.getInReplyToStatusId() + ")", false);
+            }
+            if (status.getUser().getId() == happyid) {
+                Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getRole().getAsMention()).complete();
+                Channels.TWITTER.getChannel().sendMessage(builder.build()).complete();
+            }
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                Roles.TWITTER.getRole().getManager().setMentionable(false).queue();
+            }
+        }
+
     }
 
 }
