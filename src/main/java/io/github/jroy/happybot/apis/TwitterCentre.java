@@ -75,14 +75,6 @@ public class TwitterCentre extends APIBase {
         twitterStream.filter(filter);
     }
 
-    public long getHappyid() {
-        return happyid;
-    }
-
-    public Twitter getTwitter() {
-        return twitter;
-    }
-
     private class HandleTweet implements Runnable {
 
         private Status status;
