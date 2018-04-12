@@ -50,6 +50,16 @@ public class StarMessages extends ListenerAdapter {
         .setTitle(message.getAuthor().getName() + "#" + message.getAuthor().getDiscriminator())
         .setDescription(message.getContentRaw());
 
+        if (message.getEmbeds().size() == 1) {
+            message.getChannel().sendMessage("Failed to Star/Gild a Message: Contained an un-readable embed! Cannot Continue!").queue();
+            return;
+        }
+
+        if (message.getAuthor().getId().equalsIgnoreCase("159985870458322944")) {
+            message.getChannel().sendMessage("Failed to Star/Gild a Message: Shitty Mee6 Gild Detected! Cannot Continue!").queue();
+            return;
+        }
+
         embed.setFooter(footer, "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/star-icon.png");
 
         if (footer.startsWith("New Gilded Message")) {
