@@ -89,13 +89,10 @@ public class Main extends ListenerAdapter {
         Logger.info("Loading Report Manager...");
         reportManager = new ReportManager(sqlManager);
 
-        Logger.info("Loading Spam Manager...");
-        spamManager = new SpamManager(sqlManager);
-
         List<EventListener> eventListeners = loadEventListeners();
         loadClientBuilder();
 
-        Logger.info("Constructing the JDA Instance...");
+        Logger.info("Constructing JDA Instance...");
         JDABuilder builder = new JDABuilder(AccountType.BOT)
                 .setToken(token)
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
@@ -164,11 +161,14 @@ public class Main extends ListenerAdapter {
         Logger.info("Loading Message Starer...");
         eventListeners.add(new StarMessages());
 
+        Logger.info("Loading Spam Manager...");
+        eventListeners.add(spamManager = new SpamManager(sqlManager));
+
         return eventListeners;
     }
 
     private static void loadClientBuilder() {
-        Logger.info("Loading the command builder...");
+        Logger.info("Loading Command Builder...");
 
         //Creates JDA-Util's Command Builder so we can use it later.
         clientBuilder = new CommandClientBuilder();
@@ -181,6 +181,7 @@ public class Main extends ListenerAdapter {
 
         Logger.info("Adding commands...");
 
+        //Spaghetti Code!
         clientBuilder.setHelpConsumer(e -> {
             e.replySuccess("Help is on the way! :sparkles:");
             StringBuilder builder = new StringBuilder("**"+e.getSelfUser().getName()+"** commands:\n");
