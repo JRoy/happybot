@@ -17,27 +17,33 @@ public class MentionCommand extends Command {
     @Override
     protected void execute(CommandEvent e) {
         if (!e.getArgs().isEmpty()) {
-            if (e.getArgs().equalsIgnoreCase("twitter")) {
+            StringBuilder sb = new StringBuilder();
+            if (e.getArgs().contains("twitter")) {
                 if (C.toggleRole(e.getMember(), Roles.TWITTER)) {
-                    e.reply("You will now receive notifications when happyheart tweets!");
+                    sb.append("You will now receive notifications when happyheart tweets!").append("\n");
                 } else {
-                    e.reply("You will no longer receive notifications when happyheart tweets!");
+                    sb.append("You will no longer receive notifications when happyheart tweets!").append("\n");
                 }
-            } else if (e.getArgs().equalsIgnoreCase("git")) {
-                if (C.toggleRole(e.getMember(), Roles.GIT)) {
-                    e.reply("You will now receive notifications from git!");
-                } else {
-                    e.reply("You will no longer receive notifications from git!");
-                }
-            } else if (e.getArgs().equalsIgnoreCase("updates")) {
-                if (C.toggleRole(e.getMember(), Roles.UPDATES)) {
-                    e.reply("You will now receive notifications for updates!");
-                } else {
-                    e.reply("You will no longer receive notifications for updates!");
-                }
-            } else {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             }
+            if (e.getArgs().contains("git")) {
+                if (C.toggleRole(e.getMember(), Roles.GIT)) {
+                    sb.append("You will now receive notifications from git!").append("\n");
+                } else {
+                    sb.append("You will no longer receive notifications from git!").append("\n");
+                }
+            }
+            if (e.getArgs().contains("updates")) {
+                if (C.toggleRole(e.getMember(), Roles.UPDATES)) {
+                    sb.append("You will now receive notifications for updates!").append("\n");
+                } else {
+                    sb.append("You will no longer receive notifications for updates!").append("\n");
+                }
+            }
+            if (sb.toString().isEmpty()) {
+                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                return;
+            }
+            e.reply(sb.append("Applied requested roles!").toString());
         } else {
             e.replyError("**Correct Usage:** ^" + name + " " + arguments);
         }
