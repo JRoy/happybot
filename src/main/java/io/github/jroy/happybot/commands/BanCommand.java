@@ -32,6 +32,8 @@ public class BanCommand extends Command {
                     return;
                 }
 
+                C.privChannel(target, "Banned with Reason: " + reason);
+
                 C.getCtrl(e).ban(target.getUser(), 7, "Banned by Moderator: " + e.getMember().getUser().getName()).reason("Banned by Moderator: " + e.getMember().getUser().getName() + ". With Reason: " + reason).queue();
                 e.replySuccess("User " + target.getUser().getName() + "#" + target.getUser().getDiscriminator() + " has been **FRIGGING BANNED** by " + e.getMember().getEffectiveName());
             } else {
