@@ -4,10 +4,7 @@ import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleRemoveEvent;
@@ -62,6 +59,9 @@ public class AutoMod extends ListenerAdapter {
         if (RuntimeEditor.isFilteringAdverts())
             checkForAdvertising(event.getMember(), message, event.getChannel());
 
+        //Join and Leave Blocker
+        if (isJoinAndLeave(event.getChannel(), event.getAuthor(), event.getMessage())) return;
+
         //Auto React
         if (event.getChannel().getId().equals(Channels.UPDATES.getId()) || event.getChannel().getId().equals(Channels.STAFF_ANNOUNCEMENTS.getId()))
             message.addReaction(Emotes.getRandom().getEmote()).queue();
@@ -89,6 +89,22 @@ public class AutoMod extends ListenerAdapter {
     public void onGuildMessageUpdate(GuildMessageUpdateEvent event) {
         if (RuntimeEditor.isFilteringAdverts())
             checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
+
+        //Join and Leave Blocker
+        isJoinAndLeave(event.getChannel(), event.getAuthor(), event.getMessage());
+
+    }
+
+    private boolean isJoinAndLeave(TextChannel channel, User author, Message message) {
+        if (channel.getId().equalsIgnoreCase(Channels.WELCOME.getId())) {
+            if (!author.isBot()) {
+                if (message.getContentRaw().toLowerCase().contains("join") || message.getContentRaw().toLowerCase().contains("leave")) {
+                    message.delete().queue();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void checkForAdvertising(Member member, Message message, TextChannel channel) {
