@@ -57,7 +57,7 @@ public class AutoMod extends ListenerAdapter {
 
         //Advert Checker
         if (RuntimeEditor.isFilteringAdverts())
-            checkForAdvertising(event.getMember(), message, event.getChannel());
+            if (checkForAdvertising(event.getMember(), message, event.getChannel())) return;
 
         //Join and Leave Blocker
         if (isJoinAndLeave(event.getChannel(), event.getAuthor(), event.getMessage())) return;
@@ -88,7 +88,7 @@ public class AutoMod extends ListenerAdapter {
     @Override
     public void onGuildMessageUpdate(GuildMessageUpdateEvent event) {
         if (RuntimeEditor.isFilteringAdverts())
-            checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
+            if (checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel())) return;
 
         //Join and Leave Blocker
         isJoinAndLeave(event.getChannel(), event.getAuthor(), event.getMessage());
@@ -107,11 +107,11 @@ public class AutoMod extends ListenerAdapter {
         return false;
     }
 
-    private void checkForAdvertising(Member member, Message message, TextChannel channel) {
+    private boolean checkForAdvertising(Member member, Message message, TextChannel channel) {
         if (C.hasRole(member, Roles.SUPER_ADMIN) || C.hasRole(member, Roles.BOT))
-            return;
+            return false;
         if (!pattern.matcher(message.getContentRaw()).matches())
-            return;
+            return false;
         message.delete().reason("Advertising Link with Message: " + message.getContentStripped()).queue();
         Channels.LOG.getChannel().sendMessage(member.getAsMention() + " attempted to advert the following link: " + message.getContentRaw()).queue();
         C.privChannel(member, "You cannot advertise in the happyheart guild!");
@@ -119,6 +119,7 @@ public class AutoMod extends ListenerAdapter {
             channel.sendMessage(member.getAsMention() + "! Do not advert other discord servers!").queue();
             processedMessages.add(message);
         }
+        return true;
     }
 
     //Teddy is hoe
