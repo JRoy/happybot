@@ -2,7 +2,6 @@ package io.github.jroy.happybot.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.theme.ThemeManager;
 import io.github.jroy.happybot.theme.exceptions.ThemeNotFoundException;
 import io.github.jroy.happybot.util.C;
@@ -38,7 +37,6 @@ public class ThemeCommand extends Command {
                 try {
                     C.writeFile("theme.yml", e.getArgs());
                     themeManager.switchTheme(e.getArgs());
-                    Main.updateTheme();
                     e.replySuccess(":gear: Switching over to " + themeManager.asToken(e.getArgs()).getName() + " Theme!");
                 } catch (ThemeNotFoundException e1) {
                     e.replyError(":x: Error while switching themes: " + e1.getMessage());
