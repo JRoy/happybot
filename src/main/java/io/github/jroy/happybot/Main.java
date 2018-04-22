@@ -2,10 +2,7 @@ package io.github.jroy.happybot;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import io.github.jroy.happybot.apis.APIBase;
-import io.github.jroy.happybot.apis.Hypixel;
-import io.github.jroy.happybot.apis.League;
-import io.github.jroy.happybot.apis.TwitterCentre;
+import io.github.jroy.happybot.apis.*;
 import io.github.jroy.happybot.apis.exceptions.IllegalAPIState;
 import io.github.jroy.happybot.apis.youtube.YouTubeAPI;
 import io.github.jroy.happybot.commands.*;
@@ -17,7 +14,9 @@ import io.github.jroy.happybot.commands.report.HandleReportCommand;
 import io.github.jroy.happybot.commands.report.LookupReportCommand;
 import io.github.jroy.happybot.commands.report.ReportCommand;
 import io.github.jroy.happybot.commands.warn.*;
-import io.github.jroy.happybot.events.*;
+import io.github.jroy.happybot.events.AutoMod;
+import io.github.jroy.happybot.events.StarMessages;
+import io.github.jroy.happybot.events.WelcomeMessage;
 import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.sql.SpamManager;
@@ -40,7 +39,8 @@ import org.simpleyaml.configuration.file.YamlFile;
 import org.simpleyaml.exceptions.InvalidConfigurationException;
 
 import javax.security.auth.login.LoginException;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -62,6 +62,7 @@ public class Main extends ListenerAdapter {
     private static MessageFactory messageFactory;
     private static SpamManager spamManager;
     private static League league;
+    private static Reddit reddit;
     private static List<EventListener> eventListeners = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException {
@@ -132,6 +133,10 @@ public class Main extends ListenerAdapter {
             yamlFile.set("riot-api-key", "");
         if (!yamlFile.isSet("sql-password"))
             yamlFile.set("sql-password", "");
+        if (!yamlFile.isSet("reddit.username"))
+            yamlFile.set("reddit.username", "");
+        if (!yamlFile.isSet("reddit.password"))
+            yamlFile.set("reddit.password", "");
         if (!yamlFile.isSet("reddit.client-id"))
             yamlFile.set("reddit.client-id", "");
         if (!yamlFile.isSet("reddit.client-secret"))
@@ -151,6 +156,8 @@ public class Main extends ListenerAdapter {
         String hypixel = yamlFile.getString("hypixel-api-key");
         String riot = yamlFile.getString("riot-api-key");
         String sql = yamlFile.getString("sql-password");
+        String redditUsername = yamlFile.getString("reddit.username");
+        String redditPassword = yamlFile.getString("reddit.password");
         String redditId = yamlFile.getString("reddit.client-id");
         String redditSecret = yamlFile.getString("reddit.client-secret");
         String twitterOKey = yamlFile.getString("twitter.oauth-key");
@@ -158,13 +165,14 @@ public class Main extends ListenerAdapter {
         String twitterAToken = yamlFile.getString("twitter.access-token");
         String twitterASecret = yamlFile.getString("twitter.access-token-secret");
 
-        botConfig = new BotConfig(token, hypixel, riot, sql, redditId, redditSecret, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
+        botConfig = new BotConfig(token, hypixel, riot, sql, redditUsername, redditPassword, redditId, redditSecret, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
         Logger.info("Loaded Config!");
     }
 
     private static void loadApis() throws IOException {
         Logger.info("Initializing APIs...");
         List<APIBase> apis = new ArrayList<>();
+        apis.add(reddit = new Reddit(botConfig));
         apis.add(hypixel = new Hypixel(botConfig.getHypixelApiKey()));
         apis.add(twitterCentre = new TwitterCentre(botConfig.getTwitterOauthKey(), botConfig.getTwitterOauthSecret(), botConfig.getTwitterAccessToken(), botConfig.getTwitterAccessTokenSecret()));
         apis.add(league = new League(botConfig.getRiotApiKey()));
