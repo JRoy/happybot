@@ -98,7 +98,7 @@ public class AutoMod extends ListenerAdapter {
     private boolean isJoinAndLeave(TextChannel channel, User author, Message message) {
         if (channel.getId().equalsIgnoreCase(Channels.WELCOME.getId())) {
             if (!author.isBot()) {
-                if (message.getContentRaw().toLowerCase().contains("join") || message.getContentRaw().toLowerCase().contains("leave")) {
+                if ((message.getContentRaw().toLowerCase().contains("j") && message.getContentRaw().toLowerCase().contains("o") && message.getContentRaw().toLowerCase().contains("i") && message.getContentRaw().toLowerCase().contains("n")) || (message.getContentRaw().toLowerCase().contains("l") && message.getContentRaw().toLowerCase().contains("e") && message.getContentRaw().toLowerCase().contains("a") && message.getContentRaw().toLowerCase().contains("v") && message.getContentRaw().toLowerCase().contains("e"))) {
                     message.delete().queue();
                     return true;
                 }
