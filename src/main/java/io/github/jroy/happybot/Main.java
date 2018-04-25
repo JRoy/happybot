@@ -87,8 +87,6 @@ public class Main extends ListenerAdapter {
             e.printStackTrace();
         }
 
-//        createConfigFiles();
-
         loadApis();
 
         themeManager = loadThemeManager();
@@ -169,7 +167,7 @@ public class Main extends ListenerAdapter {
         Logger.info("Loaded Config!");
     }
 
-    private static void loadApis() throws IOException {
+    private static void loadApis() {
         Logger.info("Initializing APIs...");
         List<APIBase> apis = new ArrayList<>();
         apis.add(reddit = new Reddit(botConfig));
