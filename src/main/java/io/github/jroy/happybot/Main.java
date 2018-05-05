@@ -21,7 +21,7 @@ import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.sql.SpamManager;
 import io.github.jroy.happybot.sql.WarningManager;
-import io.github.jroy.happybot.theme.ThemeManager;
+import io.github.jroy.happybot.theme.DiscordThemerImpl;
 import io.github.jroy.happybot.util.BotConfig;
 import io.github.jroy.happybot.util.Constants;
 import io.github.jroy.happybot.util.Logger;
@@ -58,7 +58,7 @@ public class Main extends ListenerAdapter {
     private static WarningManager warningManager;
     private static ReportManager reportManager;
     private static Hypixel hypixel;
-    private static ThemeManager themeManager;
+    private static DiscordThemerImpl themeManager;
     private static MessageFactory messageFactory;
     private static SpamManager spamManager;
     private static League league;
@@ -195,8 +195,10 @@ public class Main extends ListenerAdapter {
 
     private static MessageFactory loadMessageFactory() { return new MessageFactory(); }
 
-    private static ThemeManager loadThemeManager() {
-        return new ThemeManager();
+    private static DiscordThemerImpl loadThemeManager() {
+        DiscordThemerImpl themer = new DiscordThemerImpl(true);
+        eventListeners.add(themer);
+        return themer;
     }
 
     private static List<EventListener> loadEventListeners() {
@@ -316,7 +318,7 @@ public class Main extends ListenerAdapter {
 
                 new RuntimeCommand(),
                 new ThemeCommand(themeManager),
-                new ThemeManagerCommand(themeManager),
+//                new ThemeManagerCommand(themeManager),
                 new ShutdownCommand(),
                 new UpdateCommand(messageFactory),
                 new EvalCommand());

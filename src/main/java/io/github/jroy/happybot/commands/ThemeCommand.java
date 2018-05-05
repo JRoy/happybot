@@ -2,25 +2,19 @@ package io.github.jroy.happybot.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import io.github.jroy.happybot.theme.ThemeManager;
-import io.github.jroy.happybot.theme.exceptions.ThemeNotFoundException;
+import io.github.jroy.happybot.theme.DiscordThemerImpl;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
+import io.github.wheezygold7931.discordthemer.exceptions.ThemeNotFoundException;
 
 public class ThemeCommand extends Command {
 
-    private ThemeManager themeManager;
+    private DiscordThemerImpl themeManager;
 
-    public ThemeCommand(ThemeManager themeManager) {
+    public ThemeCommand(DiscordThemerImpl themeManager) {
         this.name = "theme";
         this.help = "Sets the theme of the discord.";
-        StringBuilder sb = new StringBuilder();
-
-        for (Object curEntry : themeManager.getThemes().toArray()) {
-            sb.append(curEntry).append("/");
-        }
-
-        this.arguments = "<"+ sb.toString().replaceAll("/$", "") + ">";
+        this.arguments = "<Theme Name>";
         this.guildOnly = false;
         this.category = new Category("Bot Management");
         this.themeManager = themeManager;
@@ -28,21 +22,20 @@ public class ThemeCommand extends Command {
 
     @Override
     protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.DEVELOPER)) {
+        if (C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
             if (e.getArgs().isEmpty()) {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
                 return;
             }
-            if (themeManager.getThemes().contains(e.getArgs())) {
+            if (themeManager.isValidTheme(e.getArgs())) {
                 try {
-                    C.writeFile("theme.yml", e.getArgs());
-                    themeManager.switchTheme(e.getArgs());
-                    e.replySuccess(":gear: Switching over to " + themeManager.asToken(e.getArgs()).getName() + " Theme!");
+                    themeManager.switchToTheme(e.getArgs());
+                    e.replySuccess(":gear: Switched Theme!");
                 } catch (ThemeNotFoundException e1) {
                     e.replyError(":x: Error while switching themes: " + e1.getMessage());
                 }
             } else {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                e.replyError(":x: Invalid Theme!");
             }
         } else {
             e.replyError(C.permMsg(Roles.DEVELOPER));
