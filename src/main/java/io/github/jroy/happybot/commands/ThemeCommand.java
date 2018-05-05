@@ -38,7 +38,7 @@ public class ThemeCommand extends Command {
                 e.replyError(":x: Invalid Theme!");
             }
         } else {
-            e.replyError(C.permMsg(Roles.DEVELOPER));
+            e.replyError(C.permMsg(Roles.SUPER_ADMIN));
         }
     }
 }
