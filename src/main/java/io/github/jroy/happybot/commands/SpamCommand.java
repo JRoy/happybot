@@ -2,8 +2,10 @@ package io.github.jroy.happybot.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import io.github.jroy.happybot.sql.SpamManager;
+import io.github.jroy.happybot.sql.timed.EventManager;
+import io.github.jroy.happybot.sql.timed.EventType;
 import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Constants;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.entities.Member;
 
@@ -11,15 +13,15 @@ import java.sql.SQLException;
 
 public class SpamCommand extends Command {
 
-    private SpamManager spamManager;
+    private EventManager eventManager;
 
-    public SpamCommand(SpamManager spamManager) {
+    public SpamCommand(EventManager eventManager) {
         this.name = "expspammer";
         this.help = "Gives/Takes a user's EXP Spammer Role!";
         this.arguments = "<user>";
         this.guildOnly = true;
         this.category = new Category("Staff Tools");
-        this.spamManager = spamManager;
+        this.eventManager = eventManager;
     }
 
     @Override
@@ -28,9 +30,9 @@ public class SpamCommand extends Command {
             if (e.getMessage().getMentionedUsers().size() == 1) {
                 Member u = C.getMentionedMember(e);
                 if (C.hasRole(u, Roles.EXP_SPAMMER)) {
-                    if (spamManager.isPunished(u.getUser().getId())) {
+                    if (eventManager.isPunished(u.getUser().getId(), EventType.XP)) {
                         try {
-                            spamManager.deleteInfraction(u.getUser().getId());
+                            eventManager.deleteInfraction(u.getUser().getId(), EventType.XP);
                         } catch (SQLException e1) {
                             e.replyError("Error while deleting infraction: " + e1.getMessage());
                             e1.printStackTrace();
@@ -42,16 +44,16 @@ public class SpamCommand extends Command {
                     C.giveRole(u, Roles.EXP_SPAMMER);
                     e.replySuccess(u.getUser().getAsMention() + " has become an EXP Spammer!");
                     C.privChannel(C.getMentionedMember(e), "You have become an EXP Spammer! Please ask to get this removed 1 week from now!");
-                    if (spamManager.isPunished(u.getUser().getId())) {
+                    if (eventManager.isPunished(u.getUser().getId(), EventType.XP)) {
                         try {
-                            spamManager.deleteInfraction(u.getUser().getId());
+                            eventManager.deleteInfraction(u.getUser().getId(), EventType.XP);
                         } catch (SQLException e1) {
                             e.replyError("Error while deleting old infractions: " + e1.getMessage());
                             e1.printStackTrace();
                         }
                     }
                     try {
-                        spamManager.createInfraction(u.getUser().getId());
+                        eventManager.createInfraction(u.getUser().getId(), Long.parseLong(Constants.EXP_SPAMMER_TIME.get()), EventType.XP);
                     } catch (SQLException e1) {
                         e.replyError("Error while creating infraction: " + e1.getMessage());
                         e1.printStackTrace();

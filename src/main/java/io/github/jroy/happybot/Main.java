@@ -19,7 +19,7 @@ import io.github.jroy.happybot.events.StarMessages;
 import io.github.jroy.happybot.events.WelcomeMessage;
 import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.sql.SQLManager;
-import io.github.jroy.happybot.sql.SpamManager;
+import io.github.jroy.happybot.sql.timed.EventManager;
 import io.github.jroy.happybot.sql.WarningManager;
 import io.github.jroy.happybot.theme.DiscordThemerImpl;
 import io.github.jroy.happybot.util.BotConfig;
@@ -60,7 +60,7 @@ public class Main extends ListenerAdapter {
     private static Hypixel hypixel;
     private static DiscordThemerImpl themeManager;
     private static MessageFactory messageFactory;
-    private static SpamManager spamManager;
+    private static EventManager eventManager;
     private static League league;
     private static Reddit reddit;
     private static List<EventListener> eventListeners = new ArrayList<>();
@@ -212,8 +212,8 @@ public class Main extends ListenerAdapter {
         Logger.info("Loading Message Starer...");
         eventListeners.add(new StarMessages());
 
-        Logger.info("Loading Spam Manager...");
-        eventListeners.add(spamManager = new SpamManager(sqlManager));
+        Logger.info("Loading Event Manager...");
+        eventListeners.add(eventManager = new EventManager(sqlManager));
 
         return eventListeners;
     }
@@ -297,7 +297,7 @@ public class Main extends ListenerAdapter {
                 new EditWarningCommand(warningManager),
                 new DeleteWarnCommand(warningManager),
                 new WarningsCommand(warningManager),
-                new SpamCommand(spamManager),
+                new SpamCommand(eventManager),
                 new OgCommand(),
                 new FansCommand(),
                 new LockCommand(),
@@ -313,6 +313,8 @@ public class Main extends ListenerAdapter {
                 new LookupReportCommand(reportManager),
                 new EditReportCommand(reportManager),
                 new PurgeCommand(),
+                new MuteCommand(eventManager),
+                new UnMuteCommand(eventManager),
 
                 //Bot Management
 
