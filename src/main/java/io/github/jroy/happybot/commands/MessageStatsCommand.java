@@ -2,7 +2,7 @@ package io.github.jroy.happybot.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import io.github.jroy.happybot.util.MessageFactory;
+import io.github.jroy.happybot.sql.MessageFactory;
 
 public class MessageStatsCommand extends Command {
 

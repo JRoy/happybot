@@ -2,7 +2,7 @@ package io.github.jroy.happybot.events;
 
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
-import io.github.jroy.happybot.util.MessageFactory;
+import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;

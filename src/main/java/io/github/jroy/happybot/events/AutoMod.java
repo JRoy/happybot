@@ -1,6 +1,7 @@
 package io.github.jroy.happybot.events;
 
 import io.github.jroy.happybot.Main;
+import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;

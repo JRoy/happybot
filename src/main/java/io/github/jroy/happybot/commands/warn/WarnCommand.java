@@ -5,7 +5,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.sql.WarningManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
-import io.github.jroy.happybot.util.MessageFactory;
+import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;

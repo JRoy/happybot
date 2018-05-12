@@ -25,7 +25,7 @@ import io.github.jroy.happybot.theme.DiscordThemerImpl;
 import io.github.jroy.happybot.util.BotConfig;
 import io.github.jroy.happybot.util.Constants;
 import io.github.jroy.happybot.util.Logger;
-import io.github.jroy.happybot.util.MessageFactory;
+import io.github.jroy.happybot.sql.MessageFactory;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -90,10 +90,11 @@ public class Main extends ListenerAdapter {
         loadApis();
 
         themeManager = loadThemeManager();
-        messageFactory = loadMessageFactory();
 
         //Load our SQL Stuff
         sqlManager = new SQLManager(botConfig.getSqlPassword());
+
+        messageFactory = loadMessageFactory();
 
         Logger.info("Loading Warning Manager...");
         warningManager = new WarningManager(sqlManager);
@@ -193,7 +194,7 @@ public class Main extends ListenerAdapter {
         eventListeners.add(eventListener);
     }
 
-    private static MessageFactory loadMessageFactory() { return new MessageFactory(); }
+    private static MessageFactory loadMessageFactory() { return new MessageFactory(sqlManager); }
 
     private static DiscordThemerImpl loadThemeManager() {
         DiscordThemerImpl themer = new DiscordThemerImpl(true);

@@ -2,6 +2,7 @@ package io.github.jroy.happybot.commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 
