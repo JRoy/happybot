@@ -24,4 +24,8 @@ public class CommandEvent extends com.jagrosh.jdautilities.command.CommandEvent 
         return C.getMentionedMember(this);
     }
 
+    public String[] getSplitArgs() {
+        return getArgs().split("[ ]");
+    }
+
 }
