@@ -16,6 +16,7 @@ import io.github.jroy.happybot.commands.report.ReportCommand;
 import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.AutoMod;
 import io.github.jroy.happybot.events.StarMessages;
+import io.github.jroy.happybot.events.SubmitPinner;
 import io.github.jroy.happybot.events.WelcomeMessage;
 import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.sql.SQLManager;
@@ -216,6 +217,8 @@ public class Main extends ListenerAdapter {
         Logger.info("Loading Event Manager...");
         eventListeners.add(eventManager = new EventManager(sqlManager));
 
+        eventListeners.add(new SubmitPinner());
+
         return eventListeners;
     }
 
@@ -316,6 +319,7 @@ public class Main extends ListenerAdapter {
                 new PurgeCommand(),
                 new MuteCommand(eventManager),
                 new UnMuteCommand(eventManager),
+                new MessageFactoryCommand(messageFactory),
 
                 //Bot Management
 
