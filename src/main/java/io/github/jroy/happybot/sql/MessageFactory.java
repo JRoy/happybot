@@ -21,27 +21,67 @@ public class MessageFactory {
     private final String SELECT_MESSAGES = "SELECT * FROM `messages` WHERE type = ?;";
 
     private final Random random = new Random();
-    private String[] joinMessages;
-    private String[] leaveMessages;
-    private String[] updateStartMessages;
-    private String[] updateEndMessages;
-    private String[] warningMessages;
+    private List<String> joinMessages = new ArrayList<>();
+    private List<String> leaveMessages = new ArrayList<>();
+    private List<String> updateStartMessages = new ArrayList<>();
+    private List<String> updateEndMessages = new ArrayList<>();
+    private List<String> warningMessages = new ArrayList<>();
 
     public MessageFactory(SQLManager sqlManager) {
         connection = sqlManager.getConnection();
         try {
             connection.createStatement().executeUpdate(CREATE_TABLE);
-            joinMessages = parseMessages(MessageType.JOIN);
-            leaveMessages = parseMessages(MessageType.LEAVE);
-            updateStartMessages = parseMessages(MessageType.UPDATE_START);
-            updateEndMessages = parseMessages(MessageType.UPDATE_END);
-            warningMessages = parseMessages(MessageType.WARN);
+            refreshMessages();
         } catch (SQLException e) {
             Logger.error("Error while caching messages: " + e.getMessage());
         }
     }
 
-    private String[] parseMessages(MessageType messageType) throws SQLException {
+    public void addMessage(MessageType messageType, String message) throws SQLException {
+        switch (messageType) { //We add the message to the cache first; we don't want to call SQL every time.
+            case JOIN: {
+                joinMessages.add(message);
+                break;
+            }
+            case WARN: {
+                warningMessages.add(message);
+                break;
+            }
+            case LEAVE: {
+                warningMessages.add(message);
+                break;
+            }
+            case UPDATE_END: {
+                updateEndMessages.add(message);
+                break;
+            }
+            case UPDATE_START: {
+                updateStartMessages.add(message);
+                break;
+            }
+            default:
+                break;//the hell
+        }
+        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_MESSAGE);
+        preparedStatement.setString(1, messageType.toString());
+        preparedStatement.setString(2, message);
+        preparedStatement.execute();
+    }
+
+    public void refreshMessages() throws SQLException {
+        joinMessages.clear();
+        leaveMessages.clear();
+        updateStartMessages.clear();
+        updateEndMessages.clear();
+        warningMessages.clear();
+        joinMessages = parseMessages(MessageType.JOIN);
+        leaveMessages = parseMessages(MessageType.LEAVE);
+        updateStartMessages = parseMessages(MessageType.UPDATE_START);
+        updateEndMessages = parseMessages(MessageType.UPDATE_END);
+        warningMessages = parseMessages(MessageType.WARN);
+    }
+
+    private List<String> parseMessages(MessageType messageType) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(SELECT_MESSAGES);
         preparedStatement.setString(1, messageType.toString());
         ResultSet set = preparedStatement.executeQuery();
@@ -52,36 +92,36 @@ public class MessageFactory {
             msgs.add(set.getString("value"));
         }
 
-        return msgs.toArray(new String[0]);
+        return msgs;
 
     }
 
     @Nonnull
     public String getRawMessage(MessageType messageType) {
         if (messageType == MessageType.JOIN)
-            return joinMessages[random.nextInt(joinMessages.length)];
+            return joinMessages.get(random.nextInt(joinMessages.size()));
         if (messageType == MessageType.LEAVE)
-            return leaveMessages[random.nextInt(leaveMessages.length)];
+            return leaveMessages.get(random.nextInt(leaveMessages.size()));
         if (messageType == MessageType.WARN)
-            return warningMessages[random.nextInt(warningMessages.length)];
+            return warningMessages.get(random.nextInt(warningMessages.size()));
         if (messageType == MessageType.UPDATE_START)
-            return updateStartMessages[random.nextInt(updateStartMessages.length)];
+            return updateStartMessages.get(random.nextInt(updateStartMessages.size()));
         if (messageType == MessageType.UPDATE_END)
-            return updateEndMessages[random.nextInt(updateEndMessages.length)];
+            return updateEndMessages.get(random.nextInt(updateEndMessages.size()));
         return "";
     }
 
     public int getTotals(MessageType messageType) {
         if (messageType == MessageType.JOIN)
-            return joinMessages.length;
+            return joinMessages.size();
         if (messageType == MessageType.LEAVE)
-            return leaveMessages.length;
+            return leaveMessages.size();
         if (messageType == MessageType.UPDATE_START)
-            return updateStartMessages.length;
+            return updateStartMessages.size();
         if (messageType == MessageType.UPDATE_END)
-            return updateEndMessages.length;
+            return updateEndMessages.size();
         if (messageType == MessageType.WARN)
-            return warningMessages.length;
+            return warningMessages.size();
         return 0;
     }
 
@@ -102,6 +142,23 @@ public class MessageFactory {
         public String toString() {
             return translation;
         }
+
+        public static MessageType fromText(String typeText) {
+            for (MessageType cur : MessageType.values()) {
+                if (cur.name().equalsIgnoreCase(typeText))
+                    return cur;
+            }
+            return null;
+        }
+
+        public static String getTypes(String append) {
+            StringBuilder sb = new StringBuilder();
+            for (MessageType cur: MessageType.values()) {
+                sb.append(cur.name()).append(append).append(" ");
+            }
+            return sb.toString();
+        }
+
     }
 
 }
