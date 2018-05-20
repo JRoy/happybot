@@ -28,4 +28,9 @@ public abstract class CommandBase extends Command {
     }
 
     protected abstract void executeCommand(io.github.jroy.happybot.commands.base.CommandEvent event);
+
+    protected String invalid() {
+        return "**Correct Usage:** ^" + name + " " + arguments;
+    }
+
 }
