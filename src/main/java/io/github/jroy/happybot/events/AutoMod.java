@@ -111,9 +111,9 @@ public class AutoMod extends ListenerAdapter {
     private boolean checkForAdvertising(Member member, Message message, TextChannel channel) {
         if (C.hasRole(member, Roles.SUPER_ADMIN) || C.hasRole(member, Roles.BOT))
             return false;
-        if (!pattern.matcher(message.getContentRaw()).matches())
+        if (!pattern.matcher(message.getContentRaw()).find())
             return false;
-        message.delete().reason("Advertising Link with Message: " + message.getContentStripped()).queue();
+        message.delete().reason("Advertising Link with Message: " + message.getContentStripped()).complete();
         Channels.LOG.getChannel().sendMessage(member.getAsMention() + " attempted to advert the following link: " + message.getContentRaw()).queue();
         C.privChannel(member, "You cannot advertise in the happyheart guild!");
         if (!processedMessages.contains(message)) {
