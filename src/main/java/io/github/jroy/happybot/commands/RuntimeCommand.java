@@ -26,7 +26,7 @@ public class RuntimeCommand extends Command {
                 boolean valid = true;
                 switch (target) {
                     case "selfGilds": {
-                        if (C.isBool(value)){
+                        if (C.containsBool(value)){
                             RuntimeEditor.setAllowSelfGilds(Boolean.parseBoolean(value.toLowerCase()));
                         } else {
                             valid = false;
@@ -34,7 +34,7 @@ public class RuntimeCommand extends Command {
                         break;
                     }
                     case "evalOwner": {
-                        if (C.isBool(value)) {
+                        if (C.containsBool(value)) {
                             RuntimeEditor.setEvalOwnerOnly(Boolean.parseBoolean(value.toLowerCase()));
                         } else {
                             valid = false;
@@ -42,7 +42,7 @@ public class RuntimeCommand extends Command {
                         break;
                     }
                     case "pingIssueClose": {
-                        if (C.isBool(value)) {
+                        if (C.containsBool(value)) {
                             RuntimeEditor.setPingIssueClose(Boolean.parseBoolean(value.toLowerCase()));
                         } else {
                             valid = false;
@@ -50,7 +50,7 @@ public class RuntimeCommand extends Command {
                         break;
                     }
                     case "filterAdvert": {
-                        if (C.isBool(value)) {
+                        if (C.containsBool(value)) {
                             RuntimeEditor.setFilteringAdverts(Boolean.parseBoolean(value.toLowerCase()));
                         } else {
                             valid = false;
@@ -58,7 +58,7 @@ public class RuntimeCommand extends Command {
                         break;
                     }
                     case "editUserWarns": {
-                        if (C.isBool(value)) {
+                        if (C.containsBool(value)) {
                             RuntimeEditor.setAllowEditOtherUserWarn(Boolean.parseBoolean(value.toLowerCase()));
                         } else {
                             valid = false;
@@ -66,7 +66,7 @@ public class RuntimeCommand extends Command {
                         break;
                     }
                     case "publicWarns": {
-                        if (C.isBool(value)) {
+                        if (C.containsBool(value)) {
                             RuntimeEditor.setPermittingWarningExposement(Boolean.parseBoolean(value.toLowerCase()));
                         } else {
                             valid = false;
@@ -82,7 +82,7 @@ public class RuntimeCommand extends Command {
                         break;
                     }
                     case "teddySpam": {
-                        if (C.isBool(value)) {
+                        if (C.containsBool(value)) {
                             RuntimeEditor.setTeddySpam(Boolean.parseBoolean(value.toLowerCase()));
                         } else {
                             valid = false;

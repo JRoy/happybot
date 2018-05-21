@@ -70,6 +70,8 @@ public class Main extends ListenerAdapter {
 
         new Logger();
 
+        System.setProperty("http.agent", "happybot");
+
         Logger.info("Initializing happybot...");
 
         Logger.log("Loading Config Files...");
@@ -320,6 +322,7 @@ public class Main extends ListenerAdapter {
                 new MuteCommand(eventManager),
                 new UnMuteCommand(eventManager),
                 new MessageFactoryCommand(messageFactory),
+                new EmoteCommand(),
 
                 //Bot Management
 

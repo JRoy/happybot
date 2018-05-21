@@ -340,7 +340,7 @@ public class C {
      * @param check String to be tested.
      * @return If string can be parsed
      */
-    public static boolean isBool(String check) {
+    public static boolean containsBool(String check) {
         return check.equalsIgnoreCase("true") || check.equalsIgnoreCase("false");
     }
 
