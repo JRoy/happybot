@@ -5,13 +5,9 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
-import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.apis.APIBase;
 import io.github.jroy.happybot.util.Constants;
 import io.github.jroy.happybot.util.Logger;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.events.StatusChangeEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +32,13 @@ public class YouTubeAPI extends APIBase {
     public void loadApi() {
         youTube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, request -> {}).setApplicationName("happybot").build();
         loadChannels();
-        new Listener(channels.size());
         Logger.info("YouTubeAPI Connected to API, waiting to listen to upload events.");
+    }
+
+    @Override
+    public void onJdaLogin() {
+        channels.forEach(ChannelBase::registerListener);
+        Logger.info("YouTubeAPI is now listening to uploads from " + String.valueOf(channels.size()) + " channels!");
     }
 
     private void loadChannels() {
@@ -50,23 +51,4 @@ public class YouTubeAPI extends APIBase {
     String getApiKey() {
         return apiKey;
     }
-
-    private class Listener extends ListenerAdapter {
-
-        private final int channelSize;
-
-        Listener(int channelSize) {
-            Main.registerEventListener(this);
-            this.channelSize = channelSize;
-        }
-
-        @Override
-        public void onStatusChange(StatusChangeEvent event) {
-            if (event.getStatus() == JDA.Status.CONNECTED) {
-                channels.forEach(ChannelBase::registerListener);
-                Logger.info("YouTubeAPI is now listening to uploads from " + String.valueOf(channelSize) + " channels!");
-            }
-        }
-    }
-
 }
