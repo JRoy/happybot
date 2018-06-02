@@ -27,7 +27,7 @@ public class Reddit extends APIBase {
 
     @Override
     public void loadApi() {
-        NetworkAdapter adapter = new OkHttpNetworkAdapter(new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931"));
+        NetworkAdapter adapter = new OkHttpNetworkAdapter(new UserAgent("happybot", "io.github.jroy", "v0.1", username));
         Credentials credentials = Credentials.script(username, password, clientId, clientSecret);
         redditClient = OAuthHelper.automatic(adapter, credentials);
     }
