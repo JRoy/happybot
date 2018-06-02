@@ -10,6 +10,14 @@ public abstract class CommandBase extends Command {
 
     private final Roles permissionRole;
 
+    public CommandBase(@NotNull String commandName, String arguments, String helpMessage, CommandCategory category) {
+        this.name = commandName;
+        this.arguments = arguments;
+        this.help = helpMessage;
+        this.category = new Category(category.toString());
+        this.permissionRole = null;
+    }
+
     public CommandBase(@NotNull String commandName, String arguments, String helpMessage, CommandCategory category, Roles permissionRole) {
         this.name = commandName;
         this.arguments = arguments;
@@ -20,9 +28,11 @@ public abstract class CommandBase extends Command {
 
     @Override
     protected void execute(CommandEvent event) {
-        if (!C.hasRole(event.getMember(), permissionRole)) {
-            event.replyError(C.permMsg(permissionRole));
-            return;
+        if (permissionRole != null) {
+            if (!C.hasRole(event.getMember(), permissionRole)) {
+                event.replyError(C.permMsg(permissionRole));
+                return;
+            }
         }
         executeCommand(new io.github.jroy.happybot.commands.base.CommandEvent(event.getEvent(), event.getArgs(), event.getClient()));
     }
