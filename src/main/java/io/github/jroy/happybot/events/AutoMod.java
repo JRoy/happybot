@@ -33,7 +33,7 @@ public class AutoMod extends ListenerAdapter {
     //Update Notification Resolver
     @Override
     public void onStatusChange(StatusChangeEvent event) {
-        if (event.getStatus() == JDA.Status.CONNECTED) {
+        if (event.getNewStatus() == JDA.Status.CONNECTED) {
             Channels.BOT_META.getChannel().getHistory().retrievePast(10).queue(messages -> messages.forEach(message -> {
                 message.getEmbeds().forEach(messageEmbed -> {
                     if (messageEmbed != null && messageEmbed.getTitle().equalsIgnoreCase("Impending Update") && message.getAuthor() == Main.getJda().getUserById(Constants.BOT_ID.get()) && !message.isWebhookMessage()) {
