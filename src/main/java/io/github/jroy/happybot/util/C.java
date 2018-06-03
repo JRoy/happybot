@@ -2,15 +2,13 @@ package io.github.jroy.happybot.util;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.Main;
+import net.dean.jraw.http.UserAgent;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.managers.GuildController;
 
 import javax.annotation.Nonnull;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.Proxy;
-import java.net.URL;
+import java.net.*;
 import java.nio.channels.Channels;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -364,5 +362,28 @@ public class C {
         return message.getAttachments().get(0).getUrl();
     }
 
+    /**
+     * https://stackoverflow.com/a/7467629/9727788
+     */
+    public static String readUrl(String urlString) {
+        try {
+            URL url = new URL(urlString);
+
+            URLConnection hc = url.openConnection();
+            hc.setRequestProperty("User-Agent", new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString());
+            hc.connect();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(hc.getInputStream()))) {
+                StringBuilder buffer = new StringBuilder();
+                int read;
+                char[] chars = new char[1024];
+                while ((read = reader.read(chars)) != -1)
+                    buffer.append(chars, 0, read);
+                return buffer.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

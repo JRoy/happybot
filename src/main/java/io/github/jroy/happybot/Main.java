@@ -4,6 +4,7 @@ import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import io.github.jroy.happybot.apis.*;
 import io.github.jroy.happybot.apis.exceptions.IllegalAPIState;
+import io.github.jroy.happybot.apis.reddit.Reddit;
 import io.github.jroy.happybot.apis.youtube.YouTubeAPI;
 import io.github.jroy.happybot.commands.*;
 import io.github.jroy.happybot.commands.money.GambleCommand;
@@ -296,6 +297,7 @@ public class Main extends ListenerAdapter {
                 new MoneyCommand(sqlManager),
                 new GambleCommand(sqlManager),
                 new ShopCommand(sqlManager),
+                new MemeCommand(reddit),
 
                 //Staff Tools
 
