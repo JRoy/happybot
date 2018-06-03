@@ -30,6 +30,7 @@ public class MemeCommand extends CommandBase {
         subs.add("ProgrammerHumor");
         subs.add("pewdiepiesubmissions");
         subs.add("dankmemes");
+        subs.add("woooosh");
         this.arguments = "<" + createArgs() + ">";
     }
 
