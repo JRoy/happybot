@@ -51,13 +51,13 @@ public class MemeCommand extends CommandBase {
         }
         e.reply("Hollllup.....");
         MemePost post = reddit.getRandomMedia(e.getArgs());
-        e.reply(new EmbedBuilder()
+        EmbedBuilder eb = new EmbedBuilder()
                 .setAuthor("Meme from r/" + post.getSubreddit(), null, "https://www.redditstatic.com/desktop2x/img/favicon/android-icon-192x192.png")
                 .setTitle(post.getTitle(), post.getPermaLink())
-                .setDescription("Here is your random meme selected from r/" + post.getSubreddit())
-                .setImage(post.getMediaUrl())
-                .setFooter("Requested by: " + e.getAuthor().getName() + "#" + e.getAuthor().getDiscriminator(), e.getAuthor().getAvatarUrl())
-                .build());
+                .setFooter("Requested by: " + e.getAuthor().getName() + "#" + e.getAuthor().getDiscriminator(), e.getAuthor().getAvatarUrl());
+        eb.setDescription("Here is your random meme selected from r/" + post.getSubreddit() + "\n**Self Post:**\n"+ post.getSelfText());
+        if (!post.isSelfPost())
+            eb.setDescription("Here is your random meme selected from r/" + post.getSubreddit()).setImage(post.getMediaUrl());
         cooldowns.put(e.getMember(), OffsetDateTime.now().plusMinutes(5));
     }
 

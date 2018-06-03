@@ -9,11 +9,17 @@ public class MemePost {
     private String permaLink;
     private String mediaUrl;
 
+    private boolean selfPost;
+    private String selfText;
+
     MemePost(JsonObject dataObject) {
         title = dataObject.get("title").getAsString();
         subreddit = dataObject.get("subreddit").getAsString();
         permaLink = "https://reddit.com" + dataObject.get("permalink").getAsString();
         mediaUrl = dataObject.getAsJsonObject("preview").getAsJsonArray("images").get(0).getAsJsonObject().getAsJsonObject("source").get("url").getAsString();
+
+        selfPost = dataObject.get("is_self").getAsBoolean();
+        selfText = dataObject.get("selftext").getAsString();
     }
 
     public String getTitle() {
@@ -30,5 +36,13 @@ public class MemePost {
 
     public String getMediaUrl() {
         return mediaUrl;
+    }
+
+    public boolean isSelfPost() {
+        return selfPost;
+    }
+
+    public String getSelfText() {
+        return selfText;
     }
 }
