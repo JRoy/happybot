@@ -1,27 +1,30 @@
 # happybot [![Travis](https://img.shields.io/travis/JRoy/happybot.svg?style=for-the-badge)](https://travis-ci.org/JRoy/happybot) [![Jenkins Download](https://img.shields.io/badge/jenkins-download-blue.svg?style=for-the-badge)](http://142.44.162.101:8080/job/happybot//)  [![Codacy grade](https://img.shields.io/codacy/grade/8c61619d7c67461083fc9386bd5b6c87.svg?style=for-the-badge)]()
-The moderation bot used on the happyheart discord server.
-# Dependencies
-We handle all dependencies via gradle but if you must have all of them here they are:
-* [JDA](https://github.com/DV8FromTheWorld/JDA)
-* [JDA-Utilities](https://github.com/JDA-Applications/JDA-Utilities)
-* [Hypixel4J](https://github.com/KevinPriv/HypixelApi4J)
-* [SLF4J](https://www.slf4j.org/)
-* [Apache Commons Lang3](https://github.com/apache/commons-lang)
-* [Twitter4J](https://github.com/yusuke/twitter4j)
-* [gson](https://github.com/google/gson)
-* [JUnit 4](https://github.com/junit-team/junit4/)
-* [EvalEx](https://github.com/uklimaschewski/EvalEx)
-* [riot-api-java](https://github.com/taycaldwell/riot-api-java)
-* [YouTube Data API](https://developers.google.com/api-client-library/java/apis/youtube/v3)
-* [Simple-YAML](https://github.com/Carleslc/Simple-YAML)
-* [JRAW](https://github.com/mattbdean/JRAW)
-* [~~Shitlin~~Kotlin](https://github.com/JetBrains/kotlin)
-* [discord-themer](https://github.com/JRoy/discord-themer)
+A multi-purpose, feature-full, and powerful, ***highly guild-specific***, Discord Bot written in Java.
+
+# Features
+This bot has lots of cool & random features; Here are some:
+* Custom Command Implementation of a Command Implementation
+* YouTube Upload Monitor - *Easy Channel Adding*
+* Random Reddit Post Grabber - *Easy Subreddit Adder*
+* League of Legends Summoner Info Grabber
+* Twitter Tweet Monitor
+* Gamble/Economy/Shop System
+* Reporting System
+* Warning System
+* Staff Management
+* Moderation Commands
+* AutoMod
+* Message "Gilding"/"Staring"
+* Message Submissions Pin-er
+* Random Welcome Message System
+* Custom Server Themes using [discord-themer](https://github.com/JRoy/discord-themer) - *File-based system to make themes easy*
+* Custom Logger
+* Update System - *Custom boot script allows for reliable jarfile updating*
 
 # Setup
-Now this bot is made to only work with one guild, as we depend on very specific roles/channels and their respective ids.
+This bot is made to work with one server, as we depend on very specific roles/channels and their respective ids.
 If you still would like to use this bot, despite you needing to basically copy exactly how happyheart's guild looks and works follow these steps:
-* Pretty much change all of the util package. This is where most of the ids are exposed, especially the C class. If you enjoy stack traces but also enjoy basic function, I suggest you inspect and change the classes: Constants and Roles for any exposed ids and replace them for your own use case. The bot will still not work 100% but will at least run and not break.
+* Pretty much change all of the util package. This is where most of the ids are exposed, especially the Roles class. If you enjoy stack traces but also enjoy basic function, I suggest you inspect and change the classes: Constants and Roles for any exposed ids and replace them for your own use case. The bot will still not work 100% but will at least run and not break.
 * Run the bot once, and allow for its files to be created and follow the configuration section below.
 * Restart the bot and watch as it creates many stack traces in your console.
 
@@ -29,6 +32,7 @@ Some things may not still work such as the gamble system, as the create table st
 
 # Configuration
 All of the config options are stored inside of a yml file called: "setting.yml" All the settings in there must be set if you want the bot to load. The options will generate on the bot's first run.
+
 # Building
 To make sure all of our dependencies get included in our jar files, we use @johnrengelman's shadow plugin for gradle. Here are the commands you would use to build this yourself:
 
@@ -43,6 +47,15 @@ Our bash script that manages this bot uses the following exit codes to decide ho
 * 30 - Stop the loop of the boot script.
 
 # Note
-You are free to make pull requests and/or report issues here, and reuse the code at your own will, just please provide credit back to me!
-# 
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)[![forthebadge](http://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](http://forthebadge.com)
+While I understand that making this whole bot work in its entirety, using certain snippets may be very helpful for you/your projects. All I ask when you are doing this is to respect the Apache Licence and if you'd like, mention this repository :).
+
+# Donate
+While it's perfectly optional, if you like what I do and want to support me feel free to buy my a pizza:
+
+Patreon: https://www.patreon.com/JRoy
+
+PayPal.me: https://www.paypal.me/JoshuaRoy1
+
+Bitcoin: `32J2AqJBDY1VLq6wfZcLrTYS8fCcHHVDKD`
+
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)]()
