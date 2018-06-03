@@ -16,10 +16,12 @@ public class MemePost {
         title = dataObject.get("title").getAsString();
         subreddit = dataObject.get("subreddit").getAsString();
         permaLink = "https://reddit.com" + dataObject.get("permalink").getAsString();
-        mediaUrl = dataObject.getAsJsonObject("preview").getAsJsonArray("images").get(0).getAsJsonObject().getAsJsonObject("source").get("url").getAsString();
 
         selfPost = dataObject.get("is_self").getAsBoolean();
         selfText = dataObject.get("selftext").getAsString();
+
+        if (!selfPost)
+            mediaUrl = dataObject.getAsJsonObject("preview").getAsJsonArray("images").get(0).getAsJsonObject().getAsJsonObject("source").get("url").getAsString();
     }
 
     public String getTitle() {
