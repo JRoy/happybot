@@ -31,6 +31,7 @@ public class MemeCommand extends CommandBase {
         subs.add("pewdiepiesubmissions");
         subs.add("dankmemes");
         subs.add("woooosh");
+        subs.add("happyheart");
         this.arguments = "<" + createArgs() + ">";
     }
 
