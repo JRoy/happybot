@@ -59,6 +59,7 @@ public class MemeCommand extends CommandBase {
         eb.setDescription("Here is your random meme selected from r/" + post.getSubreddit() + "\n**Self Post:**\n"+ post.getSelfText());
         if (!post.isSelfPost())
             eb.setDescription("Here is your random meme selected from r/" + post.getSubreddit()).setImage(post.getMediaUrl());
+        e.reply(eb.build());
         cooldowns.put(e.getMember(), OffsetDateTime.now().plusMinutes(5));
     }
 
