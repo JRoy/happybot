@@ -31,7 +31,7 @@ public class EmoteCommand extends CommandBase {
 
         String name = e.getSplitArgs()[0];
         boolean staffOnly = Boolean.getBoolean(e.getSplitArgs()[1]);
-        URL url = null;
+        URL url;
         try {
             url = new URL(e.getSplitArgs()[2]);
         } catch (MalformedURLException e1) {
