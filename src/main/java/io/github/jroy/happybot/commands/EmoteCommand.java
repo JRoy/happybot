@@ -14,7 +14,7 @@ import java.net.URL;
 public class EmoteCommand extends CommandBase {
 
     public EmoteCommand() {
-        super("emote", "<emote name> <staff only> <image url>", "creates ", CommandCategory.STAFF, Roles.SUPER_ADMIN);
+        super("emote", "<emote name> <staff only> <image url>", "Creates an emote", CommandCategory.STAFF, Roles.SUPER_ADMIN);
     }
 
     @Override
