@@ -35,13 +35,13 @@ public class C {
     public static boolean hasRole(Member m, Roles r) {
         try {
             for (Role s : m.getRoles()) {
+                if (r.equals(Roles.SUPER_ADMIN) && s.getId().equals(Roles.CHANNEL_MANAGER.getId()))
+                    return true;
                 if (s.getId().equals(r.getRole().getId())) {
                     return true;
                 }
             }
-        } catch (NullPointerException e) {
-            //NO I DON'T CARE, MY CONSOLE DOESN'T CARE, NOBODY CARES!
-        }
+        } catch (NullPointerException ignored) {}
         return false;
     }
 
