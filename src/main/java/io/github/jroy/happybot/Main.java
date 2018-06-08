@@ -279,7 +279,6 @@ public class Main extends ListenerAdapter {
                 new ApplyCommand(),
                 new RewardsCommand(),
                 new MentionCommand(),
-                new ServersCommand(),
                 new SeasonCommand(),
                 new SelfWarningsCommand(warningManager),
                 new ReportCommand(reportManager),
