@@ -1,30 +1,28 @@
 package io.github.jroy.happybot.commands.warn;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
-import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.WarningManager;
+import io.github.jroy.happybot.util.C;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SelfWarningsCommand extends Command {
+public class SelfWarningsCommand extends CommandBase {
 
     private WarningManager warningManager;
 
     public SelfWarningsCommand(WarningManager warningManager) {
-        this.name = "mywarns";
+        super("mywarns", null, "Direct Messages you a list of your warnings.", CommandCategory.GENERAL);
         this.aliases = new String[]{"mywarnings"};
-        this.help = "Lists your warnings.";
-        this.guildOnly = false;
-        this.category = new Category("General");
         this.warningManager = warningManager;
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         e.reply("Providing Memes in DM's");
         try {
             ResultSet resultSet = warningManager.fetchWarnings(e.getEvent().getAuthor().getId());

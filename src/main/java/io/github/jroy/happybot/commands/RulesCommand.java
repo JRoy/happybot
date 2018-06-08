@@ -1,19 +1,17 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 
-public class RulesCommand extends Command {
+public class RulesCommand extends CommandBase {
+
     public RulesCommand() {
-        this.name = "rules";
-        this.help = "Links you to the rules";
-        this.arguments = "";
-        this.guildOnly = false;
-        this.category = new Category("General");
+        super("rules", null, "Links to the rules.", CommandCategory.GENERAL);
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         e.replySuccess("Here are the rules: <http://bit.ly/2ihUfAc>");
     }
 }

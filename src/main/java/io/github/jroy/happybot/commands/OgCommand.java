@@ -1,37 +1,31 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.entities.Member;
 
-public class OgCommand extends Command {
+public class OgCommand extends CommandBase {
+
     public OgCommand() {
-        this.name = "og";
-        this.help = "Gives/Takes a user's OG Role!";
-        this.arguments = "<user>";
-        this.guildOnly = true;
-        this.category = new Category("Staff Tools");
+        super("og", "<user>", "Toggle's a user OG Stats.", CommandCategory.STAFF, Roles.MODERATOR);
     }
 
     @Override
-    protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
-            if (e.getMessage().getMentionedUsers().size() == 1) {
-                Member u = C.getMentionedMember(e);
-                if (C.hasRole(u, Roles.OG)) {
-                    C.removeRole(u, Roles.OG);
-                    e.replySuccess(u.getUser().getAsMention() + " is no OG!");
-                } else {
-                    C.giveRole(u, Roles.OG);
-                    e.replySuccess(u.getUser().getAsMention() + " has become OG!");
-                }
+    protected void executeCommand(CommandEvent e) {
+        if (e.getMessage().getMentionedUsers().size() == 1) {
+            Member u = C.getMentionedMember(e);
+            if (C.hasRole(u, Roles.OG)) {
+                C.removeRole(u, Roles.OG);
+                e.replySuccess(u.getUser().getAsMention() + " is no OG!");
             } else {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                C.giveRole(u, Roles.OG);
+                e.replySuccess(u.getUser().getAsMention() + " has become OG!");
             }
         } else {
-            e.replyError(C.permMsg(Roles.SUPER_ADMIN));
+            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
         }
     }
 }

@@ -1,7 +1,8 @@
 package io.github.jroy.happybot.commands.money;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.sql.UserToken;
 import io.github.jroy.happybot.util.C;
@@ -15,22 +16,18 @@ import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 
-public class GambleCommand extends Command {
+public class GambleCommand extends CommandBase {
 
     private SQLManager sqlManager;
     private HashMap<Member, OffsetDateTime> gambleTimes = new HashMap<>();
 
     public GambleCommand(SQLManager sqlManager) {
-        this.name = "gamble";
-        this.help = "Gambling Command, please type `^gamble help` for details.";
-        this.arguments = "<help/check>";
-        this.guildOnly = true;
-        this.category = new Category("Fun");
+        super("gamble", "<help/check>", "Gambling Command, please type `^gamble help` for details.", CommandCategory.FUN);
         this.sqlManager = sqlManager;
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         if (e.getArgs().isEmpty() || e.getArgs().equalsIgnoreCase("help")) {
             e.reply("**Gamble System Overview:**\n" +
                     "You may only gamble away your life savings every 3 minutes to avoid life destruction.\n" +

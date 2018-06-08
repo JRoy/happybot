@@ -1,40 +1,33 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.entities.Member;
 
-public class DemoteCommand extends Command {
+public class DemoteCommand extends CommandBase {
 
     public DemoteCommand() {
-        this.name = "demote";
-        this.help = "Demotes a user off the staff team.";
-        this.arguments = "<user>";
-        this.guildOnly = true;
-        this.category = new Category("Staff Tools");
+        super("demote", "<user>", "Demotes target user from the staff team.", CommandCategory.STAFF, Roles.RECRUITER);
     }
 
     @Override
-    protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.RECRUITER)) {
-            if (e.getMessage().getMentionedUsers().size() == 1) {
-                e.reply("Please wait while we look how to demote " + C.getMentionedMember(e).getAsMention() + "!");
-                Member member = C.getMentionedMember(e);
-                if (!C.hasRole(member, Roles.HELPER)) {
-                    e.replyError("User is not on the staff team!");
-                    return;
-                }
-                removeIfHasRole(member, Roles.SUPER_ADMIN);
-                removeIfHasRole(member, Roles.MODERATOR);
-                removeIfHasRole(member, Roles.HELPER);
-                e.replySuccess("User has been demoted!");
-            } else {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+    protected void executeCommand(CommandEvent e) {
+        if (e.getMessage().getMentionedUsers().size() == 1) {
+            e.reply("Please wait while we look how to demote " + C.getMentionedMember(e).getAsMention() + "!");
+            Member member = C.getMentionedMember(e);
+            if (!C.hasRole(member, Roles.HELPER)) {
+                e.replyError("User is not on the staff team!");
+                return;
             }
+            removeIfHasRole(member, Roles.SUPER_ADMIN);
+            removeIfHasRole(member, Roles.MODERATOR);
+            removeIfHasRole(member, Roles.HELPER);
+            e.replySuccess("User has been demoted!");
         } else {
-            e.replyError(C.permMsg(Roles.RECRUITER));
+            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
         }
     }
 

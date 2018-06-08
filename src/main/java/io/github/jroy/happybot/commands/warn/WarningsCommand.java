@@ -1,34 +1,31 @@
 package io.github.jroy.happybot.commands.warn;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
+import io.github.jroy.happybot.sql.WarningManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import io.github.jroy.happybot.util.RuntimeEditor;
-import io.github.jroy.happybot.sql.WarningManager;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class WarningsCommand extends Command {
+public class WarningsCommand extends CommandBase {
 
     private WarningManager warningManager;
 
     public WarningsCommand(WarningManager warningManager) {
-        this.name = "warnings";
+        super("warnings", "<user>", "Provides list of target user's warnings.", CommandCategory.STAFF);
         this.aliases = new String[]{"warns"};
-        this.arguments = "<user>";
-        this.help = "Warns the target user.";
-        this.guildOnly = true;
-        this.category = new Category("Staff Tools");
         this.warningManager = warningManager;
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         if (C.hasRole(e.getMember(), Roles.HELPER) || RuntimeEditor.isPermittingWarningExposement()) {
             if (!C.containsMention(e)) {
                 try {

@@ -1,34 +1,32 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
 import com.kbrewster.exceptions.APIException;
 import com.kbrewster.hypixelapi.player.HypixelPlayer;
 import io.github.jroy.happybot.apis.Hypixel;
 import io.github.jroy.happybot.apis.League;
 import io.github.jroy.happybot.apis.youtube.YouTubeRealTime;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.constant.Platform;
 
 import java.util.HashMap;
 
-public class StatsCommand extends Command {
+public class StatsCommand extends CommandBase {
 
     private League league;
     private Hypixel hypixel;
 
     public StatsCommand(Hypixel hypixel, League league) {
-        this.name = "stats";
-        this.help = "Gives stats of a happy's channel and hypixel player.";
-        this.arguments = "<youtube/hypixel/league>";
-        this.category = new Category("Fun");
+        super("stats", "<youtube/hypixel/league>", "Gives stats of a happyheart's channel and hypixel player.", CommandCategory.FUN);
         this.hypixel = hypixel;
         this.league = league;
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         if (e.getArgs().equalsIgnoreCase("youtube")) {
             new Thread(new GetYoutubeStats(e)).start();
         } else if (e.getArgs().equalsIgnoreCase("hypixel")) {

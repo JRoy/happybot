@@ -1,22 +1,20 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
 import com.udojava.evalex.Expression;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 
-public class MathCommand extends Command {
+public class MathCommand extends CommandBase {
+
     public MathCommand() {
-        this.name = "math";
-        this.help = "Evaluates math!";
-        this.arguments = "<math>";
+        super("math", "<math>", "Evaluates a math expression!", CommandCategory.FUN);
         this.aliases = new String[] { "maths" };
-        this.category = new Category("Fun");
     }
 
     @Override
-    protected void execute(CommandEvent e) {
-
+    protected void executeCommand(CommandEvent e) {
         if (!e.getArgs().isEmpty()) {
             String result;
 

@@ -1,22 +1,21 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class HecktownCommand extends Command {
+public class HecktownCommand extends CommandBase {
     private String[] hecktownLocations = new String[] { "https://goo.gl/Cik7vC", "https://goo.gl/cenQgf",
             "https://goo.gl/eeukMu", "https://goo.gl/YGF5eX", "https://goo.gl/LjaEyC"};
 
     public HecktownCommand() {
-        this.name = "hecktown";
-        this.help = "Welcome to Hecktown!";
-        this.category = new Category("Fun");
+        super("hecktown", null, "Welcome to Hecktown!", CommandCategory.FUN);
     }
 
     @Override
-    protected void execute(CommandEvent event) {
+    protected void executeCommand(CommandEvent event) {
         event.replySuccess(hecktownLocations[ThreadLocalRandom.current().nextInt(hecktownLocations.length)]);
     }
 }

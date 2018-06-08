@@ -1,8 +1,9 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.apis.League;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.constant.Platform;
@@ -11,21 +12,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
-public class LeagueCommand extends Command {
+public class LeagueCommand extends CommandBase {
 
     private final League league;
 
     public LeagueCommand(League league) {
+        super("league", "<" + Arrays.toString(Platform.values()).replaceAll("[1]", "") + "> <league username>", "Shows the league of legend stats of the target user!", CommandCategory.FUN);
         this.league = league;
-        this.name = "league";
-        this.help = "Shows league stats for target.";
-        this.arguments = "<" + Arrays.toString(Platform.values()).replaceAll("[1]", "") + "> <league username>";
-        this.guildOnly = false;
-        this.category = new Category("Fun");
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         if (e.getArgs().isEmpty()) {
             e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             return;

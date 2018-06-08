@@ -1,33 +1,28 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.MessageFactory;
-import io.github.jroy.happybot.util.*;
+import io.github.jroy.happybot.util.Channels;
+import io.github.jroy.happybot.util.Logger;
+import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.util.concurrent.TimeUnit;
 
-public class UpdateCommand extends Command {
+public class UpdateCommand extends CommandBase {
 
     private MessageFactory messageFactory;
 
     public UpdateCommand(MessageFactory messageFactory) {
-        this.name = "update";
-        this.arguments = "<j(enkins)/d(ropbox)>";
-        this.help = "Downloads new code for the bot!";
-        this.guildOnly = false;
-        this.category = new Category("Bot Management");
+        super("update", "<j(enkins)/d(ropbox)>", "Restarts the VM with an update.", CommandCategory.BOT, Roles.DEVELOPER);
         this.messageFactory = messageFactory;
     }
 
     @Override
-    protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.DEVELOPER)) {
-            new Thread(new Update(e)).start();
-        } else {
-            e.replyError(C.permMsg(Roles.DEVELOPER));
-        }
+    protected void executeCommand(CommandEvent e) {
+        new Thread(new Update(e)).start();
     }
 
     class Update implements Runnable {

@@ -1,7 +1,8 @@
 package io.github.jroy.happybot.commands.money;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.sql.UserToken;
 import io.github.jroy.happybot.util.C;
@@ -14,21 +15,17 @@ import java.sql.SQLException;
 import java.util.Map;
 
 @SuppressWarnings("ConstantConditions")
-public class MoneyCommand extends Command {
+public class MoneyCommand extends CommandBase {
 
     private SQLManager sqlManager;
 
     public MoneyCommand(SQLManager sqlManager) {
-        this.name = "money";
-        this.help = "Command for your money needs.";
-        this.arguments = "<create/claim/check/bal/baltop/pay/admin>";
-        this.guildOnly = true;
-        this.category = new Category("Fun");
+        super("money", "<create/claim/check/bal/baltop/pay/admin>", "Command for your money needs.", CommandCategory.FUN);
         this.sqlManager = sqlManager;
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         if (e.getArgs().isEmpty()) {
             e.replyError("**Correct Usage:** ^" + name + " " + arguments);
             return;

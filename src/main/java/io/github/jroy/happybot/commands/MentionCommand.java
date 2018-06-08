@@ -1,21 +1,19 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
 
-public class MentionCommand extends Command {
+public class MentionCommand extends CommandBase {
+
     public MentionCommand() {
-        this.name = "mention";
-        this.help = "Toggles when you want to be mentioned.";
-        this.arguments = "<twitter/git/updates>";
-        this.guildOnly = true;
-        this.category = new Category("General");
+        super("mention", "<twitter/git/updates>", "Toggles what messages you would like to mentioned for.", CommandCategory.GENERAL);
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         if (!e.getArgs().isEmpty()) {
             StringBuilder sb = new StringBuilder();
             if (e.getArgs().contains("twitter")) {

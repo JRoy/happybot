@@ -1,7 +1,8 @@
 package io.github.jroy.happybot.commands.report;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
@@ -11,21 +12,17 @@ import net.dv8tion.jda.core.entities.Member;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class ReportCommand extends Command {
+public class ReportCommand extends CommandBase {
 
     private final ReportManager reportManager;
 
     public ReportCommand(ReportManager reportManager) {
-        this.name = "report";
-        this.help = "Sends a report to the staff members!";
-        this.arguments = "<user> <reason>";
-        this.guildOnly = true;
-        this.category = new Category("General");
+        super("report", "<user> <reason>", "Sends a report to the staff members!", CommandCategory.GENERAL);
         this.reportManager = reportManager;
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         if (!C.containsMention(e)) {
             e.replyError("**Correct Usage:** ^" + name + " **<user>** <reason>");
             return;

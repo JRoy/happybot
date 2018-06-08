@@ -1,24 +1,22 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.MessageFactory;
 
-public class MessageStatsCommand extends Command {
+public class MessageStatsCommand extends CommandBase {
 
     private MessageFactory messageFactory;
 
     public MessageStatsCommand(MessageFactory messageFactory) {
-        this.name = "messagestats";
+        super("messagestats", null, "Gives statistics about messages from the MessageFactory.", CommandCategory.FUN);
         this.aliases = new String[]{"msgstats", "mstats"};
-        this.help = "Gives the stats of the Random Messages.";
-        this.guildOnly = false;
-        this.category = new Category("Fun");
         this.messageFactory = messageFactory;
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         e.getChannel().sendMessage(":information_source: Message Queue Stats:" +
                 "\n**Welcome Messages:** " + messageFactory.getTotals(MessageFactory.MessageType.JOIN) +
                 "\n**Quit Messages:** " + messageFactory.getTotals(MessageFactory.MessageType.LEAVE) +

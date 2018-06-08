@@ -1,7 +1,8 @@
 package io.github.jroy.happybot.commands.money;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.sql.UserToken;
 import io.github.jroy.happybot.util.C;
@@ -13,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.sql.SQLException;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class ShopCommand extends Command {
+public class ShopCommand extends CommandBase {
 
     private SQLManager sqlManager;
 
@@ -25,16 +26,12 @@ public class ShopCommand extends Command {
             "`^shop buy <id>` This will buy it from your account!";
 
     public ShopCommand(SQLManager sqlManager) {
-        this.name = "shop";
-        this.help = "Fun activity thing let's you do things.";
-        this.arguments = "<page/buy/help>";
-        this.guildOnly = true;
-        this.category = new Category("Fun");
+        super("shop", "<page/buy/help>", "Fun activity thing let's you do things.", CommandCategory.FUN);
         this.sqlManager = sqlManager;
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         if (e.getArgs().isEmpty()) {
             e.replyError(currentShopHelp);
             return;

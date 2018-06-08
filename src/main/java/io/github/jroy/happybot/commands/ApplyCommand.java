@@ -1,17 +1,17 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 
-public class ApplyCommand extends Command {
+public class ApplyCommand extends CommandBase {
+
     public ApplyCommand() {
-        this.name = "apply";
-        this.help = "Gives the link to the application.";
-        this.category = new Category("General");
+        super("apply", null, "Gives you the link to apply for staff!", CommandCategory.GENERAL);
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         e.replySuccess("Here you go!\nhttps://goo.gl/forms/vB6lfA8VhIMqxFDs2");
     }
 }

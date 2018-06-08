@@ -1,42 +1,35 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.entities.Member;
 
-public class PromoteCommand extends Command {
+public class PromoteCommand extends CommandBase {
 
     public PromoteCommand() {
-        this.name = "promote";
-        this.help = "Promotes a user up the staff hierarchy.";
-        this.arguments = "<user>";
-        this.guildOnly = true;
-        this.category = new Category("Staff Tools");
+        super("promote", "<user>", "Promotes the target user up the staff hierarchy", CommandCategory.STAFF, Roles.RECRUITER);
     }
 
     @Override
-    protected void execute(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.RECRUITER)) {
-            if (e.getMessage().getMentionedUsers().size() == 1) {
-                e.reply("Please wait while we look how to promote " + C.getMentionedMember(e).getAsMention() + "!");
-                Member member = C.getMentionedMember(e);
-                promoteMember(member, e);
-            } else {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
-            }
+    protected void executeCommand(CommandEvent e) {
+        if (e.getMessage().getMentionedUsers().size() == 1) {
+            e.reply("Please wait while we look how to promote " + C.getMentionedMember(e).getAsMention() + "!");
+            Member member = C.getMentionedMember(e);
+            promoteMember(member, e);
         } else {
-            e.replyError(C.permMsg(Roles.RECRUITER));
+            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
         }
     }
 
     private void promoteMember(Member member, CommandEvent event) {
         if (C.hasRole(member, Roles.SUPER_ADMIN)) {
             event.replySuccess("User is already the on highest level of promotion!");
-        } else if (!promoteIfHasRole(Roles.MODERATOR, Roles.SUPER_ADMIN, member, event)
-                && !promoteIfHasRole(Roles.HELPER, Roles.MODERATOR, member, event)
-                && !promoteIfHasRole(Roles.FANS, Roles.HELPER, member, event)) {
+        } else if (promoteIfHasRole(Roles.MODERATOR, Roles.SUPER_ADMIN, member, event)
+                && promoteIfHasRole(Roles.HELPER, Roles.MODERATOR, member, event)
+                && promoteIfHasRole(Roles.FANS, Roles.HELPER, member, event)) {
             event.replyError("User has a malformed role!");
         }
     }
@@ -50,9 +43,9 @@ public class PromoteCommand extends Command {
         if (C.hasRole(member, requiredRole)) {
             event.replySuccess("User has been promoted to **" + promotionRole.getName() + "**!");
             event.getGuild().getController().addSingleRoleToMember(member, promotionRole.getRole()).reason("User Promotion!").queue();
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
 }

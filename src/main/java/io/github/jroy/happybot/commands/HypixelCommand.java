@@ -1,20 +1,22 @@
 package io.github.jroy.happybot.commands;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandEvent;
 import com.kbrewster.exceptions.APIException;
 import com.kbrewster.hypixelapi.player.HypixelPlayer;
 import io.github.jroy.happybot.apis.Hypixel;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.util.HashMap;
 
-public class HypixelCommand extends Command {
+public class HypixelCommand extends CommandBase {
 
     private Hypixel hypixel;
 
     public HypixelCommand(Hypixel hypixel) {
+        super("hypixel", "<player>", "Checks target's hypixel player stats!", CommandCategory.FUN);
         this.name = "hypixel";
         this.help = "Check your hypixel stats!";
         this.arguments = "<player>";
@@ -23,7 +25,7 @@ public class HypixelCommand extends Command {
     }
 
     @Override
-    protected void execute(CommandEvent e) {
+    protected void executeCommand(CommandEvent e) {
         if (!e.getArgs().isEmpty()) {
             if (C.containsMention(e)) {
                 e.replyError("**Correct Usage:** ^" + name + " " + arguments);
