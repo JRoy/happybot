@@ -6,24 +6,39 @@ import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+/**
+ * A custom implementation of JDA-Utilities's {@link com.jagrosh.jdautilities.command.CommandEvent CommandEvent} class that makes our use-case easier.
+ */
 public class CommandEvent extends com.jagrosh.jdautilities.command.CommandEvent {
 
     public CommandEvent(MessageReceivedEvent event, String args, CommandClient client) {
         super(event, args, client);
     }
 
+    /**
+     * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
+     */
     public boolean hasRole(Roles role) {
         return C.hasRole(getMember(), role);
     }
 
+    /**
+     * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
+     */
     public boolean containsMention() {
         return C.containsMention(this);
     }
 
+    /**
+     * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
+     */
     public Member getMentionedMember() {
         return C.getMentionedMember(this);
     }
 
+    /**
+     * @return Gets the arguments of the command split by spaces.
+     */
     public String[] getSplitArgs() {
         return getArgs().split("[ ]");
     }
