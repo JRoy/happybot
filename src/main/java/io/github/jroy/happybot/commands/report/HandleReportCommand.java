@@ -19,6 +19,7 @@ public class HandleReportCommand extends CommandBase {
 
     public HandleReportCommand(ReportManager reportManager) {
         super("handlereport", "<accept/deny> <id> <reason>", "Accept or deny a report.", CommandCategory.STAFF, Roles.HELPER);
+        this.aliases = new String[]{"hr", "hreport"};
         this.reportManager = reportManager;
     }
 
