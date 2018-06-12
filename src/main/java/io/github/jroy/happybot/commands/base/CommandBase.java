@@ -11,7 +11,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class CommandBase extends Command {
 
+    /**
+     * The role that is required to run the target command.
+     *
+     * Will be null if no role is required
+     */
     private final Roles permissionRole;
+
+    /**
+     * The command's category
+     */
+    private final CommandCategory commandCategory;
 
     /**
      *
@@ -27,6 +37,7 @@ public abstract class CommandBase extends Command {
         this.arguments = arguments;
         this.help = helpMessage;
         this.category = new Category(category.toString());
+        this.commandCategory = category;
         this.permissionRole = null;
     }
 
@@ -45,6 +56,7 @@ public abstract class CommandBase extends Command {
         this.arguments = arguments;
         this.help = helpMessage;
         this.category = new Category(category.toString());
+        this.commandCategory = category;
         this.permissionRole = permissionRole;
     }
 
@@ -72,4 +84,17 @@ public abstract class CommandBase extends Command {
         return "**Correct Usage:** ^" + name + " " + arguments;
     }
 
+    /**
+     * @return Command's Permission
+     */
+    public Roles getPermissionRole() {
+        return permissionRole;
+    }
+
+    /**
+     * @return Command's Category
+     */
+    public CommandCategory getCommandCategory() {
+        return commandCategory;
+    }
 }

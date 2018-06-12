@@ -1,12 +1,14 @@
 package io.github.jroy.happybot;
 
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import io.github.jroy.happybot.apis.*;
+import io.github.jroy.happybot.apis.APIBase;
+import io.github.jroy.happybot.apis.Hypixel;
+import io.github.jroy.happybot.apis.League;
+import io.github.jroy.happybot.apis.TwitterCentre;
 import io.github.jroy.happybot.apis.exceptions.IllegalAPIState;
 import io.github.jroy.happybot.apis.reddit.Reddit;
 import io.github.jroy.happybot.apis.youtube.YouTubeAPI;
 import io.github.jroy.happybot.commands.*;
+import io.github.jroy.happybot.commands.base.CommandFactory;
 import io.github.jroy.happybot.commands.money.GambleCommand;
 import io.github.jroy.happybot.commands.money.MoneyCommand;
 import io.github.jroy.happybot.commands.money.ShopCommand;
@@ -19,22 +21,19 @@ import io.github.jroy.happybot.events.AutoMod;
 import io.github.jroy.happybot.events.StarMessages;
 import io.github.jroy.happybot.events.SubmitPinner;
 import io.github.jroy.happybot.events.WelcomeMessage;
+import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.sql.SQLManager;
-import io.github.jroy.happybot.sql.timed.EventManager;
 import io.github.jroy.happybot.sql.WarningManager;
+import io.github.jroy.happybot.sql.timed.EventManager;
 import io.github.jroy.happybot.theme.DiscordThemerImpl;
 import io.github.jroy.happybot.util.BotConfig;
-import io.github.jroy.happybot.util.Constants;
 import io.github.jroy.happybot.util.Logger;
-import io.github.jroy.happybot.sql.MessageFactory;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.hooks.EventListener;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.simpleyaml.configuration.file.YamlFile;
@@ -45,7 +44,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class Main extends ListenerAdapter {
@@ -54,7 +52,7 @@ public class Main extends ListenerAdapter {
     private static YamlFile yamlFile;
     private static BotConfig botConfig;
     private static JDA jda;
-    private static CommandClientBuilder clientBuilder;
+    private static CommandFactory commandFactory;
     private static TwitterCentre twitterCentre;
     private static SQLManager sqlManager;
     private static WarningManager warningManager;
@@ -89,6 +87,7 @@ public class Main extends ListenerAdapter {
         } catch (InvalidConfigurationException e) {
             Logger.error("Un-parsable Settings!");
             e.printStackTrace();
+            System.exit(1);
         }
 
         loadApis();
@@ -107,14 +106,14 @@ public class Main extends ListenerAdapter {
         reportManager = new ReportManager(sqlManager);
 
         List<EventListener> eventListeners = loadEventListeners();
-        loadClientBuilder();
+        loadCommandFactory();
 
         Logger.info("Constructing JDA Instance...");
         JDABuilder builder = new JDABuilder(AccountType.BOT)
                 .setToken(botConfig.getBotToken())
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
                 //Listens to the MessageReceivedEvent.
-                .addEventListener(clientBuilder.build())
+                .addEventListener(commandFactory.build())
                 .setGame(Game.of(Game.GameType.DEFAULT, "Loading"));
         for (EventListener listener : eventListeners)
             builder.addEventListener(listener);
@@ -225,55 +224,15 @@ public class Main extends ListenerAdapter {
         return eventListeners;
     }
 
-    private static void loadClientBuilder() {
-        Logger.info("Loading Command Builder...");
+    private static void loadCommandFactory() {
 
-        //Creates JDA-Util's Command Builder so we can use it later.
-        clientBuilder = new CommandClientBuilder();
-
-        //Used for "ownerOnly" commands in commands.
-        clientBuilder.setOwnerId(Constants.OWNER_ID.get());
-
-        //Used for the prefix of the bot, so we have an easy life.
-        clientBuilder.setPrefix("^");
-
-        Logger.info("Adding commands...");
-
-        //Spaghetti Code!
-        clientBuilder.setHelpConsumer(e -> {
-            e.replySuccess("Help is on the way! :sparkles:");
-            StringBuilder builder = new StringBuilder("**"+e.getSelfUser().getName()+"** commands:\n");
-            Command.Category category = null;
-            for(Command command : e.getClient().getCommands())
-            {
-                if(!command.isHidden() && (!command.isOwnerCommand() || e.isOwner()))
-                {
-                    if(!Objects.equals(category, command.getCategory()))
-                    {
-                        category = command.getCategory();
-                        builder.append("\n\n  __").append(category==null ? "No Category" : category.getName()).append("__:\n");
-                    }
-                    builder.append("\n`").append(e.getClient().getPrefix()).append((e.getClient().getPrefix()==null?" ":"")).append(command.getName())
-                            .append(command.getArguments()==null ? "`" : " "+command.getArguments()+"`")
-                            .append(" - ").append(command.getHelp());
-                }
-            }
-            User owner = e.getJDA().getUserById(e.getClient().getOwnerId());
-            if(owner!=null)
-            {
-                builder.append("\n\nFor additional help, contact **").append(owner.getName()).append("**#").append(owner.getDiscriminator());
-                if(e.getClient().getServerInvite()!=null)
-                    builder.append(" or join ").append(e.getClient().getServerInvite());
-            }
-            if(e.isFromType(ChannelType.TEXT))
-                e.reactSuccess();
-            e.replyInDm(builder.toString(), unused -> {}, t -> e.replyWarning("Help cannot be sent because you are blocking Direct Messages."));
-        });
+        commandFactory = new CommandFactory();
 
         //Loads all of our commands into JDA-Util's command handler.
-        clientBuilder.addCommands(
+        commandFactory.addCommands(
 
                 //General
+                new HelpCommand(commandFactory),
                 new PingCommand(),
                 new RulesCommand(),
                 new ApplyCommand(),
@@ -332,7 +291,9 @@ public class Main extends ListenerAdapter {
 //                new ThemeManagerCommand(themeManager),
                 new ShutdownCommand(),
                 new UpdateCommand(messageFactory),
-                new EvalCommand());
+                new EvalCommand()
+
+        );
     }
 
     /**
@@ -356,16 +317,6 @@ public class Main extends ListenerAdapter {
      */
     public static JDA getJda() {
         return jda;
-    }
-
-    /**
-     * An easy way to get our CommandClientBuilder instance!
-     *
-     * @return Returns the CommandClientBuilder Instance.
-     */
-    @SuppressWarnings("unused")
-    public static CommandClientBuilder getClientBuilder() {
-        return clientBuilder;
     }
 
 }
