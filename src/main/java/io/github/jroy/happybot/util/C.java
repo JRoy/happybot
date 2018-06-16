@@ -63,8 +63,20 @@ public class C {
      */
     @Nonnull
     public static Member getMentionedMember(CommandEvent e) {
+        return getMentionedMember(e, 0);
+    }
+
+    /**
+     * Gets the member/sender from the {@link com.jagrosh.jdautilities.command.CommandEvent CommandEvent} in the JDA Member Format.
+     *
+     * @param e The Command Event that you need the member from.
+     * @param index The mentioned member to get
+     * @return Returns a member from the event.
+     */
+    @Nonnull
+    public static Member getMentionedMember(CommandEvent e, int index) {
         try {
-            return e.getGuild().getMember(e.getMessage().getMentionedUsers().get(0));
+            return e.getMessage().getMentionedMembers().get(index);
         } catch (IndexOutOfBoundsException exception) {
             return null;
         }

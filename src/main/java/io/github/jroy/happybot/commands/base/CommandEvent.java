@@ -30,10 +30,26 @@ public class CommandEvent extends com.jagrosh.jdautilities.command.CommandEvent 
     }
 
     /**
+     * Wrapper for getting amount of mentioned users in a message.
+     * @return The amount of mentioned users.
+     */
+    public int getMentionsAmount() {
+        return getMessage().getMentionedMembers().size();
+    }
+
+    /**
      * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
      */
     public Member getMentionedMember() {
         return C.getMentionedMember(this);
+    }
+
+    /**
+     * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
+     * @param index Get's a certain mentioned member.
+     */
+    public Member getMentionedMember(int index) {
+        return C.getMentionedMember(this, index);
     }
 
     /**
