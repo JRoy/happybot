@@ -256,6 +256,7 @@ public class Main extends ListenerAdapter {
                 new GambleCommand(sqlManager),
                 new ShopCommand(sqlManager),
                 new MemeCommand(reddit),
+                new ShippingCommand(),
 
                 //Staff Tools
 
