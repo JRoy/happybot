@@ -4,7 +4,12 @@ import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
+import net.dv8tion.jda.core.entities.Member;
 import org.jetbrains.annotations.NotNull;
+
+import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 
 /**
  * A custom implementation of JDA-Utilities's {@link com.jagrosh.jdautilities.command.Command Command} class that makes our use-case easier.
@@ -24,6 +29,22 @@ public abstract class CommandBase extends Command {
     private final CommandCategory commandCategory;
 
     /**
+     * Storage for command cooldowns.
+     * Null if the command has no cooldown.
+     */
+    private HashMap<Member, OffsetDateTime> commandCooldowns;
+
+    /**
+     * Unit of time the cooldown is relative to.
+     */
+    private ChronoUnit cooldownUnit;
+
+    /**
+     * Relative cooldown delay.
+     */
+    private Integer cooldownDelay;
+
+    /**
      *
      * Constructor for commands with no role permissions requires for execution.
      *
@@ -39,6 +60,9 @@ public abstract class CommandBase extends Command {
         this.category = new Category(category.toString());
         this.commandCategory = category;
         this.permissionRole = null;
+        this.commandCooldowns = null;
+        this.cooldownUnit = null;
+        this.cooldownDelay = null;
     }
 
     /**
@@ -58,6 +82,19 @@ public abstract class CommandBase extends Command {
         this.category = new Category(category.toString());
         this.commandCategory = category;
         this.permissionRole = permissionRole;
+        this.commandCooldowns = null;
+        this.cooldownUnit = null;
+        this.cooldownDelay = null;
+    }
+
+    public void setCooldown(int seconds) {
+        setCooldown(seconds, ChronoUnit.SECONDS);
+    }
+
+    public void setCooldown(int amount, ChronoUnit chronoUnit) {
+        commandCooldowns = new HashMap<>();
+        cooldownUnit = chronoUnit;
+        cooldownDelay = amount;
     }
 
     @Override
@@ -68,6 +105,11 @@ public abstract class CommandBase extends Command {
                 return;
             }
         }
+        if ((int) OffsetDateTime.now().until(commandCooldowns.get(event.getMember()), cooldownUnit) > 0) {
+            event.replyError("You must wait before doing that command again!");
+            return;
+        }
+        commandCooldowns.put(event.getMember(), OffsetDateTime.now().plus(cooldownDelay, cooldownUnit));
         executeCommand(new io.github.jroy.happybot.commands.base.CommandEvent(event.getEvent(), event.getArgs(), event.getClient()));
     }
 
