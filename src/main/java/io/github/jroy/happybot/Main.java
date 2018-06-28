@@ -257,6 +257,7 @@ public class Main extends ListenerAdapter {
                 new ShopCommand(sqlManager),
                 new MemeCommand(reddit),
                 new ShippingCommand(),
+                new FactCommand(),
 
                 //Staff Tools
 
