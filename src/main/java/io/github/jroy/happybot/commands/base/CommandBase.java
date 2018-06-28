@@ -87,14 +87,34 @@ public abstract class CommandBase extends Command {
         this.cooldownDelay = null;
     }
 
+    /**
+     * Ease method for setting cooldowns in seconds.
+     * @see CommandBase#setCooldown(int, ChronoUnit)
+     * @param seconds Time in seconds for the cooldown.
+     */
     public void setCooldown(int seconds) {
         setCooldown(seconds, ChronoUnit.SECONDS);
     }
 
+    /**
+     * Set's the amount of time it takes for a user to use each command.
+     *
+     * @param amount Amount of cooldown.
+     * @param chronoUnit Unit of measure for the cooldown amount.
+     */
     public void setCooldown(int amount, ChronoUnit chronoUnit) {
         commandCooldowns = new HashMap<>();
         cooldownUnit = chronoUnit;
         cooldownDelay = amount;
+    }
+
+    /**
+     * Removes a command's cooldown.
+     */
+    public void removeCooldown() {
+        commandCooldowns = null;
+        cooldownUnit = null;
+        cooldownDelay = null;
     }
 
     @Override
@@ -105,11 +125,13 @@ public abstract class CommandBase extends Command {
                 return;
             }
         }
-        if ((int) OffsetDateTime.now().until(commandCooldowns.get(event.getMember()), cooldownUnit) > 0) {
-            event.replyError("You must wait before doing that command again!");
-            return;
+        if (commandCooldowns != null) {
+            if (commandCooldowns.containsKey(event.getMember()) && (int) OffsetDateTime.now().until(commandCooldowns.get(event.getMember()), cooldownUnit) > 0) {
+                event.replyError("You must wait before doing that command again!");
+                return;
+            }
+            commandCooldowns.put(event.getMember(), OffsetDateTime.now().plus(cooldownDelay, cooldownUnit));
         }
-        commandCooldowns.put(event.getMember(), OffsetDateTime.now().plus(cooldownDelay, cooldownUnit));
         executeCommand(new io.github.jroy.happybot.commands.base.CommandEvent(event.getEvent(), event.getArgs(), event.getClient()));
     }
 
