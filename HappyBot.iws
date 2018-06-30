@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="45f56b79-8249-466f-a6ce-88d450b60758" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HappyBot.iws" beforeDir="false" afterPath="$PROJECT_DIR$/HappyBot.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -92,23 +93,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MoneyCommand.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MoneyCommand.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="289" column="8" selection-start-line="289" selection-start-column="8" selection-end-line="289" selection-end-column="8" />
+            <state relative-caret-position="360">
+              <caret line="20" column="53" lean-forward="true" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="e#589#628#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UnlockCommand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/UnlockCommand.java">
+      <file leaf-file-name="ShopCommand.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/ShopCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state relative-caret-position="90">
+              <caret line="16" column="47" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -140,11 +142,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="C.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="C.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="137" column="36" selection-start-line="137" selection-start-column="36" selection-end-line="137" selection-end-column="36" />
+            <state relative-caret-position="712">
+              <caret line="402" column="37" selection-start-line="402" selection-start-column="37" selection-end-line="402" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -160,8 +162,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>randomseason</find>
-      <find>remove</find>
       <find>C.escape</find>
       <find>&quot;*&quot;</find>
       <find>containsbool</find>
@@ -190,6 +190,8 @@
       <find>if(</find>
       <find>shipping</find>
       <find>list&lt;role&gt; roles = member.</find>
+      <find>shophelp</find>
+      <find>private static final</find>
     </findStrings>
     <replaceStrings>
       <replace>C.bold(&quot;Correct Usage:&quot;) + &quot;</replace>
@@ -631,12 +633,10 @@
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FactCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FansCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/Roles.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/events/StarMessages.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/apis/youtube/YouTubeAPI.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/HypixelCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/ShopCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ApplyCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/SpamCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/apis/youtube/YouTubeRealTime.java" />
@@ -653,6 +653,9 @@
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ShippingCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/ShopCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/apis/TwitterCentre.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java" />
       </list>
     </option>
   </component>
@@ -912,7 +915,35 @@
       <option name="project" value="LOCAL" />
       <updated>1530377855281</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="remove unused code">
+      <created>1530378150205</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1530378150205</updated>
+    </task>
+    <task id="LOCAL-00004" summary="remove unused code 2">
+      <created>1530378280391</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1530378280391</updated>
+    </task>
+    <task id="LOCAL-00005" summary="use proper naming convention for constant">
+      <created>1530378373999</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1530378373999</updated>
+    </task>
+    <task id="LOCAL-00006" summary="use proper naming convention for constant">
+      <created>1530378397012</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1530378397012</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -925,7 +956,7 @@
       <window_info anchor="right" id="Palette" order="10" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="right" id="Cargo" order="1" />
-      <window_info anchor="bottom" id="Messages" visible="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Messages" weight="0.27982646" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="1" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
@@ -992,7 +1023,10 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <MESSAGE value="(Fix #91) Fix typo in RandomSeasonCommand" />
     <MESSAGE value="refactoring&#10;- shipping command consistent based on user id&#10;- merge mute and unmute" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring&#10;- shipping command consistent based on user id&#10;- merge mute and unmute" />
+    <MESSAGE value="remove unused code" />
+    <MESSAGE value="remove unused code 2" />
+    <MESSAGE value="use proper naming convention for constant" />
+    <option name="LAST_COMMIT_MESSAGE" value="use proper naming convention for constant" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1000,13 +1034,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/lang/Boolean.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/variables/Variable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -1181,13 +1208,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/ShopCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ApplyCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -1297,24 +1317,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/UnlockCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/UnMuteCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="39" column="9" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="39" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MuteCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="43" column="106" selection-start-line="43" selection-start-column="106" selection-end-line="43" selection-end-column="106" />
         </state>
       </provider>
     </entry>
@@ -1350,20 +1356,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="137" column="36" selection-start-line="137" selection-start-column="36" selection-end-line="137" selection-end-column="36" />
+        <state relative-caret-position="360">
+          <caret line="20" column="53" lean-forward="true" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#589#628#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/apis/TwitterCentre.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="289" column="8" selection-start-line="289" selection-start-column="8" selection-end-line="289" selection-end-column="8" />
-          <folding>
-            <element signature="e#589#628#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-72">
+          <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/UnlockCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/ShopCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="16" column="47" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MuteCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="43" column="106" selection-start-line="43" selection-start-column="106" selection-end-line="43" selection-end-column="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="712">
+          <caret line="402" column="37" selection-start-line="402" selection-start-column="37" selection-end-line="402" selection-end-column="37" />
         </state>
       </provider>
     </entry>
