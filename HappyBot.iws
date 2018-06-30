@@ -1,60 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="45f56b79-8249-466f-a6ce-88d450b60758" name="Default" comment="refactoring&#10;- shipping command consistent based on user id&#10;- merge mute and unmute">
-      <change beforePath="$PROJECT_DIR$/HappyBot.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/HappyBot.ipr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HappyBot.iws" beforeDir="false" afterPath="$PROJECT_DIR$/HappyBot.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/apis/youtube/YouTubeAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/apis/youtube/YouTubeAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/apis/youtube/YouTubeRealTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/apis/youtube/YouTubeRealTime.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ApplyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ApplyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/BanCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/BanCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/DemoteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/DemoteCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FactCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FactCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FanartCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FanartCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FansCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FansCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/HecktownCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/HecktownCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/HypixelCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/HypixelCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/KickCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/KickCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/LeagueCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/LeagueCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/LockCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/LockCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MathCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MathCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MemeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MemeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MentionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MentionCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MuteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MuteCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/OgCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/OgCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/PardonCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/PardonCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/PromoteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/PromoteCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/PurgeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/PurgeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/RandomSeasonCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/RandomSeasonCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/RuntimeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/RuntimeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/SeasonCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/SeasonCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ShippingCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ShippingCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ShutdownCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ShutdownCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/SpamCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/SpamCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/StaffManagementCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/StaffManagementCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/StatsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/StatsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ThemeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ThemeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ThemeManagerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ThemeManagerCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/UnMuteCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/UpdateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/UpdateCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/base/CommandBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/base/CommandBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/base/CommandEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/base/CommandEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/GambleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/GambleCommand.java" afterDir="false" />
+    <list default="true" id="45f56b79-8249-466f-a6ce-88d450b60758" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/ShopCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/ShopCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/report/EditReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/report/EditReportCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/report/HandleReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/report/HandleReportCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/report/LookupReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/report/LookupReportCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/report/ReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/report/ReportCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/DeleteWarnCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/DeleteWarnCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/EditWarningCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/EditWarningCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/WarnCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/WarnCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/WarningsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/WarningsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/events/StarMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/events/StarMessages.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/Roles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/Roles.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -144,11 +92,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MoneyCommand.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MoneyCommand.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3996">
-              <caret line="238" column="45" selection-start-line="238" selection-start-column="45" selection-end-line="238" selection-end-column="45" />
+            <state relative-caret-position="264">
+              <caret line="289" column="8" selection-start-line="289" selection-start-column="8" selection-end-line="289" selection-end-column="8" />
               <folding>
                 <element signature="e#589#628#0" expanded="true" />
               </folding>
@@ -192,7 +140,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="C.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="C.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="188">
@@ -241,6 +189,7 @@
       <find>if(`</find>
       <find>if(</find>
       <find>shipping</find>
+      <find>list&lt;role&gt; roles = member.</find>
     </findStrings>
     <replaceStrings>
       <replace>C.bold(&quot;Correct Usage:&quot;) + &quot;</replace>
@@ -683,7 +632,6 @@
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FansCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/Roles.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/events/StarMessages.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/apis/youtube/YouTubeAPI.java" />
@@ -704,6 +652,7 @@
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MuteCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ShippingCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java" />
       </list>
     </option>
   </component>
@@ -956,7 +905,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512342777058</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="refactoring&#10;- shipping command consistent based on user id&#10;- merge mute and unmute">
+      <created>1530377855281</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1530377855281</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -969,7 +925,7 @@
       <window_info anchor="right" id="Palette" order="10" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="right" id="Cargo" order="1" />
-      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Messages" visible="true" weight="0.329718" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="1" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
@@ -980,7 +936,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32889965" />
       <window_info id="Capture Tool" order="0" />
       <window_info id="Designer" order="4" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.26840067" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.26840067" />
       <window_info anchor="bottom" id="Build" order="0" weight="0.37852496" />
       <window_info anchor="bottom" id="Find" order="2" />
       <window_info anchor="right" id="Gradle" order="6" weight="0.18815717" />
@@ -1341,16 +1297,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3996">
-          <caret line="238" column="45" selection-start-line="238" selection-start-column="45" selection-end-line="238" selection-end-column="45" />
-          <folding>
-            <element signature="e#589#628#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/UnlockCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -1408,6 +1354,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
           <caret line="137" column="36" selection-start-line="137" selection-start-column="36" selection-end-line="137" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/MoneyCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="289" column="8" selection-start-line="289" selection-start-column="8" selection-end-line="289" selection-end-column="8" />
+          <folding>
+            <element signature="e#589#628#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

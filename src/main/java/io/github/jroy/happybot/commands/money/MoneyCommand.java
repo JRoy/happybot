@@ -9,12 +9,10 @@ import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Role;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.IntUnaryOperator;
 
@@ -287,7 +285,7 @@ public class MoneyCommand extends CommandBase {
         int reward = 200;
 
         Member member = C.getGuild().getMemberById(userId);
-        
+
         for(Map.Entry<Roles, IntUnaryOperator> bonus : bonuses.entrySet()) {
             if (C.hasRole(member, bonus.getKey())) {
                 reward = bonus.getValue().applyAsInt(reward);
