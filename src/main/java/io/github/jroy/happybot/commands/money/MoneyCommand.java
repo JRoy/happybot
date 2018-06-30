@@ -287,8 +287,7 @@ public class MoneyCommand extends CommandBase {
         int reward = 200;
 
         Member member = C.getGuild().getMemberById(userId);
-        List<Role> roles = member.getRoles();
-
+        
         for(Map.Entry<Roles, IntUnaryOperator> bonus : bonuses.entrySet()) {
             if (C.hasRole(member, bonus.getKey())) {
                 reward = bonus.getValue().applyAsInt(reward);
