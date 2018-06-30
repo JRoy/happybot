@@ -31,15 +31,15 @@ public class WarningsCommand extends CommandBase {
                 try {
                     WarningToken token = grabWarnings(e.getAuthor());
                     if (token.getWarnings() == 0) {
-                        e.replyError("**Correct Usage:** ^" + name + " **<user>**");
+                        e.replyError(C.bold("Correct Usage:") + " ^" + name + " **<user>**");
                         return;
                     }
                     e.reply(token.getBuilder().toString());
                     return;
                 } catch (SQLException e1) {
-                    e.replyError("**Correct Usage:** ^" + name + " **<user>**");
+                    e.replyError(C.bold("Correct Usage:") + " ^" + name + " **<user>**");
                 }
-                e.replyError("**Correct Usage:** ^" + name + " **<user>**");
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " **<user>**");
                 return;
             }
 
@@ -74,7 +74,7 @@ public class WarningsCommand extends CommandBase {
             Member staffMem = C.getGuild().getMemberById(resultSet.getString("staffid"));
             if (staffMem != null) {
                 builder.append("#").append(resultSet.getString("id")).append(" ")
-                        .append(C.bold(staffMem.getUser().getName() + "#" + staffMem.getUser().getDiscriminator())).append(" - ").append(C.bold(resultSet.getString("reason")))
+                        .append(C.bold(C.getFullName(staffMem.getUser()))).append(" - ").append(C.bold(resultSet.getString("reason")))
                         .append(" (").append(resultSet.getTimestamp("time").toString()).append(")")
                         .append("\n");
                 warnings++;

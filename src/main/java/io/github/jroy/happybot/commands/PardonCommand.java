@@ -21,10 +21,10 @@ public class PardonCommand extends CommandBase {
                 C.getCtrl(e).unban(args[0]).reason("Pardoned by Moderator: " + e.getMember().getUser().getName()).queue();
                 e.replySuccess("User U(" + args[0] + ") has been *forgivably pardoned*  by " + e.getMember().getEffectiveName());
             } else {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
             }
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 }

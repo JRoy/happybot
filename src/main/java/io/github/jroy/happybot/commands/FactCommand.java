@@ -18,10 +18,14 @@ public class FactCommand extends CommandBase {
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        String catFact = new JsonParser().parse(Objects.requireNonNull(C.readUrl("https://catfact.ninja/fact"))).getAsJsonObject().get("fact").getAsString();
+        String catFactString = Objects.requireNonNull(C.readUrl("https://catfact.ninja/fact"));
+
+        String catFact = new JsonParser().parse(catFactString)
+            .getAsJsonObject().get("fact").getAsString();
+
         e.reply(new EmbedBuilder()
-        .setTitle("Cat Fact")
-        .setDescription(catFact)
-        .build());
+            .setTitle("Cat Fact")
+            .setDescription(catFact)
+            .build());
     }
 }

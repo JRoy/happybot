@@ -145,7 +145,7 @@ public abstract class CommandBase extends Command {
      * @return Command usage.
      */
     protected String invalid() {
-        return "**Correct Usage:** ^" + name + " " + arguments;
+        return C.bold("Correct Usage:") + " ^" + name + " " + arguments;
     }
 
     /**

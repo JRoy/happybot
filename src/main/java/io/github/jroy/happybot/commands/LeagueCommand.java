@@ -4,6 +4,7 @@ import io.github.jroy.happybot.apis.League;
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
+import io.github.jroy.happybot.util.C;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.constant.Platform;
@@ -24,12 +25,12 @@ public class LeagueCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         if (e.getArgs().isEmpty()) {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
             return;
         }
-        String[] args = e.getArgs().split("[ ]");
+        String[] args = e.getSplitArgs();
         if (args.length != 2) {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
             return;
         }
         Platform platform;

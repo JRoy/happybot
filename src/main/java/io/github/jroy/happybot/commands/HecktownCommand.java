@@ -16,6 +16,7 @@ public class HecktownCommand extends CommandBase {
 
     @Override
     protected void executeCommand(CommandEvent event) {
-        event.replySuccess(hecktownLocations[ThreadLocalRandom.current().nextInt(hecktownLocations.length)]);
+        int locationIndex = ThreadLocalRandom.current().nextInt(hecktownLocations.length);
+        event.replySuccess(hecktownLocations[locationIndex]);
     }
 }

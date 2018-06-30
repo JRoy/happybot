@@ -56,7 +56,7 @@ public class CommandEvent extends com.jagrosh.jdautilities.command.CommandEvent 
      * @return Gets the arguments of the command split by spaces.
      */
     public String[] getSplitArgs() {
-        return getArgs().split("[ ]");
+        return getArgs().split(" ");
     }
 
 }

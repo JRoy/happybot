@@ -12,8 +12,7 @@ public class SeasonCommand extends CommandBase {
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        e.replySuccess("**Happyheart Seasons:**\n" +
-                "\n" +
+        e.replySuccess("**Happyheart Seasons:**\n\n" +
                 "Season 1 - <http://bit.ly/2y0akBf>\n" +
                 "Season 2 - <http://bit.ly/2kxqexc>\n" +
                 "Season 3 - <http://bit.ly/2xpJ3Zm>\n" +

@@ -12,6 +12,7 @@ public class ApplyCommand extends CommandBase {
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        e.replySuccess("Here you go!\nhttps://goo.gl/forms/vB6lfA8VhIMqxFDs2");
+        e.replySuccess("Here you go!\n" +
+            "https://goo.gl/forms/vB6lfA8VhIMqxFDs2");
     }
 }

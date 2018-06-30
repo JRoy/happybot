@@ -49,13 +49,13 @@ public enum Roles {
     BOT("285371566580170753", "Useless Bot", "Bot"),
     EVERYONE("237363812842340363", "@everyone", "@everyone");
 
-    private String nrole;
+    private String roleName;
     private String name;
     private String id;
 
-    Roles(String id, String nrole, String name) {
+    Roles(String id, String roleName, String name) {
 
-        this.nrole = nrole;
+        this.roleName = roleName;
         this.name = name;
         this.id = id;
 
@@ -64,7 +64,7 @@ public enum Roles {
     public String getId() { return id; }
 
     public String getRoleName() {
-        return nrole;
+        return roleName;
     }
 
     public String getName() {
@@ -75,4 +75,12 @@ public enum Roles {
         return C.getGuild().getRoleById(id);
     }
 
+    public static Roles getRole(Role role) {
+        for(Roles roles : Roles.values()) {
+            if (roles.getId().equals(role.getId())) {
+                return roles;
+            }
+        }
+        return null;
+    }
 }

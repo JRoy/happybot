@@ -15,7 +15,7 @@ public class FansCommand extends CommandBase {
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        e.reply("Loading...");
+        e.getChannel().sendTyping().queue();
         int affected = 0;
         for (Member curM : C.getGuild().getMembers()) {
             if (!C.hasRole(curM, Roles.FANS) && !curM.getUser().isBot()) {
@@ -23,6 +23,6 @@ public class FansCommand extends CommandBase {
                 affected++;
             }
         }
-        e.replySuccess("All Done!\n" + String.valueOf(affected) + " Users Affected!");
+        e.replySuccess("All Done!\n" + affected + " Users Affected!");
     }
 }

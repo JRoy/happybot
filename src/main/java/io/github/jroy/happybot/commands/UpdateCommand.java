@@ -4,6 +4,7 @@ import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.MessageFactory;
+import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Logger;
 import io.github.jroy.happybot.util.Roles;
@@ -43,7 +44,7 @@ public class UpdateCommand extends CommandBase {
                 new Thread(new ImpendRestart("Dropbox")).start();
                 exitCode = 10;
             } else {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
                 return;
             }
             e.reply(":information_source: Restarting Bot...");
@@ -53,7 +54,7 @@ public class UpdateCommand extends CommandBase {
                 e1.printStackTrace();
             }
             e.getJDA().shutdown();
-            Logger.log("Updater - Updating Builds with exit code: " + String.valueOf(exitCode));
+            Logger.log("Updater - Updating Builds with exit code: " + exitCode);
             Logger.info("[Updater] ");
             Logger.info("[Updater] Updater has stopped JDA and is impeding a new update now.");
             Logger.info("[Updater] ");

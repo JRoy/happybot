@@ -5,6 +5,11 @@ import io.github.jroy.happybot.Main;
 import net.dean.jraw.http.UserAgent;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.managers.GuildController;
+import net.dv8tion.jda.core.utils.IOUtil;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import javax.annotation.Nonnull;
 import java.io.*;
@@ -17,14 +22,8 @@ import java.util.Locale;
  * The C Class provides lots of *sometimes* useful methods that make things ez-pz.
  */
 public class C {
+    private static String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
 
-    /**
-     * Gets the C Class for things.
-     * @return The C Class.
-     */
-    public C getC() {
-        return this;
-    }
     /**
      * Sees if a user has the role displayed.
      *
@@ -302,7 +301,7 @@ public class C {
      * @param value Text in the small code block.
      * @return The small codeblock.
      */
-    public static String smallCodeblock(String value) {
+    public static String code(String value) {
         return "`" + value + "`";
     }
 
@@ -360,7 +359,7 @@ public class C {
      * @return If the message contains an image.
      */
     public static boolean containsImage(Message message) {
-        if(message.getAttachments().stream().anyMatch(Message.Attachment::isImage))
+        if (message.getAttachments().stream().anyMatch(Message.Attachment::isImage))
             return true;
         return message.getEmbeds().stream().anyMatch(e -> e.getImage() != null || e.getVideoInfo() != null);
     }
@@ -375,27 +374,32 @@ public class C {
     }
 
     /**
-     * https://stackoverflow.com/a/7467629/9727788
+     * Gets the body of the given URL as a string
+     * @param urlString the URL to get the body of
+     * @return the body of the URL
      */
     public static String readUrl(String urlString) {
         try {
-            URL url = new URL(urlString);
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet(urlString);
+            request.addHeader("User-Agent", USER_AGENT);
 
-            URLConnection hc = url.openConnection();
-            hc.setRequestProperty("User-Agent", new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString());
-            hc.connect();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(hc.getInputStream()))) {
-                StringBuilder buffer = new StringBuilder();
-                int read;
-                char[] chars = new char[1024];
-                while ((read = reader.read(chars)) != -1)
-                    buffer.append(chars, 0, read);
-                return buffer.toString();
-            }
+            HttpResponse response = client.execute(request);
+            InputStream content = response.getEntity().getContent();
+            byte[] bytes = IOUtil.readFully(content);
+            return new String(bytes);
         } catch (Exception e) {
             e.printStackTrace();
+          return null;
         }
-        return null;
     }
 
+    /**
+     * Gets the full name of the user. Specifically, their username and their discriminator
+     * @param user the user to get the name of
+     * @return the name and discriminator combined with a hash.
+     */
+    public static String getFullName(User user) {
+        return user.getName() + user.getDiscriminator();
+    }
 }

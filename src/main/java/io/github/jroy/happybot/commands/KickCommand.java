@@ -18,7 +18,7 @@ public class KickCommand extends CommandBase {
     protected void executeCommand(CommandEvent e) {
         if (C.containsMention(e)) {
             if (e.getArgs().replaceAll("<(.*?)>", "").isEmpty()) {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
                 return;
             }
             String reason = e.getArgs().replaceFirst("<(.*?)> ", "");
@@ -30,9 +30,9 @@ public class KickCommand extends CommandBase {
             }
 
             C.getCtrl(e).kick(target).reason("Kicked by Moderator: " + e.getMember().getUser().getName() + ". With Reason: " + reason).queue();
-            e.replySuccess("User " + target.getUser().getName() + "#" + target.getUser().getDiscriminator() + " has been **FLIPPIN KICKED** by " + e.getMember().getEffectiveName());
+            e.replySuccess("User " + C.getFullName(target.getUser()) + " has been **FLIPPIN KICKED** by " + e.getMember().getEffectiveName());
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 }

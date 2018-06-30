@@ -12,25 +12,40 @@ import net.dv8tion.jda.core.entities.Member;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.IntUnaryOperator;
 
 @SuppressWarnings("ConstantConditions")
 public class MoneyCommand extends CommandBase {
+    public static final String NEED_ACCOUNT = "You do not have an account! Please run `^money create` to make one!";
 
+    private Map<Roles, IntUnaryOperator> bonuses = new HashMap<>();
     private SQLManager sqlManager;
 
     public MoneyCommand(SQLManager sqlManager) {
         super("money", "<create/claim/check/bal/baltop/pay/admin>", "Command for your money needs.", CommandCategory.FUN);
         this.sqlManager = sqlManager;
+
+        bonuses.put(Roles.HELPER, r -> r + 5);
+        bonuses.put(Roles.OG, r -> r + 5);
+        bonuses.put(Roles.REGULAR, r -> r + 1);
+        bonuses.put(Roles.TRYHARD, r -> r + 1);
+        bonuses.put(Roles.OBSESSIVE, r -> r + 1);
+        bonuses.put(Roles.PATRON_BOYS, r -> r + 4);
+        bonuses.put(Roles.ETHAN, r -> r + 4);
+        bonuses.put(Roles.SUPPORTER, r -> r + 2);
+        bonuses.put(Roles.GAMBLE2, r -> r * 2);
+        bonuses.put(Roles.GAMBLE1, r -> (int) (r * 1.5));
     }
 
     @Override
     protected void executeCommand(CommandEvent e) {
         if (e.getArgs().isEmpty()) {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
             return;
         }
-        String[] args = e.getArgs().split("[ ]");
+        String[] args = e.getSplitArgs();
         if (args[0].equalsIgnoreCase("admin")) {
             if (!C.hasRole(e.getMember(), Roles.SUPER_ADMIN) ) {
                 e.replyError(C.permMsg(Roles.SUPER_ADMIN));
@@ -52,27 +67,22 @@ public class MoneyCommand extends CommandBase {
                         return;
                     }
                 } else {
-                    e.replyError("**Correct Usage:** ^" + name + " admin reset-time **<user>**");
+                    e.replyError(C.bold("Correct Usage:") + " ^" + name + " admin reset-time **<user>**");
                     return;
                 }
             }
 
             if (args.length != 4) {
-                e.replyError("**Correct Usage:** ^" + name + " admin **<give/take> <amount> <user>**");
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " admin **<give/take> <amount> <user>**");
                 return;
             }
-            if (!C.containsMention(e)) {
-                e.replyError("**Correct Usage:** ^" + name + " admin <give/take> <amount> **<user>**");
+            if (!C.containsMention(e)
+                || !sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " admin <give/take> <amount> **<user>**");
                 return;
             }
-
-            if (!sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
-                e.replyError("**Correct Usage:** ^" + name + " admin <give/take> <amount> **<user>**");
-                return;
-            }
-
             if (!StringUtils.isNumeric(args[2])) {
-                e.replyError("**Correct Usage:** ^" + name + " admin <give/take> **<amount>** <user>");
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " admin <give/take> **<amount>** <user>");
                 return;
             }
 
@@ -80,7 +90,6 @@ public class MoneyCommand extends CommandBase {
 
             if (args[1].equalsIgnoreCase("give")) {
                 try {
-
                     UserToken token = sqlManager.getUser(target.getUser().getId());
                     token.addCoins(Integer.parseInt(args[2]));
                     e.replySuccess(C.bold("Success: ") + "Applied " + args[2] + " coins to " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
@@ -96,7 +105,8 @@ public class MoneyCommand extends CommandBase {
                     e.replyError("Oof error.");
                 }
             } else {
-                e.replyError("**Correct Usage:** ^" + name + " admin **<give/take>** <amount> <user>");
+                e.replyError(C.bold("Correct Usage:") +
+                    " ^" + name + " admin" + C.bold("<give/take>") + "<amount> <user>");
             }
         }
 
@@ -116,7 +126,7 @@ public class MoneyCommand extends CommandBase {
                         return;
                     }
                 } else {
-                    e.replyError("**Correct Usage:** ^" + name + " bal **<user>**");
+                    e.replyError("**Correct Usage:" + C.bold("^" + name + " bal **<user>"));
                     return;
                 }
             }
@@ -127,7 +137,8 @@ public class MoneyCommand extends CommandBase {
             try {
                 if (!sqlManager.isActiveUser(e.getMember().getUser().getId())) {
                     sqlManager.newUser(e.getMember().getUser().getId());
-                    e.replySuccess("Your gamble account has been made!\nYou should try `^money claim` :wink:");
+                    e.replySuccess("Your gamble account has been made!\n" +
+                        "You should try " + C.code("^money claim") +  ":wink:");
                 } else {
                     e.replyError("You already have an account!");
                 }
@@ -144,7 +155,7 @@ public class MoneyCommand extends CommandBase {
                         userToken.addCoins(reward);
                         userToken.setEpoch(System.currentTimeMillis());
                         if (reward != 200) {
-                            e.replySuccess("Here is your FIRST daily money nose! +" + String.valueOf(reward) + "! \n+" + String.valueOf(reward - 200) + " Bonus!");
+                            e.replySuccess("Here is your FIRST daily money nose! +" + reward + "! \n+" + (reward - 200) + " Bonus!");
                             return;
                         }
                         e.replySuccess("Here is your FIRST daily money nose! +200");
@@ -153,7 +164,7 @@ public class MoneyCommand extends CommandBase {
                             userToken.addCoins(reward);
                             userToken.setEpoch(System.currentTimeMillis());
                             if (reward != 200) {
-                                e.replySuccess("Here is your daily money nose! +" + String.valueOf(reward) + "! \n+" + String.valueOf(reward - 200) + " Bonus!");
+                                e.replySuccess("Here is your daily money nose! +" + reward + "! \n+" + (reward - 200) + " Bonus!");
                                 return;
                             }
                             e.replySuccess("Here is your daily money nose! +200");
@@ -165,11 +176,12 @@ public class MoneyCommand extends CommandBase {
                                 wait = wait * 60;
                                 unit = " minute(s)!";
                             }
-                            e.replyError("You may only claim liquid money once a day!!1!\n" + "You can reclaim your daily reward in: " + wait + unit);
+                            e.replyError("You may only claim liquid money once a day!!1!\n"
+                                + "You can reclaim your daily reward in: " + wait + unit);
                         }
                     }
                 } else {
-                    e.replyError(needAccount());
+                    e.replyError(NEED_ACCOUNT);
                 }
             } catch (SQLException e1) {
                 e.replyError("Oof error.");
@@ -180,7 +192,7 @@ public class MoneyCommand extends CommandBase {
                 if (sqlManager.isActiveUser(e.getMember().getUser().getId())) {
                     e.reply("Your current balance is **" + C.prettyNum(sqlManager.getUser(e.getMember().getUser().getId()).getCoins()) + "** coins!");
                 } else {
-                    e.replyError(needAccount());
+                    e.replyError(NEED_ACCOUNT);
                 }
             } catch (SQLException e1) {
                 e.replyError("Oof error.");
@@ -197,7 +209,7 @@ public class MoneyCommand extends CommandBase {
 
                 for (int i = 0; i < 10; i++) {
                     for (Map.Entry<Member, Integer> curEntry : result.get(i + 1).entrySet()) {
-                        builder.addField(C.bold("#"+ String.valueOf(curPos)) + " " + curEntry.getKey().getEffectiveName(), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
+                        builder.addField(C.bold("#"+ curPos) + " " + curEntry.getKey().getEffectiveName(), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
                         curPos++;
                     }
                 }
@@ -222,22 +234,22 @@ public class MoneyCommand extends CommandBase {
                     }
                     e.reply("You can reclaim your daily reward in: " + wait + unit);
                 } else {
-                    e.replyError(needAccount());
+                    e.replyError(NEED_ACCOUNT);
                 }
             } catch (SQLException e1) {
                 e.reply("Oof error.");
             }
         } else if (args[0].equalsIgnoreCase("pay")) {
             if (args.length != 3) {
-                e.replyError("**Correct Usage:** ^" + name + " pay <amount> <user>");
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " pay <amount> <user>");
                 return;
             }
             if (!C.containsMention(e)) {
-                e.replyError("**Correct Usage:** ^" + name + " pay <amount> **<user>**");
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " pay <amount> **<user>**");
                 return;
             }
             if (!StringUtils.isNumeric(args[1])) {
-                e.replyError("**Correct Usage:** ^" + name + " pay **<amount>** <user>");
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " pay **<amount>** <user>");
                 return;
             }
             if (!sqlManager.isActiveUserH(e.getMember().getUser().getId()) || !sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
@@ -264,45 +276,21 @@ public class MoneyCommand extends CommandBase {
                 e.replyError("Oof Error");
             }
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
 
-    }
-
-    private String needAccount() {
-        return "You do not have an account! Please run `^money create` to make one!";
     }
 
     private int payout(String userId) {
         int reward = 200;
+
         Member member = C.getGuild().getMemberById(userId);
-        if (C.hasRole(member, Roles.HELPER)) {
-            reward = reward + 5;
-        }
-        if (C.hasRole(member, Roles.OG)) {
-            reward = reward + 5;
-        }
-        if (C.hasRole(member, Roles.REGULAR)) {
-            reward++;
-        }
-        if (C.hasRole(member, Roles.TRYHARD)) {
-            reward++;
-        }
-        if (C.hasRole(member, Roles.OBSESSIVE)) {
-            reward++;
-        }
-        if (C.hasRole(member, Roles.PATRON_BOYS) || C.hasRole(member, Roles.ETHAN)) {
-            reward = reward + 4;
-        }
-        if (C.hasRole(member, Roles.SUPPORTER)) {
-            reward = reward + 2;
-        }
 
-        if (C.hasRole(member, Roles.GAMBLE2))
-            return reward * 2;
-
-        if (C.hasRole(member, Roles.GAMBLE1))
-            return (int) (reward * 1.5);
+        for(Map.Entry<Roles, IntUnaryOperator> bonus : bonuses.entrySet()) {
+            if (C.hasRole(member, bonus.getKey())) {
+                reward = bonus.getValue().applyAsInt(reward);
+            }
+        }
 
         return reward;
     }

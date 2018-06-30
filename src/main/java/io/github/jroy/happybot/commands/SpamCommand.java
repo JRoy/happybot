@@ -56,7 +56,7 @@ public class SpamCommand extends CommandBase {
                 }
             }
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 

@@ -18,13 +18,13 @@ public class ThemeManagerCommand /* extends Command*/ {
 //    protected void execute(CommandEvent e) {
 //        if (C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
 //            if (e.getArgs().isEmpty()) {
-//                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+//                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
 //                return;
 //            }
-//            String[] args = e.getArgs().split("[ ]");
+//            String[] args = e.getSplitArgs();
 //            if (args[0].equalsIgnoreCase("load")) {
 //                if (args.length != 3) {
-//                    e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+//                    e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
 //                    return;
 //                }
 //                try {
@@ -52,7 +52,7 @@ public class ThemeManagerCommand /* extends Command*/ {
 //                }
 //            } else if (args[0].equalsIgnoreCase("delete")) {
 //                if (args.length != 2) {
-//                    e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+//                    e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
 //                    return;
 //                }
 //                if (themeManager.getThemes().contains(args[1])) {
@@ -67,7 +67,7 @@ public class ThemeManagerCommand /* extends Command*/ {
 //                }
 //            } else if (args[0].equalsIgnoreCase("reload")) {
 //                if (args.length != 2) {
-//                    e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+//                    e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
 //                    return;
 //                }
 //                if (themeManager.getThemes().contains(args[1])) {
@@ -81,7 +81,7 @@ public class ThemeManagerCommand /* extends Command*/ {
 //                    e.replyError("The target theme was not found!");
 //                }
 //            } else {
-//                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+//                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
 //            }
 //        } else {
 //            e.replyError(C.permMsg(Roles.SUPER_ADMIN));

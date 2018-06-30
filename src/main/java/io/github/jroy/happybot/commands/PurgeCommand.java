@@ -21,11 +21,11 @@ public class PurgeCommand extends CommandBase {
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        String[] args = e.getArgs().split("[ ]");
+        String[] args = e.getArgs().split(" ", 2);
         int target = 0;
         if (args.length == 1 || args.length == 2) {
             if (!StringUtils.isNumeric(args[0])) {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
                 return;
             } else {
                 target = Integer.parseInt(args[0]);
@@ -36,7 +36,7 @@ public class PurgeCommand extends CommandBase {
             }
             if (args.length == 2) {
                 if (!C.containsMention(e)) {
-                    e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                    e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
                     return;
                 }
             }
@@ -60,7 +60,7 @@ public class PurgeCommand extends CommandBase {
                 break;
             }
             default: { /* No Arguments or Too Many Arguments */
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
                 return;
             }
         }

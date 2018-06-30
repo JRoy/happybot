@@ -17,7 +17,7 @@ public class TwitterCentre extends APIBase {
     private final String aToken;
     private final String aSecret;
 
-    private static final long happyid = Long.parseLong(Constants.HAPPYHEART_TWITTER_ID.get());
+    private static final long HAPPY_ID = Long.parseLong(Constants.HAPPYHEART_TWITTER_ID.get());
 
     public TwitterCentre(String cKey, String cSecret, String aToken, String aSecret) {
         super("Twitter");
@@ -70,7 +70,7 @@ public class TwitterCentre extends APIBase {
             }
         });
         FilterQuery filter = new FilterQuery();
-        filter.follow(happyid);
+        filter.follow(HAPPY_ID);
         twitterStream.filter(filter);
     }
 
@@ -94,7 +94,7 @@ public class TwitterCentre extends APIBase {
                 builder.addField("In reply to..", "[In reply to this @" + status.getInReplyToScreenName() + "'s tweet]" +
                         "(https://twitter.com/" + status.getInReplyToScreenName() + "/status/" + status.getInReplyToStatusId() + ")", false);
             }
-            if (status.getUser().getId() == happyid) {
+            if (status.getUser().getId() == HAPPY_ID) {
                 Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getRole().getAsMention()).complete();
                 Channels.TWITTER.getChannel().sendMessage(builder.build()).complete();
             }

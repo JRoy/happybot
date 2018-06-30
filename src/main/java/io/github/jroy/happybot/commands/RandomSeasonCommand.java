@@ -5,10 +5,10 @@ import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomSeasonCommand extends CommandBase {
 
-    private Random random;
     private String[] seasons;
 
     public RandomSeasonCommand() {
@@ -21,11 +21,11 @@ public class RandomSeasonCommand extends CommandBase {
                 "Season 5 - <http://bit.ly/2xq8dCu>",
                 "Season 6 - <https://bit.ly/2JiwVze>"
         };
-        random = new Random();
     }
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        e.reply(":game_die: Rolling the dice! :game_die:\n" + seasons[random.nextInt(seasons.length)]);
+        int seasonIndex = ThreadLocalRandom.current().nextInt(seasons.length);
+        e.reply(":game_die: Rolling the dice! :game_die:\n" + seasons[seasonIndex]);
     }
 }

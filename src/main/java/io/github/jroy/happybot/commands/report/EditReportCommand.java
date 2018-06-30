@@ -22,21 +22,21 @@ public class EditReportCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         if (e.getArgs().isEmpty()) {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
             return;
         }
 
-        String[] args = e.getArgs().split("[ ]");
+        String[] args = e.getSplitArgs();
 
         if (args.length < 1) {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
             return;
         }
 
         String reason =  e.getArgs().replaceFirst(args[0] + " ", "");
 
         if (!StringUtils.isNumeric(args[0]) || reason.isEmpty()) {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
             return;
         }
 

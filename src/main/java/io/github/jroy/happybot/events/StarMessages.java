@@ -3,18 +3,21 @@ package io.github.jroy.happybot.events;
 import io.github.jroy.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageReaction;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.HashSet;
+import java.util.concurrent.CompletableFuture;
 
 public class StarMessages extends ListenerAdapter {
+    private static final String STAR = "⭐";
 
     private HashSet<String> alreadyUsedMessages = new HashSet<>();
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
-        if (e.getReactionEmote().getName().equals("⭐")) {
+        if (e.getReactionEmote().getName().equals(STAR)) {
             handleStar(e);
         } else if (e.getReactionEmote().getName().equals("gild")) {
             if (!C.hasRole(e.getMember(), Roles.MODERATOR)) {
@@ -34,23 +37,19 @@ public class StarMessages extends ListenerAdapter {
     }
 
     private void handleStar(GuildMessageReactionAddEvent e) {
-        HandleStar handleStar = new HandleStar(e);
-        Thread t = new Thread(handleStar);
-        t.start();
+      CompletableFuture.runAsync(new HandleStar(e));
     }
 
     private void handleGild(GuildMessageReactionAddEvent e) {
-        HandleGild handleGild = new HandleGild(e);
-        Thread t = new Thread(handleGild);
-        t.start();
+        CompletableFuture.runAsync(new HandleGild(e));
     }
 
     private void sendStarredMessage(String footer, Message message, String privateMessageText) {
         EmbedBuilder embed = new EmbedBuilder()
-        .setTitle(message.getAuthor().getName() + "#" + message.getAuthor().getDiscriminator())
-        .setDescription(message.getContentRaw());
+            .setTitle(C.getFullName(message.getAuthor()))
+            .setDescription(message.getContentRaw());
 
-        if (message.getEmbeds().size() == 1) {
+        if (message.getEmbeds().size() > 0) {
             message.getChannel().sendMessage("Failed to Star/Gild a Message: Contained an un-readable embed! Cannot Continue!").queue();
             return;
         }
@@ -63,8 +62,9 @@ public class StarMessages extends ListenerAdapter {
 
         embed.setThumbnail(message.getMember().getUser().getAvatarUrl())
         .setColor(message.getMember().getColor());
-        if (C.containsImage(message))
+        if (C.containsImage(message)) {
             embed.setImage(C.getImage(message));
+        }
         Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
         C.privChannel(message.getMember(), privateMessageText);
         C.privChannel(message.getMember(), embed.build());
@@ -94,10 +94,10 @@ public class StarMessages extends ListenerAdapter {
             try {
                 //noinspection ConstantConditions
                 int numberOfStars = message.getReactions().stream()
-                        .filter(reaction -> reaction.getReactionEmote().getName().equals("⭐"))
-                        .findAny().orElse(null).getCount();
+                        .filter(reaction -> reaction.getReactionEmote().getName().equals(STAR))
+                        .findAny().map(MessageReaction::getCount).orElse(0);
 
-                if (numberOfStars == NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
+                if (numberOfStars >= NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
                     String footer = "New Starred Message from #" + message.getChannel().getName();
                     String privateMessageText = "Congrats! One of your messages has been starred:";
                     sendStarredMessage(footer, message, privateMessageText);
@@ -106,7 +106,6 @@ public class StarMessages extends ListenerAdapter {
                 Logger.error("Star reaction is in invalid state!");
             }
         }
-
     }
 
     private class HandleGild implements Runnable {
@@ -122,12 +121,11 @@ public class StarMessages extends ListenerAdapter {
         @Override
         public void run() {
             if (!alreadyUsedMessages.contains(message.getId())) {
-                String footer = "New Gilded Message from #" + message.getChannel().getName() + " (" + e.getUser().getName() + "#" + e.getUser().getDiscriminator() + ")";
+                String footer = "New Gilded Message from <#" + message.getChannel().getId() + "> (" + C.getFullName(e.getUser()) + ")";
                 String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
                 sendStarredMessage(footer, message, privateMessageText);
                 alreadyUsedMessages.add(message.getId());
             }
-
         }
     }
 }
