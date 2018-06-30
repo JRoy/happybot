@@ -400,6 +400,6 @@ public class C {
      * @return the name and discriminator combined with a hash.
      */
     public static String getFullName(User user) {
-        return user.getName() + user.getDiscriminator();
+        return user.getName() + "#" + user.getDiscriminator();
     }
 }
