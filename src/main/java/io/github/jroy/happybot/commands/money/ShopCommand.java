@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.sql.SQLException;
 
 public class ShopCommand extends CommandBase {
-  private static final String currentShopHelp = "**Happyheart Shop Help**\n" +
+  private static final String CURRENT_SHOP_HELP = "**Happyheart Shop Help**\n" +
       "This shop allows for you to spend your money on\n" +
       "stuff. To view the products we offer please do\n" +
       "`^shop items` to get the list of the shop items.\n" +
@@ -32,7 +32,7 @@ public class ShopCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         if (e.getArgs().isEmpty()) {
-            e.replyError(currentShopHelp);
+            e.replyError(CURRENT_SHOP_HELP);
             return;
         }
         if (e.getArgs().equalsIgnoreCase("items")) {
