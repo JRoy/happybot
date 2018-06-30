@@ -13,17 +13,16 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.sql.SQLException;
 
-@SuppressWarnings("FieldCanBeLocal")
 public class ShopCommand extends CommandBase {
+  private static final String currentShopHelp = "**Happyheart Shop Help**\n" +
+      "This shop allows for you to spend your money on\n" +
+      "stuff. To view the products we offer please do\n" +
+      "`^shop items` to get the list of the shop items.\n" +
+      "If you would like to buy an item do the following:\n" +
+      "`^shop buy <id>` This will buy it from your account!";
 
-    private SQLManager sqlManager;
+  private SQLManager sqlManager;
 
-    private String currentShopHelp = "**Happyheart Shop Help**\n" +
-            "This shop allows for you to spend your money on\n" +
-            "stuff. To view the products we offer please do\n" +
-            "`^shop items` to get the list of the shop items.\n" +
-            "If you would like to buy an item do the following:\n" +
-            "`^shop buy <id>` This will buy it from your account!";
 
     public ShopCommand(SQLManager sqlManager) {
         super("shop", "<page/buy/help>", "Fun activity thing let's you do things.", CommandCategory.FUN);
@@ -41,18 +40,18 @@ public class ShopCommand extends CommandBase {
                     .setTitle("Coin Shop")
                     .setDescription("Here are the items for sale in the shop at this point in time.");
             for (Rewards reward : Rewards.values()) {
-                builder.addField("#" + String.valueOf(reward.getId()) + " " + reward.getDisplay(), C.prettyNum(reward.getAmount()), false);
+                builder.addField("#" + reward.getId() + " " + reward.getDisplay(), C.prettyNum(reward.getAmount()), false);
             }
             e.reply(builder.build());
         } else if (e.getArgs().startsWith("buy")) {
-            String id = e.getArgs().replaceAll("(buy )", "");
+            String id = e.getArgs().replaceFirst("buy ", "");
             if (!StringUtils.isNumeric(id)) {
-                e.replyError("**Correct Usage:** ^shop buy **<id>**");
+                e.replyError(C.bold("Correct Usage:") + " ^shop buy **<id>**");
                 return;
             }
             int selectedID = Integer.parseInt(id);
             if (!Rewards.containsID(selectedID)) {
-                e.replyError("**Correct Usage:** ^shop buy **<id>**");
+                e.replyError(C.bold("Correct Usage:") + " ^shop buy **<id>**");
                 return;
             }
 
@@ -65,7 +64,7 @@ public class ShopCommand extends CommandBase {
             }
 
             if (!sqlManager.isActiveUserH(e.getMember().getUser().getId())) {
-                e.replyError("You do not have an account! Please run `^money create` to make one!");
+                e.replyError(MoneyCommand.NEED_ACCOUNT);
                 return;
             }
 

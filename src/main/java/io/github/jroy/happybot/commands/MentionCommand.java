@@ -38,12 +38,12 @@ public class MentionCommand extends CommandBase {
                 }
             }
             if (sb.toString().isEmpty()) {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
                 return;
             }
             e.reply(sb.append("Applied requested roles!").toString());
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 }

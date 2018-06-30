@@ -32,15 +32,15 @@ public class GambleCommand extends CommandBase {
             e.reply("**Gamble System Overview:**\n" +
                     "You may only gamble away your life savings every 3 minutes to avoid life destruction.\n" +
                     "Patron Boys and Mods+ may gamble their college savings every minute.\n" +
-                    "To start a gamble you can do `^gamble <amount of coins ranging from 100-"+ String.valueOf(RuntimeEditor.getGambleMax()) + ">`\n" +
-                    "You have a 50% chance of you getting your bet  and a 50% chance of your bet being lost.\n");
+                    "To start a gamble you can do " + C.escape("^gamble <amount of coins ranging from 100-"+ RuntimeEditor.getGambleMax() + ">") + "\n" +
+                    "You have a 50% chance of you getting your bet and a 50% chance of your bet being lost.\n");
             return;
         }
 
         if (e.getArgs().equalsIgnoreCase("check") && isGambleMember(e.getMember())) {
             int timeRemaining = getTimeRemaining(e.getMember());
             if (timeRemaining > 0) {
-                e.reply("You have " + String.valueOf(timeRemaining) + " seconds before using the gamble command!");
+                e.reply("You have " + timeRemaining + " seconds before using the gamble command!");
             } else {
                 e.reply("You can use the gamble command now!");
             }
@@ -52,14 +52,14 @@ public class GambleCommand extends CommandBase {
         }
         try {
             if (!sqlManager.isActiveUser(e.getMember().getUser().getId())) {
-                e.replyError("You do not have an account! Please run `^money create` to make one!");
+                e.replyError(MoneyCommand.NEED_ACCOUNT);
                 return;
             }
 
             if (isGambleMember(e.getMember())) {
             	int time = getTimeRemaining(e.getMember());
                 if (time > 0) {
-                    e.replyError("You must wait " + String.valueOf(time) + " seconds before preforming this again!" );
+                    e.replyError("You must wait " + time + " seconds before preforming this again!" );
                     return;
                 }
             }
@@ -85,10 +85,10 @@ public class GambleCommand extends CommandBase {
 
             if (Math.random() < 0.5) {
                 userToken.addCoins(bet);
-                e.reply(e.getMember().getAsMention() + " YOU BET ON YEEZY WELL! +" + String.valueOf(bet) + " coins!" + " You now have a balance of " + C.bold(C.prettyNum(userToken.getCoins()) + " coins!"));
+                e.reply(e.getMember().getAsMention() + " YOU BET ON YEEZY WELL! +" + bet + " coins!" + " You now have a balance of " + C.bold(C.prettyNum(userToken.getCoins()) + " coins!"));
             } else {
                 userToken.takeCoins(bet);
-                e.reply(e.getMember().getAsMention() + " Should have aimed smaller... -" + String.valueOf(bet) + " coins." + " You now have a balance of " + C.bold(C.prettyNum(userToken.getCoins()) + " coins!"));
+                e.reply(e.getMember().getAsMention() + " Should have aimed smaller... -" + bet + " coins." + " You now have a balance of " + C.bold(C.prettyNum(userToken.getCoins()) + " coins!"));
             }
         } catch (SQLException e1) {
             e.replyError("Error while executing: " + e1.getMessage());

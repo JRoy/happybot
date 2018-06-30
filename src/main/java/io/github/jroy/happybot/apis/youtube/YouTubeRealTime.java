@@ -18,7 +18,7 @@ public class YouTubeRealTime {
 
     public YouTubeRealTime pullAPI() {
         try {
-            JSONObject fullResponse = JSON.readJsonFromUrl("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" + Constants.HAPPYHEART_CHANNEL_ID.get() +"&key=" + apiKey);
+            JSONObject fullResponse = JSON.readJsonFromUrl("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" + YouTubeAPI.HAPPYHEART_YOUTUBE_ID +"&key=" + apiKey);
             jsonResponse = JSON.readFromText(JSON.readFromText(fullResponse.getJSONArray("items").get(0).toString()).get("statistics").toString());
         } catch (IOException e1) {
             e1.printStackTrace();

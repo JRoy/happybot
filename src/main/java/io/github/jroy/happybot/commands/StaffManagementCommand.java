@@ -36,10 +36,10 @@ public class StaffManagementCommand extends CommandBase {
                         "Hey! I am sorry to say but your application has been APPROVED!!!111 Your rank will be applied very soon ;)");
                 e.replySuccess("Application Approved!");
             } else {
-                e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
             }
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 }

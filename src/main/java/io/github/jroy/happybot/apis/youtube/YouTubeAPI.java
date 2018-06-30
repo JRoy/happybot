@@ -16,6 +16,10 @@ import java.util.List;
  * While is does use an API Call, I could not be bothered to make a full wrapper for the YouTube API (That retains the instance). This should be used as a token based system.
  */
 public class YouTubeAPI extends APIBase {
+    public static final String HAPPYHEART_YOUTUBE_ID = "UC-enFKOrEf6N2Kq_YG3sFcQ";
+    public static final String FETUS_YOUTUBE_ID = "UC-enFKOrEf6N2Kq_YG3sFcQ";
+    public static final String SIME_YOUTUBE_ID = "UC-enFKOrEf6N2Kq_YG3sFcQ";
+    public static final String WHEEZY_YOUTUBE_ID = "UC-enFKOrEf6N2Kq_YG3sFcQ";
 
     private final String apiKey;
     private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -30,7 +34,8 @@ public class YouTubeAPI extends APIBase {
 
     @Override
     public void loadApi() {
-        youTube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, request -> {}).setApplicationName("happybot").build();
+        youTube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, null)
+            .setApplicationName("happybot").build();
         loadChannels();
         Logger.info("YouTubeAPI Connected to API, waiting to listen to upload events.");
     }
@@ -38,14 +43,14 @@ public class YouTubeAPI extends APIBase {
     @Override
     public void onJdaLogin() {
         channels.forEach(ChannelBase::registerListener);
-        Logger.info("YouTubeAPI is now listening to uploads from " + String.valueOf(channels.size()) + " channels!");
+        Logger.info("YouTubeAPI is now listening to uploads from " + channels.size() + " channels!");
     }
 
     private void loadChannels() {
-        channels.add(new ChannelBase(Constants.HAPPYHEART_CHANNEL_ID.get(), this, true)); //Happy
-        channels.add(new ChannelBase("UCBvPS7EWHVm0JSb8uYp4bNQ", this, true)); //Fetus
-        channels.add(new ChannelBase("UC6c1n5yv8vdPAijuXR-pFzQ", this, false)); //Sime
-        channels.add(new ChannelBase("UCzD9jOPren4Gi00wCv_NbXg", this, false)); //Wheezy
+        channels.add(new ChannelBase(HAPPYHEART_YOUTUBE_ID, this, true));
+        channels.add(new ChannelBase(FETUS_YOUTUBE_ID, this, true));
+        channels.add(new ChannelBase(SIME_YOUTUBE_ID, this, false));
+        channels.add(new ChannelBase(WHEEZY_YOUTUBE_ID, this, false));
     }
 
     String getApiKey() {

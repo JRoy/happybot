@@ -3,6 +3,7 @@ package io.github.jroy.happybot.commands;
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
+import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Logger;
 import io.github.jroy.happybot.util.Roles;
 
@@ -26,7 +27,7 @@ public class ShutdownCommand extends CommandBase {
             Logger.log("The JDA instance has been shutdown...exiting the program.");
             System.exit(0);
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 

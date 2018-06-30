@@ -4,6 +4,7 @@ import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.theme.DiscordThemerImpl;
+import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
 import io.github.wheezygold7931.discordthemer.exceptions.ThemeNotFoundException;
 
@@ -19,7 +20,7 @@ public class ThemeCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         if (e.getArgs().isEmpty()) {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
             return;
         }
         if (themeManager.isValidTheme(e.getArgs())) {

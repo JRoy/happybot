@@ -12,15 +12,15 @@ public class RuntimeCommand extends CommandBase {
 
     public RuntimeCommand() {
         super("runtime",
-                "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/teddySpam>",
-                "Edits varibles for commands during runtime.",
-                CommandCategory.BOT,
-                Roles.DEVELOPER);
+            "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/teddySpam>",
+            "Edits varibles for commands during runtime.",
+            CommandCategory.BOT,
+            Roles.DEVELOPER);
     }
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        String[] args = e.getArgs().split("[ ]");
+        String[] args = e.getSplitArgs();
         if (args.length == 2) {
             String target = args[0];
             String value = args[1];
@@ -91,7 +91,7 @@ public class RuntimeCommand extends CommandBase {
                     break;
                 }
                 default: {
-                    e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+                    e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
                     return;
                 }
             }
@@ -99,9 +99,9 @@ public class RuntimeCommand extends CommandBase {
                 e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
                 return;
             }
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 }

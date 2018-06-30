@@ -27,7 +27,7 @@ public class DemoteCommand extends CommandBase {
             removeIfHasRole(member, Roles.HELPER);
             e.replySuccess("User has been demoted!");
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 

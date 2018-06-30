@@ -8,6 +8,7 @@ import io.github.jroy.happybot.apis.youtube.YouTubeRealTime;
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
+import io.github.jroy.happybot.util.C;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.constant.Platform;
@@ -34,7 +35,7 @@ public class StatsCommand extends CommandBase {
         } else if (e.getArgs().equalsIgnoreCase("league")) {
             new Thread(new GetLoLStats(e)).start();
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 

@@ -20,7 +20,7 @@ public class FanartCommand extends CommandBase {
             e.replySuccess(msg);
             C.privChannel(C.getMentionedMember(e), msg);
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 }

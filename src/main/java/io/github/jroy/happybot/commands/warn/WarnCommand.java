@@ -29,11 +29,11 @@ public class WarnCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         if (!C.containsMention(e)) {
-            e.replyError("**Correct Usage:** ^" + name + " **<user>** <reason>");
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " **<user>** <reason>");
             return;
         }
         if (e.getArgs().replaceAll("<(.*?)>", "").isEmpty()) {
-            e.replyError("**Correct Usage:** ^" + name + " <user> **<reason>**");
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " <user> **<reason>**");
             return;
         }
 
@@ -55,10 +55,10 @@ public class WarnCommand extends CommandBase {
             C.privChannel(target, "You have been warned for: " + C.bold(reason) + "! To review the rules please type `^rules` in the random channel.");
             e.reply(messageFactory.getRawMessage(MessageFactory.MessageType.WARN).replaceAll("<player>", "**"+ target.getAsMention() + "**").replaceAll("<user>", "**"+ target.getAsMention() + "**"));
             Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
-                    .setAuthor(e.getMember().getUser().getName() + "#" + e.getMember().getUser().getDiscriminator(), null,  e.getMember().getUser().getAvatarUrl())
+                    .setAuthor(C.getFullName(e.getMember().getUser()), null,  e.getMember().getUser().getAvatarUrl())
                     .setColor(Color.YELLOW)
                     .setThumbnail(target.getUser().getAvatarUrl())
-                    .setDescription(":information_source: **Warning Created**\n" + "⚠ " + C.bold("Warned " + target.getUser().getName() + "#" + target.getUser().getDiscriminator()) + "\n:page_facing_up: " + C.bold("Reason: ") + reason + "\n:id: **Warn ID** " + String.valueOf(warnId))
+                    .setDescription(":information_source: **Warning Created**\n" + "⚠ " + C.bold("Warned " + target.getUser().getName() + "#" + target.getUser().getDiscriminator()) + "\n:page_facing_up: " + C.bold("Reason: ") + reason + "\n:id: **Warn ID** " + warnId)
                     .build()).queue();
         } catch (SQLException e1) {
             e.replyError("Oof Error: " + e1.getMessage());

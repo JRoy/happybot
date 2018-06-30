@@ -19,13 +19,13 @@ public class OgCommand extends CommandBase {
             Member u = C.getMentionedMember(e);
             if (C.hasRole(u, Roles.OG)) {
                 C.removeRole(u, Roles.OG);
-                e.replySuccess(u.getUser().getAsMention() + " is no OG!");
+                e.replySuccess(u.getUser().getAsMention() + " is no longer OG!");
             } else {
                 C.giveRole(u, Roles.OG);
                 e.replySuccess(u.getUser().getAsMention() + " has become OG!");
             }
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 }

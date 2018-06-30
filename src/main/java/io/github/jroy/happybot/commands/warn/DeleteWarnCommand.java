@@ -31,10 +31,10 @@ public class DeleteWarnCommand extends CommandBase {
             if (warningManager.isValidWarning(id)) {
                 User tUser = Main.getJda().getUserById(warningManager.getWarnTargetId(id));
                 Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
-                        .setAuthor(e.getMember().getUser().getName() + "#" + e.getMember().getUser().getDiscriminator(), null,  e.getMember().getUser().getAvatarUrl())
+                        .setAuthor(C.getFullName(e.getMember().getUser()), null,  e.getMember().getUser().getAvatarUrl())
                         .setColor(Color.YELLOW)
                         .setThumbnail(tUser.getAvatarUrl())
-                        .setDescription(":information_source: **Warning Deleted**\n" + "⚠ " + C.bold("Warned " + tUser.getName() + "#" + tUser.getDiscriminator()) + "\n:page_facing_up: " + C.bold("Reason: ") + warningManager.getWarnReason(id) + "\n:id: **Warn ID** " + String.valueOf(id))
+                        .setDescription(":information_source: **Warning Deleted**\n" + "⚠ " + C.bold("Warned " + C.getFullName(tUser)) + "\n:page_facing_up: " + C.bold("Reason: ") + warningManager.getWarnReason(id) + "\n:id: **Warn ID** " + id)
                         .build()).queue();
                 if (warningManager.deleteWarning(id)) {
                     e.reply("Deleted warning!");
@@ -45,7 +45,7 @@ public class DeleteWarnCommand extends CommandBase {
                 e.replyError("Invalid Warning!");
             }
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " <warning ID>");
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " <warning ID>");
         }
     }
 }

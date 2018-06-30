@@ -13,11 +13,9 @@ import java.util.Random;
 
 public class ShippingCommand extends CommandBase {
 
-    private HashMap<Long, Integer> retainedMatches = new HashMap<>();
-
     public ShippingCommand() {
         super("ship", "<user> <user>", "Will check the shipability of two users", CommandCategory.FUN);
-        this.aliases = new String[]{"shipping", "match"};
+        this.aliases = new String[] {"shipping", "match"};
     }
 
     @Override
@@ -46,14 +44,7 @@ public class ShippingCommand extends CommandBase {
 
         String shipName = firstUser.getUser().getName().substring(0, firstUser.getUser().getName().length() / 2) + secondUser.getUser().getName().substring(secondUser.getUser().getName().length() / 2);
 
-        long matchId = firstUser.getUser().getIdLong() + secondUser.getUser().getIdLong();
-
-        int match = new Random().nextInt((100 - 1) + 1) + 1;
-
-        if (retainedMatches.containsKey(matchId))
-            match = retainedMatches.get(matchId);
-        else
-            retainedMatches.put(matchId, match);
+        int match = new Random().nextInt(Long.hashCode(firstUser.getUser().getIdLong() ^ secondUser.getUser().getIdLong())) + 1;
 
         String emote;
 

@@ -23,6 +23,6 @@ public class LockCommand extends CommandBase {
             e.replySuccess(":lock: Channel has been locked!");
         } catch (NullPointerException npe) {
             e.replyError("An error occurred while locking the channel! Please make sure this channel is setup correctly.");
-    }
+        }
     }
 }

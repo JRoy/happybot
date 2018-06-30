@@ -20,7 +20,7 @@ public class PromoteCommand extends CommandBase {
             Member member = C.getMentionedMember(e);
             promoteMember(member, e);
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
     }
 

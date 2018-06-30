@@ -16,6 +16,7 @@ import io.github.jroy.happybot.commands.report.EditReportCommand;
 import io.github.jroy.happybot.commands.report.HandleReportCommand;
 import io.github.jroy.happybot.commands.report.LookupReportCommand;
 import io.github.jroy.happybot.commands.report.ReportCommand;
+import io.github.jroy.happybot.commands.RuntimeCommand;
 import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.AutoMod;
 import io.github.jroy.happybot.events.StarMessages;
@@ -282,7 +283,6 @@ public class Main extends ListenerAdapter {
                 new EditReportCommand(reportManager),
                 new PurgeCommand(),
                 new MuteCommand(eventManager),
-                new UnMuteCommand(eventManager),
                 new MessageFactoryCommand(messageFactory),
                 new EmoteCommand(),
 

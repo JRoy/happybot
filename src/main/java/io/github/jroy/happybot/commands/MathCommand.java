@@ -44,7 +44,7 @@ public class MathCommand extends CommandBase {
 
             e.replySuccess("**Expression Evaluated!**\n**Result:**" + C.codeblock(result));
         } else {
-            e.replyError("**Correct Usage:** ^" + name + " " + arguments);
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
         }
 
 

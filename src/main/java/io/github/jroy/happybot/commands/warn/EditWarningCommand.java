@@ -21,19 +21,19 @@ public class EditWarningCommand extends CommandBase {
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        String[] args = e.getArgs().split("[ ]");
+        String[] args = e.getSplitArgs();
         if (args.length < 1) {
-            e.replyError("**Correct Usage:** ^" + name + " **<warning ID> <new reason>**");
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " **<warning ID> <new reason>**");
             return;
         }
         if (!StringUtils.isNumeric(args[0])) {
-            e.replyError("**Correct Usage:** ^" + name + " **<warning ID>** <new reason>");
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " **<warning ID>** <new reason>");
             return;
         }
         int id = Integer.parseInt(args[0]);
         String newReason = e.getArgs().replaceFirst(args[0] + " ", "");
         if (!warningManager.isValidWarning(id)) {
-            e.replyError("**Correct Usage:** ^" + name + " **<warning ID>** <new reason>");
+            e.replyError(C.bold("Correct Usage:") + " ^" + name + " **<warning ID>** <new reason>");
             return;
         }
         if (!warningManager.getWarnAuthorId(id).equals(e.getMember().getUser().getId()) && !C.hasRole(e.getMember(), Roles.SUPER_ADMIN) && !RuntimeEditor.isAllowEditOtherUserWarn()) {
