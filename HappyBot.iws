@@ -3,18 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="45f56b79-8249-466f-a6ce-88d450b60758" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/HappyBot.iws" beforeDir="false" afterPath="$PROJECT_DIR$/HappyBot.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/EmoteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/EmoteCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/EvalCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/EvalCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FactCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FactCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MemeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MemeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MessageFactoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MessageFactoryCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/PromoteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/PromoteCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ShippingCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/ShippingCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/base/CommandBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/base/CommandBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/EditWarningCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/EditWarningCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/WarningsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/WarningsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/C.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/Roles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/Roles.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -25,6 +13,9 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -104,11 +95,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CommandBase.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CommandBase.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/base/CommandBase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
+            <state relative-caret-position="631">
               <caret line="83" column="2" lean-forward="true" selection-start-line="83" selection-start-column="2" selection-end-line="83" selection-end-column="2" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WarningsCommand.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/WarningsCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="63" column="43" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FactCommand.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FactCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -626,6 +638,7 @@
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/PromoteCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/MemeCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/base/CommandBase.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/WarningsCommand.java" />
       </list>
     </option>
   </component>
@@ -636,22 +649,6 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="1440" />
     <option name="height" value="900" />
-  </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-        </expanded-state>
-        <selected-state>
-          <State>
-            <id>Ant inspections</id>
-          </State>
-        </selected-state>
-      </profile-state>
-    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -716,6 +713,16 @@
               <item name="commands" type="462c0819:PsiDirectoryNode" />
               <item name="base" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="HappyBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="happybot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="happybot" type="462c0819:PsiDirectoryNode" />
+              <item name="commands" type="462c0819:PsiDirectoryNode" />
+              <item name="warn" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -735,7 +742,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -882,7 +889,21 @@
       <option name="project" value="LOCAL" />
       <updated>1530384102968</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="better command system and fix shipping">
+      <created>1530457959576</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1530457959576</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix warnings command">
+      <created>1530458278916</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1530458278916</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -966,7 +987,9 @@
     <MESSAGE value="remove unused code 2" />
     <MESSAGE value="use proper naming convention for constant" />
     <MESSAGE value="forgot hash in C.getFullName" />
-    <option name="LAST_COMMIT_MESSAGE" value="forgot hash in C.getFullName" />
+    <MESSAGE value="better command system and fix shipping" />
+    <MESSAGE value="fix warnings command" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix warnings command" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -974,20 +997,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/Objects.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FactCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FansCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -1333,8 +1342,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/base/CommandBase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
+        <state relative-caret-position="631">
           <caret line="83" column="2" lean-forward="true" selection-start-line="83" selection-start-column="2" selection-end-line="83" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/WarningsCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="63" column="43" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FactCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

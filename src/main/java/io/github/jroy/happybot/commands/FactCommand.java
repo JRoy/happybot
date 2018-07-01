@@ -7,7 +7,6 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import net.dv8tion.jda.core.EmbedBuilder;
 
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class FactCommand extends CommandBase {

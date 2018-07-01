@@ -118,11 +118,9 @@ public abstract class CommandBase extends Command {
     protected void execute(CommandEvent event) {
         Member member = event.getMember();
 
-        if (permissionRole != null) {
-            if (!C.hasRole(member, permissionRole)) {
-                event.replyError(C.permMsg(permissionRole));
-                return;
-            }
+        if (permissionRole != null && !C.hasRole(member, permissionRole)) {
+            event.replyError(C.permMsg(permissionRole));
+            return;
         }
 
         // developer bypasses cooldowns
