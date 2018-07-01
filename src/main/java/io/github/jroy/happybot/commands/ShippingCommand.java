@@ -31,38 +31,32 @@ public class ShippingCommand extends CommandBase {
         }
 
         if (e.getMentionsAmount() != 2) {
-            e.reply(invalid());
+            e.replyError(invalid);
             return;
         }
 
         Member firstUser = e.getMentionedMember(0);
         Member secondUser = e.getMentionedMember(1);
+        String firstName = firstUser.getUser().getName();
+        String secondName = secondUser.getUser().getName();
 
-        List<String> matchers = new ArrayList<>();
-        matchers.add(firstUser.getUser().getId());
-        matchers.add(secondUser.getUser().getId());
+        String shipName = firstName.substring(0, firstName.length() / 2) + secondName.substring(secondName.length() / 2);
 
-        String shipName = firstUser.getUser().getName().substring(0, firstUser.getUser().getName().length() / 2) + secondUser.getUser().getName().substring(secondUser.getUser().getName().length() / 2);
-
-        int match = new Random().nextInt(Long.hashCode(firstUser.getUser().getIdLong() ^ secondUser.getUser().getIdLong())) + 1;
+        long seed = firstUser.getUser().getIdLong() ^ secondUser.getUser().getIdLong();
+        int match = new Random(Long.hashCode(seed)).nextInt(101);
 
         String emote;
-
-        if (matchers.contains("242849297685544962") && matchers.contains("307730310483804160")) {
-            match = 100;
-            shipName = "Bubba Plays Teddy";
-        }
-
-        if (match == 100)
+        if (match == 100) {
             emote = ":yellow_heart:";
-        else if (match >= 50)
+        } else if (match >= 50) {
             emote = ":two_hearts:";
-        else if (match >= 30)
+        } else if (match >= 30) {
             emote = ":heart:";
-        else if (match >= 20)
+        } else if (match >= 20) {
             emote = ":black_heart:";
-        else
+        } else {
             emote = ":broken_heart:";
+        }
 
         e.reply(":heart_exclamation:" + C.bold("Shipping") + ":heart_exclamation:\n" +
                 firstUser.getAsMention() + " (" + emote + ") " + secondUser.getAsMention() + "\n" +

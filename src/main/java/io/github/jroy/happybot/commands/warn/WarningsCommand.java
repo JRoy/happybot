@@ -19,14 +19,14 @@ public class WarningsCommand extends CommandBase {
     private WarningManager warningManager;
 
     public WarningsCommand(WarningManager warningManager) {
-        super("warnings", "<user>", "Provides list of target user's warnings.", CommandCategory.STAFF);
+        super("warnings", "<user>", "Provides list of target user's warnings.", CommandCategory.STAFF, Roles.HELPER);
         this.aliases = new String[]{"warns"};
         this.warningManager = warningManager;
     }
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.HELPER) || RuntimeEditor.isPermittingWarningExposement()) {
+        if (RuntimeEditor.isPermittingWarningExposement()) {
             if (!C.containsMention(e)) {
                 try {
                     WarningToken token = grabWarnings(e.getAuthor());
@@ -61,7 +61,7 @@ public class WarningsCommand extends CommandBase {
                 e.replyError("Oof Error: " + e1.getMessage());
             }
         } else {
-            e.reply(C.permMsg(Roles.HELPER));
+            e.replyError("Viewing warnings is currently disabled.");
         }
     }
 

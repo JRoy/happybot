@@ -67,7 +67,7 @@ public enum Roles {
         return roleName;
     }
 
-    public String getName() {
+    public String toString() {
         return name;
     }
 

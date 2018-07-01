@@ -15,13 +15,17 @@ import java.util.HashMap;
  * A custom implementation of JDA-Utilities's {@link com.jagrosh.jdautilities.command.Command Command} class that makes our use-case easier.
  */
 public abstract class CommandBase extends Command {
+    /**
+     * Command usage
+     */
+    protected final String invalid;
 
     /**
      * The role that is required to run the target command.
      *
      * Will be null if no role is required
      */
-    private final Roles permissionRole;
+    protected final Roles permissionRole;
 
     /**
      * The command's category
@@ -54,15 +58,7 @@ public abstract class CommandBase extends Command {
      * @param category Command's category to be used inside the command list.
      */
     public CommandBase(@NotNull String commandName, String arguments, String helpMessage, CommandCategory category) {
-        this.name = commandName;
-        this.arguments = arguments;
-        this.help = helpMessage;
-        this.category = new Category(category.toString());
-        this.commandCategory = category;
-        this.permissionRole = null;
-        this.commandCooldowns = null;
-        this.cooldownUnit = null;
-        this.cooldownDelay = null;
+        this(commandName, arguments, helpMessage, category, null);
     }
 
     /**
@@ -85,6 +81,7 @@ public abstract class CommandBase extends Command {
         this.commandCooldowns = null;
         this.cooldownUnit = null;
         this.cooldownDelay = null;
+        this.invalid = C.bold("Correct Usage:") + " ^" + name + " " + arguments;
     }
 
     /**
@@ -92,7 +89,7 @@ public abstract class CommandBase extends Command {
      * @see CommandBase#setCooldown(int, ChronoUnit)
      * @param seconds Time in seconds for the cooldown.
      */
-    public void setCooldown(int seconds) {
+    public void setCooldownSeconds(int seconds) {
         setCooldown(seconds, ChronoUnit.SECONDS);
     }
 
@@ -119,15 +116,22 @@ public abstract class CommandBase extends Command {
 
     @Override
     protected void execute(CommandEvent event) {
+        Member member = event.getMember();
+
         if (permissionRole != null) {
-            if (!C.hasRole(event.getMember(), permissionRole)) {
+            if (!C.hasRole(member, permissionRole)) {
                 event.replyError(C.permMsg(permissionRole));
                 return;
             }
         }
-        if (commandCooldowns != null) {
-            if (commandCooldowns.containsKey(event.getMember()) && (int) OffsetDateTime.now().until(commandCooldowns.get(event.getMember()), cooldownUnit) > 0) {
-                event.replyError("You must wait before doing that command again!");
+
+        // developer bypasses cooldowns
+        if (commandCooldowns != null && !C.hasRole(member, Roles.DEVELOPER)) {
+            long cooldown = OffsetDateTime.now().until(commandCooldowns.get(member), cooldownUnit);
+            if (commandCooldowns.containsKey(member) && cooldown > 0) {
+                event.replyError("You must wait "
+                    + cooldown + " " + cooldownUnit.toString().toLowerCase()
+                    + " before doing that command again!");
                 return;
             }
             commandCooldowns.put(event.getMember(), OffsetDateTime.now().plus(cooldownDelay, cooldownUnit));
@@ -140,13 +144,6 @@ public abstract class CommandBase extends Command {
      * @param event The information associated with the command calling
      */
     protected abstract void executeCommand(io.github.jroy.happybot.commands.base.CommandEvent event);
-
-    /**
-     * @return Command usage.
-     */
-    protected String invalid() {
-        return C.bold("Correct Usage:") + " ^" + name + " " + arguments;
-    }
 
     /**
      * @return Command's Permission

@@ -20,12 +20,12 @@ public class EmoteCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         if (e.getSplitArgs().length < 3) {
-            e.replyError(invalid());
+            e.replyError(invalid);
             return;
         }
 
         if (!C.containsBool(e.getSplitArgs()[1])) {
-            e.replyError(invalid());
+            e.replyError(invalid);
             return;
         }
 

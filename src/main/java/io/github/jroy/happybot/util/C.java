@@ -98,7 +98,7 @@ public class C {
      * @return Returns the string of the permission message.
      */
     public static String permMsg(Roles r) {
-        return "This requires Permission Rank **" + r.getName() + "** to execute!";
+        return "This requires the role " + C.bold(r.toString()) + " to execute!";
     }
 
     /**

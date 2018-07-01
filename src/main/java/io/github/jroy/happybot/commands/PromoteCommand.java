@@ -41,7 +41,7 @@ public class PromoteCommand extends CommandBase {
      */
     private boolean promoteIfHasRole(Roles requiredRole, Roles promotionRole, Member member, CommandEvent event) {
         if (C.hasRole(member, requiredRole)) {
-            event.replySuccess("User has been promoted to **" + promotionRole.getName() + "**!");
+            event.replySuccess("User has been promoted to " + C.bold(promotionRole.toString()) + "!");
             event.getGuild().getController().addSingleRoleToMember(member, promotionRole.getRole()).reason("User Promotion!").queue();
             return false;
         }

@@ -7,13 +7,14 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import net.dv8tion.jda.core.EmbedBuilder;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class FactCommand extends CommandBase {
 
     public FactCommand() {
         super("fact", null, "Generates a random cat fact.", CommandCategory.FUN);
-        setCooldown(10);
+        this.setCooldownSeconds(10);
     }
 
     @Override
