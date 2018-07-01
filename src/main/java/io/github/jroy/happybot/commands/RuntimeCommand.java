@@ -12,7 +12,7 @@ public class RuntimeCommand extends CommandBase {
 
     public RuntimeCommand() {
         super("runtime",
-                "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/teddySpam/gambleJackpot>",
+            "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/teddySpam/gambleJackpot>",
             "Edits varibles for commands during runtime.",
             CommandCategory.BOT,
             Roles.DEVELOPER);
@@ -93,7 +93,6 @@ public class RuntimeCommand extends CommandBase {
                 case "gambleJackpot": {
                     try {
                         float chance = Float.parseFloat(value);
-
                         if(chance < 0 || chance > 1) {
                             e.replyError("Chance must be between 0 and 1 (0 to disable)");
                             return;

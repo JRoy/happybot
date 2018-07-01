@@ -46,7 +46,7 @@ public class GambleCommand extends CommandBase {
             }
         }
 
-        boolean gambleAll = e.getArgs().equalsIgnoreCase("all");
+        boolean gambleAll = e.getArgs().equalsIgnoreCase("all") && RuntimeEditor.getGambleJackpot() > 0;
         if (!StringUtils.isNumeric(e.getArgs()) && !gambleAll) {
             e.replyError("Please do `^gamble help` for the correct usage!");
             return;

@@ -4,8 +4,6 @@
     <list default="true" id="45f56b79-8249-466f-a6ce-88d450b60758" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/HappyBot.iws" beforeDir="false" afterPath="$PROJECT_DIR$/HappyBot.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/RuntimeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/RuntimeCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/GambleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/GambleCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/RuntimeEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/RuntimeEditor.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -101,8 +99,17 @@
       <file leaf-file-name="RuntimeCommand.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/RuntimeCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="89" column="21" lean-forward="true" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
+            <state relative-caret-position="352">
+              <caret line="89" column="21" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RuntimeEditor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/RuntimeEditor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
             </state>
           </provider>
         </entry>
@@ -110,8 +117,8 @@
       <file leaf-file-name="GambleCommand.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/GambleCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="90" column="114" selection-start-line="90" selection-start-column="114" selection-end-line="90" selection-end-column="114" />
+            <state relative-caret-position="1566">
+              <caret line="101" column="5" selection-start-line="101" selection-start-column="5" selection-end-line="101" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -626,8 +633,8 @@
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/warn/WarningsCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/FactCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/base/CommandBase.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/RuntimeEditor.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/EvalCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/RuntimeEditor.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/GambleCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/RuntimeCommand.java" />
       </list>
@@ -891,7 +898,14 @@
       <option name="project" value="LOCAL" />
       <updated>1530458510437</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add gamble">
+      <created>1530478411065</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1530478411065</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -909,12 +923,12 @@
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.21258135" />
       <window_info anchor="right" id="Maven Projects" order="9" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.19088937" />
+      <window_info anchor="bottom" id="Run" order="3" visible="true" weight="0.19088937" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.329718" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32889965" />
       <window_info id="Capture Tool" order="0" />
       <window_info id="Designer" order="4" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.2750415" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.2750415" />
       <window_info anchor="bottom" id="Find" order="2" />
       <window_info anchor="right" id="Gradle" order="6" weight="0.18815717" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
@@ -978,8 +992,14 @@
     <MESSAGE value="better command system and fix shipping" />
     <MESSAGE value="fix warnings command" />
     <MESSAGE value="make codacy happy" />
-    <option name="LAST_COMMIT_MESSAGE" value="make codacy happy" />
+    <MESSAGE value="add gamble" />
+    <option name="LAST_COMMIT_MESSAGE" value="add gamble" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1304,13 +1324,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/RuntimeEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="83" column="45" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/lang/Boolean.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
@@ -1332,13 +1345,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/GambleCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="90" column="114" selection-start-line="90" selection-start-column="114" selection-end-line="90" selection-end-column="114" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.0/d48f964b56a931ec2712ce5d411a40d114a69753/commons-lang3-3.0-sources.jar!/org/apache/commons/lang3/StringUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
@@ -1346,10 +1352,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/money/GambleCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1566">
+          <caret line="101" column="5" selection-start-line="101" selection-start-column="5" selection-end-line="101" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/util/RuntimeEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/jroy/happybot/commands/RuntimeCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="89" column="21" lean-forward="true" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
+        <state relative-caret-position="352">
+          <caret line="89" column="21" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
         </state>
       </provider>
     </entry>
