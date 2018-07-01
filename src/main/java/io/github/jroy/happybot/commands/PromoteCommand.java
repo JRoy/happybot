@@ -25,7 +25,7 @@ public class PromoteCommand extends CommandBase {
     }
 
     private void promoteMember(Member member, CommandEvent event) {
-        if (C.hasRole(member, Roles.SUPER_ADMIN)) {
+        if (C.hasRoleStrict(member, Roles.SUPER_ADMIN)) {
             event.replySuccess("User is already the on highest level of promotion!");
         } else if (promoteIfHasRole(Roles.MODERATOR, Roles.SUPER_ADMIN, member, event)
                 && promoteIfHasRole(Roles.HELPER, Roles.MODERATOR, member, event)
@@ -40,7 +40,7 @@ public class PromoteCommand extends CommandBase {
      * @return True if the member was promoted
      */
     private boolean promoteIfHasRole(Roles requiredRole, Roles promotionRole, Member member, CommandEvent event) {
-        if (C.hasRole(member, requiredRole)) {
+        if (C.hasRoleStrict(member, requiredRole)) {
             event.replySuccess("User has been promoted to " + C.bold(promotionRole.toString()) + "!");
             event.getGuild().getController().addSingleRoleToMember(member, promotionRole.getRole()).reason("User Promotion!").queue();
             return false;

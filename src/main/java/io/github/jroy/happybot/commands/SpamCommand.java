@@ -25,7 +25,7 @@ public class SpamCommand extends CommandBase {
     protected void executeCommand(CommandEvent e) {
         if (e.getMessage().getMentionedUsers().size() == 1) {
             Member u = C.getMentionedMember(e);
-            if (C.hasRole(u, Roles.EXP_SPAMMER)) {
+            if (C.hasRoleStrict(u, Roles.EXP_SPAMMER)) {
                 if (eventManager.isPunished(u.getUser().getId(), EventType.XP)) {
                     try {
                         eventManager.deleteInfraction(u.getUser().getId(), EventType.XP);

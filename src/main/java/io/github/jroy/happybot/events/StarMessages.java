@@ -21,7 +21,7 @@ public class StarMessages extends ListenerAdapter {
         if (e.getReactionEmote().getName().equals(STAR) || e.getReactionEmote().getName().equals(SHOE)) {
             handleStar(e, e.getReactionEmote().getName().equals(SHOE));
         } else if (e.getReactionEmote().getName().equals("gild")) {
-            if (!C.hasRole(e.getMember(), Roles.MODERATOR)) {
+            if (!C.hasRoleStrict(e.getMember(), Roles.MODERATOR)) {
                 e.getReaction().removeReaction().queue();
                 return;
             }

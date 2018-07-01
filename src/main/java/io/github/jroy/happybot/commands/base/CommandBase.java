@@ -118,13 +118,13 @@ public abstract class CommandBase extends Command {
     protected void execute(CommandEvent event) {
         Member member = event.getMember();
 
-        if (permissionRole != null && !C.hasRole(member, permissionRole)) {
+        if (permissionRole != null && !C.hasPermission(member, permissionRole)) {
             event.replyError(C.permMsg(permissionRole));
             return;
         }
 
         // developer bypasses cooldowns
-        if (commandCooldowns != null && !C.hasRole(member, Roles.DEVELOPER)) {
+        if (commandCooldowns != null && !C.hasRoleStrict(member, Roles.DEVELOPER)) {
             long cooldown = OffsetDateTime.now().until(commandCooldowns.get(member), cooldownUnit);
             if (commandCooldowns.containsKey(member) && cooldown > 0) {
                 event.replyError("You must wait "

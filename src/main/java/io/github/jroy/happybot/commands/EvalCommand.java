@@ -44,6 +44,7 @@ public class EvalCommand extends CommandBase {
             se.eval("var Channels = Java.type(\"io.github.jroy.happybot.util.Channels\");");
             e.reply("Evaluated Successfully:\n```\n" + se.eval(e.getArgs()) + " ```");
         } catch (Exception ex) {
+
             e.reply("An exception was thrown:\n```\n" + ex + " ```");
         }
     }

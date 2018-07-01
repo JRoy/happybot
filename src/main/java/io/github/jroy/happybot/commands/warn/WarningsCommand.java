@@ -26,7 +26,7 @@ public class WarningsCommand extends CommandBase {
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        if (C.hasRole(e.getMember(), Roles.HELPER) || RuntimeEditor.isPermittingWarningExposement()) {
+        if (C.hasPermission(e.getMember(), Roles.HELPER) || RuntimeEditor.isPermittingWarningExposement()) {
             if (!C.containsMention(e)) {
                 try {
                     WarningToken token = grabWarnings(e.getAuthor());
@@ -45,7 +45,7 @@ public class WarningsCommand extends CommandBase {
 
             String channelId = e.getChannel().getId();
 
-            if ((Channels.GENERAL.getId().equalsIgnoreCase(channelId) || Channels.RANDOM.getId().equalsIgnoreCase(channelId) || Channels.GAMBLE.getId().equalsIgnoreCase(channelId) || Channels.MUSIC_REQUEST.getId().equalsIgnoreCase(channelId)) && !C.hasRole(e.getMember(), Roles.SUPER_ADMIN) && !RuntimeEditor.isPermittingWarningExposement()) {
+            if ((Channels.GENERAL.getId().equalsIgnoreCase(channelId) || Channels.RANDOM.getId().equalsIgnoreCase(channelId) || Channels.GAMBLE.getId().equalsIgnoreCase(channelId) || Channels.MUSIC_REQUEST.getId().equalsIgnoreCase(channelId)) && !C.hasRoleStrict(e.getMember(), Roles.SUPER_ADMIN) && !RuntimeEditor.isPermittingWarningExposement()) {
                 e.reply("Please use a staff channel to view user warnings...");
                 return;
             }

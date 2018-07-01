@@ -19,7 +19,7 @@ public class CommandEvent extends com.jagrosh.jdautilities.command.CommandEvent 
      * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
      */
     public boolean hasRole(Roles role) {
-        return C.hasRole(getMember(), role);
+        return C.hasRoleStrict(getMember(), role);
     }
 
     /**

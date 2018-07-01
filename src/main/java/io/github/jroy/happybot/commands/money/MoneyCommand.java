@@ -47,7 +47,7 @@ public class MoneyCommand extends CommandBase {
         }
         String[] args = e.getSplitArgs();
         if (args[0].equalsIgnoreCase("admin")) {
-            if (!C.hasRole(e.getMember(), Roles.SUPER_ADMIN) ) {
+            if (!C.hasRoleStrict(e.getMember(), Roles.SUPER_ADMIN) ) {
                 e.replyError(C.permMsg(Roles.SUPER_ADMIN));
                 return;
             }
@@ -289,7 +289,7 @@ public class MoneyCommand extends CommandBase {
         Member member = C.getGuild().getMemberById(userId);
 
         for(Map.Entry<Roles, IntUnaryOperator> bonus : bonuses.entrySet()) {
-            if (C.hasRole(member, bonus.getKey())) {
+            if (C.hasRoleStrict(member, bonus.getKey())) {
                 reward = bonus.getValue().applyAsInt(reward);
             }
         }

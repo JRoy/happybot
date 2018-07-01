@@ -78,7 +78,7 @@ public class GambleCommand extends CommandBase {
                 return;
             }
 
-            if (C.hasRole(e.getMember(), Roles.PATRON_BOYS) || C.hasRole(e.getMember(), Roles.MODERATOR) || C.hasRole(e.getMember(), Roles.ETHAN)) {
+            if (C.hasRoleStrict(e.getMember(), Roles.PATRON_BOYS) || C.hasRoleStrict(e.getMember(), Roles.MODERATOR) || C.hasRoleStrict(e.getMember(), Roles.ETHAN)) {
                 gambleTimes.put(e.getMember(), OffsetDateTime.now().plusSeconds(30));
             } else {
                 gambleTimes.put(e.getMember(), OffsetDateTime.now().plusSeconds(60));

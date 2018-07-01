@@ -36,7 +36,7 @@ public class EditWarningCommand extends CommandBase {
             e.replyError(C.bold("Correct Usage:") + " ^" + name + " **<warning ID>** <new reason>");
             return;
         }
-        if (!warningManager.getWarnAuthorId(id).equals(e.getMember().getUser().getId()) && !C.hasRole(e.getMember(), Roles.SUPER_ADMIN) && !RuntimeEditor.isAllowEditOtherUserWarn()) {
+        if (!warningManager.getWarnAuthorId(id).equals(e.getMember().getUser().getId()) && !C.hasRoleStrict(e.getMember(), Roles.SUPER_ADMIN) && !RuntimeEditor.isAllowEditOtherUserWarn()) {
             e.replyError(C.permMsg(Roles.SUPER_ADMIN) + " (For editing other staff members' warnings.)");
             return;
         }

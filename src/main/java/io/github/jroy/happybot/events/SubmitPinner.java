@@ -103,7 +103,7 @@ public class SubmitPinner extends ListenerAdapter {
             return;
         }
 
-        if (!C.hasRole(event.getMember(), Roles.SUPER_ADMIN)) {
+        if (!C.hasRoleStrict(event.getMember(), Roles.SUPER_ADMIN)) {
             event.getMessage().delete().queue();
             C.privChannel(event.getMember(), "You have attempted to edit a message in #message-submit! Your message has been deleted as you are not allowed to edit messages in this channel in order to prevent bamboozle.");
         }
