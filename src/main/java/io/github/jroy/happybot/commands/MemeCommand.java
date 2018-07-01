@@ -6,16 +6,11 @@ import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
-import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
 
-import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MemeCommand extends CommandBase {
 
@@ -26,6 +21,7 @@ public class MemeCommand extends CommandBase {
     public MemeCommand(Reddit reddit) {
         super("meme", "parsing...", "Displays a random meme from the requested subreddit.", CommandCategory.FUN);
         this.reddit = reddit;
+        this.aliases = new String[]{"memes", "reddit"};
         subs.add("me_irl");
         subs.add("memes");
         subs.add("deepfriedmemes");
@@ -34,7 +30,11 @@ public class MemeCommand extends CommandBase {
         subs.add("dankmemes");
         subs.add("woooosh");
         subs.add("happyheart");
-        this.arguments = "<" + createArgs() + ">";
+        StringBuilder sb = new StringBuilder();
+        for (String str : subs)
+            sb.append(str).append("/");
+        sb.setLength(sb.length() - 1);
+        this.arguments = "<" + sb.toString() + ">";
         this.setCooldown(5, ChronoUnit.MINUTES);
     }
 
@@ -64,13 +64,5 @@ public class MemeCommand extends CommandBase {
                 .setImage(post.getMediaUrl());
         }
         e.reply(eb.build());
-    }
-
-    private String createArgs() {
-        StringBuilder sb = new StringBuilder();
-        for (String str : subs)
-            sb.append(str).append("/");
-        sb.setLength(sb.length() - 1);
-        return sb.toString();
     }
 }
