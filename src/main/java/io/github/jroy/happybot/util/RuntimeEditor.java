@@ -10,6 +10,8 @@ public class RuntimeEditor {
     private static boolean allowEditOtherUserWarn = false;
     private static boolean teddySpam = false;
 
+    private static float gambleJackpot = 0;
+
     private static int gambleMax = 10000;
 
     public static boolean isAllowSelfGilds() {
@@ -74,5 +76,13 @@ public class RuntimeEditor {
 
     public static void setTeddySpam(boolean teddySpam) {
         RuntimeEditor.teddySpam = teddySpam;
+    }
+
+    public static float getGambleJackpot() {
+        return gambleJackpot;
+    }
+
+    public static void setGambleJackpot(float gambleJackpot) {
+        RuntimeEditor.gambleJackpot = gambleJackpot;
     }
 }

@@ -12,7 +12,7 @@ public class RuntimeCommand extends CommandBase {
 
     public RuntimeCommand() {
         super("runtime",
-            "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/teddySpam>",
+                "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/teddySpam/gambleJackpot>",
             "Edits varibles for commands during runtime.",
             CommandCategory.BOT,
             Roles.DEVELOPER);
@@ -28,7 +28,7 @@ public class RuntimeCommand extends CommandBase {
             switch (target) {
                 case "selfGilds": {
                     if (C.containsBool(value)){
-                        RuntimeEditor.setAllowSelfGilds(Boolean.parseBoolean(value.toLowerCase()));
+                        RuntimeEditor.setAllowSelfGilds(Boolean.parseBoolean(value));
                     } else {
                         valid = false;
                     }
@@ -36,7 +36,7 @@ public class RuntimeCommand extends CommandBase {
                 }
                 case "evalOwner": {
                     if (C.containsBool(value)) {
-                        RuntimeEditor.setEvalOwnerOnly(Boolean.parseBoolean(value.toLowerCase()));
+                        RuntimeEditor.setEvalOwnerOnly(Boolean.parseBoolean(value));
                     } else {
                         valid = false;
                     }
@@ -44,7 +44,7 @@ public class RuntimeCommand extends CommandBase {
                 }
                 case "pingIssueClose": {
                     if (C.containsBool(value)) {
-                        RuntimeEditor.setPingIssueClose(Boolean.parseBoolean(value.toLowerCase()));
+                        RuntimeEditor.setPingIssueClose(Boolean.parseBoolean(value));
                     } else {
                         valid = false;
                     }
@@ -52,7 +52,7 @@ public class RuntimeCommand extends CommandBase {
                 }
                 case "filterAdvert": {
                     if (C.containsBool(value)) {
-                        RuntimeEditor.setFilteringAdverts(Boolean.parseBoolean(value.toLowerCase()));
+                        RuntimeEditor.setFilteringAdverts(Boolean.parseBoolean(value));
                     } else {
                         valid = false;
                     }
@@ -60,7 +60,7 @@ public class RuntimeCommand extends CommandBase {
                 }
                 case "editUserWarns": {
                     if (C.containsBool(value)) {
-                        RuntimeEditor.setAllowEditOtherUserWarn(Boolean.parseBoolean(value.toLowerCase()));
+                        RuntimeEditor.setAllowEditOtherUserWarn(Boolean.parseBoolean(value));
                     } else {
                         valid = false;
                     }
@@ -68,7 +68,7 @@ public class RuntimeCommand extends CommandBase {
                 }
                 case "publicWarns": {
                     if (C.containsBool(value)) {
-                        RuntimeEditor.setPermittingWarningExposement(Boolean.parseBoolean(value.toLowerCase()));
+                        RuntimeEditor.setPermittingWarningExposement(Boolean.parseBoolean(value));
                     } else {
                         valid = false;
                     }
@@ -84,8 +84,23 @@ public class RuntimeCommand extends CommandBase {
                 }
                 case "teddySpam": {
                     if (C.containsBool(value)) {
-                        RuntimeEditor.setTeddySpam(Boolean.parseBoolean(value.toLowerCase()));
+                        RuntimeEditor.setTeddySpam(Boolean.parseBoolean(value));
                     } else {
+                        valid = false;
+                    }
+                    break;
+                }
+                case "gambleJackpot": {
+                    try {
+                        float chance = Float.parseFloat(value);
+
+                        if(chance < 0 || chance > 1) {
+                            e.replyError("Chance must be between 0 and 1 (0 to disable)");
+                            return;
+                        }
+
+                        RuntimeEditor.setGambleJackpot(chance);
+                    } catch(NumberFormatException ignored) {
                         valid = false;
                     }
                     break;

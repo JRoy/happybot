@@ -17,7 +17,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 
 public class GambleCommand extends CommandBase {
-
     private SQLManager sqlManager;
     private HashMap<Member, OffsetDateTime> gambleTimes = new HashMap<>();
 
@@ -33,6 +32,7 @@ public class GambleCommand extends CommandBase {
                     "You may only gamble away your life savings every 3 minutes to avoid life destruction.\n" +
                     "Patron Boys and Mods+ may gamble their college savings every minute.\n" +
                     "To start a gamble you can do " + C.escape("^gamble <amount of coins ranging from 100-"+ RuntimeEditor.getGambleMax() + ">") + "\n" +
+                    (RuntimeEditor.getGambleJackpot() > 0 ? "You also have a chance at winning the :moneybag: jackpot by doing ^gamble all (limited time only)\n" : "") +
                     "You have a 50% chance of you getting your bet and a 50% chance of your bet being lost.\n");
             return;
         }
@@ -46,7 +46,8 @@ public class GambleCommand extends CommandBase {
             }
         }
 
-        if (!StringUtils.isNumeric(e.getArgs())) {
+        boolean gambleAll = e.getArgs().equalsIgnoreCase("all");
+        if (!StringUtils.isNumeric(e.getArgs()) && !gambleAll) {
             e.replyError("Please do `^gamble help` for the correct usage!");
             return;
         }
@@ -65,9 +66,9 @@ public class GambleCommand extends CommandBase {
             }
 
             UserToken userToken = sqlManager.getUser(e.getMember().getUser().getId());
-            int bet = Integer.parseInt(e.getArgs());
 
-            if (bet > RuntimeEditor.getGambleMax() || bet < 100) {
+            int bet = gambleAll ? userToken.getCoins() : Integer.parseInt(e.getArgs());
+            if (!gambleAll && (bet > RuntimeEditor.getGambleMax() || bet < 100)) {
                 e.replyError("Your placed bet is out of the bet range, please do `^gamble help` to learn more!");
                 return;
             }
@@ -83,7 +84,12 @@ public class GambleCommand extends CommandBase {
                 gambleTimes.put(e.getMember(), OffsetDateTime.now().plusSeconds(60));
             }
 
-            if (Math.random() < 0.5) {
+            double random = Math.random();
+            if(gambleAll && random < RuntimeEditor.getGambleJackpot()) {
+                int jackpot = bet * 9;
+                userToken.addCoins(jackpot);
+                e.reply(":moneybag: :moneybag: YOU WON THE JACKPOT! +" + jackpot + " coins! :moneybag: :moneybag:");
+            } else if (random < 0.5) {
                 userToken.addCoins(bet);
                 e.reply(e.getMember().getAsMention() + " YOU BET ON YEEZY WELL! +" + bet + " coins!" + " You now have a balance of " + C.bold(C.prettyNum(userToken.getCoins()) + " coins!"));
             } else {
