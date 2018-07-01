@@ -93,6 +93,7 @@ public class MoneyCommand extends CommandBase {
                     UserToken token = sqlManager.getUser(target.getUser().getId());
                     token.addCoins(Integer.parseInt(args[2]));
                     e.replySuccess(C.bold("Success: ") + "Applied " + args[2] + " coins to " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
+                    return;
                 } catch (SQLException e1) {
                     e.replyError("Oof error.");
                 }
@@ -101,12 +102,13 @@ public class MoneyCommand extends CommandBase {
                     UserToken token = sqlManager.getUser(target.getUser().getId());
                     token.takeCoins(Integer.parseInt(args[2]));
                     e.replySuccess(C.bold("Success: ") + "Took " + args[2] + " coins from " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
+                    return;
                 } catch (SQLException e1) {
                     e.replyError("Oof error.");
                 }
             } else {
-                e.replyError(C.bold("Correct Usage:") +
-                    " ^" + name + " admin" + C.bold("<give/take>") + "<amount> <user>");
+                e.replyError(C.bold("Correct Usage:") + " ^" + name + " admin" + C.bold("<give/take>") + "<amount> <user>");
+                return;
             }
         }
 

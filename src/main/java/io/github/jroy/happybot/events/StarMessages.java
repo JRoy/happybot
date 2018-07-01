@@ -12,13 +12,14 @@ import java.util.concurrent.CompletableFuture;
 
 public class StarMessages extends ListenerAdapter {
     private static final String STAR = "⭐";
+    private static final String SHOE = "\uD83D\uDC60";
 
     private HashSet<String> alreadyUsedMessages = new HashSet<>();
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
-        if (e.getReactionEmote().getName().equals(STAR)) {
-            handleStar(e);
+        if (e.getReactionEmote().getName().equals(STAR) || e.getReactionEmote().getName().equals(SHOE)) {
+            handleStar(e, e.getReactionEmote().getName().equals(SHOE));
         } else if (e.getReactionEmote().getName().equals("gild")) {
             if (!C.hasRoleStrict(e.getMember(), Roles.MODERATOR)) {
                 e.getReaction().removeReaction().queue();
@@ -36,25 +37,28 @@ public class StarMessages extends ListenerAdapter {
         }
     }
 
-    private void handleStar(GuildMessageReactionAddEvent e) {
-      CompletableFuture.runAsync(new HandleStar(e));
+    private void handleStar(GuildMessageReactionAddEvent e, boolean shoe) {
+      CompletableFuture.runAsync(new HandleStar(e, shoe));
     }
 
     private void handleGild(GuildMessageReactionAddEvent e) {
         CompletableFuture.runAsync(new HandleGild(e));
     }
 
-    private void sendStarredMessage(String footer, Message message, String privateMessageText) {
+    private void sendStarredMessage(String footer, Message message, String privateMessageText, boolean shoe) {
         EmbedBuilder embed = new EmbedBuilder()
             .setTitle(C.getFullName(message.getAuthor()))
             .setDescription(message.getContentRaw());
 
         if (message.getEmbeds().size() > 0) {
-            message.getChannel().sendMessage("Failed to Star/Gild a Message: Contained an un-readable embed! Cannot Continue!").queue();
+            message.getChannel().sendMessage("Failed to Star/Gild/Shoe a Message: Contained an un-readable embed! Cannot Continue!").queue();
             return;
         }
 
-        embed.setFooter(footer, "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/star-icon.png");
+        embed.setFooter(footer, "https://i.imgur.com/WwPHcgU.png");
+
+        if (shoe)
+            embed.setFooter(footer, "https://i.imgur.com/Gq5xooX.png");
 
         if (footer.startsWith("New Gilded Message")) {
             embed.setFooter(footer, "https://cdn.discordapp.com/emojis/371121885997694976.png?v=1");
@@ -75,10 +79,12 @@ public class StarMessages extends ListenerAdapter {
 
         private GuildMessageReactionAddEvent e;
         private Message message;
+        private boolean shoe;
         private static final int NUM_STARS_REQUIRED = 5;
 
-        HandleStar(GuildMessageReactionAddEvent e) {
+        HandleStar(GuildMessageReactionAddEvent e, boolean shoe) {
             this.e = e;
+            this.shoe = shoe;
             message = e.getChannel().getMessageById(e.getMessageId()).complete();
         }
 
@@ -94,13 +100,13 @@ public class StarMessages extends ListenerAdapter {
             try {
                 //noinspection ConstantConditions
                 int numberOfStars = message.getReactions().stream()
-                        .filter(reaction -> reaction.getReactionEmote().getName().equals(STAR))
+                        .filter(reaction -> reaction.getReactionEmote().getName().equals(STAR) || reaction.getReactionEmote().getName().equals(SHOE))
                         .findAny().map(MessageReaction::getCount).orElse(0);
 
                 if (numberOfStars >= NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
-                    String footer = "New Starred Message from #" + message.getChannel().getName();
-                    String privateMessageText = "Congrats! One of your messages has been starred:";
-                    sendStarredMessage(footer, message, privateMessageText);
+                    String footer = "New " + ((shoe) ? "Heeled" : "Starred") + " Message from #" + message.getChannel().getName();
+                    String privateMessageText = "Congrats! One of your messages has been " + ((shoe) ? "heeled" : "starred") +":";
+                    sendStarredMessage(footer, message, privateMessageText, shoe);
                 }
             } catch (NullPointerException | IllegalStateException e) {
                 Logger.error("Star reaction is in invalid state!");
@@ -121,9 +127,9 @@ public class StarMessages extends ListenerAdapter {
         @Override
         public void run() {
             if (!alreadyUsedMessages.contains(message.getId())) {
-                String footer = "New Gilded Message from <#" + message.getChannel().getId() + "> (" + C.getFullName(e.getUser()) + ")";
+                String footer = "New Gilded Message from #" + message.getChannel().getName() + " (" + C.getFullName(e.getUser()) + ")";
                 String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
-                sendStarredMessage(footer, message, privateMessageText);
+                sendStarredMessage(footer, message, privateMessageText, false);
                 alreadyUsedMessages.add(message.getId());
             }
         }
