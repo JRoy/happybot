@@ -17,7 +17,7 @@ public class OgCommand extends CommandBase {
     protected void executeCommand(CommandEvent e) {
         if (e.getMessage().getMentionedUsers().size() == 1) {
             Member u = C.getMentionedMember(e);
-            if (C.hasRole(u, Roles.OG)) {
+            if (C.hasRoleStrict(u, Roles.OG)) {
                 C.removeRole(u, Roles.OG);
                 e.replySuccess(u.getUser().getAsMention() + " is no longer OG!");
             } else {

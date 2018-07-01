@@ -64,6 +64,7 @@ public class EvalCommand extends CommandBase {
                     "}" +
                     "})();") + " ```");
         } catch (Exception ex) {
+
             e.reply(e.getClient().getError() + " An exception was thrown:\n```\n" + ex + " ```");
         }
     }

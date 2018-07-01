@@ -18,7 +18,7 @@ public class FansCommand extends CommandBase {
         e.getChannel().sendTyping().queue();
         int affected = 0;
         for (Member curM : C.getGuild().getMembers()) {
-            if (!C.hasRole(curM, Roles.FANS) && !curM.getUser().isBot()) {
+            if (!C.hasRoleStrict(curM, Roles.FANS) && !curM.getUser().isBot()) {
                 C.giveRole(curM, Roles.FANS);
                 affected++;
             }

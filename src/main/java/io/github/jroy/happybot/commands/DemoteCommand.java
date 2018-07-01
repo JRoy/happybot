@@ -18,7 +18,7 @@ public class DemoteCommand extends CommandBase {
         if (e.getMessage().getMentionedUsers().size() == 1) {
             e.reply("Please wait while we look how to demote " + C.getMentionedMember(e).getAsMention() + "!");
             Member member = C.getMentionedMember(e);
-            if (!C.hasRole(member, Roles.HELPER)) {
+            if (!C.hasPermission(member, Roles.HELPER)) {
                 e.replyError("User is not on the staff team!");
                 return;
             }
@@ -32,6 +32,6 @@ public class DemoteCommand extends CommandBase {
     }
 
     private void removeIfHasRole(Member member, Roles role) {
-        if (C.hasRole(member, role)) C.removeRole(member, role);
+        if (C.hasRoleStrict(member, role)) C.removeRole(member, role);
     }
 }

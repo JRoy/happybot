@@ -109,7 +109,7 @@ public class AutoMod extends ListenerAdapter {
     }
 
     private boolean checkForAdvertising(Member member, Message message, TextChannel channel) {
-        if (C.hasRole(member, Roles.SUPER_ADMIN) || C.hasRole(member, Roles.BOT))
+        if (C.hasRoleStrict(member, Roles.SUPER_ADMIN) || C.hasRoleStrict(member, Roles.BOT))
             return false;
         if (!pattern.matcher(message.getContentRaw()).find())
             return false;

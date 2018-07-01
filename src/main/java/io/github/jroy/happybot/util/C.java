@@ -3,7 +3,12 @@ package io.github.jroy.happybot.util;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.Main;
 import net.dean.jraw.http.UserAgent;
-import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.managers.GuildController;
 import net.dv8tion.jda.core.utils.IOUtil;
 import org.apache.http.HttpResponse;
@@ -12,10 +17,19 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import javax.annotation.Nonnull;
-import java.io.*;
-import java.net.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.Proxy;
+import java.net.URL;
 import java.nio.channels.Channels;
 import java.text.NumberFormat;
+import java.util.Comparator;
 import java.util.Locale;
 
 /**
@@ -31,7 +45,7 @@ public class C {
      * @param r The role you are testing for.
      * @return Boolean, is the person has the role.
      */
-    public static boolean hasRole(Member m, Roles r) {
+    public static boolean hasRoleStrict(Member m, Roles r) {
         try {
             for (Role s : m.getRoles()) {
                 if (r.equals(Roles.SUPER_ADMIN) && s.getId().equals(Roles.CHANNEL_MANAGER.getId()))
@@ -42,6 +56,26 @@ public class C {
             }
         } catch (NullPointerException ignored) {}
         return false;
+    }
+
+    /**
+     * Sees if a user has the role displayed, or above.
+     * @param m The member that has the role.
+     * @param r The role you are testing for.
+     * @return Boolean, is the person has the role.
+     */
+    public static boolean hasPermission(Member m, Roles r) {
+        try {
+            Roles highest = m.getRoles()
+                .stream()
+                .map(Roles::getRole)
+                .max(Comparator.naturalOrder())
+                .orElse(Roles.EVERYONE);
+
+            return r.compareTo(highest) >= 0;
+        } catch (NullPointerException ignored) {
+            return false;
+        }
     }
 
     /**
@@ -182,7 +216,7 @@ public class C {
      * @return Returns if it added or removed a role.
      */
     public static boolean toggleRole(Member m, Roles role) {
-        if (!hasRole(m, role)) {
+        if (!hasRoleStrict(m, role)) {
             getGuildCtrl().addSingleRoleToMember(m, role.getRole()).reason("Role toggle from internal C Util").queue();
             return true;
         } else {
