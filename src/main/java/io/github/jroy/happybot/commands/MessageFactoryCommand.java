@@ -28,7 +28,7 @@ public class MessageFactoryCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         if (e.getSplitArgs().length < 1) {
-            e.replyError(invalid());
+            e.replyError(invalid);
             return;
         }
 
@@ -78,7 +78,7 @@ public class MessageFactoryCommand extends CommandBase {
             }
             e.replySuccess("Processed " + added + " messages!");
         } else {
-            e.replyError(invalid());
+            e.replyError(invalid);
         }
     }
 }

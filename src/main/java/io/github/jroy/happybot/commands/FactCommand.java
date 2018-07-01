@@ -13,7 +13,7 @@ public class FactCommand extends CommandBase {
 
     public FactCommand() {
         super("fact", null, "Generates a random cat fact.", CommandCategory.FUN);
-        setCooldown(10);
+        this.setCooldownSeconds(10);
     }
 
     @Override

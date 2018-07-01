@@ -22,7 +22,6 @@ public class MemeCommand extends CommandBase {
     private final Reddit reddit;
 
     private List<String> subs = new ArrayList<>();
-    private Map<Member, OffsetDateTime> cooldowns = new HashMap<>();
 
     public MemeCommand(Reddit reddit) {
         super("meme", "parsing...", "Displays a random meme from the requested subreddit.", CommandCategory.FUN);
@@ -36,22 +35,14 @@ public class MemeCommand extends CommandBase {
         subs.add("woooosh");
         subs.add("happyheart");
         this.arguments = "<" + createArgs() + ">";
+        this.setCooldown(5, ChronoUnit.MINUTES);
     }
 
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        if (!e.hasRole(Roles.DEVELOPER)
-            && cooldowns.containsKey(e.getMember())) {
-            int time = getTimeRemaining(e.getMember());
-            if (time > 0) {
-                e.replyError("You must wait " + time + " seconds before preforming this again!");
-                return;
-            }
-        }
-
         if (!subs.contains(e.getArgs().toLowerCase())) {
-            e.reply(invalid());
+            e.replyError(invalid);
             return;
         }
 
@@ -73,7 +64,6 @@ public class MemeCommand extends CommandBase {
                 .setImage(post.getMediaUrl());
         }
         e.reply(eb.build());
-        cooldowns.put(e.getMember(), OffsetDateTime.now().plusMinutes(5));
     }
 
     private String createArgs() {
@@ -83,9 +73,4 @@ public class MemeCommand extends CommandBase {
         sb.setLength(sb.length() - 1);
         return sb.toString();
     }
-
-    private int getTimeRemaining(Member member) {
-        return (int) OffsetDateTime.now().until(cooldowns.get(member), ChronoUnit.SECONDS);
-    }
-
 }
