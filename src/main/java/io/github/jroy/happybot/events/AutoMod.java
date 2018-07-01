@@ -70,7 +70,7 @@ public class AutoMod extends ListenerAdapter {
         //Git Ping Handler
         if (message.getChannel() == Channels.BOT_META.getChannel() && message.isWebhookMessage()) {
             MessageEmbed embed = message.getEmbeds().get(0);
-            if ((embed.getTitle().startsWith("[JRoy/happybot] Issue closed:") || embed.getTitle().startsWith("[JRoy/happybot] New comment on issue") ) && !RuntimeEditor.isPingIssueClose())
+            if ((embed.getTitle().startsWith("[JRoy/happybot] Issue closed:") || embed.getTitle().startsWith("[JRoy/happybot] New comment on") ) && !RuntimeEditor.isPingIssueClose())
                 return;
             Roles.GIT.getRole().getManager().setMentionable(true).complete();
             Channels.BOT_META.getChannel().sendMessage(Roles.GIT.getRole().getAsMention()).complete();
