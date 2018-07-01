@@ -121,7 +121,7 @@ public class StarMessages extends ListenerAdapter {
         @Override
         public void run() {
             if (!alreadyUsedMessages.contains(message.getId())) {
-                String footer = "New Gilded Message from <#" + message.getChannel().getId() + "> (" + C.getFullName(e.getUser()) + ")";
+                String footer = "New Gilded Message from #" + message.getChannel().getName() + " (" + C.getFullName(e.getUser()) + ")";
                 String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
                 sendStarredMessage(footer, message, privateMessageText);
                 alreadyUsedMessages.add(message.getId());
