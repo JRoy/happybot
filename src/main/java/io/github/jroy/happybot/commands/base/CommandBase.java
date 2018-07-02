@@ -130,9 +130,9 @@ public abstract class CommandBase extends Command {
         }
 
         // developer bypasses cooldowns
-        if (commandCooldowns != null && !C.hasRole(member, Roles.DEVELOPER)) {
+        if (commandCooldowns != null && !C.hasRole(member, Roles.DEVELOPER) && commandCooldowns.containsKey(member)) {
             long cooldown = OffsetDateTime.now().until(commandCooldowns.get(member), cooldownUnit);
-            if (commandCooldowns.containsKey(member) && cooldown > 0) {
+            if (cooldown > 0) {
                 event.replyError("You must wait "
                     + cooldown + " " + cooldownUnit.toString().toLowerCase()
                     + " before doing that command again!");
