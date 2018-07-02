@@ -3,6 +3,7 @@ package io.github.jroy.happybot.commands.base;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.entities.Member;
 import org.jetbrains.annotations.NotNull;
@@ -117,6 +118,11 @@ public abstract class CommandBase extends Command {
     @Override
     protected void execute(CommandEvent event) {
         Member member = event.getMember();
+
+        if (event.getTextChannel().getId().equals(Channels.GENERAL.getId()) && (!C.hasRole(event.getMember(), Roles.DEVELOPER) && !C.hasRole(event.getMember(), Roles.HELPER))) {
+            event.getMessage().addReaction("❌").queue();
+            return;
+        }
 
         if (permissionRole != null && !C.hasRole(member, permissionRole)) {
             event.replyError(C.permMsg(permissionRole));
