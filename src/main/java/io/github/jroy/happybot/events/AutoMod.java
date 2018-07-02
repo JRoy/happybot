@@ -61,7 +61,7 @@ public class AutoMod extends ListenerAdapter {
             if (checkForAdvertising(event.getMember(), message, event.getChannel())) return;
 
         //Join and Leave Blocker
-        if (isJoinAndLeave(event.getChannel(), event.getAuthor(), event.getMessage())) return;
+        if (isJoinAndLeave(event.getChannel(), event.getMember(), event.getMessage())) return;
 
         //Auto React
         if (event.getChannel().getId().equals(Channels.UPDATES.getId()) || event.getChannel().getId().equals(Channels.STAFF_ANNOUNCEMENTS.getId()))
@@ -92,18 +92,14 @@ public class AutoMod extends ListenerAdapter {
             if (checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel())) return;
 
         //Join and Leave Blocker
-        isJoinAndLeave(event.getChannel(), event.getAuthor(), event.getMessage());
+        isJoinAndLeave(event.getChannel(), event.getMember(), event.getMessage());
 
     }
 
-    private boolean isJoinAndLeave(TextChannel channel, User author, Message message) {
-        if (channel.getId().equalsIgnoreCase(Channels.WELCOME.getId())) {
-            if (!author.isBot()) {
-                if ((message.getContentRaw().toLowerCase().contains("j") && message.getContentRaw().toLowerCase().contains("o") && message.getContentRaw().toLowerCase().contains("i") && message.getContentRaw().toLowerCase().contains("n")) || (message.getContentRaw().toLowerCase().contains("l") && message.getContentRaw().toLowerCase().contains("e") && message.getContentRaw().toLowerCase().contains("a") && message.getContentRaw().toLowerCase().contains("v") && message.getContentRaw().toLowerCase().contains("e"))) {
-                    message.delete().queue();
-                    return true;
-                }
-            }
+    private boolean isJoinAndLeave(TextChannel channel, Member author, Message message) {
+        if (channel.getId().equalsIgnoreCase(Channels.WELCOME.getId()) && !author.getUser().isBot() && !C.hasRole(author, Roles.DEVELOPER)) {
+            message.delete().queue();
+            return true;
         }
         return false;
     }
