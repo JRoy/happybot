@@ -19,7 +19,7 @@ import io.github.jroy.happybot.commands.report.ReportCommand;
 import io.github.jroy.happybot.commands.RuntimeCommand;
 import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.AutoMod;
-import io.github.jroy.happybot.events.StarMessages;
+import io.github.jroy.happybot.events.star.StarMessages;
 import io.github.jroy.happybot.events.SubmitPinner;
 import io.github.jroy.happybot.events.WelcomeMessage;
 import io.github.jroy.happybot.sql.MessageFactory;
@@ -64,6 +64,7 @@ public class Main extends ListenerAdapter {
     private static EventManager eventManager;
     private static League league;
     private static Reddit reddit;
+    private static StarMessages starMessages;
     private static List<EventListener> eventListeners = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException {
@@ -201,7 +202,7 @@ public class Main extends ListenerAdapter {
     private static MessageFactory loadMessageFactory() { return new MessageFactory(sqlManager); }
 
     private static DiscordThemerImpl loadThemeManager() {
-        DiscordThemerImpl themer = new DiscordThemerImpl(true);
+        DiscordThemerImpl themer = new DiscordThemerImpl(false);
         eventListeners.add(themer);
         return themer;
     }
@@ -215,7 +216,7 @@ public class Main extends ListenerAdapter {
         eventListeners.add(new WelcomeMessage(messageFactory));
 
         Logger.info("Loading Message Starer...");
-        eventListeners.add(new StarMessages());
+        eventListeners.add(starMessages = new StarMessages(sqlManager));
 
         Logger.info("Loading Event Manager...");
         eventListeners.add(eventManager = new EventManager(sqlManager));
@@ -259,6 +260,7 @@ public class Main extends ListenerAdapter {
                 new MemeCommand(reddit),
                 new ShippingCommand(),
                 new FactCommand(),
+                new SelfStarCommands(starMessages),
 
                 //Staff Tools
 

@@ -1,5 +1,6 @@
-package io.github.jroy.happybot.events;
+package io.github.jroy.happybot.events.star;
 
+import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -7,14 +8,111 @@ import net.dv8tion.jda.core.entities.MessageReaction;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class StarMessages extends ListenerAdapter {
+
+    private Connection connection;
+
+    private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS starstats ( `id` INT(50) NOT NULL AUTO_INCREMENT , `userid` VARCHAR(50) NOT NULL , `stars` BIGINT(255) NOT NULL DEFAULT '0' , `gilds` BIGINT(255) NOT NULL DEFAULT '0' , `heels` BIGINT(255) NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+    private final String SELECT_USER = "SELECT * FROM starstats WHERE userid = ?;";
+    private final String CREATE_USER = "INSERT INTO starstats (userId) VALUES (?);";
+    private final String UPDATE_USER = "UPDATE starstats SET stars = ?, gilds = ?, heels = ? WHERE userId = ?;";
+
     private static final String STAR = "⭐";
     private static final String SHOE = "\uD83D\uDC60";
 
     private HashSet<String> alreadyUsedMessages = new HashSet<>();
+
+    public StarMessages(SQLManager sqlManager) {
+        connection = sqlManager.getConnection();
+        try {
+            connection.createStatement().executeUpdate(CREATE_TABLE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public StarStatsToken getUser(String userId) {
+        try {
+            if (!isPropagated(userId))
+                createUser(userId);
+            PreparedStatement statement = connection.prepareStatement(SELECT_USER);
+            statement.setString(1, userId);
+            return new StarStatsToken(statement.executeQuery());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private boolean isPropagated(String userId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_USER);
+            statement.setString(1, userId);
+            return statement.executeQuery().next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private void createUser(String userId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(CREATE_USER);
+            statement.setString(1, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addStar(String userId) {
+        try {
+            StarStatsToken token = getUser(userId);
+            PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
+            statement.setLong(1, token.getStarCount() + 1);
+            statement.setLong(2, token.getGildCount());
+            statement.setLong(3, token.getHeelCount());
+            statement.setString(4, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addGild(String userId) {
+        try {
+            StarStatsToken token = getUser(userId);
+            PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
+            statement.setLong(1, token.getStarCount());
+            statement.setLong(2, token.getGildCount() + 1);
+            statement.setLong(3, token.getHeelCount());
+            statement.setString(4, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addHeel(String userId) {
+        try {
+            StarStatsToken token = getUser(userId);
+            PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
+            statement.setLong(1, token.getStarCount());
+            statement.setLong(2, token.getGildCount());
+            statement.setLong(3, token.getHeelCount() + 1);
+            statement.setString(4, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
@@ -107,6 +205,11 @@ public class StarMessages extends ListenerAdapter {
                     String footer = "New " + ((shoe) ? "Heeled" : "Starred") + " Message from #" + message.getChannel().getName();
                     String privateMessageText = "Congrats! One of your messages has been " + ((shoe) ? "heeled" : "starred") +":";
                     sendStarredMessage(footer, message, privateMessageText, shoe);
+                    if (shoe) {
+                        addHeel(message.getAuthor().getId());
+                    } else {
+                        addStar(message.getAuthor().getId());
+                    }
                 }
             } catch (NullPointerException | IllegalStateException e) {
                 Logger.error("Star reaction is in invalid state!");
@@ -129,8 +232,9 @@ public class StarMessages extends ListenerAdapter {
             if (!alreadyUsedMessages.contains(message.getId())) {
                 String footer = "New Gilded Message from #" + message.getChannel().getName() + " (" + C.getFullName(e.getUser()) + ")";
                 String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
-                sendStarredMessage(footer, message, privateMessageText, false);
                 alreadyUsedMessages.add(message.getId());
+                sendStarredMessage(footer, message, privateMessageText, false);
+                addGild(message.getAuthor().getId());
             }
         }
     }
