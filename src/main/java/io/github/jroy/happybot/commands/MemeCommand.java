@@ -42,7 +42,11 @@ public class MemeCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         if (!subs.contains(e.getArgs().toLowerCase())) {
-            e.replyError(invalid);
+            StringBuilder sb = new StringBuilder();
+            for (String str : subs)
+                sb.append(str).append("/");
+            sb.setLength(sb.length() - 1);
+            e.replyError(invalid().replace("parsing...", sb.toString()));
             return;
         }
 
