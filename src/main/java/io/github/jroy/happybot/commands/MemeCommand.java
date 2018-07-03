@@ -19,7 +19,7 @@ public class MemeCommand extends CommandBase {
     private List<String> subs = new ArrayList<>();
 
     public MemeCommand(Reddit reddit) {
-        super("meme", "parsing...", "Displays a random meme from the requested subreddit.", CommandCategory.FUN);
+        super("meme", "<parsing...>", "Displays a random meme from the requested subreddit.", CommandCategory.FUN);
         this.reddit = reddit;
         this.aliases = new String[]{"memes", "reddit"};
         subs.add("me_irl");
@@ -30,11 +30,6 @@ public class MemeCommand extends CommandBase {
         subs.add("dankmemes");
         subs.add("woooosh");
         subs.add("happyheart");
-        StringBuilder sb = new StringBuilder();
-        for (String str : subs)
-            sb.append(str).append("/");
-        sb.setLength(sb.length() - 1);
-        this.arguments = "<" + sb.toString() + ">";
         this.setCooldown(5, ChronoUnit.MINUTES);
     }
 
@@ -42,7 +37,11 @@ public class MemeCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         if (!subs.contains(e.getArgs().toLowerCase())) {
-            e.replyError(invalid);
+            StringBuilder sb = new StringBuilder();
+            for (String str : subs)
+                sb.append(str).append("/");
+            sb.setLength(sb.length() - 1);
+            e.replyError(invalid.replace("parsing...", sb.toString()));
             return;
         }
 
