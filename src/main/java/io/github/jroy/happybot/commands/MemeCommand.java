@@ -46,7 +46,7 @@ public class MemeCommand extends CommandBase {
             for (String str : subs)
                 sb.append(str).append("/");
             sb.setLength(sb.length() - 1);
-            e.replyError(invalid().replace("parsing...", sb.toString()));
+            e.replyError(invalid.replace("parsing...", sb.toString()));
             return;
         }
 
