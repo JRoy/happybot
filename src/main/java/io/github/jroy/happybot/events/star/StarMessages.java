@@ -3,14 +3,17 @@ package io.github.jroy.happybot.events.star;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageReaction;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.CompletableFuture;
 
@@ -28,6 +31,7 @@ public class StarMessages extends ListenerAdapter {
     private static final String SHOE = "\uD83D\uDC60";
 
     private HashSet<String> alreadyUsedMessages = new HashSet<>();
+    private HashMap<String, GildInfoToken> pastGilds = new HashMap<>();
 
     public StarMessages(SQLManager sqlManager) {
         connection = sqlManager.getConnection();
@@ -86,12 +90,12 @@ public class StarMessages extends ListenerAdapter {
         }
     }
 
-    private void addGild(String userId) {
+    private void addGild(String userId, int amount) {
         try {
             StarStatsToken token = getUser(userId);
             PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
             statement.setLong(1, token.getStarCount());
-            statement.setLong(2, token.getGildCount() + 1);
+            statement.setLong(2, token.getGildCount() + amount);
             statement.setLong(3, token.getHeelCount());
             statement.setString(4, userId);
             statement.executeUpdate();
@@ -135,6 +139,17 @@ public class StarMessages extends ListenerAdapter {
         }
     }
 
+    @Override
+    public void onGuildMessageReactionRemove(GuildMessageReactionRemoveEvent e) {
+        if (e.getReactionEmote().getName().equals("gild") && pastGilds.containsKey(e.getMessageId()) && pastGilds.get(e.getMessageId()).getGilderId().equals(e.getUser().getId())) {
+            for (Message msg : pastGilds.get(e.getMessageId()).getCausedMessages()) {
+                msg.delete().queue();
+            }
+            addGild(pastGilds.get(e.getMessageId()).getTargetId(), -1);
+            pastGilds.remove(e.getMessageId());
+        }
+    }
+
     private void handleStar(GuildMessageReactionAddEvent e, boolean shoe) {
       CompletableFuture.runAsync(new HandleStar(e, shoe));
     }
@@ -143,7 +158,7 @@ public class StarMessages extends ListenerAdapter {
         CompletableFuture.runAsync(new HandleGild(e));
     }
 
-    private void sendStarredMessage(String footer, Message message, String privateMessageText, boolean shoe) {
+    private void sendStarredMessage(String footer, Message message, String privateMessageText, boolean shoe, Member causedUser) {
         EmbedBuilder embed = new EmbedBuilder()
             .setTitle(C.getFullName(message.getAuthor()))
             .setDescription(message.getContentRaw());
@@ -166,10 +181,15 @@ public class StarMessages extends ListenerAdapter {
         if (C.containsImage(message)) {
             embed.setImage(C.getImage(message));
         }
-        Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).queue();
+
+        GildInfoToken infoToken = new GildInfoToken(causedUser.getUser().getId(), message.getAuthor().getId());
+
+        infoToken.addCaused(Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).complete());
         C.privChannel(message.getMember(), privateMessageText);
         C.privChannel(message.getMember(), embed.build());
         alreadyUsedMessages.add(message.getId());
+        if (gild)
+            pastGilds.put(message.getId(), infoToken);
     }
 
     private class HandleStar implements Runnable {
@@ -203,7 +223,7 @@ public class StarMessages extends ListenerAdapter {
                 if (numberOfStars >= NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
                     String footer = "New " + ((shoe) ? "Heeled" : "Starred") + " Message from #" + message.getChannel().getName();
                     String privateMessageText = "Congrats! One of your messages has been " + ((shoe) ? "heeled" : "starred") +":";
-                    sendStarredMessage(footer, message, privateMessageText, shoe);
+                    sendStarredMessage(footer, message, privateMessageText, shoe, e.getMember());
                     if (shoe) {
                         addHeel(message.getAuthor().getId());
                     } else {
@@ -232,8 +252,8 @@ public class StarMessages extends ListenerAdapter {
                 String footer = "New Gilded Message from #" + message.getChannel().getName() + " (" + C.getFullName(e.getUser()) + ")";
                 String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
                 alreadyUsedMessages.add(message.getId());
-                sendStarredMessage(footer, message, privateMessageText, false);
-                addGild(message.getAuthor().getId());
+                sendStarredMessage(footer, message, privateMessageText, false, e.getMember());
+                addGild(message.getAuthor().getId(),1 );
             }
         }
     }

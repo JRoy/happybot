@@ -13,7 +13,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import javax.annotation.Nonnull;
 import java.io.*;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.Proxy;
+import java.net.URL;
 import java.nio.channels.Channels;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -277,6 +280,38 @@ public class C {
         }
     }
 
+    @SuppressWarnings({"unused", "Duplicates"})
+    public static Message privChannel(Member m, String message, boolean returnItem) {
+        try {
+            if (!m.getUser().isBot()) {
+                final Message[] message1 = new Message[1];
+                m.getUser().openPrivateChannel().queue(privateChannel -> {
+                    message1[0] = privateChannel.sendMessage(message).complete();
+                }, throwable -> Logger.error("Tried to open a private channel but got error: " + throwable.getMessage()));
+                return message1[0];
+            }
+        } catch (UnsupportedOperationException e) {
+            Logger.error("Tried to open a private channel but got error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @SuppressWarnings({"unused", "Duplicates"})
+    public static Message privChannel(Member m, MessageEmbed message, boolean returnItem) {
+        try {
+            if (!m.getUser().isBot()) {
+                final Message[] message1 = new Message[1];
+                m.getUser().openPrivateChannel().queue(privateChannel -> {
+                    message1[0] = privateChannel.sendMessage(message).complete();
+                }, throwable -> Logger.error("Tried to open a private channel but got error: " + throwable.getMessage()));
+                return message1[0];
+            }
+        } catch (UnsupportedOperationException e) {
+            Logger.error("Tried to open a private channel but got error: " + e.getMessage());
+        }
+        return null;
+    }
+
     public static void privChannel(Member m, MessageEmbed embed) {
         try {
             if (!m.getUser().isBot()) {
@@ -286,6 +321,7 @@ public class C {
             Logger.error("Tried to open a private channel but got error: " + e.getMessage());
         }
     }
+
 
     /**
      * Returns a codeblock of used value.
