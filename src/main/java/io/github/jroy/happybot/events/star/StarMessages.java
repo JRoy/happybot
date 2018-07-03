@@ -153,14 +153,13 @@ public class StarMessages extends ListenerAdapter {
             return;
         }
 
-        embed.setFooter(footer, "https://i.imgur.com/WwPHcgU.png");
-
+        boolean gild = footer.startsWith("New Gilded Message");
         if (shoe)
             embed.setFooter(footer, "https://i.imgur.com/Gq5xooX.png");
-
-        if (footer.startsWith("New Gilded Message")) {
+        else if (gild)
             embed.setFooter(footer, "https://cdn.discordapp.com/emojis/371121885997694976.png?v=1");
-        }
+        else
+            embed.setFooter(footer, "https://i.imgur.com/WwPHcgU.png"); //Star
 
         embed.setThumbnail(message.getMember().getUser().getAvatarUrl())
         .setColor(message.getMember().getColor());
