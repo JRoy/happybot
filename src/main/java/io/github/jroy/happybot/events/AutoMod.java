@@ -6,6 +6,7 @@ import io.github.jroy.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.events.ShutdownEvent;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleAddEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleRemoveEvent;
@@ -34,7 +35,7 @@ public class AutoMod extends ListenerAdapter {
     @Override
     public void onStatusChange(StatusChangeEvent event) {
         if (event.getNewStatus() == JDA.Status.CONNECTED) {
-            Channels.BOT_META.getChannel().getHistory().retrievePast(10).queue(messages -> messages.forEach(message -> {
+            event.getJDA().getGuildById(Constants.GUILD_ID.get()).getTextChannelById(Channels.BOT_META.getId()).getHistory().retrievePast(10).queue(messages -> messages.forEach(message -> {
                 message.getEmbeds().forEach(messageEmbed -> {
                     if (messageEmbed != null && messageEmbed.getTitle().equalsIgnoreCase("Impending Update") && message.getAuthor() == Main.getJda().getUserById(Constants.BOT_ID.get()) && !message.isWebhookMessage()) {
                         message.editMessage(new EmbedBuilder()
@@ -144,5 +145,10 @@ public class AutoMod extends ListenerAdapter {
                 C.giveRole(event.getMember(), Roles.EXP_SPAMMER);
             }
         }
+    }
+
+    @Override
+    public void onShutdown(ShutdownEvent event) {
+        System.exit(0);
     }
 }

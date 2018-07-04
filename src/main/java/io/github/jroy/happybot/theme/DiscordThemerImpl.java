@@ -1,6 +1,6 @@
 package io.github.jroy.happybot.theme;
 
-import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Constants;
 import io.github.wheezygold7931.discordthemer.DiscordThemer;
 import io.github.wheezygold7931.discordthemer.DiscordThemerBuilder;
 import io.github.wheezygold7931.discordthemer.ThemeToken;
@@ -26,7 +26,7 @@ public class DiscordThemerImpl extends ListenerAdapter {
     public void onStatusChange(StatusChangeEvent event) {
         if (event.getNewStatus() == JDA.Status.CONNECTED && discordThemer == null) {
             discordThemer = new DiscordThemerBuilder(event.getJDA())
-                    .setGuild(C.getGuild())
+                    .setGuild(event.getJDA().getGuildById(Constants.GUILD_ID.get()))
                     .setActionMode(ActionMode.QUEUE)
                     .setThemeFolder("themes/")
                     .setLogDisplayWarnings(true)
