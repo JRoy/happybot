@@ -147,6 +147,7 @@ public class StarMessages extends ListenerAdapter {
             }
             addGild(pastGilds.get(e.getMessageId()).getTargetId(), -1);
             pastGilds.remove(e.getMessageId());
+            alreadyUsedMessages.remove(e.getMessageId());
         }
     }
 
