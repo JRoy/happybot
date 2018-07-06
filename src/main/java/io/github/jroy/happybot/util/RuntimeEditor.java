@@ -8,7 +8,6 @@ public class RuntimeEditor {
     private static boolean filteringAdverts = true;
     private static boolean permittingWarningExposement = false;
     private static boolean allowEditOtherUserWarn = false;
-    private static boolean teddySpam = false;
 
     private static float gambleJackpot = 0;
 
@@ -68,14 +67,6 @@ public class RuntimeEditor {
 
     public static void setAllowEditOtherUserWarn(boolean allowEditOtherUserWarn) {
         RuntimeEditor.allowEditOtherUserWarn = allowEditOtherUserWarn;
-    }
-
-    public static boolean isTeddySpam() {
-        return teddySpam;
-    }
-
-    public static void setTeddySpam(boolean teddySpam) {
-        RuntimeEditor.teddySpam = teddySpam;
     }
 
     public static float getGambleJackpot() {

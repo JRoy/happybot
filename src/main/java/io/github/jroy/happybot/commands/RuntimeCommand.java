@@ -82,14 +82,6 @@ public class RuntimeCommand extends CommandBase {
                     }
                     break;
                 }
-                case "teddySpam": {
-                    if (C.containsBool(value)) {
-                        RuntimeEditor.setTeddySpam(Boolean.parseBoolean(value));
-                    } else {
-                        valid = false;
-                    }
-                    break;
-                }
                 case "gambleJackpot": {
                     try {
                         float chance = Float.parseFloat(value);

@@ -5,11 +5,13 @@ import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.*;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.ShutdownEvent;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleAddEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -61,9 +63,6 @@ public class AutoMod extends ListenerAdapter {
         if (RuntimeEditor.isFilteringAdverts())
             if (checkForAdvertising(event.getMember(), message, event.getChannel())) return;
 
-        //Join and Leave Blocker
-        if (isJoinAndLeave(event.getChannel(), event.getMember(), event.getMessage())) return;
-
         //Auto React
         if (event.getChannel().getId().equals(Channels.UPDATES.getId()) || event.getChannel().getId().equals(Channels.STAFF_ANNOUNCEMENTS.getId()))
             message.addReaction(Emotes.getRandom().getEmote()).queue();
@@ -90,19 +89,7 @@ public class AutoMod extends ListenerAdapter {
     @Override
     public void onGuildMessageUpdate(GuildMessageUpdateEvent event) {
         if (RuntimeEditor.isFilteringAdverts())
-            if (checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel())) return;
-
-        //Join and Leave Blocker
-        isJoinAndLeave(event.getChannel(), event.getMember(), event.getMessage());
-
-    }
-
-    private boolean isJoinAndLeave(TextChannel channel, Member author, Message message) {
-        if (channel.getId().equalsIgnoreCase(Channels.WELCOME.getId()) && !author.getUser().isBot() && !C.hasRole(author, Roles.DEVELOPER)) {
-            message.delete().queue();
-            return true;
-        }
-        return false;
+            if (checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel()));
     }
 
     private boolean checkForAdvertising(Member member, Message message, TextChannel channel) {
@@ -132,18 +119,6 @@ public class AutoMod extends ListenerAdapter {
             Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
             Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
             Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-        }
-    }
-
-    @Override
-    public void onGuildMemberRoleRemove(GuildMemberRoleRemoveEvent event) {
-        if (!RuntimeEditor.isTeddySpam()) {
-            return;
-        }
-        if (event.getUser().getId().equals(Constants.TEDDY_ID.get())) {
-            if (event.getRoles().get(0).getId().equals(Roles.EXP_SPAMMER.getId())) {
-                C.giveRole(event.getMember(), Roles.EXP_SPAMMER);
-            }
         }
     }
 
