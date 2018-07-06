@@ -12,7 +12,7 @@ public class RuntimeCommand extends CommandBase {
 
     public RuntimeCommand() {
         super("runtime",
-            "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/teddySpam/gambleJackpot>",
+            "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/gambleJackpot>",
             "Edits varibles for commands during runtime.",
             CommandCategory.BOT,
             Roles.DEVELOPER);

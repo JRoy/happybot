@@ -118,7 +118,7 @@ public abstract class CommandBase extends Command {
     protected void execute(CommandEvent event) {
         Member member = event.getMember();
 
-//        if (event.getTextChannel().getId().equals(Channels.GENERAL.getId()) && (!C.hasRole(event.getMember(), Roles.DEVELOPER) && !C.hasRole(event.getMember(), Roles.HELPER))) {
+//        if (event.getTextChannel().getId().equals(Channels.RANDOM.getId()) && (!C.hasRole(event.getMember(), Roles.DEVELOPER) && !C.hasRole(event.getMember(), Roles.HELPER))) {
 //            event.getMessage().addReaction("❌").queue();
 //            return;
 //        }

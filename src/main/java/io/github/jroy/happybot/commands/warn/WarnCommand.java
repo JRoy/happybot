@@ -47,7 +47,7 @@ public class WarnCommand extends CommandBase {
 
         String channelId = e.getChannel().getId();
 
-        if (Channels.GENERAL.getId().equalsIgnoreCase(channelId) || Channels.RANDOM.getId().equalsIgnoreCase(channelId) || Channels.GAMBLE.getId().equalsIgnoreCase(channelId) || Channels.MUSIC_REQUEST.getId().equalsIgnoreCase(channelId))
+        if (Channels.RANDOM.getId().equalsIgnoreCase(channelId) || Channels.ARCHIVED_RANDOM.getId().equalsIgnoreCase(channelId) || Channels.GAMBLE.getId().equalsIgnoreCase(channelId) || Channels.MUSIC_REQUEST.getId().equalsIgnoreCase(channelId))
             e.getMessage().delete().queue();
 
         try {
