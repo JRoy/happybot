@@ -11,6 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -24,6 +25,7 @@ import java.util.Locale;
 /**
  * The C Class provides lots of *sometimes* useful methods that make things ez-pz.
  */
+@SuppressWarnings("ALL")
 public class C {
     private static String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
 
@@ -437,5 +439,23 @@ public class C {
      */
     public static String getFullName(User user) {
         return user.getName() + "#" + user.getDiscriminator();
+    }
+
+    /**
+     * Gets a {@link net.dv8tion.jda.core.entities.Member Guild Member} from their name.
+     * @param name The name of the memeber.
+     * @return the member that matches the name otherwise, null.
+     */
+    @CheckForNull
+    public static Member getMemberFromName(String name) {
+        for (Member curMember : getGuild().getMembers()) {
+            if (curMember.getUser().getName().equalsIgnoreCase(name))
+                return curMember;
+        }
+        for (Member curMember : getGuild().getMembers()) {
+            if (curMember.getUser().getName().toLowerCase().startsWith(name.toLowerCase()))
+                return curMember;
+        }
+        return null;
     }
 }

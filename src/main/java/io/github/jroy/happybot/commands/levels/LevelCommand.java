@@ -24,8 +24,14 @@ public class LevelCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         Member target = e.getMember();
-        if (e.containsMention())
-            target = e.getMentionedMember();
+
+        if (!e.getArgs().isEmpty()) {
+            Member fromName = C.getMemberFromName(e.getArgs());
+            if (e.containsMention())
+                target = e.getMentionedMember();
+            else if (fromName != null)
+                target = fromName;
+         }
 
         String targetId = target.getUser().getId();
 
