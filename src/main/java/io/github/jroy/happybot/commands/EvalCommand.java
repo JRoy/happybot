@@ -42,6 +42,7 @@ public class EvalCommand extends CommandBase {
             se.eval("var C = Java.type(\"io.github.jroy.happybot.util.C\");");
             se.eval("var Roles = Java.type(\"io.github.jroy.happybot.util.Roles\");");
             se.eval("var Channels = Java.type(\"io.github.jroy.happybot.util.Channels\");");
+            se.eval("var Leveling = Java.type(\"io.github.jroy.happybot.levels.Leveling\");");
             e.reply("Evaluated Successfully:\n```\n" + se.eval(e.getArgs()) + " ```");
         } catch (Exception ex) {
             e.reply("An exception was thrown:\n```\n" + ex + " ```");

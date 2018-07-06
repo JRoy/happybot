@@ -9,6 +9,9 @@ import io.github.jroy.happybot.apis.reddit.Reddit;
 import io.github.jroy.happybot.apis.youtube.YouTubeAPI;
 import io.github.jroy.happybot.commands.*;
 import io.github.jroy.happybot.commands.base.CommandFactory;
+import io.github.jroy.happybot.commands.levels.AddUserCommand;
+import io.github.jroy.happybot.commands.levels.LeaderboardCommand;
+import io.github.jroy.happybot.commands.levels.LevelCommand;
 import io.github.jroy.happybot.commands.money.GambleCommand;
 import io.github.jroy.happybot.commands.money.MoneyCommand;
 import io.github.jroy.happybot.commands.money.ShopCommand;
@@ -22,6 +25,7 @@ import io.github.jroy.happybot.events.AutoMod;
 import io.github.jroy.happybot.events.star.StarMessages;
 import io.github.jroy.happybot.events.SubmitPinner;
 import io.github.jroy.happybot.events.WelcomeMessage;
+import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.sql.SQLManager;
@@ -65,9 +69,10 @@ public class Main extends ListenerAdapter {
     private static League league;
     private static Reddit reddit;
     private static StarMessages starMessages;
+    private static Leveling leveling;
     private static List<EventListener> eventListeners = new ArrayList<>();
 
-    public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException {
+    public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException, InterruptedException {
 
         new Logger();
 
@@ -120,7 +125,7 @@ public class Main extends ListenerAdapter {
         for (EventListener listener : eventListeners)
             builder.addEventListener(listener);
         Logger.info("Logging into Discord...");
-        jda = builder.buildAsync();
+        jda = builder.buildBlocking();
 
 //        new RichPresence((JDAImpl) jda);
 
@@ -208,6 +213,8 @@ public class Main extends ListenerAdapter {
     }
 
     private static List<EventListener> loadEventListeners() {
+        Logger.info("Loading Event Manager...");
+        eventListeners.add(eventManager = new EventManager(sqlManager));
 
         Logger.info("Loading AutoMod...");
         eventListeners.add(new AutoMod(messageFactory));
@@ -218,10 +225,11 @@ public class Main extends ListenerAdapter {
         Logger.info("Loading Message Starer...");
         eventListeners.add(starMessages = new StarMessages(sqlManager));
 
-        Logger.info("Loading Event Manager...");
-        eventListeners.add(eventManager = new EventManager(sqlManager));
-
+        Logger.info("Loading Submission Pinner...");
         eventListeners.add(new SubmitPinner());
+
+        Logger.info("Loading Leveling Manager...");
+        eventListeners.add(leveling = new Leveling(sqlManager));
 
         return eventListeners;
     }
@@ -261,6 +269,8 @@ public class Main extends ListenerAdapter {
                 new ShippingCommand(),
                 new FactCommand(),
                 new SelfStarCommands(starMessages),
+                new LevelCommand(leveling),
+                new LeaderboardCommand(leveling),
 
                 //Staff Tools
 
@@ -295,7 +305,9 @@ public class Main extends ListenerAdapter {
 //                new ThemeManagerCommand(themeManager),
                 new ShutdownCommand(),
                 new UpdateCommand(messageFactory),
-                new EvalCommand()
+                new EvalCommand(),
+                new TestCommand(),
+                new AddUserCommand(leveling)
 
         );
     }

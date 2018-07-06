@@ -22,6 +22,7 @@ public class CommandFactory {
         Logger.info("Loading Command Factory...");
         clientBuilder = new CommandClientBuilder();
         clientBuilder.setPrefix("^");
+        clientBuilder.setAlternativePrefix("!");
         clientBuilder.setOwnerId(Constants.OWNER_ID.get());
         clientBuilder.useHelpBuilder(false);
     }
