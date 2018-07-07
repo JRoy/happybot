@@ -14,6 +14,7 @@ import io.github.jroy.happybot.commands.levels.LeaderboardCommand;
 import io.github.jroy.happybot.commands.levels.LevelCommand;
 import io.github.jroy.happybot.commands.money.GambleCommand;
 import io.github.jroy.happybot.commands.money.MoneyCommand;
+import io.github.jroy.happybot.commands.money.RobCommand;
 import io.github.jroy.happybot.commands.money.ShopCommand;
 import io.github.jroy.happybot.commands.report.EditReportCommand;
 import io.github.jroy.happybot.commands.report.HandleReportCommand;
@@ -271,6 +272,7 @@ public class Main extends ListenerAdapter {
                 new SelfStarCommands(starMessages),
                 new LevelCommand(leveling),
                 new LeaderboardCommand(leveling),
+                new RobCommand(sqlManager),
 
                 //Staff Tools
 
