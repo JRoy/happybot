@@ -25,7 +25,7 @@ public class MuteCommand extends CommandBase {
     @Override
     protected void executeCommand(CommandEvent e) {
         String[] args = e.getSplitArgs();
-        if (C.containsMention(e)) {
+        if (!C.containsMention(e)) {
             e.replyError("Correct Usage: ^" + name + " " + arguments);
             return;
         }
