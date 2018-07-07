@@ -3,6 +3,7 @@ package io.github.jroy.happybot.commands.base;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Logger;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.entities.Member;
 import org.jetbrains.annotations.NotNull;
@@ -103,6 +104,7 @@ public abstract class CommandBase extends Command {
         commandCooldowns = new HashMap<>();
         cooldownUnit = chronoUnit;
         cooldownDelay = amount;
+        Logger.info("Cooldown Registered for: ^" + name + "!");
     }
 
     /**
@@ -129,13 +131,15 @@ public abstract class CommandBase extends Command {
         }
 
         // developer bypasses cooldowns
-        if (commandCooldowns != null && !C.hasRole(member, Roles.DEVELOPER) && commandCooldowns.containsKey(member)) {
-            long cooldown = OffsetDateTime.now().until(commandCooldowns.get(member), cooldownUnit);
-            if (cooldown > 0) {
-                event.replyError("You must wait "
-                    + cooldown + " " + cooldownUnit.toString().toLowerCase()
-                    + " before doing that command again!");
-                return;
+        if (commandCooldowns != null && !C.hasRole(member, Roles.DEVELOPER)) {
+            if (commandCooldowns.containsKey(member)) {
+                long cooldown = OffsetDateTime.now().until(commandCooldowns.get(member), cooldownUnit);
+                if (cooldown > 0) {
+                    event.replyError("You must wait "
+                            + cooldown + " " + cooldownUnit.toString().toLowerCase()
+                            + " before doing that command again!");
+                    return;
+                }
             }
             commandCooldowns.put(event.getMember(), OffsetDateTime.now().plus(cooldownDelay, cooldownUnit));
         }
