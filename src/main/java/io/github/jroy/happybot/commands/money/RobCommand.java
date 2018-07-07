@@ -55,7 +55,7 @@ public class RobCommand extends CommandBase {
                     userToken.takeCoins(FINE);
                     return;
                 }
-                userToken.takeCoins(userToken.getCoins());
+                userToken.takeCoins(Math.max(FINE, userToken.getCoins()));
                 return;
             }
 
@@ -67,11 +67,7 @@ public class RobCommand extends CommandBase {
             } else {
                 e.reply(e.getMember().getAsMention() + ", the feds caught you in the act you thief.\n" +
                     "    -" + FINE + " coins as fine.");
-                if (userToken.getCoins() >= FINE) {
-                    userToken.takeCoins(FINE);
-                    return;
-                }
-                userToken.takeCoins(userToken.getCoins());
+                userToken.takeCoins(Math.max(FINE, userToken.getCoins()));
             }
         } catch (SQLException e1) {
             e.reply("Oof Error: " + e1.getMessage());
