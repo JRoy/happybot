@@ -9,9 +9,10 @@ import net.dv8tion.jda.core.entities.Member;
 
 import java.sql.SQLException;
 import java.time.temporal.ChronoUnit;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RobCommand extends CommandBase {
+    private final static int FINE = 300;
 
     private SQLManager sqlManager;
 
@@ -46,11 +47,12 @@ public class RobCommand extends CommandBase {
             UserToken userToken = sqlManager.getUser(userId);
             UserToken targetToken = sqlManager.getUser(target.getUser().getId());
 
-            int robAmount = new Random().nextInt(500-100) + 100;
+            int robAmount = ThreadLocalRandom.current().nextInt(100, 500);
             if (targetToken.getCoins() < robAmount) {
-                e.reply("The person you are trying to steal from does not have any money to steal! You got caught in the act!\n    -170 coins.");
-                if (userToken.getCoins() >= 170) {
-                    userToken.takeCoins(170);
+                e.reply("The person you are trying to steal from does not have any money to steal! You got caught in the act!\n" +
+                    "    -" + FINE + " coins.");
+                if (userToken.getCoins() >= FINE) {
+                    userToken.takeCoins(FINE);
                     return;
                 }
                 userToken.takeCoins(userToken.getCoins());
@@ -61,11 +63,12 @@ public class RobCommand extends CommandBase {
             if (chance < 0.5) {
                 targetToken.takeCoins(robAmount);
                 userToken.addCoins(robAmount);
-                e.reply("Hey " + target.getAsMention() + ", You just got robbed by " + e.getMember().getAsMention() + " for " + robAmount + " coins!");
+                e.reply("Hey " + target.getAsMention() + ", you just got robbed by " + e.getMember().getAsMention() + " for " + robAmount + " coins!");
             } else {
-                e.reply(e.getMember().getAsMention() + ", the feds caught you in the act you thief.\n    -170 coins as fine.");
-                if (userToken.getCoins() >= 170) {
-                    userToken.takeCoins(170);
+                e.reply(e.getMember().getAsMention() + ", the feds caught you in the act you thief.\n" +
+                    "    -" + FINE + " coins as fine.");
+                if (userToken.getCoins() >= FINE) {
+                    userToken.takeCoins(FINE);
                     return;
                 }
                 userToken.takeCoins(userToken.getCoins());
