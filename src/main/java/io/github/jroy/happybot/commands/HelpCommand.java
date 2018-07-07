@@ -13,7 +13,7 @@ public class HelpCommand extends CommandBase {
     private CommandFactory commandFactory;
 
     public HelpCommand(CommandFactory commandFactory) {
-        super("help", null, "Displays command usages.", CommandCategory.GENERAL);
+        super("help", "[<command>]", "Displays command usages.", CommandCategory.GENERAL);
         this.commandFactory = commandFactory;
     }
 

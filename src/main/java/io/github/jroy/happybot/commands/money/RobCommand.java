@@ -27,6 +27,7 @@ public class RobCommand extends CommandBase {
         try {
             if (!e.containsMention()) {
                 e.reply(invalid);
+                removeFromCooldown(e.getMember());
                 return;
             }
 
