@@ -107,6 +107,12 @@ public abstract class CommandBase extends Command {
         Logger.info("Cooldown Registered for: ^" + name + "!");
     }
 
+    public void removeFromCooldown(Member member) {
+        if (commandCooldowns != null) {
+            commandCooldowns.remove(member);
+        }
+    }
+
     /**
      * Removes a command's cooldown.
      */
