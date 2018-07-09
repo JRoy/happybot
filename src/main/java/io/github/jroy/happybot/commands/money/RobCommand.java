@@ -60,6 +60,12 @@ public class RobCommand extends CommandBase {
                 return;
             }
 
+            if (targetToken.getCoins() < 1000) {
+                e.reply("This person has under 1000 coins, give them a break!");
+                removeFromCooldown(e.getMember());
+                return;
+            }
+
             double chance = Math.random();
             if (chance < 0.5) {
                 targetToken.takeCoins(robAmount);
