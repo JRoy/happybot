@@ -10,18 +10,17 @@ import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
-import org.apache.commons.lang3.StringUtils;
+import sh.okx.timeapi.api.TimeAPI;
 
 import java.awt.*;
 import java.sql.SQLException;
-import java.util.concurrent.TimeUnit;
 
 public class MuteCommand extends CommandBase {
 
     private EventManager eventManager;
 
     public MuteCommand(EventManager eventManager) {
-        super("mute", "<user> [<time in hours> <reason>]", "Toggles the mute of a user.", CommandCategory.STAFF, Roles.HELPER);
+        super("mute", "<user> [<time> <reason>]", "Toggles the mute of a user.", CommandCategory.STAFF, Roles.HELPER);
         this.eventManager = eventManager;
     }
 
@@ -48,26 +47,33 @@ public class MuteCommand extends CommandBase {
             } catch (SQLException e1) {
                 e.replyError("Unable to delete infraction: " + e1.getMessage());
             }
-        } else if(args.length >= 3 && StringUtils.isNumeric(args[1])) {
-            long wait = TimeUnit.HOURS.toMillis(Integer.parseInt(args[1]));
+        } else if (args.length >= 3) {
+            TimeAPI wait;
+            try {
+                wait = new TimeAPI(args[1]);
+            } catch (IllegalArgumentException e1) {
+                e.reply(invalid);
+                return;
+            }
+//            long wait = TimeUnit.HOURS.toMillis(Integer.parseInt(args[1]));
             String reason = e.getArgs().replaceFirst("<(.*?)>", "").replaceFirst(" " + args[1] + " ", "");
 
             try {
-                eventManager.createInfraction(target.getUser().getId(), wait, EventType.MUTE);
+                eventManager.createInfraction(target.getUser().getId(), (long) wait.getMilliseconds(), EventType.MUTE);
                 C.giveRole(target, Roles.MUTED);
                 e.replySuccess("User muted!");
                 Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
                         .setAuthor(C.getFullName(e.getMember().getUser()), null,  e.getMember().getUser().getAvatarUrl())
                         .setColor(Color.CYAN)
                         .setThumbnail(target.getUser().getAvatarUrl())
-                        .setDescription(":information_source: **User Muted**\n" + C.bold("Muted " + target.getUser().getName() + "#" + target.getUser().getDiscriminator()) + "\n:page_facing_up: " + C.bold("Reason: ") + reason + "\n:timer: **Duration** " + args[1] + " hours")
+                        .setDescription(":information_source: **User Muted**\n" + C.bold("Muted " + target.getUser().getName() + "#" + target.getUser().getDiscriminator()) + "\n:page_facing_up: " + C.bold("Reason: ") + reason + "\n:timer: **Duration** " + wait.getHours() + " hours.")
                         .build()).queue();
-                C.privChannel(target, "You have been muted for " + args[1] + " hours with reason: " + reason + "!");
+                C.privChannel(target, "You have been muted for " + wait.getHours() + " hours with reason: " + reason + "!");
             } catch (SQLException e1) {
                 e.replyError("Could not mute user: " + e1.getMessage());
             }
         } else {
-            e.replyError("Correct Usage: ^" + name + " " + arguments);
+            e.replyError(invalid);
         }
     }
 }
