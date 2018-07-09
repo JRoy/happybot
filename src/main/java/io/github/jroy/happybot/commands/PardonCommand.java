@@ -4,7 +4,11 @@ import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
+import net.dv8tion.jda.core.EmbedBuilder;
+
+import java.awt.*;
 
 public class PardonCommand extends CommandBase {
 
@@ -20,6 +24,11 @@ public class PardonCommand extends CommandBase {
             if (args.length >= 1) {
                 C.getCtrl(e).unban(args[0]).reason("Pardoned by Moderator: " + e.getMember().getUser().getName()).queue();
                 e.replySuccess("User U(" + args[0] + ") has been *forgivably pardoned*  by " + e.getMember().getEffectiveName());
+                Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
+                        .setAuthor(C.getFullName(e.getMember().getUser()), null,  e.getMember().getUser().getAvatarUrl())
+                        .setColor(Color.RED)
+                        .setDescription(":information_source: **User Pardoned**\n" + C.bold("Pardoned " + args[0]))
+                        .build()).queue();
             } else {
                 e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
             }
