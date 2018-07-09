@@ -45,6 +45,9 @@ public class MessageFactory {
                 break;
             }
             case WARN: {
+                if (!message.toLowerCase().contains("<user>")) {
+                    message = "<user>: " + message;
+                }
                 warningMessages.add(message);
                 break;
             }
