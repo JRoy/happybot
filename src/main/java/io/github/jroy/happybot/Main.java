@@ -273,6 +273,7 @@ public class Main extends ListenerAdapter {
                 new LevelCommand(leveling),
                 new LeaderboardCommand(leveling),
                 new RobCommand(sqlManager),
+                new CoinFlipCommand(),
 
                 //Staff Tools
 
