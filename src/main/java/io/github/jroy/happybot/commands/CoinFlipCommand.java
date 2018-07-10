@@ -8,16 +8,16 @@ public class CoinFlipCommand extends CommandBase {
 
     public CoinFlipCommand() {
         super("coinflip", null, "Flips a coin.", CommandCategory.FUN);
-        this.aliases = new String[]{"flipcoin"};
+        this.aliases = new String[]{"flipcoin", "coin"};
     }
 
     @Override
     protected void executeCommand(CommandEvent e) {
         double random = Math.random();
         if (random < 0.5) {
-            e.reply("Heads!");
+            e.reply(":small_blue_diamond: Heads!");
         } else {
-            e.reply("Tails!");
+            e.reply(":small_orange_diamond: Tails!");
         }
     }
 }
