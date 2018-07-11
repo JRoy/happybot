@@ -34,7 +34,7 @@ public class WarningsCommand extends CommandBase {
                         e.replyError(C.bold("Correct Usage:") + " ^" + name + " **<user>**");
                         return;
                     }
-                    e.reply(token.getBuilder().toString());
+                    e.reply(token.getBuilder().toString().replace("'s Warnings", "'s Warning [" + token.getWarnings() + "]"));
                     return;
                 } catch (SQLException e1) {
                     e.replyError(C.bold("Correct Usage:") + " ^" + name + " **<user>**");
@@ -56,7 +56,7 @@ public class WarningsCommand extends CommandBase {
                     e.replyError("Target User has no warnings.");
                     return;
                 }
-                e.reply(token.getBuilder().toString());
+                e.reply(token.getBuilder().toString().replace("'s Warnings", "'s Warning [" + token.getWarnings() + "]"));
             } catch (SQLException e1) {
                 e.replyError("Oof Error: " + e1.getMessage());
             }
