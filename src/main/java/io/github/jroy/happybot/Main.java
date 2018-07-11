@@ -23,6 +23,7 @@ import io.github.jroy.happybot.commands.report.ReportCommand;
 import io.github.jroy.happybot.commands.RuntimeCommand;
 import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.AutoMod;
+import io.github.jroy.happybot.events.LoggingFactory;
 import io.github.jroy.happybot.events.star.StarMessages;
 import io.github.jroy.happybot.events.SubmitPinner;
 import io.github.jroy.happybot.events.WelcomeMessage;
@@ -275,6 +276,7 @@ public class Main extends ListenerAdapter {
                 new LeaderboardCommand(leveling),
                 new RobCommand(sqlManager),
                 new CoinFlipCommand(),
+                new AvatarCommand(),
 
                 //Staff Tools
 
