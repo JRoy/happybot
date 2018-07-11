@@ -256,6 +256,7 @@ public class Main extends ListenerAdapter {
                 new SelfWarningsCommand(warningManager),
                 new ReportCommand(reportManager),
                 new WhoIsCommand(),
+                new MemberCountCommand(),
 
                 //Fun
 
