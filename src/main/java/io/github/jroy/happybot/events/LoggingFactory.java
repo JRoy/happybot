@@ -80,7 +80,7 @@ public class LoggingFactory extends ListenerAdapter {
                 .setAuthor("Member Unbanned", null, e.getUser().getAvatarUrl())
                 .setDescription(e.getUser().getAsMention() + " " + C.getFullName(e.getUser()))
                 .setThumbnail(e.getUser().getAvatarUrl())
-                .setColor(Color.BLUE)
+                .setColor(Color.CYAN)
                 .setFooter("ID: " + e.getUser().getId(), null).build());
     }
 
@@ -163,7 +163,7 @@ public class LoggingFactory extends ListenerAdapter {
                 .setDescription("Role Updated: " + e.getRole().getName())
                 .addField("New Name", e.getNewName(), false)
                 .addField("Old Name", e.getOldName(), false)
-                .setColor(Color.BLUE)
+                .setColor(Color.CYAN)
                 .setFooter("ID: " + e.getRole().getId(), null).build());
     }
 
@@ -172,7 +172,7 @@ public class LoggingFactory extends ListenerAdapter {
         sendLogMessage(new EmbedBuilder()
                 .setAuthor(C.getFullName(e.getUser()), null, e.getUser().getAvatarUrl())
                 .setDescription(e.getUser().getAsMention() + " " + C.bold("was given the ") + "`"+C.prettyRoleArray(e.getRoles())+"` " + C.bold("role(s)!"))
-                .setColor(Color.BLUE)
+                .setColor(Color.CYAN)
                 .setFooter("ID: " + e.getUser().getId(), null).build());
     }
 
@@ -181,7 +181,7 @@ public class LoggingFactory extends ListenerAdapter {
         sendLogMessage(new EmbedBuilder()
                 .setAuthor(C.getFullName(e.getUser()), null, e.getUser().getAvatarUrl())
                 .setDescription(e.getUser().getAsMention() + " " + C.bold("was removed from the ") + "`"+C.prettyRoleArray(e.getRoles())+"` " + C.bold("role(s)!"))
-                .setColor(Color.BLUE)
+                .setColor(Color.CYAN)
                 .setFooter("ID: " + e.getUser().getId(), null).build());
     }
 
@@ -192,7 +192,7 @@ public class LoggingFactory extends ListenerAdapter {
                 .setDescription(e.getUser().getAsMention() + " " + C.bold("nickname changed!"))
                 .addField("New Nick", e.getNewNick(), false)
                 .addField("Old Nick", e.getPrevNick(), false)
-                .setColor(Color.BLUE)
+                .setColor(Color.CYAN)
                 .setFooter("ID: " + e.getUser().getId(), null).build());
     }
 
@@ -203,7 +203,7 @@ public class LoggingFactory extends ListenerAdapter {
                 .setDescription(e.getUser().getAsMention() + " " + C.bold("username changed!"))
                 .addField("New Name", e.getNewName(), false)
                 .addField("Old Name", e.getOldName(), false)
-                .setColor(Color.BLUE)
+                .setColor(Color.CYAN)
                 .setFooter("ID: " + e.getUser().getId(), null).build());
     }
 }
