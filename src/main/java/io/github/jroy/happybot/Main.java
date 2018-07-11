@@ -252,6 +252,7 @@ public class Main extends ListenerAdapter {
                 new SeasonCommand(),
                 new SelfWarningsCommand(warningManager),
                 new ReportCommand(reportManager),
+                new WhoIsCommand(),
 
                 //Fun
 
