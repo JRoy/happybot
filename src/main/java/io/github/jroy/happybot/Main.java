@@ -129,6 +129,8 @@ public class Main extends ListenerAdapter {
         Logger.info("Logging into Discord...");
         jda = builder.buildBlocking();
 
+        new LoggingFactory();
+
 //        new RichPresence((JDAImpl) jda);
 
         Logger.info("Bot has been loaded & Connected to Discord!");
