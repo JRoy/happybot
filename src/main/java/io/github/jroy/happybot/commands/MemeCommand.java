@@ -42,6 +42,7 @@ public class MemeCommand extends CommandBase {
                 sb.append(str).append("/");
             sb.setLength(sb.length() - 1);
             e.replyError(invalid.replace("parsing...", sb.toString()));
+            removeFromCooldown(e.getMember());
             return;
         }
 
