@@ -332,7 +332,7 @@ public class C {
      * @return The codeblock.
      */
     public static String codeblock(String value) {
-        return "```" + value + "```";
+        return "```" + escape(value) + "```";
     }
 
     /**
@@ -341,7 +341,7 @@ public class C {
      * @return The small codeblock.
      */
     public static String code(String value) {
-        return "`" + value + "`";
+        return "`" + escape(value) + "`";
     }
 
     /**
