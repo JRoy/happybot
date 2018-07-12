@@ -280,6 +280,8 @@ public class Main extends ListenerAdapter {
                 new RobCommand(sqlManager),
                 new CoinFlipCommand(),
                 new AvatarCommand(),
+                new RemindCommand(eventManager),
+                new RemindersCommand(eventManager),
 
                 //Staff Tools
 

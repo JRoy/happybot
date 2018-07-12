@@ -22,7 +22,6 @@ dependencies {
     compile 'com.google.guava:guava:25.1-jre'
     compile 'com.github.Carleslc:Simple-YAML:1.2'
     compile 'net.dean.jraw:JRAW:1.0.0'
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.2.40'
     compile 'com.github.JRoy:discord-themer:1.4.1'
 }
 
