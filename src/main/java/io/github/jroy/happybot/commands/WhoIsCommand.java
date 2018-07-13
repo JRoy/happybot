@@ -13,6 +13,9 @@ import net.dv8tion.jda.core.entities.User;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 
 public class WhoIsCommand extends CommandBase {
@@ -40,7 +43,9 @@ public class WhoIsCommand extends CommandBase {
         embed.addField("Status", targetMember.getOnlineStatus().getKey(), true);
         ZonedDateTime joinDate = targetMember.getJoinDate().atZoneSameInstant(ZoneId.of("America/New_York"));
         embed.addField("Joined", joinDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US) + ", " + joinDate.getMonth().getDisplayName(TextStyle.SHORT, Locale.US) + " " + joinDate.getDayOfMonth() + ", " + joinDate.getYear() + " " + joinDate.getHour()%12 + ":" + joinDate.getMinute() + " " + ((joinDate.getHour()>=12) ? "PM" : "AM"), true);
-        embed.addField("Join Position", "?", true);
+        List<Member> joinPosSort = new ArrayList<>(e.getGuild().getMembers());
+        joinPosSort.sort(Comparator.comparing(Member::getJoinDate));
+        embed.addField("Join Position", joinPosSort.indexOf(targetMember) + "/" + joinPosSort.size(), true);
         ZonedDateTime registerDate = targetUser.getCreationTime().atZoneSameInstant(ZoneId.of("America/New_York"));
         embed.addField("Registered", joinDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US) + ", " + registerDate.getMonth().getDisplayName(TextStyle.SHORT, Locale.US) + " " + registerDate.getDayOfMonth() + ", " + registerDate.getYear() + " " + registerDate.getHour()%12 + ":" + registerDate.getMinute() + " " + ((registerDate.getHour()>=12) ? "PM" : "AM"), true);
         StringBuilder roles = new StringBuilder();
