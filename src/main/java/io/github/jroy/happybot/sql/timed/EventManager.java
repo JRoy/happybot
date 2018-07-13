@@ -28,8 +28,11 @@ public class EventManager extends ListenerAdapter {
     private final String CREATE_EVENT = "INSERT INTO `spammers` (target, epoch, wait, type) VALUES (?, ?, ?, ?);";
     private final String CREATE_REMINDER = "INSERT INTO `spammers` (target, epoch, wait, type, reason) VALUES (?, ?, ?, ?, ?);";
     private final String SELECT_EVENT = "SELECT * FROM `spammers` WHERE target = ? AND type = ?;";
+    private final String SELECT_EVENT_ID = "SELECT * FROM `spammers` WHERE id = ?;";
+    private final String SELECT_EVENT_ID_USER = "SELECT * FROM `spammers` WHERE id = ? AND target = ?;";
     private final String SELECT_ALL = "SELECT * FROM `spammers`;";
     private final String DELETE_EVENT = "DELETE FROM `spammers` WHERE id = ?;";
+    private final String UPDATE_REMINDER = "UPDATE `spammers` SET reason = ? WHERE id = ?;";
 
     public EventManager(SQLManager sqlManager) {
         connection = sqlManager.getConnection();
@@ -70,6 +73,36 @@ public class EventManager extends ListenerAdapter {
         return statement.executeQuery();
     }
 
+    public boolean isValidId(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_EVENT_ID);
+            statement.setInt(1, id);
+            return statement.executeQuery().next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean isValidIdPair(int id, String userId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_EVENT_ID_USER);
+            statement.setInt(1, id);
+            statement.setString(2, userId);
+            return statement.executeQuery().next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void setReminderReason(int id, String newReason) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(UPDATE_REMINDER);
+        statement.setString(1, newReason);
+        statement.setInt(2, id);
+        statement.executeUpdate();
+    }
+
     public boolean isPunished(String userId, EventType eventType) {
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_EVENT);
@@ -82,7 +115,7 @@ public class EventManager extends ListenerAdapter {
         return false;
     }
 
-    private void deleteInfraction(int id) throws SQLException {
+    public void deleteInfraction(int id) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(DELETE_EVENT);
         statement.setInt(1, id);
         statement.execute();

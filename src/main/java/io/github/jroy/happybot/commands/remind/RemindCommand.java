@@ -1,4 +1,4 @@
-package io.github.jroy.happybot.commands;
+package io.github.jroy.happybot.commands.remind;
 
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
@@ -16,7 +16,7 @@ public class RemindCommand extends CommandBase {
     public RemindCommand(EventManager eventManager) {
         super("remind", "<time to remind you> <reason>", "Reminds you to do something at some time.", CommandCategory.FUN);
         this.eventManager = eventManager;
-        this.aliases = new String[]{"remindme"};
+        this.aliases = new String[]{"remindme", "reminder"};
     }
 
     @Override

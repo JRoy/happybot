@@ -26,7 +26,7 @@ public class AvatarCommand extends CommandBase {
                 target = fromName.getUser();
         }
 
-        e.reply(new EmbedBuilder().setAuthor(C.getFullName(target), target.getAvatarUrl(), target.getAvatarUrl())
+        e.reply(new EmbedBuilder().setAuthor(C.getFullName(target), target.getAvatarUrl(), target.getEffectiveAvatarUrl())
         .setDescription(C.bold("Avatar"))
         .setImage(target.getAvatarUrl()).build());
     }
