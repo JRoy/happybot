@@ -157,7 +157,8 @@ public class MoneyCommand extends CommandBase {
                         userToken.addCoins(reward);
                         userToken.setEpoch(System.currentTimeMillis());
                         if (reward != 200) {
-                            e.replySuccess("Here is your FIRST daily money nose! +" + reward + "! \n+" + (reward - 200) + " Bonus!");
+                            e.replySuccess("Here is your FIRST daily money nose! +" + reward + "! \n" +
+                                "+" + (reward - 200) + " Bonus!");
                             return;
                         }
                         e.replySuccess("Here is your FIRST daily money nose! +200");
@@ -166,20 +167,26 @@ public class MoneyCommand extends CommandBase {
                             userToken.addCoins(reward);
                             userToken.setEpoch(System.currentTimeMillis());
                             if (reward != 200) {
-                                e.replySuccess("Here is your daily money nose! +" + reward + "! \n+" + (reward - 200) + " Bonus!");
+                                e.replySuccess("Here is your daily money nose! +" + reward + "! \n" +
+                                    "+" + (reward - 200) + " Bonus!");
                                 return;
                             }
                             e.replySuccess("Here is your daily money nose! +200");
                         } else {
                             int dif = (int) (System.currentTimeMillis() - userToken.getEpoch());
-                            int wait = 24 - (((dif / 1000) / 60) / 60);
-                            String unit = " hour(s)!";
+                            double wait = 24 - (((dif / 1000) / 60) / 60);
+                            String unit = " hour";
                             if (wait < 1) {
                                 wait = wait * 60;
-                                unit = " minute(s)!";
+                                unit = " minute";
+                                if(wait > 1) {
+                                    unit += "s";
+                                }
+                            } else if(wait > 1) {
+                                unit += "s";
                             }
-                            e.replyError("You may only claim liquid money once a day!!1!\n"
-                                + "You can reclaim your daily reward in: " + wait + unit);
+                            e.replyError("You may only claim liquid money once a day!\n"
+                                + "You can reclaim your daily reward in: " + (int) wait + unit + "!");
                         }
                     }
                 } else {
@@ -200,7 +207,7 @@ public class MoneyCommand extends CommandBase {
                 e.replyError("Oof error.");
                 e1.printStackTrace();
             }
-        } else if (args[0].equalsIgnoreCase("baltop")) {
+        } else if (args[0].equalsIgnoreCase("baltop") || args[0].equalsIgnoreCase("top")) {
             try {
                 Map<Integer, Map<Member, Integer>> result = sqlManager.getTop(10);
                 int curPos = 1;
@@ -211,7 +218,7 @@ public class MoneyCommand extends CommandBase {
 
                 for (int i = 0; i < 10; i++) {
                     for (Map.Entry<Member, Integer> curEntry : result.get(i + 1).entrySet()) {
-                        builder.addField(C.bold("#"+ curPos) + " " + curEntry.getKey().getEffectiveName(), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
+                        builder.addField(C.bold("#"+ curPos) + " " + C.escape(curEntry.getKey().getEffectiveName()), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
                         curPos++;
                     }
                 }

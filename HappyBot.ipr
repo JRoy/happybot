@@ -192,9 +192,6 @@
       <module fileurl="file://$PROJECT_DIR$/happybot.iml" filepath="$PROJECT_DIR$/happybot.iml" />
       <module fileurl="file://$PROJECT_DIR$/happybot_main.iml" filepath="$PROJECT_DIR$/happybot_main.iml" group="happybot" />
       <module fileurl="file://$PROJECT_DIR$/happybot_test.iml" filepath="$PROJECT_DIR$/happybot_test.iml" group="happybot" />
-      <module fileurl="file://$PROJECT_DIR$/happyheartDiscordBot.iml" filepath="$PROJECT_DIR$/happyheartDiscordBot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/happyheartDiscordBot_main.iml" filepath="$PROJECT_DIR$/happyheartDiscordBot_main.iml" group="happyheartDiscordBot" />
-      <module fileurl="file://$PROJECT_DIR$/happyheartDiscordBot_test.iml" filepath="$PROJECT_DIR$/happyheartDiscordBot_test.iml" group="happyheartDiscordBot" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
@@ -205,6 +202,7 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="libraryTable">
     <library name="Gradle: com.fasterxml.jackson.core:jackson-core:2.1.3">
@@ -559,13 +557,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.14/886474da3f761d39fcbb723d97ecc5089e731f42/animal-sniffer-annotations-1.14-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.2.40">
+    <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.2.10">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.40/d39920020ab3e74f406a8e142fb94b360f3f80f8/kotlin-stdlib-1.2.40.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.10/b9bf650516989595a5390e5a54181e16347208ac/kotlin-stdlib-1.2.10.jar!/" />
       </CLASSES>
-      <JAVADOC />
+      <JAVADOC>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.10/922f3287a0f7f08468b54d8dedd323c5f078cca8/kotlin-stdlib-1.2.10-javadoc.jar!/" />
+      </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.40/f30f4d822ac6c4ef7a72c86a11896aab1cdf3a2a/kotlin-stdlib-1.2.40-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.10/c0f90f56ebb568fe5fa4001ee1941b27cb8a2e1f/kotlin-stdlib-1.2.10-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.jetbrains:annotations:13.0">
