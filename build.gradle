@@ -1,7 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "2.0.4"
-//    id 'com.sedmelluq.jdaction' version '1.0.2'
-    id "org.jetbrains.kotlin.jvm" version "1.2.40"
+    id 'com.github.johnrengelman.shadow' version '2.0.4'
 }
 
 apply plugin: 'java'
@@ -21,8 +19,7 @@ dependencies {
     compile 'com.google.apis:google-api-services-youtube:v3-rev191-1.23.0'
     compile 'com.google.guava:guava:25.1-jre'
     compile 'com.github.Carleslc:Simple-YAML:1.2'
-    compile "net.dean.jraw:JRAW:1.0.0"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.40"
+    compile 'net.dean.jraw:JRAW:1.0.0'
     compile 'com.github.JRoy:discord-themer:1.4.1'
 }
 

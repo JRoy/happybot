@@ -38,12 +38,16 @@ public class MessageFactory {
     }
 
     public void addMessage(MessageType messageType, String message) throws SQLException {
+        message = message.replace("(user)", "<user>").replace("[user]", "<user>").replace("{user}", "<user>");
         switch (messageType) { //We add the message to the cache first; we don't want to call SQL every time.
             case JOIN: {
                 joinMessages.add(message);
                 break;
             }
             case WARN: {
+                if (!message.toLowerCase().contains("<user>")) {
+                    message = "<user>: " + message;
+                }
                 warningMessages.add(message);
                 break;
             }
@@ -87,7 +91,6 @@ public class MessageFactory {
         ResultSet set = preparedStatement.executeQuery();
 
         List<String> msgs = new ArrayList<>();
-
         while (set.next()) {
             msgs.add(set.getString("value"));
         }

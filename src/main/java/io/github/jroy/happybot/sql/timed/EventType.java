@@ -3,7 +3,8 @@ package io.github.jroy.happybot.sql.timed;
 public enum EventType {
 
     XP("xp"),
-    MUTE("mute");
+    MUTE("mute"),
+    REMIND("remind");
 
     private String translation;
 

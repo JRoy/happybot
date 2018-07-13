@@ -16,6 +16,10 @@ import io.github.jroy.happybot.commands.money.GambleCommand;
 import io.github.jroy.happybot.commands.money.MoneyCommand;
 import io.github.jroy.happybot.commands.money.RobCommand;
 import io.github.jroy.happybot.commands.money.ShopCommand;
+import io.github.jroy.happybot.commands.remind.DeleteRemindCommand;
+import io.github.jroy.happybot.commands.remind.EditRemindCommand;
+import io.github.jroy.happybot.commands.remind.RemindCommand;
+import io.github.jroy.happybot.commands.remind.RemindersCommand;
 import io.github.jroy.happybot.commands.report.EditReportCommand;
 import io.github.jroy.happybot.commands.report.HandleReportCommand;
 import io.github.jroy.happybot.commands.report.LookupReportCommand;
@@ -23,6 +27,7 @@ import io.github.jroy.happybot.commands.report.ReportCommand;
 import io.github.jroy.happybot.commands.RuntimeCommand;
 import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.AutoMod;
+import io.github.jroy.happybot.events.LoggingFactory;
 import io.github.jroy.happybot.events.star.StarMessages;
 import io.github.jroy.happybot.events.SubmitPinner;
 import io.github.jroy.happybot.events.WelcomeMessage;
@@ -127,6 +132,8 @@ public class Main extends ListenerAdapter {
             builder.addEventListener(listener);
         Logger.info("Logging into Discord...");
         jda = builder.buildBlocking();
+
+        new LoggingFactory();
 
 //        new RichPresence((JDAImpl) jda);
 
@@ -252,6 +259,8 @@ public class Main extends ListenerAdapter {
                 new SeasonCommand(),
                 new SelfWarningsCommand(warningManager),
                 new ReportCommand(reportManager),
+                new WhoIsCommand(),
+                new MemberCountCommand(),
 
                 //Fun
 
@@ -273,6 +282,12 @@ public class Main extends ListenerAdapter {
                 new LevelCommand(leveling),
                 new LeaderboardCommand(leveling),
                 new RobCommand(sqlManager),
+                new CoinFlipCommand(),
+                new AvatarCommand(),
+                new RemindCommand(eventManager),
+                new RemindersCommand(eventManager),
+                new EditRemindCommand(eventManager),
+                new DeleteRemindCommand(eventManager),
 
                 //Staff Tools
 

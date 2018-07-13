@@ -28,14 +28,15 @@ public class SelfWarningsCommand extends CommandBase {
             ResultSet resultSet = warningManager.fetchWarnings(e.getEvent().getAuthor().getId());
             StringBuilder builder = new StringBuilder();
             User targetM = e.getEvent().getAuthor();
-            builder.append(targetM.getName()).append("'s Warnings\n");
+            int count = 0;
             while (resultSet.next()) {
                 Member staffMem = C.getGuild().getMemberById(resultSet.getString("staffid"));
                 if (staffMem != null) {
+                    count++;
                     builder.append("#").append(resultSet.getString("id")).append(" ").append(C.bold(staffMem.getUser().getName() + "#" + staffMem.getUser().getDiscriminator())).append(" - ").append(C.bold(resultSet.getString("reason"))).append("\n");
                 }
             }
-            e.replyInDm(builder.toString());
+            e.replyInDm(targetM.getName() + "'s Warnings [" + count + "]\n" + builder.toString());
         } catch (SQLException e1) {
             e.replyError("Oof Error: " + e1.getMessage());
         }

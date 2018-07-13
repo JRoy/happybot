@@ -15,7 +15,7 @@ public class CommandFactory {
     private CommandClientBuilder clientBuilder;
     private CommandClient commandClient;
 
-    private List<CommandBase> registeredCommands = new ArrayList<>();
+    private Map<String, CommandBase> registeredCommands = new HashMap<>();
     private Map<CommandCategory, List<CommandBase>> categorizedCommands = new HashMap<>();
 
     public CommandFactory() {
@@ -34,7 +34,7 @@ public class CommandFactory {
             if (!categorizedCommands.containsKey(base.getCommandCategory()))
                 categorizedCommands.put(base.getCommandCategory(), new ArrayList<>());
             categorizedCommands.get(base.getCommandCategory()).add(base);
-            registeredCommands.add(base);
+            registeredCommands.put(base.getName(), base);
         }
         Logger.info("Added " + commands.length + " Commands!");
     }
@@ -43,7 +43,7 @@ public class CommandFactory {
         return commandClient = clientBuilder.build();
     }
 
-    public List<CommandBase> getRegisteredCommands() {
+    public Map<String, CommandBase> getRegisteredCommands() {
         return registeredCommands;
     }
 

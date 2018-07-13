@@ -20,6 +20,7 @@ import java.net.Proxy;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.text.NumberFormat;
+import java.util.Collection;
 import java.util.Locale;
 
 /**
@@ -331,7 +332,7 @@ public class C {
      * @return The codeblock.
      */
     public static String codeblock(String value) {
-        return "```" + value + "```";
+        return "```" + escape(value) + "```";
     }
 
     /**
@@ -340,7 +341,7 @@ public class C {
      * @return The small codeblock.
      */
     public static String code(String value) {
-        return "`" + value + "`";
+        return "`" + escape(value) + "`";
     }
 
     /**
@@ -457,5 +458,33 @@ public class C {
                 return curMember;
         }
         return null;
+    }
+
+    /**
+     * Turns a string array into a list seperated by commas.
+     * @param list The string array
+     * @return List seperated by commas.
+     */
+    public static String prettyStringArray(Collection<String> list) {
+        StringBuilder builder = new StringBuilder();
+        for (String curStr : list) {
+            builder.append(curStr).append(", ");
+        }
+        builder.setLength(builder.length() - 2);
+        return builder.toString();
+    }
+
+    /**
+     * Turns a role array into a list of role names seperated by commas.
+     * @param list The role array
+     * @return List seperated by commas.
+     */
+    public static String prettyRoleArray(Collection<Role> list) {
+        StringBuilder builder = new StringBuilder();
+        for (Role curRole : list) {
+            builder.append(curRole.getName()).append(", ");
+        }
+        builder.setLength(builder.length() - 2);
+        return builder.toString();
     }
 }

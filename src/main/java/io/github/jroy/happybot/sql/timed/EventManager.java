@@ -2,6 +2,7 @@ package io.github.jroy.happybot.sql.timed;
 
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Logger;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.JDA;
@@ -23,11 +24,15 @@ public class EventManager extends ListenerAdapter {
 
     private boolean reg = false;
 
-    private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `spammers` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `target` VARCHAR(50) NOT NULL , `epoch` BIGINT(255) NOT NULL , `wait` BIGINT(255) NOT NULL , `type` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+    private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `spammers` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `target` VARCHAR(50) NOT NULL , `epoch` BIGINT(255) NOT NULL , `wait` BIGINT(255) NOT NULL , `type` VARCHAR(255) NOT NULL , `reason` VARCHAR(255) NOT NULL DEFAULT 'None' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
     private final String CREATE_EVENT = "INSERT INTO `spammers` (target, epoch, wait, type) VALUES (?, ?, ?, ?);";
+    private final String CREATE_REMINDER = "INSERT INTO `spammers` (target, epoch, wait, type, reason) VALUES (?, ?, ?, ?, ?);";
     private final String SELECT_EVENT = "SELECT * FROM `spammers` WHERE target = ? AND type = ?;";
+    private final String SELECT_EVENT_ID = "SELECT * FROM `spammers` WHERE id = ?;";
+    private final String SELECT_EVENT_ID_USER = "SELECT * FROM `spammers` WHERE id = ? AND target = ?;";
     private final String SELECT_ALL = "SELECT * FROM `spammers`;";
     private final String DELETE_EVENT = "DELETE FROM `spammers` WHERE id = ?;";
+    private final String UPDATE_REMINDER = "UPDATE `spammers` SET reason = ? WHERE id = ?;";
 
     public EventManager(SQLManager sqlManager) {
         connection = sqlManager.getConnection();
@@ -49,6 +54,53 @@ public class EventManager extends ListenerAdapter {
         statement.setLong(3, waitTime);
         statement.setString(4, type.toString());
         statement.execute();
+    }
+
+    public void createReminder(String userId, long waitTime, String reason) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(CREATE_REMINDER);
+        statement.setString(1, userId);
+        statement.setLong(2, System.currentTimeMillis());
+        statement.setLong(3, waitTime);
+        statement.setString(4, EventType.REMIND.toString());
+        statement.setString(5, reason);
+        statement.execute();
+    }
+
+    public ResultSet getUserReminders(String userId) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(SELECT_EVENT);
+        statement.setString(1, userId);
+        statement.setString(2, EventType.REMIND.toString());
+        return statement.executeQuery();
+    }
+
+    public boolean isValidId(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_EVENT_ID);
+            statement.setInt(1, id);
+            return statement.executeQuery().next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean isValidIdPair(int id, String userId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_EVENT_ID_USER);
+            statement.setInt(1, id);
+            statement.setString(2, userId);
+            return statement.executeQuery().next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void setReminderReason(int id, String newReason) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(UPDATE_REMINDER);
+        statement.setString(1, newReason);
+        statement.setInt(2, id);
+        statement.executeUpdate();
     }
 
     public boolean isPunished(String userId, EventType eventType) {
@@ -97,6 +149,7 @@ public class EventManager extends ListenerAdapter {
                             String userId = resultSet.getString("target");
                             long createdEpoch = resultSet.getLong("epoch");
                             long waitTime = resultSet.getLong("wait");
+                            String reason = resultSet.getString("reason");
 
                             Member targetMember = C.getGuild().getMemberById(userId);
                             if (targetMember == null) {
@@ -104,21 +157,26 @@ public class EventManager extends ListenerAdapter {
                                 continue;
                             }
 
+                            if ((System.currentTimeMillis() - createdEpoch) < waitTime) {
+                                continue;
+                            }
+
                             switch (eventType) {
                                 case XP: {
-                                    if ((System.currentTimeMillis() - createdEpoch) >= waitTime) {
-                                        C.removeRole(targetMember, Roles.EXP_SPAMMER);
-                                        deleteInfraction(id);
-                                        C.privChannel(targetMember, "Your EXP-Spammer has been removed!");
-                                    }
+                                    C.removeRole(targetMember, Roles.EXP_SPAMMER);
+                                    deleteInfraction(id);
+                                    C.privChannel(targetMember, "Your EXP-Spammer has been removed!");
                                     break;
                                 }
                                 case MUTE: {
-                                    if ((System.currentTimeMillis() - createdEpoch) >= waitTime) {
-                                        C.removeRole(targetMember, Roles.MUTED);
-                                        deleteInfraction(id);
-                                        C.privChannel(targetMember, "You are no longer muted!");
-                                    }
+                                    C.removeRole(targetMember, Roles.MUTED);
+                                    deleteInfraction(id);
+                                    C.privChannel(targetMember, "You are no longer muted!");
+                                    break;
+                                }
+                                case REMIND: {
+                                    deleteInfraction(id);
+                                    Channels.RANDOM.getChannel().sendMessage(":bell: :bell: " + targetMember.getAsMention() + ": New Reminder! :bell: :bell:" + C.codeblock(reason)).queue();
                                     break;
                                 }
                                 default:
@@ -130,7 +188,7 @@ public class EventManager extends ListenerAdapter {
                         e.printStackTrace();
                     }
                 }
-            }, 0, 300000);
+            }, 0, 5000);
         }
     }
 }
