@@ -28,6 +28,7 @@ import net.dv8tion.jda.webhook.WebhookClient;
 import net.dv8tion.jda.webhook.WebhookMessageBuilder;
 
 import java.awt.*;
+import java.time.OffsetDateTime;
 
 public class LoggingFactory extends ListenerAdapter {
 
@@ -103,6 +104,7 @@ public class LoggingFactory extends ListenerAdapter {
                     .setAuthor(e.getGuild().getName(), null, e.getGuild().getIconUrl())
                     .setDescription(C.bold("Message deleted in ") + e.getChannel().getAsMention())
                     .setColor(Color.RED)
+                    .setTimestamp(OffsetDateTime.now())
                     .setFooter("ID: " + e.getMessageId(), null).build());
             return;
         }
@@ -117,6 +119,7 @@ public class LoggingFactory extends ListenerAdapter {
                 .setAuthor(C.getFullName(deleted.getAuthor()))
                 .setDescription(C.bold("Message sent by ")+ deleted.getAuthor().getAsMention()+C.bold(" deleted in ") + deleted.getTextChannel().getAsMention()+"\n"+desc)
                 .setColor(Color.RED)
+                .setTimestamp(OffsetDateTime.now())
                 .setFooter("ID: " + e.getMessageId(), null).build());
     }
 
