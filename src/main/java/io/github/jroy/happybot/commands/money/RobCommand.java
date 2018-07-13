@@ -71,6 +71,7 @@ public class RobCommand extends CommandBase {
             if (targetToken.getCoins() < robAmount) {
                 e.reply("The person you are trying to steal from does not have any money to steal! You got caught in the act!\n" +
                     "    -" + FINE + " coins.");
+                token.registerRob(targetMember.getUser().getId());
                 userToken.takeCoins(Math.max(FINE, userToken.getCoins()));
                 return;
             }
@@ -84,6 +85,7 @@ public class RobCommand extends CommandBase {
             } else {
                 e.reply(e.getMember().getAsMention() + ", the feds caught you in the act you thief.\n" +
                     "    -" + FINE + " coins as fine.");
+                token.registerRob(targetMember.getUser().getId());
                 userToken.takeCoins(Math.max(FINE, userToken.getCoins()));
             }
         } catch (SQLException e1) {
