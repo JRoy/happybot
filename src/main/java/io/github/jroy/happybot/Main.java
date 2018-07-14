@@ -282,7 +282,7 @@ public class Main extends ListenerAdapter {
                 new LevelCommand(leveling),
                 new LeaderboardCommand(leveling),
                 new RobCommand(sqlManager),
-                new CoinFlipCommand(),
+                new DiceCommand(),
                 new AvatarCommand(),
                 new RemindCommand(eventManager),
                 new RemindersCommand(eventManager),

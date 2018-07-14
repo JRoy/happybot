@@ -18,6 +18,9 @@ fabric.properties
 # Gradle
 .gradle
 build/
-HappyBot.iml
-HappyBot.ipr
-HappyBot.iws
+HappyBot\.iml
+HappyBot\.ipr
+HappyBot\.iws
+latest\.log
+
+settings\.yml

@@ -33,9 +33,11 @@ public class Reddit extends APIBase {
 
     @Override
     public void loadApi() {
-        NetworkAdapter adapter = new OkHttpNetworkAdapter(new UserAgent("happybot", "io.github.jroy", "v0.1", username));
-        Credentials credentials = Credentials.script(username, password, clientId, clientSecret);
-        redditClient = OAuthHelper.automatic(adapter, credentials);
+        if(isValid()) {
+            NetworkAdapter adapter = new OkHttpNetworkAdapter(new UserAgent("happybot", "io.github.jroy", "v0.1", username));
+            Credentials credentials = Credentials.script(username, password, clientId, clientSecret);
+            redditClient = OAuthHelper.automatic(adapter, credentials);
+        }
     }
 
     public RedditClient getRedditClient() {
@@ -47,4 +49,7 @@ public class Reddit extends APIBase {
         return new MemePost(dataObject);
     }
 
+    private boolean isValid() {
+        return !(username.isEmpty() || password.isEmpty() || clientId.isEmpty() || clientSecret.isEmpty());
+    }
 }

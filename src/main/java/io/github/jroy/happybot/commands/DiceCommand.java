@@ -1,0 +1,64 @@
+package io.github.jroy.happybot.commands;
+
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
+import io.github.jroy.happybot.util.C;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+
+public class DiceCommand extends CommandBase {
+
+    public DiceCommand() {
+        super("dice", "[# of dice]d[sides ]", "Roll dice.", CommandCategory.FUN);
+        this.aliases = new String[]{"die"};
+    }
+
+    @Override
+    protected void executeCommand(CommandEvent e) {
+        String[] split = e.getArgs().split("d");
+        if(split.length != 2) {
+            e.replyError("Usage: " + C.bold("^dice " + arguments));
+            return;
+        }
+
+        int dice;
+        int sides;
+
+        try {
+            dice = Integer.parseInt(split[0]);
+            if (dice < 1) {
+              throw new NumberFormatException("The amount of dice must be one or greater");
+            }
+        } catch(NumberFormatException ex) {
+            e.replyError(ex.getMessage());
+            return;
+        }
+        try {
+            sides = Integer.parseInt(split[1]);
+            if (sides < 2) {
+                throw new NumberFormatException("The amount of sides must be two or greater.");
+            }
+        } catch(NumberFormatException ex) {
+            e.replyError(ex.getMessage());
+            return;
+        }
+
+        List<Integer> rolls = new ArrayList<>();
+        for (int i = 0; i < dice; i++) {
+            rolls.add(ThreadLocalRandom.current().nextInt(sides));
+        }
+
+        e.replySuccess(":game_die: " + C.bold("Rolled: ") + joinRolls(rolls) + "\n"
+            + C.bold("Highest: ") + rolls.stream().max(Integer::compare).get() + "\n"
+            + C.bold("Lowest: ") + rolls.stream().min(Integer::compare).get() + "\n"
+            + C.bold("Average: ") + rolls.stream().reduce(Integer::sum).map(Integer::doubleValue).get()/rolls.size());
+    }
+
+    private String joinRolls(List<Integer> rolls) {
+        return String.join(", ", rolls.stream().map(String::valueOf).collect(Collectors.toList()));
+    }
+}
