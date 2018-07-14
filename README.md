@@ -47,7 +47,7 @@ Our bash script that manages this bot uses the following exit codes to decide ho
 * 30 - Stop the loop of the boot script.
 
 # Note
-While I understand that making this whole bot work in its entirety, using certain snippets may be very helpful for you/your projects. All I ask when you are doing this is to respect the Apache Licence and if you'd like, mention this repository :).
+While I understand that making this whole bot work in its entirety may be impractical for you, using certain snippets may be very helpful for your own projects. All ask of you if you do decide to use some of my code, please make sure to respect the Apache Licence and, optionally, mention this repository ;).
 
 # Donate
 While it's perfectly optional, if you like what I do and want to support me feel free to buy my a pizza:
