@@ -91,18 +91,28 @@ public class MoneyCommand extends CommandBase {
             if (args[1].equalsIgnoreCase("give")) {
                 try {
                     UserToken token = sqlManager.getUser(target.getUser().getId());
-                    token.addCoins(Integer.parseInt(args[2]));
-                    e.replySuccess(C.bold("Success: ") + "Applied " + args[2] + " coins to " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
-                    return;
+                    if (Integer.parseInt(args[2]) > 0) {
+                        token.addCoins(Integer.parseInt(args[2]));
+                        e.replySuccess(C.bold("Success: ") + "Applied " + args[2] + " coins to " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
+                        return;
+                    } else {
+                        e.replyError("Please use the take command to withdraw money from an account!");
+                        return;
+                    }
                 } catch (SQLException e1) {
                     e.replyError("Oof error.");
                 }
             } else if (args[1].equalsIgnoreCase("take")) {
                 try {
                     UserToken token = sqlManager.getUser(target.getUser().getId());
-                    token.takeCoins(Integer.parseInt(args[2]));
-                    e.replySuccess(C.bold("Success: ") + "Took " + args[2] + " coins from " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
-                    return;
+                    if (Integer.parseInt(args[2]) > 0) {
+                        token.takeCoins(Math.min(Integer.parseInt(args[2]), token.getCoins()));
+                        e.replySuccess(C.bold("Success: ") + "Took " + args[2] + " coins from " + C.underline(target.getEffectiveName()) + "! Their new balance is: " + C.bold(C.prettyNum(token.getCoins())));
+                        return;
+                    } else {
+                        e.replyError("Please use the give command to add money to an account!");
+                        return;
+                    }
                 } catch (SQLException e1) {
                     e.replyError("Oof error.");
                 }
