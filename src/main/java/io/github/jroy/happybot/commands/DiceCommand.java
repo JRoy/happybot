@@ -14,14 +14,14 @@ public class DiceCommand extends CommandBase {
 
     public DiceCommand() {
         super("dice", "[# of dice]d[sides ]", "Roll dice.", CommandCategory.FUN);
-        this.aliases = new String[]{"die"};
+        this.aliases = new String[]{"die", "roll"};
     }
 
     @Override
     protected void executeCommand(CommandEvent e) {
         String[] split = e.getArgs().split("d");
         if(split.length != 2) {
-            e.replyError("Usage: " + C.bold("^dice " + arguments));
+            e.replyError(invalid);
             return;
         }
 
@@ -49,7 +49,7 @@ public class DiceCommand extends CommandBase {
 
         List<Integer> rolls = new ArrayList<>();
         for (int i = 0; i < dice; i++) {
-            rolls.add(ThreadLocalRandom.current().nextInt(sides));
+            rolls.add(ThreadLocalRandom.current().nextInt(sides) + 1);
         }
 
         e.replySuccess(":game_die: " + C.bold("Rolled: ") + joinRolls(rolls) + "\n"
