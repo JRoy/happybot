@@ -31,7 +31,9 @@ public class DiceCommand extends CommandBase {
         try {
             dice = Integer.parseInt(split[0]);
             if (dice < 1) {
-              throw new NumberFormatException("The amount of dice must be one or greater");
+                throw new NumberFormatException("The amount of dice must be one or greater");
+            } else if(dice > 250) {
+                throw new NumberFormatException("Too many dice!");
             }
         } catch(NumberFormatException ex) {
             e.replyError(ex.getMessage());
@@ -41,6 +43,8 @@ public class DiceCommand extends CommandBase {
             sides = Integer.parseInt(split[1]);
             if (sides < 2) {
                 throw new NumberFormatException("The amount of sides must be two or greater.");
+            } else if(sides > 1_000_000) {
+                throw new NumberFormatException("Too many sides!");
             }
         } catch(NumberFormatException ex) {
             e.replyError(ex.getMessage());
