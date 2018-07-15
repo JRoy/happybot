@@ -72,7 +72,7 @@ public class RobCommand extends CommandBase {
                 e.reply("The person you are trying to steal from does not have any money to steal! You got caught in the act!\n" +
                     "    -" + FINE + " coins.");
                 token.registerRob(targetMember.getUser().getId());
-                userToken.takeCoins(Math.max(FINE, userToken.getCoins()));
+                userToken.takeCoins(Math.min(FINE, userToken.getCoins()));
                 return;
             }
 
@@ -86,7 +86,7 @@ public class RobCommand extends CommandBase {
                 e.reply(e.getMember().getAsMention() + ", the feds caught you in the act you thief.\n" +
                     "    -" + FINE + " coins as fine.");
                 token.registerRob(targetMember.getUser().getId());
-                userToken.takeCoins(Math.max(FINE, userToken.getCoins()));
+                userToken.takeCoins(Math.min(FINE, userToken.getCoins()));
             }
         } catch (SQLException e1) {
             e.reply("Oof Error: " + e1.getMessage());
