@@ -1,9 +1,7 @@
 package io.github.jroy.happybot.events;
 
-import io.github.jroy.happybot.util.C;
-import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.sql.MessageFactory;
-import io.github.jroy.happybot.util.Roles;
+import io.github.jroy.happybot.util.Channels;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -25,7 +23,6 @@ public class WelcomeMessage extends ListenerAdapter {
         if (!joinformat.startsWith("'s") || !joinformat.startsWith(","))
             joinformat = " " + joinformat;
         Channels.WELCOME.getChannel().sendMessage(event.getMember().getAsMention() + joinformat).queue();
-        C.giveRole(event.getMember(), Roles.FANS);
     }
 
     @Override

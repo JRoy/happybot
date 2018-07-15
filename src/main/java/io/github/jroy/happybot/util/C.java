@@ -20,7 +20,9 @@ import java.net.Proxy;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -225,7 +227,7 @@ public class C {
      * @param role The target role.
      */
     public static void giveRole(Member m, Roles role) {
-        getGuildCtrl().addSingleRoleToMember(m, role.getRole()).reason("Role added from internal C Util").queue();
+        getGuildCtrl().addSingleRoleToMember(m, role.getRole()).queue();
     }
 
     /**
@@ -237,6 +239,16 @@ public class C {
      */
     public static void giveRole(Member m, Roles role, String reason) {
         getGuildCtrl().addSingleRoleToMember(m, role.getRole()).reason(reason).queue();
+    }
+
+    /**
+     * Adds multiple roles to a guild member.
+     *
+     * @param m      The target guild member.
+     * @param role   The target roles.
+     */
+    public static void giveRoles(Member m, Roles... roles) {
+        getGuildCtrl().addRolesToMember(m, toRoleArray(roles)).queue();
     }
 
     /**
@@ -486,5 +498,13 @@ public class C {
         }
         builder.setLength(builder.length() - 2);
         return builder.toString();
+    }
+
+    public static Role[] toRoleArray(Roles[] roles) {
+        List<Role> list = new ArrayList<>();
+        for (Roles curRole : roles) {
+            list.add(curRole.getRole());
+        }
+        return list.toArray(new Role[list.size()]);
     }
 }

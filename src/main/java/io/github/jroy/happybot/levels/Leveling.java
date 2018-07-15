@@ -11,6 +11,7 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
+import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -90,7 +91,6 @@ public class Leveling extends ListenerAdapter {
         }
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isPastUser(String userId) {
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_USER);
@@ -204,6 +204,25 @@ public class Leveling extends ListenerAdapter {
         }
 
         levelCache.put(userId, toLevel(getExp(userId)));
+    }
+
+    @Override
+    public void onGuildMemberJoin(GuildMemberJoinEvent e) {
+        if (isPastUser(e.getUser().getId())) {
+            int level = toLevel(getExp(e.getUser().getId()));
+
+            if (level >= 50) {
+                C.giveRoles(e.getMember(), Roles.OG, Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
+            } else if (level >= 30) {
+                C.giveRoles(e.getMember(), Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
+            } else if (level >= 20) {
+                C.giveRoles(e.getMember(), Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
+            } else if (level >= 10) {
+                C.giveRoles(e.getMember(), Roles.REGULAR, Roles.FANS);
+            } else {
+                C.giveRole(e.getMember(), Roles.FANS);
+            }
+        }
     }
 
     private void processRewards(int level, Member member, TextChannel channel) {
