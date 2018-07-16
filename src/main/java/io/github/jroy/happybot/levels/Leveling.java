@@ -222,6 +222,8 @@ public class Leveling extends ListenerAdapter {
             } else {
                 C.giveRole(e.getMember(), Roles.FANS);
             }
+        } else {
+            C.giveRole(e.getMember(), Roles.FANS);
         }
     }
 
