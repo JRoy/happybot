@@ -252,7 +252,7 @@ public class Leveling extends ListenerAdapter {
                 C.giveRole(member, Roles.OG);
                 break;
             }
-            default: { //No Special Rewards: Regular Level-Up Message.
+            default: { //No Special Reward: Regular Level-Up Message.
                 break;
             }
         }

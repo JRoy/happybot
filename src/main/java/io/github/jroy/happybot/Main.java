@@ -12,10 +12,7 @@ import io.github.jroy.happybot.commands.base.CommandFactory;
 import io.github.jroy.happybot.commands.levels.AddUserCommand;
 import io.github.jroy.happybot.commands.levels.LeaderboardCommand;
 import io.github.jroy.happybot.commands.levels.LevelCommand;
-import io.github.jroy.happybot.commands.money.GambleCommand;
-import io.github.jroy.happybot.commands.money.MoneyCommand;
-import io.github.jroy.happybot.commands.money.RobCommand;
-import io.github.jroy.happybot.commands.money.ShopCommand;
+import io.github.jroy.happybot.commands.money.*;
 import io.github.jroy.happybot.commands.remind.DeleteRemindCommand;
 import io.github.jroy.happybot.commands.remind.EditRemindCommand;
 import io.github.jroy.happybot.commands.remind.RemindCommand;
@@ -32,10 +29,7 @@ import io.github.jroy.happybot.events.star.StarMessages;
 import io.github.jroy.happybot.events.SubmitPinner;
 import io.github.jroy.happybot.events.WelcomeMessage;
 import io.github.jroy.happybot.levels.Leveling;
-import io.github.jroy.happybot.sql.MessageFactory;
-import io.github.jroy.happybot.sql.ReportManager;
-import io.github.jroy.happybot.sql.SQLManager;
-import io.github.jroy.happybot.sql.WarningManager;
+import io.github.jroy.happybot.sql.*;
 import io.github.jroy.happybot.sql.timed.EventManager;
 import io.github.jroy.happybot.theme.DiscordThemerImpl;
 import io.github.jroy.happybot.util.BotConfig;
@@ -66,6 +60,7 @@ public class Main extends ListenerAdapter {
     private static CommandFactory commandFactory;
     private static TwitterCentre twitterCentre;
     private static SQLManager sqlManager;
+    private static PurchaseManager purchaseManager;
     private static WarningManager warningManager;
     private static ReportManager reportManager;
     private static Hypixel hypixel;
@@ -109,6 +104,8 @@ public class Main extends ListenerAdapter {
 
         //Load our SQL Stuff
         sqlManager = new SQLManager(botConfig.getSqlPassword());
+
+        purchaseManager = new PurchaseManager(sqlManager);
 
         messageFactory = loadMessageFactory();
 
@@ -274,14 +271,15 @@ public class Main extends ListenerAdapter {
                 new MessageStatsCommand(messageFactory),
                 new MoneyCommand(sqlManager),
                 new GambleCommand(sqlManager),
-                new ShopCommand(sqlManager),
+                new ShopCommand(purchaseManager),
+                new ReclaimCommand(purchaseManager),
                 new MemeCommand(reddit),
                 new ShippingCommand(),
                 new FactCommand(),
                 new SelfStarCommands(starMessages),
                 new LevelCommand(leveling),
                 new LeaderboardCommand(leveling),
-                new RobCommand(sqlManager),
+                new RobCommand(purchaseManager),
                 new DiceCommand(),
                 new AvatarCommand(),
                 new RemindCommand(eventManager),

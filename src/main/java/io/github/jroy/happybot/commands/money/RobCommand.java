@@ -3,6 +3,8 @@ package io.github.jroy.happybot.commands.money;
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
+import io.github.jroy.happybot.sql.PurchaseManager;
+import io.github.jroy.happybot.sql.Reward;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.sql.UserToken;
 import net.dv8tion.jda.core.entities.Member;
@@ -17,12 +19,14 @@ public class RobCommand extends CommandBase {
     private final static int FINE = 300;
 
     private SQLManager sqlManager;
+    private PurchaseManager purchaseManager;
 
     private final HashMap<String, RobToken> robTokens = new HashMap<>();
 
-    public RobCommand(SQLManager sqlManager) {
+    public RobCommand(PurchaseManager purchaseManager) {
         super("rob", "<user>", "Robs a user for their money.", CommandCategory.FUN);
-        this.sqlManager = sqlManager;
+        this.purchaseManager = purchaseManager;
+        this.sqlManager = purchaseManager.getSqlManager();
         setCooldown(30, ChronoUnit.MINUTES);
     }
 
@@ -67,7 +71,14 @@ public class RobCommand extends CommandBase {
                 return;
             }
 
-            int robAmount = ThreadLocalRandom.current().nextInt(100, 500);
+            int origin = 100;
+            int bound = 500;
+            if (purchaseManager.hasReward(userId, Reward.BAG)) {
+                origin = 200;
+                bound = 700;
+            }
+
+            int robAmount = ThreadLocalRandom.current().nextInt(origin, bound);
             if (targetToken.getCoins() < robAmount) {
                 e.reply("The person you are trying to steal from does not have any money to steal! You got caught in the act!\n" +
                     "    -" + FINE + " coins.");
@@ -76,8 +87,21 @@ public class RobCommand extends CommandBase {
                 return;
             }
 
+            if (purchaseManager.hasReward(targetMember.getUser().getId(), Reward.COUNTER)) {
+                purchaseManager.deleteSingleReward(targetMember.getUser().getId(), Reward.COUNTER);
+                targetToken.addCoins(FINE * 2);
+                userToken.takeCoins(Math.min(FINE * 2, userToken.getCoins()));
+                e.replyError("!!SECURITY SYSTEM TRIGGERED!! You must pay " + FINE * 2 + " coins to get out of jail!");
+                return;
+            }
+
+            double rate = 0.5;
+            if (purchaseManager.hasReward(userId, Reward.STEALTH)) {
+                rate = 0.70;
+            }
+
             double chance = Math.random();
-            if (chance < 0.5) {
+            if (chance < rate) {
                 targetToken.takeCoins(robAmount);
                 userToken.addCoins(robAmount);
                 token.registerRob(targetMember.getUser().getId());
