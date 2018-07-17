@@ -16,7 +16,7 @@ public enum Reward {
     }),
     STEALTH(4, "Increase Rate of Robbery", 10000, e -> {}),
     BAG(5, "Increase Rob Amount", 10000, e -> {}),
-    COUNTER(6, "(One Time Use) Block a Robbery", 2100, e -> {});
+    COUNTER(6, "(One Time Use) Block a Robbery", 820, e -> {});
 
     private int id;
     private String display;
