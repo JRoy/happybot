@@ -193,8 +193,8 @@ public class LoggingFactory extends ListenerAdapter {
         sendLogMessage(new EmbedBuilder()
                 .setAuthor(C.getFullName(e.getUser()), null, e.getUser().getAvatarUrl())
                 .setDescription(e.getUser().getAsMention() + " " + C.bold("nickname changed!"))
-                .addField("New Nick", e.getNewNick(), false)
-                .addField("Old Nick", e.getPrevNick(), false)
+                .addField("New Nick", e.getNewNick() != null ? e.getNewNick() : "N/A", false)
+                .addField("Old Nick", e.getPrevNick() != null ? e.getPrevNick() : "N/A", false)
                 .setColor(Color.CYAN)
                 .setFooter("ID: " + e.getUser().getId(), null).build());
     }
