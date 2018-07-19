@@ -69,6 +69,10 @@ public class ShopCommand extends CommandBase {
 
             try {
                 UserToken userToken = purchaseManager.getSqlManager().getUser(e.getMember().getUser().getId());
+                if (purchaseManager.hasReward(e.getMember().getUser().getId(), reward)) {
+                    e.replyError("You already own this item!");
+                    return;
+                }
                 if (userToken.getCoins() < reward.getAmount()) {
                     e.replyError("You do not have the required funds to complete this purchase!");
                     return;
