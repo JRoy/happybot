@@ -30,7 +30,7 @@ public class Leveling extends ListenerAdapter {
 
     private final Connection connection;
 
-    public final static int MAX_LEVEL = 200;
+    private final static int MAX_LEVEL = 200;
 
     private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `levels` ( `id` INT NOT NULL AUTO_INCREMENT , `userId` VARCHAR(255) NOT NULL , `level` BIGINT(255) NOT NULL DEFAULT '0' , UNIQUE (`id`)) ENGINE = InnoDB;";
     private final String SELECT_USER = "SELECT * FROM `levels` WHERE userId = ?;";
@@ -42,12 +42,10 @@ public class Leveling extends ListenerAdapter {
 
     private final Random random = new Random();
     private TreeMap<Long, Integer> levels = new TreeMap<>();
-    private int lastMax = 0;
 
     private HashMap<String, OffsetDateTime> lastChatTimes = new HashMap<>();
     private HashMap<String, Integer> levelCache = new HashMap<>();
     public Map<Integer, LevelingToken> topCache = new HashMap<>();
-    private int maxCache = 0;
 
     public Leveling(SQLManager sqlManager) {
         this.connection = sqlManager.getConnection();
@@ -74,7 +72,6 @@ public class Leveling extends ListenerAdapter {
                     try {
                         Map<Integer, LevelingToken> result = getTop(25);
                         topCache = result;
-                        maxCache = lastMax;
                         int curPos = 1;
                         EmbedBuilder builder = new EmbedBuilder();
                         builder.setAuthor("Top 25 XP Betrayals", null, C.getGuild().getIconUrl()).setFooter("Stats provided by happybot's Leveling API!", Main.getJda().getSelfUser().getAvatarUrl()).setColor(Color.MAGENTA).setDescription("Here are the current top 25 rankings for experience.");
@@ -163,7 +160,6 @@ public class Leveling extends ListenerAdapter {
             topBal.put(i + 1, new LevelingToken(C.getGuild().getMemberById(resultSet.getString("userId")), resultSet.getLong("level"), toLevel(resultSet.getLong("level"))));
             max++;
         }
-        lastMax = max;
         return topBal;
     }
 
