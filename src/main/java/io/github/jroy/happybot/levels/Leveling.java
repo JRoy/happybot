@@ -30,7 +30,7 @@ public class Leveling extends ListenerAdapter {
 
     private final Connection connection;
 
-    public final int MAX_LEVEL = 200;
+    public final static int MAX_LEVEL = 200;
 
     private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `levels` ( `id` INT NOT NULL AUTO_INCREMENT , `userId` VARCHAR(255) NOT NULL , `level` BIGINT(255) NOT NULL DEFAULT '0' , UNIQUE (`id`)) ENGINE = InnoDB;";
     private final String SELECT_USER = "SELECT * FROM `levels` WHERE userId = ?;";

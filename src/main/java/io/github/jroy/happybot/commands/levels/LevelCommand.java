@@ -62,7 +62,7 @@ public class LevelCommand extends CommandBase {
         builder.setAuthor(target.getUser().getName(), null, target.getUser().getAvatarUrl());
         builder.setColor(target.getColor());
 
-        builder.addField("Rank", (rank == -1 ? "??" : rank) + "/" + leveling.MAX_LEVEL, false);
+        builder.addField("Rank", (rank == -1 ? "??" : rank) + "/" + Leveling.MAX_LEVEL, false);
         builder.addField("Level", String.valueOf(level), false);
         builder.addField("Level Progress", C.prettyNum((int) progressXp) + "/" + C.prettyNum(rankXp) + " (" + C.prettyNum((int) totalXp) + " total)", false);
 
