@@ -30,6 +30,8 @@ public class Leveling extends ListenerAdapter {
 
     private final Connection connection;
 
+    public final int MAX_LEVEL = 200;
+
     private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `levels` ( `id` INT NOT NULL AUTO_INCREMENT , `userId` VARCHAR(255) NOT NULL , `level` BIGINT(255) NOT NULL DEFAULT '0' , UNIQUE (`id`)) ENGINE = InnoDB;";
     private final String SELECT_USER = "SELECT * FROM `levels` WHERE userId = ?;";
     private final String CREATE_USER = "INSERT INTO `levels` (userId) VALUES (?);";
@@ -45,7 +47,7 @@ public class Leveling extends ListenerAdapter {
     private HashMap<String, OffsetDateTime> lastChatTimes = new HashMap<>();
     private HashMap<String, Integer> levelCache = new HashMap<>();
     public Map<Integer, LevelingToken> topCache = new HashMap<>();
-    public int maxCache = 0;
+    private int maxCache = 0;
 
     public Leveling(SQLManager sqlManager) {
         this.connection = sqlManager.getConnection();
@@ -56,7 +58,7 @@ public class Leveling extends ListenerAdapter {
         }
         long previousKey = 0;
         levels.put((long) 0, 0);
-        for (int level = 0; level <= 200; ++level) {
+        for (int level = 0; level <= MAX_LEVEL; ++level) {
             int key = 5 * (level * level + 8 * level + 11);
             previousKey += key;
             levels.put(previousKey, level);
