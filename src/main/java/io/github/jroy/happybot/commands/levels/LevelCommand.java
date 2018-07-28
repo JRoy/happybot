@@ -43,7 +43,11 @@ public class LevelCommand extends CommandBase {
         long totalXp = leveling.getExp(targetId);
         int level = leveling.toLevel(totalXp);
         int rankXp = leveling.getNextExp(level).intValue();
-        long progressXp = totalXp - leveling.getTotalExp(level - 1) - leveling.getNextExp(level - 1).intValue();
+        int totalExpP = level - 1;
+        if (level == 0) {
+            totalExpP = 0;
+        }
+        long progressXp = totalXp - leveling.getTotalExp(totalExpP) - leveling.getNextExp(totalExpP).intValue();
 
         int rank = -1;
         for (HashMap.Entry<Integer, LevelingToken> curEntry : leveling.topCache.entrySet()) {
