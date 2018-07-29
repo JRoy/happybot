@@ -23,7 +23,7 @@ public class SelfWarningsCommand extends CommandBase {
 
     @Override
     protected void executeCommand(CommandEvent e) {
-        e.reply("Providing Memes in DM's");
+        e.reply("Providing Memes in DMs");
         try {
             ResultSet resultSet = warningManager.fetchWarnings(e.getEvent().getAuthor().getId());
             StringBuilder builder = new StringBuilder();

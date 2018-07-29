@@ -6,15 +6,12 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import net.dv8tion.jda.core.entities.Member;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 public class ShippingCommand extends CommandBase {
 
     public ShippingCommand() {
-        super("ship", "<user> <user>", "Will check the shipability of two users", CommandCategory.FUN);
+        super("ship", "<user> <user>", "Will check the shipability of two users.", CommandCategory.FUN);
         this.aliases = new String[] {"shipping", "match"};
     }
 
