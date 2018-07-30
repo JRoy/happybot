@@ -30,8 +30,10 @@ public class MemeCommand extends CommandBase {
         subs.add("dankmemes");
         subs.add("woooosh");
         subs.add("happyheart");
+        subs.add("hmm");
         subs.add("hmmm");
         subs.add("funny");
+        subs.add("peoplefuckingdying");
         this.setCooldown(5, ChronoUnit.MINUTES);
     }
 
