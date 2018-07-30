@@ -234,7 +234,7 @@ public class Main extends ListenerAdapter {
         eventListeners.add(new SubmitPinner());
 
         Logger.info("Loading Leveling Manager...");
-        eventListeners.add(leveling = new Leveling(sqlManager));
+        eventListeners.add(leveling = new Leveling(sqlManager, messageFactory));
 
         return eventListeners;
     }

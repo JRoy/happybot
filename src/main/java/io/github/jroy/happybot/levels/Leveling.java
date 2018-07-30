@@ -2,6 +2,7 @@ package io.github.jroy.happybot.levels;
 
 import com.udojava.evalex.Expression;
 import io.github.jroy.happybot.Main;
+import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
@@ -29,6 +30,7 @@ import java.util.*;
 public class Leveling extends ListenerAdapter {
 
     private final Connection connection;
+    private final MessageFactory messageFactory;
 
     private final static int MAX_LEVEL = 200;
 
@@ -47,8 +49,9 @@ public class Leveling extends ListenerAdapter {
     private HashMap<String, Integer> levelCache = new HashMap<>();
     public Map<Integer, LevelingToken> topCache = new HashMap<>();
 
-    public Leveling(SQLManager sqlManager) {
+    public Leveling(SQLManager sqlManager, MessageFactory messageFactory) {
         this.connection = sqlManager.getConnection();
+        this.messageFactory = messageFactory;
         try {
             connection.createStatement().executeUpdate(CREATE_TABLE);
         } catch (SQLException e) {
@@ -227,7 +230,9 @@ public class Leveling extends ListenerAdapter {
 
     private void processRewards(int level, Member member, TextChannel channel) {
         StringBuilder sb = new StringBuilder();
-        sb.append(member.getAsMention()).append(" LEVEL UP! You have advanced to ").append(C.bold("Level " + String.valueOf(level))).append("!");
+        String randomMessage = messageFactory.getRawMessage(MessageFactory.MessageType.LEVEL).replaceAll("<user>", member.getAsMention()).replaceAll("<level>", C.bold("Level " + String.valueOf(level)));
+
+        sb.append(randomMessage);
 
         switch (level) {
             case 10: {

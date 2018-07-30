@@ -21,6 +21,7 @@ public class MessageStatsCommand extends CommandBase {
                 "\n**Welcome Messages:** " + messageFactory.getTotals(MessageFactory.MessageType.JOIN) +
                 "\n**Quit Messages:** " + messageFactory.getTotals(MessageFactory.MessageType.LEAVE) +
                 "\n**Warning Messages:** " + messageFactory.getTotals(MessageFactory.MessageType.WARN) +
+                "\n**Level-Up Messages:** " + messageFactory.getTotals(MessageFactory.MessageType.LEVEL) +
                 "\n**Update Start Messages:** " + messageFactory.getTotals(MessageFactory.MessageType.UPDATE_START)+
                 "\n**Update End Messages:** " + messageFactory.getTotals(MessageFactory.MessageType.UPDATE_END)).queue();
     }

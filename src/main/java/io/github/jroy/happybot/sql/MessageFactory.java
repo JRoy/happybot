@@ -26,6 +26,7 @@ public class MessageFactory {
     private List<String> updateStartMessages = new ArrayList<>();
     private List<String> updateEndMessages = new ArrayList<>();
     private List<String> warningMessages = new ArrayList<>();
+    private List<String> levelUpMessages = new ArrayList<>();
 
     public MessageFactory(SQLManager sqlManager) {
         connection = sqlManager.getConnection();
@@ -63,8 +64,12 @@ public class MessageFactory {
                 updateStartMessages.add(message);
                 break;
             }
+            case LEVEL: {
+                levelUpMessages.add(message);
+                break;
+            }
             default:
-                break;//the hell
+                break; //the hell
         }
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_MESSAGE);
         preparedStatement.setString(1, messageType.toString());
@@ -72,17 +77,19 @@ public class MessageFactory {
         preparedStatement.execute();
     }
 
-    public void refreshMessages() throws SQLException {
+    private void refreshMessages() throws SQLException {
         joinMessages.clear();
         leaveMessages.clear();
         updateStartMessages.clear();
         updateEndMessages.clear();
         warningMessages.clear();
+        levelUpMessages.clear();
         joinMessages = parseMessages(MessageType.JOIN);
         leaveMessages = parseMessages(MessageType.LEAVE);
         updateStartMessages = parseMessages(MessageType.UPDATE_START);
         updateEndMessages = parseMessages(MessageType.UPDATE_END);
         warningMessages = parseMessages(MessageType.WARN);
+        levelUpMessages = parseMessages(MessageType.LEVEL);
     }
 
     private List<String> parseMessages(MessageType messageType) throws SQLException {
@@ -94,9 +101,7 @@ public class MessageFactory {
         while (set.next()) {
             msgs.add(set.getString("value"));
         }
-
         return msgs;
-
     }
 
     @Nonnull
@@ -111,6 +116,8 @@ public class MessageFactory {
             return updateStartMessages.get(random.nextInt(updateStartMessages.size()));
         if (messageType == MessageType.UPDATE_END)
             return updateEndMessages.get(random.nextInt(updateEndMessages.size()));
+        if (messageType == MessageType.LEVEL)
+            return levelUpMessages.get(random.nextInt(levelUpMessages.size()));
         return "";
     }
 
@@ -125,6 +132,8 @@ public class MessageFactory {
             return updateEndMessages.size();
         if (messageType == MessageType.WARN)
             return warningMessages.size();
+        if (messageType == MessageType.LEVEL)
+            return levelUpMessages.size();
         return 0;
     }
 
@@ -133,7 +142,8 @@ public class MessageFactory {
         LEAVE("leave"),
         UPDATE_START("updatestart"),
         UPDATE_END("updateend"),
-        WARN("warn");
+        WARN("warn"),
+        LEVEL("level");
 
         private String translation;
 

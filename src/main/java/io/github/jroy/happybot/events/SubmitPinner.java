@@ -50,7 +50,7 @@ public class SubmitPinner extends ListenerAdapter {
             case JOIN: {
                 if (content.toLowerCase().startsWith("<user>") || content.toLowerCase().startsWith("<player>")) {
                     event.getMessage().delete().queue();
-                    C.privChannel(member, "Your message submission has been deleted: do not begin join and leave messages with a <user>/<player>; that is automatically added.");
+                    C.privChannel(member, "Your message submission has been deleted: Do not begin join and leave messages with a <user>/<player>; that is automatically added.");
                     return;
                 }
                 break;
@@ -58,18 +58,23 @@ public class SubmitPinner extends ListenerAdapter {
             case LEAVE: {
                 if (content.toLowerCase().startsWith("<user>") || content.toLowerCase().startsWith("<player>")) {
                     event.getMessage().delete().queue();
-                    C.privChannel(member, "Your message submission has been deleted: do not begin join and leave messages with a <user>/<player>; that is automatically added.");
+                    C.privChannel(member, "Your message submission has been deleted: Do not begin join and leave messages with a <user>/<player>; that is automatically added.");
                     return;
                 }
                 break;
             }
             case WARN: {
+                if (!content.toLowerCase().contains("<user>")) {
+                    event.getMessage().delete().queue();
+                    C.privChannel(member, "Your message submission has been deleted: Warning messages must include <user>!");
+                    return;
+                }
                 break;
             }
             case UPDATE_START: {
                 if (content.toLowerCase().contains("<user>") || content.toLowerCase().contains("<player>")) {
                     event.getMessage().delete().queue();
-                    C.privChannel(member, "Your message submission has been deleted: update messages do not support <user>/<player>.");
+                    C.privChannel(member, "Your message submission has been deleted: Update messages do not support <user>/<player>.");
                     return;
                 }
                 break;
@@ -77,7 +82,15 @@ public class SubmitPinner extends ListenerAdapter {
             case UPDATE_END: {
                 if (content.toLowerCase().contains("<user>") || content.toLowerCase().contains("<player>")) {
                     event.getMessage().delete().queue();
-                    C.privChannel(member, "Your message submission has been deleted: update messages do not support <user>/<player>.");
+                    C.privChannel(member, "Your message submission has been deleted: Update messages do not support <user>/<player>.");
+                    return;
+                }
+                break;
+            }
+            case LEVEL: {
+                if (!content.toLowerCase().contains("<user>") || !content.toLowerCase().contains("<level>")) {
+                    event.getMessage().delete().queue();
+                    C.privChannel(member, "Your message submission has been deleted: Leveling messages must include both the <user> and <level>!");
                     return;
                 }
                 break;
@@ -134,7 +147,7 @@ public class SubmitPinner extends ListenerAdapter {
                 }
             }
 
-            if (numberOfStars == 5 && !alreadyUsedMessages.contains(message.getId())) {
+            if (numberOfStars == 3 && !alreadyUsedMessages.contains(message.getId())) {
                 processingMessages.add(message.getId());
                 alreadyUsedMessages.add(message.getId());
                 message.pin().queue();
