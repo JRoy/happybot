@@ -34,6 +34,11 @@ public class MemeCommand extends CommandBase {
         subs.add("hmmm");
         subs.add("funny");
         subs.add("peoplefuckingdying");
+        subs.add("bonehurtingjuice");
+        subs.add("okbuddyretard");
+        subs.add("iamverysmart");
+        subs.add("niceguys");
+        subs.add("nicegirls");
         this.setCooldown(2, ChronoUnit.MINUTES);
     }
 
