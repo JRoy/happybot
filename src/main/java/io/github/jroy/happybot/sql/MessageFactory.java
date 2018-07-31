@@ -42,30 +42,42 @@ public class MessageFactory {
         message = message.replace("(user)", "<user>").replace("[user]", "<user>").replace("{user}", "<user>");
         switch (messageType) { //We add the message to the cache first; we don't want to call SQL every time.
             case JOIN: {
-                joinMessages.add(message);
+                if (!joinMessages.contains(message)) {
+                    joinMessages.add(message);
+                }
                 break;
             }
             case WARN: {
                 if (!message.toLowerCase().contains("<user>")) {
                     message = "<user>: " + message;
                 }
-                warningMessages.add(message);
+                if (!warningMessages.contains(message)) {
+                    warningMessages.add(message);
+                }
                 break;
             }
             case LEAVE: {
-                warningMessages.add(message);
+                if (!warningMessages.contains(message)) {
+                    warningMessages.add(message);
+                }
                 break;
             }
             case UPDATE_END: {
-                updateEndMessages.add(message);
+                if (!updateEndMessages.contains(message)) {
+                    updateEndMessages.add(message);
+                }
                 break;
             }
             case UPDATE_START: {
-                updateStartMessages.add(message);
+                if (!updateStartMessages.contains(message)) {
+                    updateStartMessages.add(message);
+                }
                 break;
             }
             case LEVEL: {
-                levelUpMessages.add(message);
+                if (!levelUpMessages.contains(message)) {
+                    levelUpMessages.add(message);
+                }
                 break;
             }
             default:
