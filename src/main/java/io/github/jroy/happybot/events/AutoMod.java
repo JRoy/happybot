@@ -65,10 +65,8 @@ public class AutoMod extends ListenerAdapter {
     Message message = event.getMessage();
 
     //Advert Checker
-    if (RuntimeEditor.isFilteringAdverts()) {
-      if (checkForAdvertising(event.getMember(), message, event.getChannel())) {
-        return;
-      }
+    if (RuntimeEditor.isFilteringAdverts() && checkForAdvertising(event.getMember(), message, event.getChannel())) {
+      return;
     }
 
     //Auto React

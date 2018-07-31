@@ -13,15 +13,15 @@ class RobToken {
   private final HashMap<String, OffsetDateTime> dailyTimes = new HashMap<>();
   private final int ROB_DELAY = 86400000; //1 rob per day per person
 
-  RobToken() {
+  protected RobToken() {
 
   }
 
-  void registerRob(String userId) {
+  protected void registerRob(String userId) {
     dailyTimes.put(userId, OffsetDateTime.now().plusSeconds(ROB_DELAY));
   }
 
-  boolean canRob(String userId) {
+  protected boolean canRob(String userId) {
     return !dailyTimes.containsKey(userId) || getTimeRemainingForUser(userId) <= 0;
   }
 

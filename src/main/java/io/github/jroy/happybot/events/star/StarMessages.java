@@ -124,7 +124,7 @@ public class StarMessages extends ListenerAdapter {
   public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
     String reactionName = e.getReactionEmote().getName();
     StarEmote emote = StarEmote.getByName(reactionName);
-    if (emote == null && reactionName.equals("gild")) {
+    if (emote == null && "gild".equals(reactionName)) {
       if (!C.hasRole(e.getMember(), Roles.MODERATOR)) {
         e.getReaction().removeReaction().queue();
         return;

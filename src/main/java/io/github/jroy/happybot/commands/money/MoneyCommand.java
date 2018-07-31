@@ -122,25 +122,23 @@ public class MoneyCommand extends CommandBase {
       }
     }
 
-    if (args.length >= 2) {
-      if (args[0].equalsIgnoreCase("bal")) {
-        if (C.containsMention(e)) {
-          if (sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
-            try {
-              e.replySuccess("User Balance is: " + C.prettyNum(sqlManager.getUser(C.getMentionedMember(e).getUser().getId()).getCoins()) + " coins!");
-              return;
-            } catch (SQLException e1) {
-              e.replyError("Oof Error!");
-              e1.printStackTrace();
-            }
-          } else {
-            e.replyError("User does not have an active money account!");
+    if (args.length >= 2 && args[0].equalsIgnoreCase("bal")) {
+      if (C.containsMention(e)) {
+        if (sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
+          try {
+            e.replySuccess("User Balance is: " + C.prettyNum(sqlManager.getUser(C.getMentionedMember(e).getUser().getId()).getCoins()) + " coins!");
             return;
+          } catch (SQLException e1) {
+            e.replyError("Oof Error!");
+            e1.printStackTrace();
           }
         } else {
-          e.replyError("**Correct Usage:" + C.bold("^" + name + " bal **<user>"));
+          e.replyError("User does not have an active money account!");
           return;
         }
+      } else {
+        e.replyError("**Correct Usage:" + C.bold("^" + name + " bal **<user>"));
+        return;
       }
     }
 

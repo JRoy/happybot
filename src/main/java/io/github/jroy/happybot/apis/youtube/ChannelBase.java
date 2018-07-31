@@ -24,7 +24,7 @@ class ChannelBase {
     this.pingsEveryone = pingsEveryone;
   }
 
-  void registerListener() {
+  protected void registerListener() {
     if (registered) {
       return;
     }

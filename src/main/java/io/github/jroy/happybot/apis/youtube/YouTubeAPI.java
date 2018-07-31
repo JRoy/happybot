@@ -23,7 +23,7 @@ public class YouTubeAPI extends APIBase {
   private final String apiKey;
   private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
   private final JsonFactory JSON_FACTORY = new JacksonFactory();
-  YouTube youTube;
+  protected YouTube youTube;
   private List<ChannelBase> channels = new ArrayList<>();
 
   public YouTubeAPI(String apiKey) {
@@ -52,7 +52,7 @@ public class YouTubeAPI extends APIBase {
     channels.add(new ChannelBase(WHEEZY_YOUTUBE_ID, this, false));
   }
 
-  String getApiKey() {
+  protected String getApiKey() {
     return apiKey;
   }
 }

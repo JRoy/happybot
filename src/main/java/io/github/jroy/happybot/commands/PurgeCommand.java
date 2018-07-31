@@ -34,11 +34,9 @@ public class PurgeCommand extends CommandBase {
           target = 100;
         }
       }
-      if (args.length == 2) {
-        if (!C.containsMention(e)) {
-          e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
-          return;
-        }
+      if (args.length == 2 && !C.containsMention(e)) {
+        e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
+        return;
       }
     }
     MessageHistory history = e.getChannel().getHistory();

@@ -13,7 +13,6 @@ import java.util.Map;
 public class CommandFactory {
 
   private CommandClientBuilder clientBuilder;
-  private CommandClient commandClient;
 
   private Map<String, CommandBase> registeredCommands = new HashMap<>();
   private Map<CommandCategory, List<CommandBase>> categorizedCommands = new HashMap<>();
@@ -41,7 +40,7 @@ public class CommandFactory {
   }
 
   public CommandClient build() {
-    return commandClient = clientBuilder.build();
+    return clientBuilder.build();
   }
 
   public Map<String, CommandBase> getRegisteredCommands() {
