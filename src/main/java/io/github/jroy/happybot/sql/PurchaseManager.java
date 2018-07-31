@@ -5,6 +5,8 @@ import io.github.jroy.happybot.util.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class PurchaseManager {
@@ -45,6 +47,17 @@ public class PurchaseManager {
     PreparedStatement statement = sqlManager.getConnection().prepareStatement(SELECT_ALL_REWARDS_FROM_USER);
     statement.setString(1, userId);
     return statement.executeQuery();
+  }
+
+  public List<Reward> getAllRewardsList(String userId) throws SQLException {
+    PreparedStatement statement = sqlManager.getConnection().prepareStatement(SELECT_ALL_REWARDS_FROM_USER);
+    statement.setString(1, userId);
+    ResultSet set = statement.executeQuery();
+    List<Reward> rewards = new ArrayList<>();
+    while (set.next()) {
+      rewards.add(Reward.getFromId(set.getInt("itemId")));
+    }
+    return rewards;
   }
 
   public void addReward(String userId, Reward reward) {

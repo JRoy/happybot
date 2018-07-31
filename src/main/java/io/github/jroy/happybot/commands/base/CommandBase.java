@@ -15,6 +15,7 @@ import java.util.HashMap;
 /**
  * A custom implementation of JDA-Utilities's {@link com.jagrosh.jdautilities.command.Command Command} class that makes our use-case easier.
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class CommandBase extends Command {
   /**
    * Command usage
@@ -141,7 +142,7 @@ public abstract class CommandBase extends Command {
         long cooldown = OffsetDateTime.now().until(commandCooldowns.get(member), cooldownUnit);
         if (cooldown > 0) {
           event.replyError("You must wait "
-              + cooldown + " " + cooldownUnit.toString().toLowerCase()
+              + cooldown + " " + cooldownUnit.toString().toLowerCase().substring(0, cooldownUnit.toString().toLowerCase().length() - 1) + "(s)"
               + " before doing that command again!");
           return;
         }

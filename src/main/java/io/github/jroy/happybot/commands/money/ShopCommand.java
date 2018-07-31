@@ -11,12 +11,14 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ShopCommand extends CommandBase {
   private static final String CURRENT_SHOP_HELP = "**Happyheart Shop Help**\n" +
       "This shop allows for you to spend your money on\n" +
       "stuff. To view the products we offer please do\n" +
       "`^shop items` to get the list of the shop items.\n" +
+      "`^shop reclaim` lets you reclaim items you bought.\n" +
       "If you would like to buy an item do the following:\n" +
       "`^shop buy <id>` This will buy it from your account!";
 
@@ -42,6 +44,19 @@ public class ShopCommand extends CommandBase {
         builder.addField("#" + reward.getId() + " " + reward.getDisplay(), C.prettyNum(reward.getAmount()), false);
       }
       e.reply(builder.build());
+    } else if (e.getArgs().equalsIgnoreCase("reclaim")) {
+      try {
+        List<Reward> rewards = purchaseManager.getAllRewardsList(e.getMember().getUser().getId());
+        int amount = 0;
+        for (Reward reward : rewards) {
+          reward.getReward().processReward(e);
+          amount++;
+        }
+        e.reply("Reclaimed " + amount + " items!");
+      } catch (SQLException e1) {
+        e.replyError("Whoops");
+        e1.printStackTrace();
+      }
     } else if (e.getArgs().startsWith("buy")) {
       String id = e.getArgs().replaceFirst("buy ", "");
       if (!StringUtils.isNumeric(id)) {
@@ -53,20 +68,16 @@ public class ShopCommand extends CommandBase {
         e.replyError(C.bold("Correct Usage:") + " ^shop buy **<id>**");
         return;
       }
-
       //Grab Desired Item
       Reward reward = Reward.getFromId(selectedID);
-
       if (reward == null) {
         e.replyError("There was an error while handling your purchase. You have not been charged. [Null Reward]");
         return;
       }
-
       if (!purchaseManager.getSqlManager().isActiveUserH(e.getMember().getUser().getId())) {
         e.replyError(MoneyCommand.NEED_ACCOUNT);
         return;
       }
-
       try {
         UserToken userToken = purchaseManager.getSqlManager().getUser(e.getMember().getUser().getId());
         if (purchaseManager.hasReward(e.getMember().getUser().getId(), reward)) {
@@ -81,8 +92,6 @@ public class ShopCommand extends CommandBase {
       } catch (SQLException e1) {
         e.replyError("There was an error while handling your purchase. You have not been charged. [SQL Error]");
       }
-
-
     }
   }
 }
