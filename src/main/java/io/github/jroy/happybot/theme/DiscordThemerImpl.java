@@ -14,41 +14,40 @@ import java.util.List;
 
 public class DiscordThemerImpl extends ListenerAdapter {
 
-    private DiscordThemer discordThemer;
+  private final boolean debugMode;
+  private DiscordThemer discordThemer;
 
-    private final boolean debugMode;
+  public DiscordThemerImpl(boolean debugMode) {
+    this.debugMode = debugMode;
+  }
 
-    public DiscordThemerImpl(boolean debugMode) {
-        this.debugMode = debugMode;
+  @Override
+  public void onStatusChange(StatusChangeEvent event) {
+    if (event.getNewStatus() == JDA.Status.CONNECTED && discordThemer == null) {
+      discordThemer = new DiscordThemerBuilder(event.getJDA())
+          .setGuild(event.getJDA().getGuildById(Constants.GUILD_ID.get()))
+          .setActionMode(ActionMode.QUEUE)
+          .setThemeFolder("themes/")
+          .setLogDisplayWarnings(true)
+          .setDebugMode(debugMode)
+          .build();
     }
+  }
 
-    @Override
-    public void onStatusChange(StatusChangeEvent event) {
-        if (event.getNewStatus() == JDA.Status.CONNECTED && discordThemer == null) {
-            discordThemer = new DiscordThemerBuilder(event.getJDA())
-                    .setGuild(event.getJDA().getGuildById(Constants.GUILD_ID.get()))
-                    .setActionMode(ActionMode.QUEUE)
-                    .setThemeFolder("themes/")
-                    .setLogDisplayWarnings(true)
-                    .setDebugMode(debugMode)
-                    .build();
-        }
-    }
+  public boolean isValidTheme(String themeName) {
+    return discordThemer.isValidTheme(themeName);
+  }
 
-    public boolean isValidTheme(String themeName) {
-        return discordThemer.isValidTheme(themeName);
-    }
+  public ThemeToken getThemeToken(String themeName) {
+    return null;
+  }
 
-    public ThemeToken getThemeToken(String themeName) {
-        return null;
-    }
+  public void switchToTheme(String themeName) throws ThemeNotFoundException {
+    discordThemer.setServerTheme(themeName);
+  }
 
-    public void switchToTheme(String themeName) throws ThemeNotFoundException {
-        discordThemer.setServerTheme(themeName);
-    }
-
-    public List<String> getThemeList() {
-        return null;
-    }
+  public List<String> getThemeList() {
+    return null;
+  }
 
 }

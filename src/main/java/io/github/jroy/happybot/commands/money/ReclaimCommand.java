@@ -12,23 +12,23 @@ import java.util.Objects;
 
 public class ReclaimCommand extends CommandBase {
 
-    private final PurchaseManager purchaseManager;
+  private final PurchaseManager purchaseManager;
 
-    public ReclaimCommand(PurchaseManager purchaseManager) {
-        super("reclaim", null, "Reclaim the items you've purchased via the store.", CommandCategory.FUN);
-        this.purchaseManager = purchaseManager;
-    }
+  public ReclaimCommand(PurchaseManager purchaseManager) {
+    super("reclaim", null, "Reclaim the items you've purchased via the store.", CommandCategory.FUN);
+    this.purchaseManager = purchaseManager;
+  }
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        try {
-            ResultSet rewards = purchaseManager.getAllRewards(e.getMember().getUser().getId());
-            while (rewards.next()) {
-                Objects.requireNonNull(Reward.getFromId(rewards.getInt("itemId"))).getReward().processReward(e);
-            }
-            e.reply("Applied all your rewards!");
-        } catch (SQLException e1) {
-            e.replyError("Oof Error: " + e1.getMessage());
-        }
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    try {
+      ResultSet rewards = purchaseManager.getAllRewards(e.getMember().getUser().getId());
+      while (rewards.next()) {
+        Objects.requireNonNull(Reward.getFromId(rewards.getInt("itemId"))).getReward().processReward(e);
+      }
+      e.reply("Applied all your rewards!");
+    } catch (SQLException e1) {
+      e.replyError("Oof Error: " + e1.getMessage());
     }
+  }
 }

@@ -12,42 +12,43 @@ import java.util.Map;
 
 public class CommandFactory {
 
-    private CommandClientBuilder clientBuilder;
-    private CommandClient commandClient;
+  private CommandClientBuilder clientBuilder;
+  private CommandClient commandClient;
 
-    private Map<String, CommandBase> registeredCommands = new HashMap<>();
-    private Map<CommandCategory, List<CommandBase>> categorizedCommands = new HashMap<>();
+  private Map<String, CommandBase> registeredCommands = new HashMap<>();
+  private Map<CommandCategory, List<CommandBase>> categorizedCommands = new HashMap<>();
 
-    public CommandFactory() {
-        Logger.info("Loading Command Factory...");
-        clientBuilder = new CommandClientBuilder();
-        clientBuilder.setPrefix("^");
-        clientBuilder.setAlternativePrefix("!");
-        clientBuilder.setOwnerId(Constants.OWNER_ID.get());
-        clientBuilder.useHelpBuilder(false);
+  public CommandFactory() {
+    Logger.info("Loading Command Factory...");
+    clientBuilder = new CommandClientBuilder();
+    clientBuilder.setPrefix("^");
+    clientBuilder.setAlternativePrefix("!");
+    clientBuilder.setOwnerId(Constants.OWNER_ID.get());
+    clientBuilder.useHelpBuilder(false);
+  }
+
+  public void addCommands(CommandBase... commands) {
+    Logger.info("Adding Commands...");
+    clientBuilder.addCommands(commands);
+    for (CommandBase base : commands) {
+      if (!categorizedCommands.containsKey(base.getCommandCategory())) {
+        categorizedCommands.put(base.getCommandCategory(), new ArrayList<>());
+      }
+      categorizedCommands.get(base.getCommandCategory()).add(base);
+      registeredCommands.put(base.getName(), base);
     }
+    Logger.info("Added " + commands.length + " Commands!");
+  }
 
-    public void addCommands(CommandBase... commands) {
-        Logger.info("Adding Commands...");
-        clientBuilder.addCommands(commands);
-        for (CommandBase base : commands) {
-            if (!categorizedCommands.containsKey(base.getCommandCategory()))
-                categorizedCommands.put(base.getCommandCategory(), new ArrayList<>());
-            categorizedCommands.get(base.getCommandCategory()).add(base);
-            registeredCommands.put(base.getName(), base);
-        }
-        Logger.info("Added " + commands.length + " Commands!");
-    }
+  public CommandClient build() {
+    return commandClient = clientBuilder.build();
+  }
 
-    public CommandClient build() {
-        return commandClient = clientBuilder.build();
-    }
+  public Map<String, CommandBase> getRegisteredCommands() {
+    return registeredCommands;
+  }
 
-    public Map<String, CommandBase> getRegisteredCommands() {
-        return registeredCommands;
-    }
-
-    public Map<CommandCategory, List<CommandBase>> getCategorizedCommands() {
-        return categorizedCommands;
-    }
+  public Map<CommandCategory, List<CommandBase>> getCategorizedCommands() {
+    return categorizedCommands;
+  }
 }

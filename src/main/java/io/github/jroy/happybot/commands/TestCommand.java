@@ -7,12 +7,12 @@ import io.github.jroy.happybot.util.Roles;
 
 public class TestCommand extends CommandBase {
 
-    public TestCommand() {
-        super("test", null, "The world may never know!", CommandCategory.BOT, Roles.DEVELOPER);
-    }
+  public TestCommand() {
+    super("test", null, "The world may never know!", CommandCategory.BOT, Roles.DEVELOPER);
+  }
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        e.reply("lol no");
-    }
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    e.reply("lol no");
+  }
 }

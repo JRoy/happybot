@@ -11,52 +11,54 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
  */
 public class CommandEvent extends com.jagrosh.jdautilities.command.CommandEvent {
 
-    public CommandEvent(MessageReceivedEvent event, String args, CommandClient client) {
-        super(event, args, client);
-    }
+  public CommandEvent(MessageReceivedEvent event, String args, CommandClient client) {
+    super(event, args, client);
+  }
 
-    /**
-     * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
-     */
-    public boolean hasRole(Roles role) {
-        return C.hasRole(getMember(), role);
-    }
+  /**
+   * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
+   */
+  public boolean hasRole(Roles role) {
+    return C.hasRole(getMember(), role);
+  }
 
-    /**
-     * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
-     */
-    public boolean containsMention() {
-        return C.containsMention(this);
-    }
+  /**
+   * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
+   */
+  public boolean containsMention() {
+    return C.containsMention(this);
+  }
 
-    /**
-     * Wrapper for getting amount of mentioned users in a message.
-     * @return The amount of mentioned users.
-     */
-    public int getMentionsAmount() {
-        return getMessage().getMentionedMembers().size();
-    }
+  /**
+   * Wrapper for getting amount of mentioned users in a message.
+   *
+   * @return The amount of mentioned users.
+   */
+  public int getMentionsAmount() {
+    return getMessage().getMentionedMembers().size();
+  }
 
-    /**
-     * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
-     */
-    public Member getMentionedMember() {
-        return C.getMentionedMember(this);
-    }
+  /**
+   * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
+   */
+  public Member getMentionedMember() {
+    return C.getMentionedMember(this);
+  }
 
-    /**
-     * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
-     * @param index Get's a certain mentioned member.
-     */
-    public Member getMentionedMember(int index) {
-        return C.getMentionedMember(this, index);
-    }
+  /**
+   * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
+   *
+   * @param index Get's a certain mentioned member.
+   */
+  public Member getMentionedMember(int index) {
+    return C.getMentionedMember(this, index);
+  }
 
-    /**
-     * @return Gets the arguments of the command split by spaces.
-     */
-    public String[] getSplitArgs() {
-        return getArgs().split(" ");
-    }
+  /**
+   * @return Gets the arguments of the command split by spaces.
+   */
+  public String[] getSplitArgs() {
+    return getArgs().split(" ");
+  }
 
 }

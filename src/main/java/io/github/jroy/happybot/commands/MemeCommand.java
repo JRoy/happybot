@@ -14,63 +14,63 @@ import java.util.List;
 
 public class MemeCommand extends CommandBase {
 
-    private final Reddit reddit;
+  private final Reddit reddit;
 
-    private List<String> subs = new ArrayList<>();
+  private List<String> subs = new ArrayList<>();
 
-    public MemeCommand(Reddit reddit) {
-        super("meme", "<subreddit>", "Displays a random meme from the requested subreddit.", CommandCategory.FUN);
-        this.reddit = reddit;
-        this.aliases = new String[]{"memes", "reddit"};
-        subs.add("me_irl");
-        subs.add("memes");
-        subs.add("deepfriedmemes");
-        subs.add("programmerhumor");
-        subs.add("pewdiepiesubmissions");
-        subs.add("dankmemes");
-        subs.add("woooosh");
-        subs.add("happyheart");
-        subs.add("hmm");
-        subs.add("hmmm");
-        subs.add("funny");
-        subs.add("peoplefuckingdying");
-        subs.add("bonehurtingjuice");
-        subs.add("iamverysmart");
-        subs.add("niceguys");
-        subs.add("nicegirls");
-        this.setCooldown(2, ChronoUnit.MINUTES);
+  public MemeCommand(Reddit reddit) {
+    super("meme", "<subreddit>", "Displays a random meme from the requested subreddit.", CommandCategory.FUN);
+    this.reddit = reddit;
+    this.aliases = new String[]{"memes", "reddit"};
+    subs.add("me_irl");
+    subs.add("memes");
+    subs.add("deepfriedmemes");
+    subs.add("programmerhumor");
+    subs.add("pewdiepiesubmissions");
+    subs.add("dankmemes");
+    subs.add("woooosh");
+    subs.add("happyheart");
+    subs.add("hmm");
+    subs.add("hmmm");
+    subs.add("funny");
+    subs.add("peoplefuckingdying");
+    subs.add("bonehurtingjuice");
+    subs.add("iamverysmart");
+    subs.add("niceguys");
+    subs.add("nicegirls");
+    this.setCooldown(2, ChronoUnit.MINUTES);
+  }
+
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    if (!subs.contains(e.getArgs().toLowerCase())) {
+      StringBuilder sb = new StringBuilder();
+      for (String str : subs) {
+        sb.append(str).append("/");
+      }
+      sb.setLength(sb.length() - 1);
+      e.replyError(invalid.replace("subreddit", sb.toString()));
+      removeFromCooldown(e.getMember());
+      return;
     }
 
+    e.getChannel().sendTyping().queue();
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        if (!subs.contains(e.getArgs().toLowerCase())) {
-            StringBuilder sb = new StringBuilder();
-            for (String str : subs)
-                sb.append(str).append("/");
-            sb.setLength(sb.length() - 1);
-            e.replyError(invalid.replace("subreddit", sb.toString()));
-            removeFromCooldown(e.getMember());
-            return;
-        }
+    MemePost post = reddit.getRandomMedia(e.getArgs());
+    String subreddit = "r/" + post.getSubreddit();
 
-        e.getChannel().sendTyping().queue();
-
-        MemePost post = reddit.getRandomMedia(e.getArgs());
-        String subreddit = "r/" + post.getSubreddit();
-
-        EmbedBuilder eb = new EmbedBuilder()
-                .setAuthor("Meme from " + subreddit, null, "https://www.redditstatic.com/desktop2x/img/favicon/android-icon-192x192.png")
-                .setTitle(post.getTitle(), post.getPermaLink())
-                .setFooter("Requested by: " + C.getFullName(e.getAuthor()), e.getAuthor().getAvatarUrl());
-        if (post.isSelfPost()) {
-            eb.setDescription("Here is your random meme selected from " + subreddit + "\n"
-                + "**Self Post:**\n"
-                + post.getSelfText());
-        } else {
-            eb.setDescription("Here is your random meme selected from " + subreddit)
-                .setImage(post.getMediaUrl());
-        }
-        e.reply(eb.build());
+    EmbedBuilder eb = new EmbedBuilder()
+        .setAuthor("Meme from " + subreddit, null, "https://www.redditstatic.com/desktop2x/img/favicon/android-icon-192x192.png")
+        .setTitle(post.getTitle(), post.getPermaLink())
+        .setFooter("Requested by: " + C.getFullName(e.getAuthor()), e.getAuthor().getAvatarUrl());
+    if (post.isSelfPost()) {
+      eb.setDescription("Here is your random meme selected from " + subreddit + "\n"
+          + "**Self Post:**\n"
+          + post.getSelfText());
+    } else {
+      eb.setDescription("Here is your random meme selected from " + subreddit)
+          .setImage(post.getMediaUrl());
     }
+    e.reply(eb.build());
+  }
 }

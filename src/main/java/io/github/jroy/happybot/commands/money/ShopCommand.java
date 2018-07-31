@@ -68,20 +68,16 @@ public class ShopCommand extends CommandBase {
         e.replyError(C.bold("Correct Usage:") + " ^shop buy **<id>**");
         return;
       }
-
       //Grab Desired Item
       Reward reward = Reward.getFromId(selectedID);
-
       if (reward == null) {
         e.replyError("There was an error while handling your purchase. You have not been charged. [Null Reward]");
         return;
       }
-
       if (!purchaseManager.getSqlManager().isActiveUserH(e.getMember().getUser().getId())) {
         e.replyError(MoneyCommand.NEED_ACCOUNT);
         return;
       }
-
       try {
         UserToken userToken = purchaseManager.getSqlManager().getUser(e.getMember().getUser().getId());
         if (purchaseManager.hasReward(e.getMember().getUser().getId(), reward)) {
@@ -96,8 +92,6 @@ public class ShopCommand extends CommandBase {
       } catch (SQLException e1) {
         e.replyError("There was an error while handling your purchase. You have not been charged. [SQL Error]");
       }
-
-
     }
   }
 }

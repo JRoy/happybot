@@ -16,36 +16,36 @@ import java.awt.*;
 
 public class DeleteWarnCommand extends CommandBase {
 
-    private WarningManager warningManager;
+  private WarningManager warningManager;
 
-    public DeleteWarnCommand(WarningManager warningManager) {
-        super("delwarn", "<warning ID>", "Deletes the target warning.", CommandCategory.STAFF, Roles.HELPER);
-        this.aliases = new String[]{"delwarning", "deletewarn", "deletewarning", "dwarn"};
-        this.warningManager = warningManager;
-    }
+  public DeleteWarnCommand(WarningManager warningManager) {
+    super("delwarn", "<warning ID>", "Deletes the target warning.", CommandCategory.STAFF, Roles.HELPER);
+    this.aliases = new String[]{"delwarning", "deletewarn", "deletewarning", "dwarn"};
+    this.warningManager = warningManager;
+  }
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        if (!e.getArgs().isEmpty() && StringUtils.isNumeric(e.getArgs())) {
-            int id = Integer.parseInt(e.getArgs());
-            if (warningManager.isValidWarning(id)) {
-                User tUser = Main.getJda().getUserById(warningManager.getWarnTargetId(id));
-                Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
-                        .setAuthor(C.getFullName(e.getMember().getUser()), null,  e.getMember().getUser().getAvatarUrl())
-                        .setColor(Color.YELLOW)
-                        .setThumbnail(tUser.getAvatarUrl())
-                        .setDescription(":information_source: **Warning Deleted**\n" + "⚠ " + C.bold("Warned " + C.getFullName(tUser)) + "\n:page_facing_up: " + C.bold("Reason: ") + warningManager.getWarnReason(id) + "\n:id: **Warn ID** " + id)
-                        .build()).queue();
-                if (warningManager.deleteWarning(id)) {
-                    e.reply("Deleted warning!");
-                } else {
-                    e.reply("Warning could not be deleted!");
-                }
-            } else {
-                e.replyError("Invalid Warning!");
-            }
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    if (!e.getArgs().isEmpty() && StringUtils.isNumeric(e.getArgs())) {
+      int id = Integer.parseInt(e.getArgs());
+      if (warningManager.isValidWarning(id)) {
+        User tUser = Main.getJda().getUserById(warningManager.getWarnTargetId(id));
+        Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
+            .setAuthor(C.getFullName(e.getMember().getUser()), null, e.getMember().getUser().getAvatarUrl())
+            .setColor(Color.YELLOW)
+            .setThumbnail(tUser.getAvatarUrl())
+            .setDescription(":information_source: **Warning Deleted**\n" + "⚠ " + C.bold("Warned " + C.getFullName(tUser)) + "\n:page_facing_up: " + C.bold("Reason: ") + warningManager.getWarnReason(id) + "\n:id: **Warn ID** " + id)
+            .build()).queue();
+        if (warningManager.deleteWarning(id)) {
+          e.reply("Deleted warning!");
         } else {
-            e.replyError(C.bold("Correct Usage:") + " ^" + name + " <warning ID>");
+          e.reply("Warning could not be deleted!");
         }
+      } else {
+        e.replyError("Invalid Warning!");
+      }
+    } else {
+      e.replyError(C.bold("Correct Usage:") + " ^" + name + " <warning ID>");
     }
+  }
 }
