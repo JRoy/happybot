@@ -7,29 +7,29 @@ import java.util.List;
 
 class GildInfoToken {
 
-    private final String gilderId;
-    private final String targetId;
+  private final String gilderId;
+  private final String targetId;
 
-    private List<Message> causedMessages = new ArrayList<>();
+  private List<Message> causedMessages = new ArrayList<>();
 
-    GildInfoToken(String gilderId, String targetId) {
-        this.gilderId = gilderId;
-        this.targetId = targetId;
-    }
+  GildInfoToken(String gilderId, String targetId) {
+    this.gilderId = gilderId;
+    this.targetId = targetId;
+  }
 
-    public void addCaused(Message message) {
-        causedMessages.add(message);
-    }
+  public void addCaused(Message message) {
+    causedMessages.add(message);
+  }
 
-    public String getGilderId() {
-        return gilderId;
-    }
+  public String getGilderId() {
+    return gilderId;
+  }
 
-    public List<Message> getCausedMessages() {
-        return causedMessages;
-    }
+  public List<Message> getCausedMessages() {
+    return causedMessages;
+  }
 
-    public String getTargetId() {
-        return targetId;
-    }
+  public String getTargetId() {
+    return targetId;
+  }
 }

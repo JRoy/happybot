@@ -13,32 +13,32 @@ import java.sql.SQLException;
 
 public class SelfWarningsCommand extends CommandBase {
 
-    private WarningManager warningManager;
+  private WarningManager warningManager;
 
-    public SelfWarningsCommand(WarningManager warningManager) {
-        super("mywarns", null, "Direct Messages you a list of your warnings.", CommandCategory.GENERAL);
-        this.aliases = new String[]{"mywarnings"};
-        this.warningManager = warningManager;
-    }
+  public SelfWarningsCommand(WarningManager warningManager) {
+    super("mywarns", null, "Direct Messages you a list of your warnings.", CommandCategory.GENERAL);
+    this.aliases = new String[]{"mywarnings"};
+    this.warningManager = warningManager;
+  }
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        e.reply("Providing Memes in DMs");
-        try {
-            ResultSet resultSet = warningManager.fetchWarnings(e.getEvent().getAuthor().getId());
-            StringBuilder builder = new StringBuilder();
-            User targetM = e.getEvent().getAuthor();
-            int count = 0;
-            while (resultSet.next()) {
-                Member staffMem = C.getGuild().getMemberById(resultSet.getString("staffid"));
-                if (staffMem != null) {
-                    count++;
-                    builder.append("#").append(resultSet.getString("id")).append(" ").append(C.bold(staffMem.getUser().getName() + "#" + staffMem.getUser().getDiscriminator())).append(" - ").append(C.bold(resultSet.getString("reason"))).append("\n");
-                }
-            }
-            e.replyInDm(targetM.getName() + "'s Warnings [" + count + "]\n" + builder.toString());
-        } catch (SQLException e1) {
-            e.replyError("Oof Error: " + e1.getMessage());
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    e.reply("Providing Memes in DMs");
+    try {
+      ResultSet resultSet = warningManager.fetchWarnings(e.getEvent().getAuthor().getId());
+      StringBuilder builder = new StringBuilder();
+      User targetM = e.getEvent().getAuthor();
+      int count = 0;
+      while (resultSet.next()) {
+        Member staffMem = C.getGuild().getMemberById(resultSet.getString("staffid"));
+        if (staffMem != null) {
+          count++;
+          builder.append("#").append(resultSet.getString("id")).append(" ").append(C.bold(staffMem.getUser().getName() + "#" + staffMem.getUser().getDiscriminator())).append(" - ").append(C.bold(resultSet.getString("reason"))).append("\n");
         }
+      }
+      e.replyInDm(targetM.getName() + "'s Warnings [" + count + "]\n" + builder.toString());
+    } catch (SQLException e1) {
+      e.replyError("Oof Error: " + e1.getMessage());
     }
+  }
 }

@@ -8,19 +8,19 @@ import io.github.jroy.happybot.util.Roles;
 
 public class FanartCommand extends CommandBase {
 
-    public FanartCommand() {
-        super("fanart", "<user>", "Puts a no-fanart message to a player!", CommandCategory.STAFF, Roles.HELPER);
-    }
+  public FanartCommand() {
+    super("fanart", "<user>", "Puts a no-fanart message to a player!", CommandCategory.STAFF, Roles.HELPER);
+  }
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        if (e.getMessage().getMentionedUsers().size() == 1) {
-            e.getMessage().delete().reason("Auto Command Deletion").queue();
-            String msg = C.getMentionedMember(e).getAsMention() + ", please post only fanart in " + e.getGuild().getTextChannelById("337689640888827905").getAsMention();
-            e.replySuccess(msg);
-            C.privChannel(C.getMentionedMember(e), msg);
-        } else {
-            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
-        }
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    if (e.getMessage().getMentionedUsers().size() == 1) {
+      e.getMessage().delete().reason("Auto Command Deletion").queue();
+      String msg = C.getMentionedMember(e).getAsMention() + ", please post only fanart in " + e.getGuild().getTextChannelById("337689640888827905").getAsMention();
+      e.replySuccess(msg);
+      C.privChannel(C.getMentionedMember(e), msg);
+    } else {
+      e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
     }
+  }
 }

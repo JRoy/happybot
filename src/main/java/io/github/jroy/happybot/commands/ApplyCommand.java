@@ -6,13 +6,13 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 
 public class ApplyCommand extends CommandBase {
 
-    public ApplyCommand() {
-        super("apply", null, "Gives you the link to apply for staff!", CommandCategory.GENERAL);
-    }
+  public ApplyCommand() {
+    super("apply", null, "Gives you the link to apply for staff!", CommandCategory.GENERAL);
+  }
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        e.replySuccess("Here you go!\n" +
-            "https://goo.gl/forms/vB6lfA8VhIMqxFDs2");
-    }
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    e.replySuccess("Here you go!\n" +
+        "https://goo.gl/forms/vB6lfA8VhIMqxFDs2");
+  }
 }

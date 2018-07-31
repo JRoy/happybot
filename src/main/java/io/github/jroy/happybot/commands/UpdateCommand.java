@@ -14,74 +14,79 @@ import java.util.concurrent.TimeUnit;
 
 public class UpdateCommand extends CommandBase {
 
-    private MessageFactory messageFactory;
+  private MessageFactory messageFactory;
 
-    public UpdateCommand(MessageFactory messageFactory) {
-        super("update", "<j(enkins)/d(ropbox)> [-s]", "Restarts the VM with an update.", CommandCategory.BOT, Roles.DEVELOPER);
-        this.messageFactory = messageFactory;
+  public UpdateCommand(MessageFactory messageFactory) {
+    super("update", "<j(enkins)/d(ropbox)> [-s]", "Restarts the VM with an update.", CommandCategory.BOT, Roles.DEVELOPER);
+    this.messageFactory = messageFactory;
+  }
+
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    new Thread(new Update(e)).start();
+  }
+
+  class Update implements Runnable {
+
+    private CommandEvent e;
+
+    Update(CommandEvent e) {
+      this.e = e;
     }
 
     @Override
-    protected void executeCommand(CommandEvent e) {
-        new Thread(new Update(e)).start();
+    public void run() {
+      int exitCode;
+      boolean silent = false;
+      if (e.getArgs().contains("-s")) {
+        silent = true;
+      }
+      if (e.getArgs().toLowerCase().startsWith("jenkins") || e.getArgs().toLowerCase().startsWith("j")) {
+        e.reply(":white_check_mark: Downloading Update from Jenkins!");
+        if (!silent) {
+          new Thread(new ImpendRestart("Jenkins")).start();
+        }
+        exitCode = 20;
+      } else if (e.getArgs().toLowerCase().startsWith("dropbox") || e.getArgs().toLowerCase().startsWith("d")) {
+        e.reply(":white_check_mark: Downloading Update from Dropbox!");
+        if (!silent) {
+          new Thread(new ImpendRestart("Dropbox")).start();
+        }
+        exitCode = 10;
+      } else {
+        e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
+        return;
+      }
+      e.reply(":information_source: Restarting Bot...");
+      try {
+        TimeUnit.SECONDS.sleep(1);
+      } catch (InterruptedException e1) {
+        e1.printStackTrace();
+      }
+      e.getJDA().shutdown();
+      Logger.log("Updater - Updating Builds with exit code: " + exitCode);
+      Logger.info("[Updater] ");
+      Logger.info("[Updater] Updater has stopped JDA and is impeding a new update now.");
+      Logger.info("[Updater] ");
+      System.exit(exitCode);
+    }
+  }
+
+  class ImpendRestart implements Runnable {
+
+    private String s;
+
+    ImpendRestart(String source) {
+      this.s = source;
     }
 
-    class Update implements Runnable {
-
-        private CommandEvent e;
-
-        Update(CommandEvent e) { this.e = e; }
-
-        @Override
-        public void run() {
-            int exitCode;
-            boolean silent = false;
-            if (e.getArgs().contains("-s"))
-                silent = true;
-            if (e.getArgs().toLowerCase().startsWith("jenkins") || e.getArgs().toLowerCase().startsWith("j")) {
-                e.reply(":white_check_mark: Downloading Update from Jenkins!");
-                if (!silent)
-                    new Thread(new ImpendRestart("Jenkins")).start();
-                exitCode = 20;
-            } else if (e.getArgs().toLowerCase().startsWith("dropbox") || e.getArgs().toLowerCase().startsWith("d")) {
-                e.reply(":white_check_mark: Downloading Update from Dropbox!");
-                if (!silent)
-                    new Thread(new ImpendRestart("Dropbox")).start();
-                exitCode = 10;
-            } else {
-                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
-                return;
-            }
-            e.reply(":information_source: Restarting Bot...");
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
-            e.getJDA().shutdown();
-            Logger.log("Updater - Updating Builds with exit code: " + exitCode);
-            Logger.info("[Updater] ");
-            Logger.info("[Updater] Updater has stopped JDA and is impeding a new update now.");
-            Logger.info("[Updater] ");
-            System.exit(exitCode);
-        }
+    @Override
+    public void run() {
+      Channels.BOT_META.getChannel().sendMessage(new EmbedBuilder()
+          .setTitle("Impending Update")
+          .setDescription(messageFactory.getRawMessage(MessageFactory.MessageType.UPDATE_START) + "\nNew Impending Update from " + s + ". Bot is currently restarting")
+          .build()).queue();
     }
-
-    class ImpendRestart implements Runnable {
-
-        private String s;
-
-        ImpendRestart(String source) {
-            this.s = source;
-        }
-
-        @Override
-        public void run() {
-            Channels.BOT_META.getChannel().sendMessage(new EmbedBuilder()
-                    .setTitle("Impending Update")
-                    .setDescription(messageFactory.getRawMessage(MessageFactory.MessageType.UPDATE_START) + "\nNew Impending Update from " + s + ". Bot is currently restarting")
-                    .build()).queue();
-        }
-    }
+  }
 
 }

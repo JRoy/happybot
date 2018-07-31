@@ -6,12 +6,12 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 
 public class RulesCommand extends CommandBase {
 
-    public RulesCommand() {
-        super("rules", null, "Links to the rules.", CommandCategory.GENERAL);
-    }
+  public RulesCommand() {
+    super("rules", null, "Links to the rules.", CommandCategory.GENERAL);
+  }
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        e.replySuccess("Here are the rules: <http://bit.ly/2ihUfAc>");
-    }
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    e.replySuccess("Here are the rules: <http://bit.ly/2ihUfAc>");
+  }
 }

@@ -9,23 +9,23 @@ import net.dv8tion.jda.core.entities.Member;
 
 public class OgCommand extends CommandBase {
 
-    public OgCommand() {
-        super("og", "<user>", "Toggle's a user OG Stats.", CommandCategory.STAFF, Roles.MODERATOR);
-    }
+  public OgCommand() {
+    super("og", "<user>", "Toggle's a user OG Stats.", CommandCategory.STAFF, Roles.MODERATOR);
+  }
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        if (e.getMessage().getMentionedUsers().size() == 1) {
-            Member u = C.getMentionedMember(e);
-            if (C.hasRole(u, Roles.OG)) {
-                C.removeRole(u, Roles.OG);
-                e.replySuccess(u.getUser().getAsMention() + " is no longer OG!");
-            } else {
-                C.giveRole(u, Roles.OG);
-                e.replySuccess(u.getUser().getAsMention() + " has become OG!");
-            }
-        } else {
-            e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
-        }
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    if (e.getMessage().getMentionedUsers().size() == 1) {
+      Member u = C.getMentionedMember(e);
+      if (C.hasRole(u, Roles.OG)) {
+        C.removeRole(u, Roles.OG);
+        e.replySuccess(u.getUser().getAsMention() + " is no longer OG!");
+      } else {
+        C.giveRole(u, Roles.OG);
+        e.replySuccess(u.getUser().getAsMention() + " has become OG!");
+      }
+    } else {
+      e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
     }
+  }
 }

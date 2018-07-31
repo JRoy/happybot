@@ -7,17 +7,17 @@ import io.github.jroy.happybot.util.Roles;
 
 public class RewardsCommand extends CommandBase {
 
-    public RewardsCommand() {
-        super("rewards", null, "Displays the role rewards for MEE6 XP.", CommandCategory.GENERAL);
-    }
+  public RewardsCommand() {
+    super("rewards", null, "Displays the role rewards for MEE6 XP.", CommandCategory.GENERAL);
+  }
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        e.reply("**Level Reward:**\n" +
-                "Level 10 - **" + Roles.REGULAR.getRole().getName() + "**\n" +
-                "Level 20 - **" + Roles.TRYHARD.getRole().getName() + "**\n" +
-                "Level 30 - **" + Roles.OBSESSIVE.getRole().getName() + "**\n" +
-                "Level 50 - **" + Roles.OG.getRole().getName() + "**\n"
-        );
-    }
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    e.reply("**Level Reward:**\n" +
+        "Level 10 - **" + Roles.REGULAR.getRole().getName() + "**\n" +
+        "Level 20 - **" + Roles.TRYHARD.getRole().getName() + "**\n" +
+        "Level 30 - **" + Roles.OBSESSIVE.getRole().getName() + "**\n" +
+        "Level 50 - **" + Roles.OG.getRole().getName() + "**\n"
+    );
+  }
 }

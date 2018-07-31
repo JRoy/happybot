@@ -11,21 +11,21 @@ import java.util.Objects;
 
 public class FactCommand extends CommandBase {
 
-    public FactCommand() {
-        super("fact", null, "Generates a random cat fact.", CommandCategory.FUN);
-        this.setCooldownSeconds(10);
-    }
+  public FactCommand() {
+    super("fact", null, "Generates a random cat fact.", CommandCategory.FUN);
+    this.setCooldownSeconds(10);
+  }
 
-    @Override
-    protected void executeCommand(CommandEvent e) {
-        String catFactString = Objects.requireNonNull(C.readUrl("https://catfact.ninja/fact"));
+  @Override
+  protected void executeCommand(CommandEvent e) {
+    String catFactString = Objects.requireNonNull(C.readUrl("https://catfact.ninja/fact"));
 
-        String catFact = new JsonParser().parse(catFactString)
-            .getAsJsonObject().get("fact").getAsString();
+    String catFact = new JsonParser().parse(catFactString)
+        .getAsJsonObject().get("fact").getAsString();
 
-        e.reply(new EmbedBuilder()
-            .setTitle("Cat Fact")
-            .setDescription(catFact)
-            .build());
-    }
+    e.reply(new EmbedBuilder()
+        .setTitle("Cat Fact")
+        .setDescription(catFact)
+        .build());
+  }
 }
