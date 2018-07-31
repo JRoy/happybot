@@ -180,9 +180,9 @@ public class Main extends ListenerAdapter {
         //Listens to the MessageReceivedEvent.
         .addEventListener(commandFactory.build())
         .setGame(Game.of(Game.GameType.DEFAULT, "Loading"));
-      for (EventListener listener : eventListeners) {
-          builder.addEventListener(listener);
-      }
+    for (EventListener listener : eventListeners) {
+      builder.addEventListener(listener);
+    }
     Logger.info("Logging into Discord...");
     jda = builder.buildBlocking();
 
@@ -194,61 +194,38 @@ public class Main extends ListenerAdapter {
   }
 
   private static void loadConfig() throws IOException, InvalidConfigurationException {
-    //Defaults...
-      if (!yamlFile.isSet("token")) {
-          yamlFile.set("token", "");
-      }
-      if (!yamlFile.isSet("hypixel-api-key")) {
-          yamlFile.set("hypixel-api-key", "");
-      }
-      if (!yamlFile.isSet("riot-api-key")) {
-          yamlFile.set("riot-api-key", "");
-      }
-      if (!yamlFile.isSet("sql-password")) {
-          yamlFile.set("sql-password", "");
-      }
-      if (!yamlFile.isSet("reddit.username")) {
-          yamlFile.set("reddit.username", "");
-      }
-      if (!yamlFile.isSet("reddit.password")) {
-          yamlFile.set("reddit.password", "");
-      }
-      if (!yamlFile.isSet("reddit.client-id")) {
-          yamlFile.set("reddit.client-id", "");
-      }
-      if (!yamlFile.isSet("reddit.client-secret")) {
-          yamlFile.set("reddit.client-secret", "");
-      }
-      if (!yamlFile.isSet("twitter.oauth-key")) {
-          yamlFile.set("twitter.oauth-key", "");
-      }
-      if (!yamlFile.isSet("twitter.oauth-secret")) {
-          yamlFile.set("twitter.oauth-secret", "");
-      }
-      if (!yamlFile.isSet("twitter.access-token")) {
-          yamlFile.set("twitter.access-token", "");
-      }
-      if (!yamlFile.isSet("twitter.access-token-secret")) {
-          yamlFile.set("twitter.access-token-secret", "");
-      }
     yamlFile.save();
     yamlFile.load();
 
-    String token = yamlFile.getString("token");
-    String hypixel = yamlFile.getString("hypixel-api-key");
-    String riot = yamlFile.getString("riot-api-key");
-    String sql = yamlFile.getString("sql-password");
-    String redditUsername = yamlFile.getString("reddit.username");
-    String redditPassword = yamlFile.getString("reddit.password");
-    String redditId = yamlFile.getString("reddit.client-id");
-    String redditSecret = yamlFile.getString("reddit.client-secret");
-    String twitterOKey = yamlFile.getString("twitter.oauth-key");
-    String twitterOSecret = yamlFile.getString("twitter.oauth-secret");
-    String twitterAToken = yamlFile.getString("twitter.access-token");
-    String twitterASecret = yamlFile.getString("twitter.access-token-secret");
+    String token = getAndSet(yamlFile, "token");
+    String hypixel = getAndSet(yamlFile, "hypixel-api-key");
+    String riot = getAndSet(yamlFile, "riot-api-key");
+    String sql = getAndSet(yamlFile, "sql-password");
+    String redditUsername = getAndSet(yamlFile, "reddit.username");
+    String redditPassword = getAndSet(yamlFile, "reddit.password");
+    String redditId = getAndSet(yamlFile, "reddit.client-id");
+    String redditSecret = getAndSet(yamlFile, "reddit.client-secret");
+    String twitterOKey = getAndSet(yamlFile, "twitter.oauth-key");
+    String twitterOSecret = getAndSet(yamlFile, "twitter.oauth-secret");
+    String twitterAToken = getAndSet(yamlFile, "twitter.access-token");
+    String twitterASecret = getAndSet(yamlFile, "twitter.access-token-secret");
+
+    yamlFile.save();
+    yamlFile.load();
 
     botConfig = new BotConfig(token, hypixel, riot, sql, redditUsername, redditPassword, redditId, redditSecret, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
     Logger.info("Loaded Config!");
+  }
+
+  /**
+   * Gets the given path in the file.
+   * If it does not exist, set it to the empty string and return that instead.
+   */
+  private static String getAndSet(YamlFile file, String path) {
+    if (!file.isSet(path)) {
+      file.set(path, "");
+    }
+    return file.getString(path);
   }
 
   private static void loadApis() {
@@ -258,7 +235,7 @@ public class Main extends ListenerAdapter {
     apis.add(hypixel = new Hypixel(botConfig.getHypixelApiKey()));
     apis.add(twitterCentre = new TwitterCentre(botConfig.getTwitterOauthKey(), botConfig.getTwitterOauthSecret(), botConfig.getTwitterAccessToken(), botConfig.getTwitterAccessTokenSecret()));
     apis.add(league = new League(botConfig.getRiotApiKey()));
-    apis.add(new YouTubeAPI("AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE")); //API Key is restricted to the VM this bot runs on, don't waist your time...
+    apis.add(new YouTubeAPI("AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE")); //API Key is restricted to the VM this bot runs on, don't waste your time...
     Logger.info("Logging into APIs...");
     for (APIBase api : apis) {
       try {
