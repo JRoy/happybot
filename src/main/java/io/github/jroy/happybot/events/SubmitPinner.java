@@ -15,6 +15,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class SubmitPinner extends ListenerAdapter {
 
@@ -30,9 +31,10 @@ public class SubmitPinner extends ListenerAdapter {
     Member member = event.getMember();
     Message message = event.getMessage();
 
-    String[] display = message.getContentDisplay().split(" ", 2);
-    String prefix = display[0].replaceAll("[( )]", "");
-    String content = display[1].toLowerCase();
+    String content = event.getMessage().getContentDisplay().replaceFirst("\\((.*?)\\) ", "");
+    String prefix = event.getMessage().getContentDisplay().replaceFirst(Pattern.quote(" " + content), "");
+    prefix = prefix.replaceAll("([()])", "");
+    prefix = prefix.replaceAll("[ ]", "_");
 
     MessageFactory.MessageType type = MessageFactory.MessageType.fromText(prefix);
     if (type == null) {
