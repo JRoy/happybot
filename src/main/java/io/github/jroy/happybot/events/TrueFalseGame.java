@@ -18,6 +18,7 @@ public class TrueFalseGame extends ListenerAdapter {
     if (e.getChannel().getId().equals(Channels.TRUE_FALSE_GAME.getId())) {
       if (isInvalidMessage(e.getMessage().getContentRaw()) && !C.hasRole(e.getMember(), Roles.DEVELOPER)) {
         new SafeRestAction(e.getMessage().delete()).wait(TimeUnit.MILLISECONDS, 500).queue();
+        C.privChannel(e.getMember(), "The correct format for gameTrueFalse is (true/false), the person below me (statement)");
         return;
       }
 //      if (repeatCache.contains(curCount)) {
@@ -33,8 +34,9 @@ public class TrueFalseGame extends ListenerAdapter {
 
   @Override
   public void onGuildMessageUpdate(GuildMessageUpdateEvent e) {
-    if (e.getChannel().getId().equals(Channels.TRUE_FALSE_GAME.getId()) && (isInvalidMessage(e.getMessage().getContentRaw()) && !C.hasRole(e.getMember(), Roles.DEVELOPER))) {
+    if (!C.hasRole(e.getMember(), Roles.DEVELOPER)) {
       new SafeRestAction(e.getMessage().delete()).wait(TimeUnit.MILLISECONDS, 500).queue();
+      C.privChannel(e.getMember(), "You may not edit messages in gameTrueFalse!");
     }
   }
 
