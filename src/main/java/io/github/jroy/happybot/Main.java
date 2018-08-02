@@ -74,10 +74,7 @@ import io.github.jroy.happybot.commands.warn.EditWarningCommand;
 import io.github.jroy.happybot.commands.warn.SelfWarningsCommand;
 import io.github.jroy.happybot.commands.warn.WarnCommand;
 import io.github.jroy.happybot.commands.warn.WarningsCommand;
-import io.github.jroy.happybot.events.AutoMod;
-import io.github.jroy.happybot.events.LoggingFactory;
-import io.github.jroy.happybot.events.SubmitPinner;
-import io.github.jroy.happybot.events.WelcomeMessage;
+import io.github.jroy.happybot.events.*;
 import io.github.jroy.happybot.events.star.StarMessages;
 import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.sql.MessageFactory;
@@ -282,6 +279,9 @@ public class Main extends ListenerAdapter {
 
     Logger.info("Loading Leveling Manager...");
     eventListeners.add(leveling = new Leveling(sqlManager, messageFactory));
+
+    Logger.info("Loading Game-True-False");
+    eventListeners.add(new TrueFalseGame());
 
     return eventListeners;
   }

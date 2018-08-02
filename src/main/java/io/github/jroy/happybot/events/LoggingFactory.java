@@ -97,6 +97,10 @@ public class LoggingFactory extends ListenerAdapter {
 
   @Override
   public void onGuildMessageDelete(GuildMessageDeleteEvent e) {
+    if (e.getChannel().getId().equals(Channels.TRUE_FALSE_GAME.getId())) { //Ignore Mass-Spam
+      return;
+    }
+
     if (!cache.contains(e.getMessageId())) {
       sendLogMessage(new EmbedBuilder()
           .setAuthor(e.getGuild().getName(), null, e.getGuild().getIconUrl())
