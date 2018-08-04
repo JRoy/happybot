@@ -41,7 +41,7 @@ public class Leveling extends ListenerAdapter {
   private final String SELECT_USER = "SELECT * FROM `levels` WHERE userId = ?;";
   private final String CREATE_USER = "INSERT INTO `levels` (userId) VALUES (?);";
   private final String UPDATE_USER = "UPDATE `levels` SET level = ? WHERE userId = ?;";
-  private final String leaderboardMessageId = "464507047657078804";
+  private final String leaderboardMessageId = "475436792980701195";
   private final Random random = new Random();
   public Map<Integer, LevelingToken> topCache = new HashMap<>();
   private boolean registered = false;
@@ -77,7 +77,7 @@ public class Leveling extends ListenerAdapter {
             topCache = result;
             int curPos = 1;
             EmbedBuilder builder = new EmbedBuilder();
-            builder.setAuthor("Top 25 XP Betrayals", null, C.getGuild().getIconUrl()).setFooter("Stats provided by happybot's Leveling API!", Main.getJda().getSelfUser().getAvatarUrl()).setColor(Color.MAGENTA).setDescription("Here are the current top 25 rankings for experience.");
+            builder.setAuthor("Top 25 XP Betrayals", null, C.getGuild().getIconUrl()).setFooter("Stats provided by happybot's Leveling API!", Main.getJda().getSelfUser().getAvatarUrl()).setTimestamp(OffsetDateTime.now()).setColor(Color.MAGENTA).setDescription("Here are the current top 25 rankings for experience.");
             for (Map.Entry<Integer, LevelingToken> mapToken : result.entrySet()) {
               LevelingToken token = mapToken.getValue();
               builder.addField("- #" + curPos + ": " + C.getFullName(token.getMember().getUser()), "Level " + token.getLevel() + " (" + C.prettyNum((int) token.getExp()) + " XP)", false);
