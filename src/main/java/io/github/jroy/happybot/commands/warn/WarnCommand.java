@@ -45,11 +45,11 @@ public class WarnCommand extends CommandBase {
       return;
     }
 
-    String channelId = e.getChannel().getId();
-
-    if (Channels.RANDOM.getId().equalsIgnoreCase(channelId) || Channels.ARCHIVED_RANDOM.getId().equalsIgnoreCase(channelId) || Channels.GAMBLE.getId().equalsIgnoreCase(channelId) || Channels.MUSIC_REQUEST.getId().equalsIgnoreCase(channelId)) {
-      e.getMessage().delete().queue();
-    }
+//    String channelId = e.getChannel().getId();
+//
+//    if (Channels.RANDOM.getId().equalsIgnoreCase(channelId) || Channels.ARCHIVED_RANDOM.getId().equalsIgnoreCase(channelId) || Channels.GAMBLE.getId().equalsIgnoreCase(channelId) || Channels.MUSIC_REQUEST.getId().equalsIgnoreCase(channelId)) {
+//      e.getMessage().delete().queue();
+//    }
 
     try {
       int warnId = warningManager.spawnWarning(target.getUser().getId(), e.getMember().getUser().getId(), reason);
