@@ -51,6 +51,11 @@ public abstract class CommandBase extends Command {
   private Integer cooldownDelay;
 
   /**
+   * The command's permission can be bypassed with the developer role.
+   */
+  private final boolean devCommand;
+
+  /**
    * Constructor for commands with no role permissions requires for execution.
    *
    * @param commandName Command's name to be used for execution.
@@ -72,12 +77,27 @@ public abstract class CommandBase extends Command {
    * @param permissionRole The role requires to execute the command.
    */
   public CommandBase(@NotNull String commandName, String arguments, String helpMessage, CommandCategory category, Roles permissionRole) {
+    this(commandName, arguments, helpMessage, category, permissionRole, false);
+  }
+
+  /**
+   * Constructor for commands with certain role requires for execution.
+   *
+   * @param commandName    Command's name to be used for execution.
+   * @param arguments      Arguments of the command to be used for command help.
+   * @param helpMessage    Command description to be used inside the command list.
+   * @param category       Command's category to be used inside the command list.
+   * @param permissionRole The role requires to execute the command.
+   * @param devCommand Can developers bypass permission check for this command?
+   */
+  public CommandBase(@NotNull String commandName, String arguments, String helpMessage, CommandCategory category, Roles permissionRole, boolean devCommand) {
     this.name = commandName;
     this.arguments = arguments;
     this.help = helpMessage;
     this.category = new Category(category.toString());
     this.commandCategory = category;
     this.permissionRole = permissionRole;
+    this.devCommand = devCommand;
     this.commandCooldowns = null;
     this.cooldownUnit = null;
     this.cooldownDelay = null;
@@ -123,7 +143,7 @@ public abstract class CommandBase extends Command {
   }
 
   @Override
-  protected void execute(CommandEvent event) {
+  protected final void execute(CommandEvent event) {
     Member member = event.getMember();
 
 //        if (event.getTextChannel().getId().equals(Channels.RANDOM.getId()) && (!C.hasRole(event.getMember(), Roles.DEVELOPER) && !C.hasRole(event.getMember(), Roles.HELPER))) {
@@ -132,8 +152,10 @@ public abstract class CommandBase extends Command {
 //        }
 
     if (permissionRole != null && !C.hasRole(member, permissionRole)) {
-      event.replyError(C.permMsg(permissionRole));
-      return;
+      if (!C.hasRole(member, Roles.DEVELOPER) && !devCommand) {
+        event.replyError(C.permMsg(permissionRole));
+        return;
+      }
     }
 
     // developer bypasses cooldowns
