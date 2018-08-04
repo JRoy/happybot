@@ -125,7 +125,11 @@ public class MessageFactory {
       return leaveMessages.get(random.nextInt(leaveMessages.size()));
     }
     if (messageType == MessageType.WARN) {
-      return warningMessages.get(random.nextInt(warningMessages.size()));
+      String message = warningMessages.get(random.nextInt(warningMessages.size()));
+      if (!message.toLowerCase().contains("<user>")) {
+        message = "<user>: " + message;
+      }
+      return message;
     }
     if (messageType == MessageType.UPDATE_START) {
       return updateStartMessages.get(random.nextInt(updateStartMessages.size()));
