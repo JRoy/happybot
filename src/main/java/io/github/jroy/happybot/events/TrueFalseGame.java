@@ -34,9 +34,11 @@ public class TrueFalseGame extends ListenerAdapter {
 
   @Override
   public void onGuildMessageUpdate(GuildMessageUpdateEvent e) {
-    if (!C.hasRole(e.getMember(), Roles.DEVELOPER)) {
-      new SafeRestAction(e.getMessage().delete()).wait(TimeUnit.MILLISECONDS, 500).queue();
-      C.privChannel(e.getMember(), "You may not edit messages in gameTrueFalse!");
+    if (e.getChannel().getId().equals(Channels.TRUE_FALSE_GAME.getId())) {
+      if (!C.hasRole(e.getMember(), Roles.DEVELOPER)) {
+        new SafeRestAction(e.getMessage().delete()).wait(TimeUnit.MILLISECONDS, 500).queue();
+        C.privChannel(e.getMember(), "You may not edit messages in gameTrueFalse!");
+      }
     }
   }
 
