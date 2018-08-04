@@ -57,8 +57,8 @@ public class MessageFactory {
         break;
       }
       case LEAVE: {
-        if (!warningMessages.contains(message)) {
-          warningMessages.add(message);
+        if (!leaveMessages.contains(message)) {
+          leaveMessages.add(message);
        }
         break;
       }
