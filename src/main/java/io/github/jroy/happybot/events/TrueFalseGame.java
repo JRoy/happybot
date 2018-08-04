@@ -41,7 +41,7 @@ public class TrueFalseGame extends ListenerAdapter {
   }
 
   private boolean isInvalidMessage(String message) {
-    return !message.startsWith("true, the person below me ") && !message.startsWith("false, the person below me ");
+    return !message.startsWith("true, the person below me ") && !message.startsWith("false, the person below me ") || message.contains("\n");
   }
 
 }
