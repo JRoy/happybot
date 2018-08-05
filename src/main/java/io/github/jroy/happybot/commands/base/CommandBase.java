@@ -152,7 +152,7 @@ public abstract class CommandBase extends Command {
 //        }
 
     if (permissionRole != null && !C.hasRole(member, permissionRole)) {
-      if (!C.hasRole(member, Roles.DEVELOPER) && !devCommand) {
+      if ((!C.hasRole(member, Roles.DEVELOPER) && devCommand) || (!C.hasRole(member, Roles.DEVELOPER) && !devCommand)) {
         event.replyError(C.permMsg(permissionRole));
         return;
       }
