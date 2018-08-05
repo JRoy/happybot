@@ -10,7 +10,7 @@ import net.dv8tion.jda.core.entities.Member;
 public class FansCommand extends CommandBase {
 
   public FansCommand() {
-    super("fixfans", null, "Fixes broken users with no Fans Role", CommandCategory.STAFF, Roles.SUPER_ADMIN);
+    super("fixfans", null, "Fixes broken users with no Fans Role", CommandCategory.STAFF, Roles.SUPER_ADMIN, true);
   }
 
   @Override
