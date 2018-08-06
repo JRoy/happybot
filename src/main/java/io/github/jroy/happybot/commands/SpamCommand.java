@@ -17,7 +17,7 @@ public class SpamCommand extends CommandBase {
   private EventManager eventManager;
 
   public SpamCommand(EventManager eventManager) {
-    super("expspammer", null, "Gives/Takes a user's EXP Spammer Role!", CommandCategory.STAFF, Roles.HELPER);
+    super("expspammer", "<user>", "Gives/Takes a user's EXP Spammer Role!", CommandCategory.STAFF, Roles.HELPER);
     this.eventManager = eventManager;
   }
 
