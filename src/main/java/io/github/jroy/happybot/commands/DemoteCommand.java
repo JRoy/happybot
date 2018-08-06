@@ -22,7 +22,9 @@ public class DemoteCommand extends CommandBase {
         e.replyError("User is not on the staff team!");
         return;
       }
+      removeIfHasRole(member, Roles.RECRUITER);
       removeIfHasRole(member, Roles.SUPER_ADMIN);
+      removeIfHasRole(member, Roles.CHANNEL_MANAGER);
       removeIfHasRole(member, Roles.MODERATOR);
       removeIfHasRole(member, Roles.HELPER);
       e.replySuccess("User has been demoted!");
