@@ -7,6 +7,7 @@ import io.github.jroy.happybot.util.Logger;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.entities.Member;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
@@ -27,6 +28,7 @@ public abstract class CommandBase extends Command {
    * <p>
    * Will be null if no role is required
    */
+  @Nullable
   protected final Roles permissionRole;
 
   /**
@@ -38,16 +40,19 @@ public abstract class CommandBase extends Command {
    * Storage for command cooldowns.
    * Null if the command has no cooldown.
    */
+  @Nullable
   private HashMap<Member, OffsetDateTime> commandCooldowns;
 
   /**
    * Unit of time the cooldown is relative to.
    */
+  @Nullable
   private ChronoUnit cooldownUnit;
 
   /**
    * Relative cooldown delay.
    */
+  @Nullable
   private Integer cooldownDelay;
 
   /**
@@ -90,7 +95,7 @@ public abstract class CommandBase extends Command {
    * @param permissionRole The role requires to execute the command.
    * @param devCommand Can developers bypass permission check for this command?
    */
-  public CommandBase(@NotNull String commandName, String arguments, String helpMessage, CommandCategory category, Roles permissionRole, boolean devCommand) {
+  public CommandBase(@NotNull String commandName, String arguments, String helpMessage, CommandCategory category, @Nullable Roles permissionRole, boolean devCommand) {
     this.name = commandName;
     this.arguments = arguments;
     this.help = helpMessage;
@@ -159,7 +164,7 @@ public abstract class CommandBase extends Command {
     }
 
     // developer bypasses cooldowns
-    if (commandCooldowns != null && !C.hasRole(member, Roles.DEVELOPER)) {
+    if (commandCooldowns != null && cooldownUnit != null && cooldownDelay != null && !C.hasRole(member, Roles.DEVELOPER)) {
       if (commandCooldowns.containsKey(member)) {
         long cooldown = OffsetDateTime.now().until(commandCooldowns.get(member), cooldownUnit);
         if (cooldown > 0) {
@@ -184,6 +189,7 @@ public abstract class CommandBase extends Command {
   /**
    * @return Command's Permission
    */
+  @Nullable
   public Roles getPermissionRole() {
     return permissionRole;
   }
