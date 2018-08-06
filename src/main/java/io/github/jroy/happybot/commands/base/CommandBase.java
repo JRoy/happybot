@@ -156,11 +156,21 @@ public abstract class CommandBase extends Command {
 //            return;
 //        }
 
-    if (permissionRole != null && !C.hasRole(member, permissionRole)) {
-      if ((!C.hasRole(member, Roles.DEVELOPER) && devCommand) || (!C.hasRole(member, Roles.DEVELOPER) && !devCommand)) {
-        event.replyError(C.permMsg(permissionRole));
-        return;
+    //Handle "Complex" Permission Check
+    boolean canExecute = true; //We assume the user can run the command at first and we annihilate them if they actually cannot
+    if (permissionRole != null) { //permissionRole *is* null when there is no permission required
+      if (!C.hasRole(member, permissionRole)) { //User does not have the permission role required for this command, disable execution
+        canExecute = false;
       }
+
+      if (devCommand && C.hasRole(member, Roles.DEVELOPER)) { //Add an exception for Developers when the devCommand flag is set to true
+        canExecute = true;
+      }
+    }
+
+    if (!canExecute) { //If are past permission checks determine the user doesn't have valid permission for said command, stop execution
+      event.replyError(C.permMsg(permissionRole));
+      return;
     }
 
     // developer bypasses cooldowns
