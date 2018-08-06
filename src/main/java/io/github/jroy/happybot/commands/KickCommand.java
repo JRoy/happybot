@@ -10,7 +10,7 @@ import net.dv8tion.jda.core.entities.Member;
 public class KickCommand extends CommandBase {
 
   public KickCommand() {
-    super("kick", "<user mention> <reason>", "Kicks target user from the server.", CommandCategory.STAFF, Roles.HELPER);
+    super("kick", "<user mention> <reason>", "Kicks target user from the server.", CommandCategory.STAFF, Roles.MODERATOR);
     this.aliases = new String[]{"deport"};
   }
 
