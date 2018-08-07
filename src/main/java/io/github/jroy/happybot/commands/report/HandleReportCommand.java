@@ -58,7 +58,7 @@ public class HandleReportCommand extends CommandBase {
 
     if (args[0].equalsIgnoreCase("accept")) {
       reportManager.acceptReport(targetReport, e.getMember().getUser().getId(), reason);
-      Channels.REPORT.getChannel().sendMessage(new EmbedBuilder()
+      Channels.STAFF_QUEUE.getChannel().sendMessage(new EmbedBuilder()
           .setTitle("Report Accepted")
           .setDescription(":paperclip: " + C.bold("Report #" + targetReport + " has been accepted.") + "\n:arrow_forward: " + C.bold("Staff Member: ") + e.getMember().getAsMention() + "\n:page_facing_up: " + C.bold("Reason: ") + C.code(reason))
           .setColor(Color.GREEN)
@@ -70,7 +70,7 @@ public class HandleReportCommand extends CommandBase {
       e.replySuccess("Report has been accepted!");
     } else if (args[0].equalsIgnoreCase("deny")) {
       reportManager.denyReport(targetReport, e.getMember().getUser().getId(), reason);
-      Channels.REPORT.getChannel().sendMessage(new EmbedBuilder()
+      Channels.STAFF_QUEUE.getChannel().sendMessage(new EmbedBuilder()
           .setTitle("Report Denied")
           .setDescription(":paperclip: " + C.bold("Report #" + targetReport + " has been denied.") + "\n:arrow_forward: " + C.bold("Staff Member: ") + e.getMember().getAsMention() + "\n:page_facing_up: " + C.bold("Reason: ") + C.code(reason))
           .setColor(Color.GREEN)

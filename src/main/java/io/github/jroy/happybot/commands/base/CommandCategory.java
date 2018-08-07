@@ -11,6 +11,10 @@ public enum CommandCategory {
    */
   FUN("Fun"),
   /**
+   * Custom commands for people who have hit OG
+   */
+  OG("OG"),
+  /**
    * Commands that aid in moderation.
    */
   STAFF("Staff Tools"),

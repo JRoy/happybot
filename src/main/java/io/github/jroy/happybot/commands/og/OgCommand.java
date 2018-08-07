@@ -1,4 +1,4 @@
-package io.github.jroy.happybot.commands;
+package io.github.jroy.happybot.commands.og;
 
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;

@@ -1,0 +1,235 @@
+package io.github.jroy.happybot.sql.og;
+
+import io.github.jroy.happybot.Main;
+import io.github.jroy.happybot.commands.base.CommandBase;
+import io.github.jroy.happybot.commands.base.CommandCategory;
+import io.github.jroy.happybot.commands.base.CommandEvent;
+import io.github.jroy.happybot.sql.SQLManager;
+import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Channels;
+import io.github.jroy.happybot.util.Roles;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.events.StatusChangeEvent;
+import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.core.hooks.ListenerAdapter;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.OffsetDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
+@SuppressWarnings("FieldCanBeLocal")
+public class OGCommandManager extends ListenerAdapter {
+
+  private final Connection connection;
+  private boolean init = false;
+
+  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `cmds` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `content` VARCHAR(255) NOT NULL , `userid` VARCHAR(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
+  private final String SELECT_BY_USER = "SELECT * FROM `cmds` WHERE `userid` = ?;";
+  private final String SELECT_BY_NAME = "SELECT * FROM `cmds` WHERE `name` = ?;";
+  private final String SELECT_BY_ID = "SELECT * FROM `cmds` WHERE `id` = ?;";
+  private final String INSERT_COMMAND = "INSERT INTO `cmds` (`name`, `content`, `userid`) VALUES (?, ?, ?)";
+  private final String UPDATE_COMMAND_NAME = "UPDATE `cmds` SET name = ? WHERE id = ?;";
+  private final String UPDATE_COMMAND_CONTENT = "UPDATE `cmds` SET content = ? WHERE id = ?;";
+
+  private final Map<String, OGAction> ogActionMap = new HashMap<>();
+  private final Map<String, String> ogActionMapByUser = new HashMap<>();
+
+  public OGCommandManager(SQLManager sqlManager) {
+    this.connection = sqlManager.getConnection();
+    try {
+      connection.createStatement().executeUpdate(CREATE_TABLE);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void onStatusChange(StatusChangeEvent event) {
+    if (event.getNewStatus() == JDA.Status.CONNECTED && !init) {
+      init = true;
+      for (Member curMember : C.getGuild().getMembers()) {
+        if (C.hasRole(curMember, Roles.OG) && hasCommand(curMember.getUser().getId())) {
+          String commandName = getCommandFromId(getCommandId(curMember.getUser().getId()));
+          registerCommand(commandName);
+        }
+      }
+    }
+  }
+
+  @Override
+  public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
+    if (ogActionMap.containsKey(e.getMessageId()) && C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
+      String type = e.getReactionEmote().getName();
+      if (type.equalsIgnoreCase("✅")) {
+        OGAction action = ogActionMap.get(e.getMessageId());
+        switch (action.getActionType()) {
+          case COMMAND: {
+            createCommand(action.getUserId(), action.getPendingName(), action.getPendingContent());
+            break;
+          }
+          case NAME: {
+            setCommandName(action.getPendingId(), action.getPendingName());
+            break;
+          }
+          case CONTENT: {
+            setCommandContent(action.getPendingId(), action.getPendingContent());
+            break;
+          }
+        }
+        Channels.STAFF_QUEUE.getChannel().getMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("✅ Command ^" + action.getPendingName() + " has been approved by " + e.getMember().getAsMention()).queue();
+        C.privChannel(e.getGuild().getMemberById(action.getUserId()), "Your custom command has been approved!");
+        ogActionMapByUser.remove(action.getUserId());
+        ogActionMap.remove(e.getMessageId());
+      } else if (type.equalsIgnoreCase("❌")) {
+        OGAction action = ogActionMap.get(e.getMessageId());
+        C.privChannel(e.getGuild().getMemberById(action.getUserId()), "Your custom command has been denied!");
+        Channels.STAFF_QUEUE.getChannel().getMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("❌ Command ^" + action.getPendingName() + " has been denied by " + e.getMember().getAsMention()).queue();
+        ogActionMapByUser.remove(action.getUserId());
+        ogActionMap.remove(e.getMessageId());
+      }
+    }
+  }
+
+  public void requestCommand(OGActionType actionType, Integer commandId, String commandName, String commandContent, Member member) {
+    EmbedBuilder builder = new EmbedBuilder();
+    builder.setTitle("New OG Command Pending Approval!");
+    builder.setDescription("Please react with a check to approve this command or a cross-out to deny it!");
+    builder.addField("Action", actionType.getTranslation(), false);
+    builder.addField("Command Name", commandName, false);
+    builder.addField("Command Content", commandContent, false);
+    builder.setThumbnail(member.getUser().getAvatarUrl());
+    builder.setFooter("ID: " + member.getUser().getId(), null).setTimestamp(OffsetDateTime.now());
+
+    Message message = Channels.STAFF_QUEUE.getChannel().sendMessage(builder.build()).complete();
+    message.addReaction("✅").queue();
+    message.addReaction("❌").queue();
+    ogActionMap.put(message.getId(), new OGAction(actionType, member.getUser().getId(), commandId, commandName, commandContent));
+    ogActionMapByUser.put(member.getUser().getId(), message.getId());
+  }
+
+  public boolean isPendingAction(String userId) {
+    return ogActionMapByUser.containsKey(userId);
+  }
+
+  public boolean hasCommand(String userId) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(SELECT_BY_USER);
+      statement.setString(1, userId);
+      return statement.executeQuery().next();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  public boolean isCommand(String commandName) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(SELECT_BY_NAME);
+      statement.setString(1, commandName);
+      return statement.executeQuery().next();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  public int getCommandId(String userId) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(SELECT_BY_USER);
+      statement.setString(1, userId);
+      ResultSet rs = statement.executeQuery();
+      if (rs.next()) {
+        return rs.getInt("id");
+      } else {
+        return -1;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
+  }
+
+  public void createCommand(String userId, String commandName, String commandContent) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(INSERT_COMMAND);
+      statement.setString(1, commandName);
+      statement.setString(2, commandContent);
+      statement.setString(3, userId);
+      statement.execute();
+      registerCommand(commandName);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void registerCommand(String commandName) {
+    Main.getCommandClient().addCommand(new CommandBase(commandName, null, "Custom Command for OG+", CommandCategory.OG) {
+      @Override
+      protected void executeCommand(CommandEvent e) {
+        e.reply(getCommandContent(commandName));
+      }
+    });
+  }
+
+  public String getCommandFromId(int id) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID);
+      statement.setInt(1, id);
+      ResultSet rs = statement.executeQuery();
+      if (rs.next()) {
+        return rs.getString("name");
+      } else {
+        return "";
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return "";
+    }
+  }
+
+  public String getCommandContent(String commandName) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(SELECT_BY_NAME);
+      statement.setString(1, commandName);
+      ResultSet rs = statement.executeQuery();
+      if (rs.next()) {
+        return rs.getString("content");
+      } else {
+        return "";
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return "";
+    }
+  }
+
+  public void setCommandName(int commandId, String commandName) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(UPDATE_COMMAND_NAME);
+      statement.setString(1, commandName);
+      statement.setInt(2, commandId);
+      statement.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void setCommandContent(int commandId, String commandContent) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(UPDATE_COMMAND_CONTENT);
+      statement.setString(1, commandContent);
+      statement.setInt(2, commandId);
+      statement.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+}
