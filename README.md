@@ -43,7 +43,8 @@ To make sure all of our dependencies get included in our jar files, we use @john
 This program uses System.exit() to use custom exit codes. While this is not recommended for people to use, (with non-java compliant codes), we did it anyway.
 Our bash script that manages this bot uses the following exit codes to decide how to take action upon the program exiting.
 * 10 - Download Update from a Testing Point (I use Dropbox)
-* 20 - Download Update from a Jenkins Server (Grabs the latest artifact)
+* 20 - Download Update from a Jenkins Server (Grabs the latest artifact from /master)
+* 25 - Download Update from a Jenkins Server (Grabs the latest artifact from /dev)
 * 30 - Stop the loop of the boot script.
 
 # Note

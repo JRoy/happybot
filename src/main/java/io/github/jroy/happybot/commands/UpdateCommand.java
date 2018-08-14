@@ -17,7 +17,7 @@ public class UpdateCommand extends CommandBase {
   private MessageFactory messageFactory;
 
   public UpdateCommand(MessageFactory messageFactory) {
-    super("update", "<j(enkins)/d(ropbox)> [-s]", "Restarts the VM with an update.", CommandCategory.BOT, Roles.DEVELOPER);
+    super("update", "<j(enkins)/d(ropbox)> [-s] [-dev]", "Restarts the VM with an update.", CommandCategory.BOT, Roles.DEVELOPER);
     this.messageFactory = messageFactory;
   }
 
@@ -38,15 +38,23 @@ public class UpdateCommand extends CommandBase {
     public void run() {
       int exitCode;
       boolean silent = false;
+      boolean dev = false;
       if (e.getArgs().contains("-s")) {
         silent = true;
+      }
+      if (e.getArgs().contains("-dev")) {
+        dev = true;
       }
       if (e.getArgs().toLowerCase().startsWith("jenkins") || e.getArgs().toLowerCase().startsWith("j")) {
         e.reply(":white_check_mark: Downloading Update from Jenkins!");
         if (!silent) {
           new Thread(new ImpendRestart("Jenkins")).start();
         }
-        exitCode = 20;
+        if (dev) {
+          exitCode = 20;
+        } else {
+          exitCode = 25;
+        }
       } else if (e.getArgs().toLowerCase().startsWith("dropbox") || e.getArgs().toLowerCase().startsWith("d")) {
         e.reply(":white_check_mark: Downloading Update from Dropbox!");
         if (!silent) {
