@@ -12,7 +12,7 @@ public class RuntimeCommand extends CommandBase {
 
   public RuntimeCommand() {
     super("runtime",
-        "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/gambleJackpot>",
+        "<selfGilds/evalOwner/pingIssueClose/filterAdvert/publicWarns/editUserWarns/gambleMax/gambleJackpot/allowStaffSubBypass>",
         "Edits varibles for commands during runtime.",
         CommandCategory.BOT,
         Roles.DEVELOPER);
@@ -92,6 +92,14 @@ public class RuntimeCommand extends CommandBase {
 
             RuntimeEditor.setGambleJackpot(chance);
           } catch (NumberFormatException ignored) {
+            valid = false;
+          }
+          break;
+        }
+        case "allowStaffSubBypass": {
+          if (C.containsBool(value)) {
+            RuntimeEditor.setAllowStaffSubBypass(Boolean.parseBoolean(value));
+          } else {
             valid = false;
           }
           break;

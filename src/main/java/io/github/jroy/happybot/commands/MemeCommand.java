@@ -6,6 +6,8 @@ import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Roles;
+import io.github.jroy.happybot.util.RuntimeEditor;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.time.temporal.ChronoUnit;
@@ -44,14 +46,15 @@ public class MemeCommand extends CommandBase {
   @Override
   protected void executeCommand(CommandEvent e) {
     if (!subs.contains(e.getArgs().toLowerCase())) {
-      StringBuilder sb = new StringBuilder();
-      for (String str : subs) {
-        sb.append(str).append("/");
+      if (!RuntimeEditor.isAllowStaffSubBypass()) {
+        helpMsg(e);
+        return;
+      } else {
+        if (!e.hasRole(Roles.DEVELOPER) && !e.getArgs().isEmpty()) {
+          helpMsg(e);
+          return;
+        }
       }
-      sb.setLength(sb.length() - 1);
-      e.replyError(invalid.replace("subreddit", sb.toString()));
-      removeFromCooldown(e.getMember());
-      return;
     }
 
     e.getChannel().sendTyping().queue();
@@ -72,5 +75,15 @@ public class MemeCommand extends CommandBase {
           .setImage(post.getMediaUrl());
     }
     e.reply(eb.build());
+  }
+
+  private void helpMsg(CommandEvent e) {
+    StringBuilder sb = new StringBuilder();
+    for (String str : subs) {
+      sb.append(str).append("/");
+    }
+    sb.setLength(sb.length() - 1);
+    e.replyError(invalid.replace("subreddit", sb.toString()));
+    removeFromCooldown(e.getMember());
   }
 }

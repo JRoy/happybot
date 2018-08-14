@@ -8,6 +8,7 @@ public class RuntimeEditor {
   private static boolean filteringAdverts = true;
   private static boolean permittingWarningExposement = false;
   private static boolean allowEditOtherUserWarn = false;
+  private static boolean allowStaffSubBypass = false;
 
   private static float gambleJackpot = 0;
 
@@ -75,5 +76,13 @@ public class RuntimeEditor {
 
   public static void setGambleJackpot(float gambleJackpot) {
     RuntimeEditor.gambleJackpot = gambleJackpot;
+  }
+
+  public static boolean isAllowStaffSubBypass() {
+    return allowStaffSubBypass;
+  }
+
+  public static void setAllowStaffSubBypass(boolean allowStaffSubBypass) {
+    RuntimeEditor.allowStaffSubBypass = allowStaffSubBypass;
   }
 }
