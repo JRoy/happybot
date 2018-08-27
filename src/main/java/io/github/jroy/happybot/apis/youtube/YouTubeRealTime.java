@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
- * While is does use an API Call, I could not be bothered to make a full wrapper for the YouTube API (That retains the instance). This should be used as a token based system.
+ * All this class does is parse the data from the youtube channels api. This is by no means an actual api implementation.
  */
 @SuppressWarnings("FieldCanBeLocal")
 public class YouTubeRealTime {
