@@ -11,14 +11,10 @@ import io.github.jroy.happybot.util.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * While is does use an API Call, I could not be bothered to make a full wrapper for the YouTube API (That retains the instance). This should be used as a token based system.
- */
 public class YouTubeAPI extends APIBase {
   public static final String HAPPYHEART_YOUTUBE_ID = "UC-enFKOrEf6N2Kq_YG3sFcQ";
-  public static final String FETUS_YOUTUBE_ID = "UC-enFKOrEf6N2Kq_YG3sFcQ";
-  public static final String SIME_YOUTUBE_ID = "UC-enFKOrEf6N2Kq_YG3sFcQ";
-  public static final String WHEEZY_YOUTUBE_ID = "UC-enFKOrEf6N2Kq_YG3sFcQ";
+  public static final String FETUS_YOUTUBE_ID = "UCBvPS7EWHVm0JSb8uYp4bNQ";
+  public static final String WHEEZY_YOUTUBE_ID = "UCzD9jOPren4Gi00wCv_NbXg";
 
   private final String apiKey;
   private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -48,7 +44,6 @@ public class YouTubeAPI extends APIBase {
   private void loadChannels() {
     channels.add(new ChannelBase(HAPPYHEART_YOUTUBE_ID, this, true));
     channels.add(new ChannelBase(FETUS_YOUTUBE_ID, this, true));
-    channels.add(new ChannelBase(SIME_YOUTUBE_ID, this, false));
     channels.add(new ChannelBase(WHEEZY_YOUTUBE_ID, this, false));
   }
 

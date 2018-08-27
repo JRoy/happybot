@@ -6,6 +6,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+/**
+ * While is does use an API Call, I could not be bothered to make a full wrapper for the YouTube API (That retains the instance). This should be used as a token based system.
+ */
 @SuppressWarnings("FieldCanBeLocal")
 public class YouTubeRealTime {
 
