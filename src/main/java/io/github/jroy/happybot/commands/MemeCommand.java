@@ -62,6 +62,11 @@ public class MemeCommand extends CommandBase {
     MemePost post = reddit.getRandomMedia(e.getArgs());
     String subreddit = "r/" + post.getSubreddit();
 
+    if (post.isNsfw()) {
+      e.reply("Whoops! The meme you requested appeared to be NSFW! I've canceled the command and I am blaming you. Please enjoy your cooldown.");
+      return;
+    }
+
     EmbedBuilder eb = new EmbedBuilder()
         .setAuthor("Meme from " + subreddit, null, "https://www.redditstatic.com/desktop2x/img/favicon/android-icon-192x192.png")
         .setTitle(post.getTitle(), post.getPermaLink())

@@ -12,6 +12,8 @@ public class MemePost {
   private boolean selfPost;
   private String selfText;
 
+  private boolean isNsfw;
+
   MemePost(JsonObject dataObject) {
     title = dataObject.get("title").getAsString();
     subreddit = dataObject.get("subreddit").getAsString();
@@ -27,6 +29,9 @@ public class MemePost {
         mediaUrl = dataObject.getAsJsonObject("preview").getAsJsonArray("images").get(0).getAsJsonObject().getAsJsonObject("source").get("url").getAsString();
       }
     }
+
+    isNsfw = dataObject.toString().contains("nsfw");
+
   }
 
   public String getTitle() {
@@ -51,5 +56,9 @@ public class MemePost {
 
   public String getSelfText() {
     return selfText;
+  }
+
+  public boolean isNsfw() {
+    return isNsfw;
   }
 }
