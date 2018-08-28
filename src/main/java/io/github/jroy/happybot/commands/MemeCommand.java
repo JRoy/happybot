@@ -45,14 +45,16 @@ public class MemeCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent e) {
-    if (!subs.contains(e.getArgs().toLowerCase())) {
-      if (!RuntimeEditor.isAllowStaffSubBypass()) {
-        helpMsg(e);
-        return;
-      } else {
-        if (!e.hasRole(Roles.DEVELOPER) && !e.getArgs().isEmpty()) {
+    if (!e.hasRole(Roles.SUPER_ADMIN)) {
+      if (!subs.contains(e.getArgs().toLowerCase())) {
+        if (!RuntimeEditor.isAllowStaffSubBypass()) {
           helpMsg(e);
           return;
+        } else {
+          if (!e.hasRole(Roles.DEVELOPER) && !e.getArgs().isEmpty()) {
+            helpMsg(e);
+            return;
+          }
         }
       }
     }
