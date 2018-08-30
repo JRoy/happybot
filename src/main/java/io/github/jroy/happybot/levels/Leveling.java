@@ -189,7 +189,13 @@ public class Leveling extends ListenerAdapter {
     //Make sure we are not awarding xp to commands
     String content = event.getMessage().getContentRaw();
     if (content.startsWith("!") || content.startsWith("^") || content.startsWith("?") || content.startsWith("a.")) {
-      return;
+      if (event.getChannel().getId().equals(Channels.CASINO.getId())) {
+        if (!content.startsWith("^gamble") || !content.startsWith("^rob")) {
+          return;
+        }
+      } else {
+        return;
+      }
     }
 
     if (!levelCache.containsKey(userId)) {
