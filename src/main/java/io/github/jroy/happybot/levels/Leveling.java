@@ -153,7 +153,6 @@ public class Leveling extends ListenerAdapter {
   public Map<Integer, LevelingToken> getTop(int amount) throws SQLException {
     Map<Integer, LevelingToken> topBal = new HashMap<>();
     ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM levels ORDER BY level DESC LIMIT 0," + amount + ";");
-    int max = 0;
     for (int i = 0; i < amount; i++) {
       do {
         if (!resultSet.next()) {
@@ -161,7 +160,6 @@ public class Leveling extends ListenerAdapter {
         }
       } while (C.getGuild().getMemberById(resultSet.getString("userId")) == null);
       topBal.put(i + 1, new LevelingToken(C.getGuild().getMemberById(resultSet.getString("userId")), resultSet.getLong("level"), toLevel(resultSet.getLong("level"))));
-      max++;
     }
     return topBal;
   }
@@ -178,17 +176,19 @@ public class Leveling extends ListenerAdapter {
       return;
     }
 
-    //Make sure we are not awarding xp to commands
-    String content = event.getMessage().getContentRaw();
-    if (content.startsWith("!") || content.startsWith("^") || content.startsWith("?") || content.startsWith("a.")) {
-      return;
-    }
-
     String userId = event.getAuthor().getId();
     if (!isPastUser(userId)) {
       spawnUser(userId);
     }
+
     if (lastChatTimes.containsKey(userId) && getTimeRemaining(userId) > 0) {
+      return;
+    }
+    lastChatTimes.put(userId, OffsetDateTime.now().plusMinutes(1));
+
+    //Make sure we are not awarding xp to commands
+    String content = event.getMessage().getContentRaw();
+    if (content.startsWith("!") || content.startsWith("^") || content.startsWith("?") || content.startsWith("a.")) {
       return;
     }
 
@@ -198,7 +198,6 @@ public class Leveling extends ListenerAdapter {
 
     int expA = random.nextInt(25 - 15) + 15;
     addExp(userId, expA);
-    lastChatTimes.put(userId, OffsetDateTime.now().plusMinutes(1));
 
     if (toLevel(getExp(userId)) > levelCache.get(userId)) {
       processRewards(toLevel(getExp(userId)), event.getMember(), event.getChannel());
