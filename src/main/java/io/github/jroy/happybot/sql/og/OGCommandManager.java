@@ -84,14 +84,22 @@ public class OGCommandManager extends ListenerAdapter {
             break;
           }
         }
-        Channels.STAFF_QUEUE.getChannel().getMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("✅ Command ^" + action.getPendingName() + " has been approved by " + e.getMember().getAsMention()).queue();
+        String cmdname = action.getPendingName();
+        if (action.getActionType().equals(OGActionType.NAME)) {
+          cmdname = cmdname.split("[|]")[1];
+        }
+        Channels.STAFF_QUEUE.getChannel().getMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("✅ Command ^" + cmdname + " has been approved by " + e.getMember().getAsMention()).queue();
         C.privChannel(e.getGuild().getMemberById(action.getUserId()), "Your custom command has been approved!");
         ogActionMapByUser.remove(action.getUserId());
         ogActionMap.remove(e.getMessageId());
       } else if (type.equalsIgnoreCase("❌")) {
         OGAction action = ogActionMap.get(e.getMessageId());
+        String cmdname = action.getPendingName();
+        if (action.getActionType().equals(OGActionType.NAME)) {
+          cmdname = cmdname.split("[|]")[1];
+        }
         C.privChannel(e.getGuild().getMemberById(action.getUserId()), "Your custom command has been denied!");
-        Channels.STAFF_QUEUE.getChannel().getMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("❌ Command ^" + action.getPendingName() + " has been denied by " + e.getMember().getAsMention()).queue();
+        Channels.STAFF_QUEUE.getChannel().getMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("❌ Command ^" + cmdname + " has been denied by " + e.getMember().getAsMention()).queue();
         ogActionMapByUser.remove(action.getUserId());
         ogActionMap.remove(e.getMessageId());
       }
@@ -103,7 +111,11 @@ public class OGCommandManager extends ListenerAdapter {
     builder.setTitle("New OG Command Pending Approval!");
     builder.setDescription("Please react with a check to approve this command or a cross-out to deny it!");
     builder.addField("Action", actionType.getTranslation(), false);
-    builder.addField("Command Name", commandName, false);
+    if (actionType.equals(OGActionType.NAME)) {
+      builder.addField("Command Name", commandName.split("[|]")[1], false);
+    } else {
+      builder.addField("Command Name", commandName, false);
+    }
     builder.addField("Command Content", commandContent, false);
     builder.setThumbnail(member.getUser().getAvatarUrl());
     builder.setFooter("ID: " + member.getUser().getId(), null).setTimestamp(OffsetDateTime.now());
@@ -201,7 +213,23 @@ public class OGCommandManager extends ListenerAdapter {
       statement.setString(1, commandName);
       ResultSet rs = statement.executeQuery();
       if (rs.next()) {
-        return new String(rs.getBytes("content"), StandardCharsets.UTF_8);
+        return new String(rs.getBytes("content"), StandardCharsets.UTF_8).replace("\0", "");
+      } else {
+        return "";
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return "";
+    }
+  }
+
+  public String getCommandContentFromId(int commandId) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID);
+      statement.setInt(1, commandId);
+      ResultSet rs = statement.executeQuery();
+      if (rs.next()) {
+        return new String(rs.getBytes("content"), StandardCharsets.UTF_8).replace("\0", "");
       } else {
         return "";
       }
@@ -213,10 +241,13 @@ public class OGCommandManager extends ListenerAdapter {
 
   public void setCommandName(int commandId, String commandName) {
     try {
+      String[] split = commandName.split("[|]");
       PreparedStatement statement = connection.prepareStatement(UPDATE_COMMAND_NAME);
-      statement.setString(1, commandName);
+      statement.setString(1, split[1]);
       statement.setInt(2, commandId);
       statement.execute();
+      Main.getCommandClient().removeCommand(split[0]);
+      registerCommand(split[1]);
     } catch (SQLException e) {
       e.printStackTrace();
     }

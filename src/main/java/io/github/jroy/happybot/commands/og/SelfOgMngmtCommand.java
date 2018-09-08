@@ -12,7 +12,8 @@ public class SelfOgMngmtCommand extends CommandBase {
   @SuppressWarnings("FieldCanBeLocal")
   private final String USAGE = "**Usage:**\n" +
       "`^ogcmd request <command name> <command text>` - Requests an OG Custom Command\n" +
-      "`^ogcmd edit <command text>` - Requests an edit to your OG Custom Command";
+      "`^ogcmd edit <command text>` - Requests an edit to your OG Custom Command\n" +
+      "`^ogcmd edit-name <command name>` - Requests an edit to your OG Custom Command's name";
 
   private OGCommandManager ogCommandManager;
 
@@ -56,6 +57,15 @@ public class SelfOgMngmtCommand extends CommandBase {
       int id = ogCommandManager.getCommandId(e.getMember().getUser().getId());
       ogCommandManager.requestCommand(OGActionType.CONTENT, id, ogCommandManager.getCommandFromId(id), e.getArgs().replaceFirst("edit ", ""), e.getMember());
       e.reply("Command Edit Requested, please don't bug staff to approve it!");
+    } else if (e.getSplitArgs()[0].equalsIgnoreCase("edit-name")) {
+      if (!ogCommandManager.hasCommand(e.getMember().getUser().getId())) {
+        e.reply("You do not have a command, create one with `^ogcmd request`!");
+        return;
+      }
+
+      int id = ogCommandManager.getCommandId(e.getMember().getUser().getId());
+      ogCommandManager.requestCommand(OGActionType.NAME, id, ogCommandManager.getCommandFromId(id) + "|" + e.getSplitArgs()[1], ogCommandManager.getCommandContentFromId(id), e.getMember());
+      e.reply("Command Name Edit Requested");
     } else {
       e.reply(USAGE);
     }

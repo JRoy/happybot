@@ -112,7 +112,7 @@ public class MessageFactory {
 
     List<String> msgs = new ArrayList<>();
     while (set.next()) {
-      msgs.add(new String(set.getBytes("value"), StandardCharsets.UTF_8));
+      msgs.add(new String(set.getBytes("value"), StandardCharsets.UTF_8).replace("\0", ""));
     }
     return msgs;
   }
