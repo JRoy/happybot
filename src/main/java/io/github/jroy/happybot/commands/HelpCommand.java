@@ -38,6 +38,9 @@ public class HelpCommand extends CommandBase {
 
     //Infer Categories
     for (CommandCategory curCat : CommandCategory.values()) {
+      if (curCat.equals(CommandCategory.OG)) {
+        continue;
+      }
       builder.append("**__").append(curCat.toString()).append("__**\n\n");
       for (CommandBase base : catBase.get(curCat)) {
         builder.append("`^").append(base.getName()).append(base.getArguments() == null ? "` - " : " " + base.getArguments() + "` - ").append(base.getHelp()).append(base.getPermissionRole() == null ? " (Public Command)" : " (Requires: " + base.getPermissionRole().getRoleName() + ")").append("\n");
