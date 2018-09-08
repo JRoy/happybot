@@ -3,6 +3,7 @@ package io.github.jroy.happybot.sql;
 import io.github.jroy.happybot.util.Logger;
 
 import javax.annotation.Nonnull;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ public class MessageFactory {
 
   private final Connection connection;
 
-  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `messages` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `type` VARCHAR(50) NOT NULL , `value` VARCHAR(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
+  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `messages` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `type` VARCHAR(50) NOT NULL , `value` BINARY(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
   private final String INSERT_MESSAGE = "INSERT INTO `messages` (`type`, `value`) VALUES (?, ?)";
   private final String SELECT_MESSAGES = "SELECT * FROM `messages` WHERE type = ?;";
 
@@ -85,7 +86,7 @@ public class MessageFactory {
     }
     PreparedStatement preparedStatement = connection.prepareStatement(INSERT_MESSAGE);
     preparedStatement.setString(1, messageType.toString());
-    preparedStatement.setString(2, message);
+    preparedStatement.setBytes(2, message.getBytes(StandardCharsets.UTF_8));
     preparedStatement.execute();
   }
 
@@ -111,7 +112,7 @@ public class MessageFactory {
 
     List<String> msgs = new ArrayList<>();
     while (set.next()) {
-      msgs.add(set.getString("value"));
+      msgs.add(new String(set.getBytes("value"), StandardCharsets.UTF_8));
     }
     return msgs;
   }

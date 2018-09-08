@@ -16,6 +16,7 @@ import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +31,7 @@ public class OGCommandManager extends ListenerAdapter {
   private final Connection connection;
   private boolean init = false;
 
-  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `cmds` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `content` VARCHAR(255) NOT NULL , `userid` VARCHAR(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
+  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `cmds` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `content` BINARY(255) NOT NULL , `userid` VARCHAR(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
   private final String SELECT_BY_USER = "SELECT * FROM `cmds` WHERE `userid` = ?;";
   private final String SELECT_BY_NAME = "SELECT * FROM `cmds` WHERE `name` = ?;";
   private final String SELECT_BY_ID = "SELECT * FROM `cmds` WHERE `id` = ?;";
@@ -160,7 +161,7 @@ public class OGCommandManager extends ListenerAdapter {
     try {
       PreparedStatement statement = connection.prepareStatement(INSERT_COMMAND);
       statement.setString(1, commandName);
-      statement.setString(2, commandContent);
+      statement.setBytes(2, commandContent.getBytes(StandardCharsets.UTF_8));
       statement.setString(3, userId);
       statement.execute();
       registerCommand(commandName);
@@ -200,7 +201,7 @@ public class OGCommandManager extends ListenerAdapter {
       statement.setString(1, commandName);
       ResultSet rs = statement.executeQuery();
       if (rs.next()) {
-        return rs.getString("content");
+        return new String(rs.getBytes("content"), StandardCharsets.UTF_8);
       } else {
         return "";
       }
@@ -224,7 +225,7 @@ public class OGCommandManager extends ListenerAdapter {
   public void setCommandContent(int commandId, String commandContent) {
     try {
       PreparedStatement statement = connection.prepareStatement(UPDATE_COMMAND_CONTENT);
-      statement.setString(1, commandContent);
+      statement.setBytes(1, commandContent.getBytes(StandardCharsets.UTF_8));
       statement.setInt(2, commandId);
       statement.execute();
     } catch (SQLException e) {
