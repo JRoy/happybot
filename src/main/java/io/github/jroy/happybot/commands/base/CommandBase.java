@@ -61,6 +61,12 @@ public abstract class CommandBase extends Command {
   private final boolean devCommand;
 
   /**
+   * The command may not be used when true
+   * Devs+ can bypass this
+   */
+  private boolean disabled = false;
+
+  /**
    * Constructor for commands with no role permissions requires for execution.
    *
    * @param commandName Command's name to be used for execution.
@@ -147,14 +153,32 @@ public abstract class CommandBase extends Command {
     cooldownDelay = null;
   }
 
+  /**
+   * Sets the disabled state of a command.
+   *
+   * @param disabled Disabled state.
+   */
+  public void setDisabled(boolean disabled) {
+    this.disabled = disabled;
+  }
+
+  /**
+   * Gets the disabled state of the command.
+   *
+   * @return Disabled state.
+   */
+  public boolean isDisabled() {
+    return disabled;
+  }
+
   @Override
   protected final void execute(CommandEvent event) {
     Member member = event.getMember();
 
-//        if (event.getTextChannel().getId().equals(Channels.RANDOM.getId()) && (!C.hasRole(event.getMember(), Roles.DEVELOPER) && !C.hasRole(event.getMember(), Roles.HELPER))) {
-//            event.getMessage().addReaction("❌").queue();
-//            return;
-//        }
+        if (disabled && !C.hasRole(event.getMember(), Roles.DEVELOPER)) {
+            event.getMessage().addReaction("❌").queue();
+            return;
+        }
 
     //Handle "Complex" Permission Check
     boolean canExecute = true; //We assume the user can run the command at first and we annihilate them if they actually cannot

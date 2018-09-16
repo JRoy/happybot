@@ -325,7 +325,8 @@ public class Main extends ListenerAdapter {
         new UpdateCommand(messageFactory),
         new EvalCommand(),
         new TestCommand(),
-        new AddUserCommand(leveling)
+        new AddUserCommand(leveling),
+        new ToggleCommand(commandFactory)
 
     );
   }
