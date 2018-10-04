@@ -37,6 +37,7 @@ public class RobCommand extends CommandBase {
         return;
       }
 
+      // Check both members have a money account
       String userId = e.getMember().getUser().getId();
       Member targetMember = e.getMentionedMember();
       if (!sqlManager.isActiveUserH(userId) || !sqlManager.isActiveUserH(targetMember.getUser().getId())) {
@@ -44,18 +45,22 @@ public class RobCommand extends CommandBase {
         removeFromCooldown(e.getMember());
         return;
       }
+
+      // Check the user is not robbing themselves
       if (userId.equalsIgnoreCase(targetMember.getUser().getId())) {
         e.reply("Why would you rob yourself?");
         removeFromCooldown(e.getMember());
         return;
       }
 
-      if (!robTokens.containsKey(userId)) {
-        robTokens.put(userId, new RobToken());
-      }
+      robTokens.putIfAbsent(userId, new RobToken());
       RobToken token = robTokens.get(userId);
-      if (!token.canRob(targetMember.getUser().getId())) {
-        e.replyError("You may only rob a user once a day!");
+
+      // Check the user has not robbed in the last day
+	  int secondsRemaining = token.getTimeRemainingForUser(userId);
+      if (secondsRemaining > 0) {
+      	String timeRemainingSuffixString = timeRemainingSuffix(secondsRemaining);
+	    e.replyError("You may only rob a user once a day! You can rob them again in " + timeRemainingSuffixString);
         removeFromCooldown(e.getMember());
         return;
       }
@@ -115,5 +120,19 @@ public class RobCommand extends CommandBase {
       removeFromCooldown(e.getMember());
 
     }
+  }
+
+  private String timeRemainingSuffix(int secondsRemaining) {
+	  int hoursRemaining = (secondsRemaining + (3600 - 1)) / 3600;
+	  if (hoursRemaining == 1) {
+		  int minutesRemaining = (secondsRemaining + (60 - 1)) / 60;
+		  if (minutesRemaining == 1) {
+			  return "1 minute";
+		  } else {
+			  return String.format("%d minutes", minutesRemaining);
+		  }
+	  } else {
+		  return String.format("%d hours", hoursRemaining);
+	  }
   }
 }
