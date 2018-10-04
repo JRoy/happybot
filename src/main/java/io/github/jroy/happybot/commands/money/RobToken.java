@@ -21,12 +21,16 @@ class RobToken {
     dailyTimes.put(userId, OffsetDateTime.now().plusSeconds(ROB_DELAY));
   }
 
-  protected boolean canRob(String userId) {
-    return !dailyTimes.containsKey(userId) || getTimeRemainingForUser(userId) <= 0;
-  }
-
-  private int getTimeRemainingForUser(String userId) {
-    return (int) OffsetDateTime.now().until(dailyTimes.get(userId), ChronoUnit.SECONDS);
+  /**
+   * Gets the time remaining before the user can rob again in seconds
+   * Returns -1 if the user can rob immediately
+   */
+  protected int getTimeRemainingForUser(String userId) {
+  	if (!dailyTimes.containsKey(userId)) {
+  		return -1;
+    } else {
+	    return (int) OffsetDateTime.now().until(dailyTimes.get(userId), ChronoUnit.SECONDS);
+    }
   }
 
 }
