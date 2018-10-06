@@ -250,6 +250,10 @@ public class StarMessages extends ListenerAdapter {
             .sum();
 
         if (numberOfStars >= NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
+          if (isUsed(message.getId())) {
+            alreadyUsedMessages.add(message.getId());
+            return;
+          }
           String footer = "New " + emote.getAction() + " message from #" + message.getChannel().getName();
           String privateMessageText = "Congrats! One of your messages has been " + emote.getAction() + ":";
           sendStarredMessage(footer, message, privateMessageText, emote, e.getMember());
@@ -261,6 +265,8 @@ public class StarMessages extends ListenerAdapter {
               addStar(message.getAuthor().getId());
               break;
           }
+          //This should only be used for heels and stars
+          addUsed(message.getId());
         }
       } catch (NullPointerException | IllegalStateException e) {
         Logger.error("Star reaction is in invalid state!");
