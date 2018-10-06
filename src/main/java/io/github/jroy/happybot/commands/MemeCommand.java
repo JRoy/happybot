@@ -7,7 +7,6 @@ import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
-import io.github.jroy.happybot.util.RuntimeEditor;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.time.temporal.ChronoUnit;
@@ -37,27 +36,18 @@ public class MemeCommand extends CommandBase {
     subs.add("funny");
     subs.add("peoplefuckingdying");
     subs.add("bonehurtingjuice");
+    subs.add("okbuddyretard");
     subs.add("iamverysmart");
     subs.add("niceguys");
     subs.add("nicegirls");
-    subs.add("okbuddyretard");
     this.setCooldown(2, ChronoUnit.MINUTES);
   }
 
   @Override
   protected void executeCommand(CommandEvent e) {
-    if (!e.hasRole(Roles.SUPER_ADMIN)) {
-      if (!subs.contains(e.getArgs().toLowerCase())) {
-        if (!RuntimeEditor.isAllowStaffSubBypass()) {
-          helpMsg(e);
-          return;
-        } else {
-          if (!e.hasRole(Roles.DEVELOPER) && !e.getArgs().isEmpty()) {
-            helpMsg(e);
-            return;
-          }
-        }
-      }
+    if (!subs.contains(e.getArgs().toLowerCase()) && !e.hasRole(Roles.DEVELOPER)) {
+      helpMsg(e);
+      return;
     }
 
     e.getChannel().sendTyping().queue();
