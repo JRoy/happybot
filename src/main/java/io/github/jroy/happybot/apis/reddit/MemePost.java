@@ -30,7 +30,7 @@ public class MemePost {
       }
     }
 
-    isNsfw = dataObject.toString().contains("nsfw");
+    isNsfw = dataObject.toString().replace("promo_adult_nsfw", "").contains("nsfw");
 
   }
 
