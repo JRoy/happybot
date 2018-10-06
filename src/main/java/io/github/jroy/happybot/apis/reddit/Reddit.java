@@ -1,5 +1,6 @@
 package io.github.jroy.happybot.apis.reddit;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.github.jroy.happybot.apis.APIBase;
@@ -45,8 +46,14 @@ public class Reddit extends APIBase {
   }
 
   public MemePost getRandomMedia(String subReddit) {
-    JsonObject dataObject = new JsonParser().parse(Objects.requireNonNull(C.readUrl("https://www.reddit.com/r/" + subReddit + "/random/.json"))).getAsJsonArray().get(0).getAsJsonObject().getAsJsonObject("data").getAsJsonArray("children").get(0).getAsJsonObject().getAsJsonObject("data");
-    return new MemePost(dataObject);
+    JsonElement jsonElement = new JsonParser().parse(Objects.requireNonNull(C.readUrl("https://www.reddit.com/r/" + subReddit + "/random/.json")));
+    JsonObject jsonObject;
+    if (jsonElement.isJsonArray()) {
+      jsonObject = jsonElement.getAsJsonArray().get(0).getAsJsonObject();
+    } else {
+      jsonObject = jsonElement.getAsJsonObject();
+    }
+    return new MemePost(jsonObject.getAsJsonObject("data").getAsJsonArray("children").get(0).getAsJsonObject().getAsJsonObject("data"));
   }
 
   private boolean isValid() {
