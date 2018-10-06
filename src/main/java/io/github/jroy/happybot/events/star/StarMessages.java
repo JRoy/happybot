@@ -26,10 +26,16 @@ import java.util.concurrent.CompletableFuture;
 @SuppressWarnings("FieldCanBeLocal")
 public class StarMessages extends ListenerAdapter {
   private static final String NEW_GILDED_MESSAGE = "New Gilded Message";
-  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS starstats ( `id` INT(50) NOT NULL AUTO_INCREMENT , `userid` VARCHAR(50) NOT NULL , `stars` BIGINT(255) NOT NULL DEFAULT '0' , `gilds` BIGINT(255) NOT NULL DEFAULT '0' , `heels` BIGINT(255) NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
+  private final String CREATE_STAT_TABLE = "CREATE TABLE IF NOT EXISTS starstats ( `id` INT(50) NOT NULL AUTO_INCREMENT , `userid` VARCHAR(50) NOT NULL , `stars` BIGINT(255) NOT NULL DEFAULT '0' , `gilds` BIGINT(255) NOT NULL DEFAULT '0' , `heels` BIGINT(255) NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
   private final String SELECT_USER = "SELECT * FROM starstats WHERE userid = ?;";
   private final String CREATE_USER = "INSERT INTO starstats (userId) VALUES (?);";
   private final String UPDATE_USER = "UPDATE starstats SET stars = ?, gilds = ?, heels = ? WHERE userId = ?;";
+
+  private final String CREATE_USED_TABLE = "CREATE TABLE IF NOT EXISTS starused ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageId` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private final String ADD_USED = "INSERT INTO starused (messageId) VALUES (?);";
+  private final String SELECT_USED = "SELECT * FROM starused WHERE messageId = ?;";
+
   private Connection connection;
   private Set<String> alreadyUsedMessages = new HashSet<>();
   private Map<String, GildInfoToken> pastGilds = new HashMap<>();
@@ -37,9 +43,31 @@ public class StarMessages extends ListenerAdapter {
   public StarMessages(SQLManager sqlManager) {
     connection = sqlManager.getConnection();
     try {
-      connection.createStatement().executeUpdate(CREATE_TABLE);
+      connection.createStatement().executeUpdate(CREATE_STAT_TABLE);
+      connection.createStatement().executeUpdate(CREATE_USED_TABLE);
     } catch (SQLException e) {
       e.printStackTrace();
+    }
+  }
+
+  private void addUsed(String messageId) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(ADD_USED);
+      statement.setString(1, messageId);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private boolean isUsed(String messageId) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(SELECT_USED);
+      statement.setString(1, messageId);
+      return statement.executeQuery().next();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
     }
   }
 
@@ -173,7 +201,7 @@ public class StarMessages extends ListenerAdapter {
 
     GildInfoToken infoToken = new GildInfoToken(causedUser.getUser().getId(), message.getAuthor().getId());
 
-    if(footer.startsWith(NEW_GILDED_MESSAGE)) {
+    if (footer.startsWith(NEW_GILDED_MESSAGE)) {
       embed.setFooter(footer, "https://cdn.discordapp.com/emojis/371121885997694976.png?v=1");
       pastGilds.put(message.getId(), infoToken);
     } else {
