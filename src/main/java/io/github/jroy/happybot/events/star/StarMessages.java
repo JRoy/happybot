@@ -51,6 +51,19 @@ public class StarMessages extends ListenerAdapter {
   private final String ADD_USED = "INSERT INTO starused (messageId) VALUES (?);";
   private final String SELECT_USED = "SELECT * FROM starused WHERE messageId = ?;";
 
+  /**
+   * This Table Stores the Amount of Stars a Message Will Take Before Sent to the #starred-messages Channel
+   *   - This is not required for all messages, only those you wish to alter the default for
+   *
+   * `id`: INT
+   * `messageid`: VARCHAR (String) - The id of the message to be modified
+   * `amount`: INT - The amount of stars required to send the target message to #starred-messages
+   */
+  private final String CREATE_CUSTOM_TABLE = "CREATE TABLE starcounts ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageid` VARCHAR(255) NOT NULL , `amount` INT(50) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private final String ADD_CUSTOM = "INSERT INTO starcounts (messageid, amount) VALUES (?, ?);";
+  private final String SELECT_CUSTOM = "SELECT * FROM starcounts WHERE messageid = ?;";
+  private final String DELETE_CUSTOM = "DELETE FROM starcounts WHERE messageid = ?;";
+
   private Connection connection;
   private Set<String> alreadyUsedMessages = new HashSet<>();
   private Map<String, GildInfoToken> pastGilds = new HashMap<>();
@@ -60,6 +73,17 @@ public class StarMessages extends ListenerAdapter {
     try {
       connection.createStatement().executeUpdate(CREATE_STAT_TABLE);
       connection.createStatement().executeUpdate(CREATE_USED_TABLE);
+      connection.createStatement().executeUpdate(CREATE_CUSTOM_TABLE);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void addStarAlter(String messageId, int requiredStars) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(ADD_CUSTOM);
+      statement.setString(1, messageId);
+      statement.setInt(2, requiredStars);
     } catch (SQLException e) {
       e.printStackTrace();
     }
