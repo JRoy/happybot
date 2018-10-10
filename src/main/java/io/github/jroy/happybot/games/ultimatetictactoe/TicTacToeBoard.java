@@ -9,6 +9,19 @@ public class TicTacToeBoard {
   }
 
   public TicTacToeType[] getBoard() {
+    if(winner == TicTacToeType.CROSS) {
+      return new TicTacToeType[] {
+          TicTacToeType.CROSS, null, TicTacToeType.CROSS,
+          null, TicTacToeType.CROSS, null,
+          TicTacToeType.CROSS, null, TicTacToeType.CROSS
+      };
+    } else if(winner == TicTacToeType.NOUGHT) {
+      return new TicTacToeType[] {
+          TicTacToeType.NOUGHT, TicTacToeType.NOUGHT, TicTacToeType.NOUGHT,
+          TicTacToeType.NOUGHT, null, TicTacToeType.NOUGHT,
+          TicTacToeType.NOUGHT, TicTacToeType.NOUGHT, TicTacToeType.NOUGHT
+      };
+    }
     return board;
   }
 

@@ -8,7 +8,6 @@ public class UltimateTicTacToe {
   private TicTacToeBoard[] boards = new TicTacToeBoard[9];
   private TicTacToeType turn;
   private int board = -1;
-  private boolean firstTurn = true;
 
   public UltimateTicTacToe(User first, User second) {
     this.first = first;
@@ -47,10 +46,6 @@ public class UltimateTicTacToe {
     }
   }
 
-  public boolean isFirstTurn() {
-    return firstTurn;
-  }
-
   public User getCurrent() {
     return turn == TicTacToeType.CROSS ? first : second;
   }
@@ -80,8 +75,30 @@ public class UltimateTicTacToe {
     } else {
       board = position;
     }
-    firstTurn = false;
     turn = (turn == TicTacToeType.CROSS ? TicTacToeType.NOUGHT : TicTacToeType.CROSS);
+    return true;
+  }
+
+  public User getWinner() {
+    TicTacToeBoard board = new TicTacToeBoard();
+    for(int i = 0; i < boards.length; i++) {
+      board.place(i, boards[i].getWinner());
+    }
+
+    return board.getWinner() == null ? null :
+        board.getWinner() == TicTacToeType.CROSS ? second : first;
+  }
+
+  public boolean isFull(int board) {
+    if(boards[board].getWinner() != null) {
+      return true;
+    }
+
+    for(TicTacToeType type : boards[board].getBoard()) {
+      if(type == null) {
+        return false;
+      }
+    }
     return true;
   }
 

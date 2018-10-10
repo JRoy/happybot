@@ -36,6 +36,10 @@ public class UltimateTicTacToeManager extends ListenerAdapter {
     return games.getIfPresent(id);
   }
 
+  public void updateGames() {
+    games.cleanUp();
+  }
+
   @Override
   public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
     long id = event.getMessageIdLong();
@@ -91,9 +95,18 @@ public class UltimateTicTacToeManager extends ListenerAdapter {
     num--;
 
     if (game.getBoard() < 0) {
+      if(game.isFull(num)) {
+        channel.sendMessage(new EmbedBuilder()
+            .setTitle("That board is full!")
+            .setDescription(game.getCurrent().getAsMention() + ", select a board.\n" + game.fullRender())
+            .setColor(Color.GREEN)
+            .build()
+        ).queue();
+        return;
+      }
       game.setBoard(num);
       channel.sendMessage(new EmbedBuilder()
-          .setTitle("Selected board **" + num + "**.")
+          .setTitle("Selected the " + game.getBoardName() + " board.")
           .setDescription(game.getCurrent().getAsMention() + ", select a point on the " + game.getBoardName() + " board.\n" + game.fullRender())
           .setColor(Color.BLUE)
           .build()
@@ -102,6 +115,17 @@ public class UltimateTicTacToeManager extends ListenerAdapter {
     }
 
     if (game.makeTurn(num)) {
+      User winner = game.getWinner();
+      if(winner != null) {
+        games.invalidate(channel.getIdLong());
+        channel.sendMessage(new EmbedBuilder()
+            .setTitle("Winner!")
+            .setDescription(winner.getAsMention() + " has won the game of Ultimate Tic Tac Toe!\n```\n" + game.render() + "```")
+            .build()
+        ).queue();
+        return;
+      }
+
       EmbedBuilder builder = new EmbedBuilder()
           .setTitle("Turn completed.");
       if(game.getBoard() < 0) {

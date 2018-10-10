@@ -22,6 +22,7 @@ public class UltimateTicTacToeCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent event) {
+    manager.updateGames();
     MessageChannel channel = event.getChannel();
     if (manager.getGame(channel.getIdLong()) != null) {
       channel.sendMessage("A game is already in progress!").queue();
@@ -30,6 +31,7 @@ public class UltimateTicTacToeCommand extends CommandBase {
       channel.sendMessage("You are already waiting for a game!").queue();
       return;
     }
+
 
     Message sent = event.getMessage();
     channel.sendMessage(new EmbedBuilder()
