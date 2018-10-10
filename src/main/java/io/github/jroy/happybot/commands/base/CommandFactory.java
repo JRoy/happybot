@@ -17,11 +17,11 @@ public class CommandFactory {
   private Map<String, CommandBase> registeredCommands = new HashMap<>();
   private Map<CommandCategory, List<CommandBase>> categorizedCommands = new HashMap<>();
 
-  public CommandFactory() {
+  public CommandFactory(String prefix, String alternativePrefix) {
     Logger.info("Loading Command Factory...");
     clientBuilder = new CommandClientBuilder();
-    clientBuilder.setPrefix("^");
-    clientBuilder.setAlternativePrefix("!");
+    clientBuilder.setPrefix(prefix);
+    clientBuilder.setAlternativePrefix(alternativePrefix);
     clientBuilder.setOwnerId(Constants.OWNER_ID.get());
     clientBuilder.useHelpBuilder(false);
   }

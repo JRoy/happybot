@@ -152,6 +152,8 @@ public class Main extends ListenerAdapter {
     String hypixel = getAndSet(yamlFile, "hypixel-api-key");
     String riot = getAndSet(yamlFile, "riot-api-key");
     String sql = getAndSet(yamlFile, "sql-password");
+    String prefix = getAndSet(yamlFile, "prefix");
+    String alternativePrefix = getAndSet(yamlFile, "alternative-prefix");
     String redditUsername = getAndSet(yamlFile, "reddit.username");
     String redditPassword = getAndSet(yamlFile, "reddit.password");
     String redditId = getAndSet(yamlFile, "reddit.client-id");
@@ -164,7 +166,7 @@ public class Main extends ListenerAdapter {
     yamlFile.save();
     yamlFile.load();
 
-    botConfig = new BotConfig(token, hypixel, riot, sql, redditUsername, redditPassword, redditId, redditSecret, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
+    botConfig = new BotConfig(token, hypixel, riot, sql, prefix, alternativePrefix, redditUsername, redditPassword, redditId, redditSecret, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
     Logger.info("Loaded Config!");
   }
 
@@ -248,7 +250,7 @@ public class Main extends ListenerAdapter {
 
   private static void loadCommandFactory() {
 
-    commandFactory = new CommandFactory();
+    commandFactory = new CommandFactory(botConfig.getPrefix(), botConfig.getAlternativePrefix());
 
     //Loads all of our commands into JDA-Util's command handler.
     commandFactory.addCommands(

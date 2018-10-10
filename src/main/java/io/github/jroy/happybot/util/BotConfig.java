@@ -6,6 +6,8 @@ public class BotConfig {
   private final String hypixelApiKey;
   private final String riotApiKey;
   private final String sqlPassword;
+  private final String prefix;
+  private final String alternativePrefix;
 
   private final String redditUsername;
   private final String redditPassword;
@@ -17,11 +19,13 @@ public class BotConfig {
   private final String twitterAccessToken;
   private final String twitterAccessTokenSecret;
 
-  public BotConfig(String botToken, String hypixelApiKey, String riotApiKey, String sqlPassword, String redditUsername, String redditPassword, String redditClientId, String redditClientSecret, String twitterOauthKey, String twitterOauthSecret, String twitterAccessToken, String twitterAccessTokenSecret) {
+  public BotConfig(String botToken, String hypixelApiKey, String riotApiKey, String sqlPassword, String prefix, String alternativePrefix, String redditUsername, String redditPassword, String redditClientId, String redditClientSecret, String twitterOauthKey, String twitterOauthSecret, String twitterAccessToken, String twitterAccessTokenSecret) {
     this.botToken = botToken;
     this.hypixelApiKey = hypixelApiKey;
     this.riotApiKey = riotApiKey;
     this.sqlPassword = sqlPassword;
+    this.prefix = prefix;
+    this.alternativePrefix = alternativePrefix;
 
     this.redditUsername = redditUsername;
     this.redditPassword = redditPassword;
@@ -48,6 +52,14 @@ public class BotConfig {
 
   public String getSqlPassword() {
     return sqlPassword;
+  }
+
+  public String getPrefix() {
+    return prefix;
+  }
+
+  public String getAlternativePrefix() {
+    return alternativePrefix;
   }
 
   public String getRedditUsername() {
