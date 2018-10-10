@@ -28,6 +28,8 @@ import io.github.jroy.happybot.commands.report.ReportCommand;
 import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.*;
 import io.github.jroy.happybot.events.star.StarMessages;
+import io.github.jroy.happybot.games.ultimatetictactoe.UltimateTicTacToeCommand;
+import io.github.jroy.happybot.games.ultimatetictactoe.UltimateTicTacToeManager;
 import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.sql.*;
 import io.github.jroy.happybot.sql.og.OGCommandManager;
@@ -64,6 +66,7 @@ public class Main extends ListenerAdapter {
   private static WarningManager warningManager;
   private static ReportManager reportManager;
   private static OGCommandManager ogCommandManager;
+  private static UltimateTicTacToeManager ultimateTicTacToeManager;
   private static Hypixel hypixel;
   private static DiscordThemerImpl themeManager;
   private static MessageFactory messageFactory;
@@ -237,6 +240,9 @@ public class Main extends ListenerAdapter {
     Logger.info("Loading OG Command Manager...");
     eventListeners.add(ogCommandManager = new OGCommandManager(sqlManager));
 
+    Logger.info("Loading Ultimate Tic Tac Toe Manager...");
+    eventListeners.add(ultimateTicTacToeManager = new UltimateTicTacToeManager());
+
     return eventListeners;
   }
 
@@ -262,6 +268,7 @@ public class Main extends ListenerAdapter {
 
         //Fun
 
+        new UltimateTicTacToeCommand(ultimateTicTacToeManager),
         new HecktownCommand(),
         new MathCommand(),
         new VideoCommand(),
