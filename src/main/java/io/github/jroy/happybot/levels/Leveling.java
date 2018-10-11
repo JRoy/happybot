@@ -1,5 +1,8 @@
 package io.github.jroy.happybot.levels;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.udojava.evalex.Expression;
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.sql.MessageFactory;
@@ -24,12 +27,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Leveling extends ListenerAdapter {
@@ -46,8 +52,16 @@ public class Leveling extends ListenerAdapter {
   public Map<Integer, LevelingToken> topCache = new HashMap<>();
   private boolean registered = false;
   private TreeMap<Long, Integer> levels = new TreeMap<>();
-  private HashMap<String, OffsetDateTime> lastChatTimes = new HashMap<>();
-  private HashMap<String, Integer> levelCache = new HashMap<>();
+  private Map<String, OffsetDateTime> lastChatTimes = new HashMap<>();
+  private LoadingCache<String, Integer> levelCache = CacheBuilder.newBuilder()
+      .expireAfterAccess(10, TimeUnit.MINUTES)
+      .maximumSize(200)
+      .build(new CacheLoader<String, Integer>() {
+        @Override
+        public Integer load(String key) {
+          return toLevel(getExp(key));
+        }
+      });
 
   public Leveling(SQLManager sqlManager, MessageFactory messageFactory) {
     this.connection = sqlManager.getConnection();
@@ -198,14 +212,10 @@ public class Leveling extends ListenerAdapter {
       }
     }
 
-    if (!levelCache.containsKey(userId)) {
-      levelCache.put(userId, toLevel(getExp(userId)));
-    }
-
     int expA = random.nextInt(25 - 15) + 15;
     addExp(userId, expA);
 
-    if (toLevel(getExp(userId)) > levelCache.get(userId)) {
+    if (toLevel(getExp(userId)) > levelCache.getUnchecked(userId)) {
       processRewards(toLevel(getExp(userId)), event.getMember(), event.getChannel());
     }
 
@@ -217,17 +227,20 @@ public class Leveling extends ListenerAdapter {
     if (isPastUser(e.getUser().getId())) {
       int level = toLevel(getExp(e.getUser().getId()));
 
+      List<Roles> roles = new ArrayList<>();
+
       if (level >= 50) {
-        C.giveRoles(e.getMember(), Roles.OG, Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
+        roles.add(Roles.OG);
       } else if (level >= 30) {
-        C.giveRoles(e.getMember(), Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
+        roles.add(Roles.OBSESSIVE);
       } else if (level >= 20) {
-        C.giveRoles(e.getMember(), Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
+        roles.add(Roles.TRYHARD);
       } else if (level >= 10) {
-        C.giveRoles(e.getMember(), Roles.REGULAR, Roles.FANS);
+        roles.add(Roles.REGULAR);
       } else {
-        C.giveRole(e.getMember(), Roles.FANS);
+        roles.add(Roles.FANS);
       }
+      C.giveRoles(e.getMember(), roles.toArray(new Roles[0]));
     } else {
       C.giveRole(e.getMember(), Roles.FANS);
     }
