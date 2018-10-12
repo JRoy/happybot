@@ -18,7 +18,7 @@ public class StarGoalCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent e) {
-    if (e.getArgs().isEmpty() || e.getSplitArgs().length < 2 || StringUtils.isNumeric(e.getSplitArgs()[1]) || Integer.parseInt(e.getSplitArgs()[1]) < 6) {
+    if (e.getArgs().isEmpty() || e.getSplitArgs().length < 2 || !StringUtils.isNumeric(e.getSplitArgs()[1]) || Integer.parseInt(e.getSplitArgs()[1]) < 6) {
       e.reply(invalid);
       return;
     }
