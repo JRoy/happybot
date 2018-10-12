@@ -371,7 +371,7 @@ public class StarMessages extends ListenerAdapter {
             return;
           }
 
-          String footer = "New " + emote.getAction() + " message from #" + message.getChannel().getName();
+          String footer = "New " + emote.getAction() + " message from #" + message.getChannel().getName() + " • " + numberOfStars + emote.getName();
           String privateMessageText = "Congrats! One of your messages has been " + emote.getAction() + ":";
           sendStarredMessage(footer, message, privateMessageText, emote, e.getMember());
           switch (emote) {
