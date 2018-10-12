@@ -16,6 +16,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -62,11 +63,13 @@ public class StarMessages extends ListenerAdapter {
   private final String CREATE_CUSTOM_TABLE = "CREATE TABLE starcounts ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageid` VARCHAR(255) NOT NULL , `amount` INT(50) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
   private final String ADD_CUSTOM = "INSERT INTO starcounts (messageid, amount) VALUES (?, ?);";
   private final String SELECT_CUSTOM = "SELECT * FROM starcounts WHERE messageid = ?;";
+  private final String SELECT_ALL_CUSTOM = "SELECT * FROM starcounts";
   private final String DELETE_CUSTOM = "DELETE FROM starcounts WHERE messageid = ?;";
 
   private Connection connection;
   private Set<String> alreadyUsedMessages = new HashSet<>();
   private Map<String, GildInfoToken> pastGilds = new HashMap<>();
+  private Map<String, Integer> alteredMessages = new HashMap<>();
 
   public StarMessages(SQLManager sqlManager) {
     connection = sqlManager.getConnection();
@@ -74,19 +77,54 @@ public class StarMessages extends ListenerAdapter {
       connection.createStatement().executeUpdate(CREATE_STAT_TABLE);
       connection.createStatement().executeUpdate(CREATE_USED_TABLE);
       connection.createStatement().executeUpdate(CREATE_CUSTOM_TABLE);
+      ResultSet set = connection.createStatement().executeQuery(SELECT_ALL_CUSTOM);
+      while (set.next()) {
+        alteredMessages.put(set.getString("messageid"), set.getInt("amount"));
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
+  /**
+   * Takes note of a requested alteration in the default star count
+   * @param messageId The id of the message being altered
+   * @param requiredStars The new amount of stars required.
+   */
   public void addStarAlter(String messageId, int requiredStars) {
     try {
       PreparedStatement statement = connection.prepareStatement(ADD_CUSTOM);
       statement.setString(1, messageId);
       statement.setInt(2, requiredStars);
+      statement.executeUpdate();
+      alteredMessages.put(messageId, requiredStars);
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Removes star alteration from a message
+   * @param messageId The message id to be removed
+   */
+  public void deleteStarAlter(String messageId) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(DELETE_CUSTOM);
+      statement.setString(1, messageId);
+      statement.executeUpdate();
+      alteredMessages.remove(messageId);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Checks if a message has an alteration on it
+   * @param messageId The id of the message to be checked
+   * @return Returns true if the message has an alteration
+   */
+  public boolean isAltered(String messageId) {
+    return alteredMessages.containsKey(messageId);
   }
 
   /**
@@ -328,6 +366,11 @@ public class StarMessages extends ListenerAdapter {
             alreadyUsedMessages.add(message.getId());
             return;
           }
+
+          if (isAltered(message.getId()) && numberOfStars < alteredMessages.get(message.getId())) {
+            return;
+          }
+
           String footer = "New " + emote.getAction() + " message from #" + message.getChannel().getName();
           String privateMessageText = "Congrats! One of your messages has been " + emote.getAction() + ":";
           sendStarredMessage(footer, message, privateMessageText, emote, e.getMember());
