@@ -25,7 +25,7 @@ public class StarGoalCommand extends CommandBase {
     String messageId = e.getSplitArgs()[0];
     int goal = Integer.parseInt(e.getSplitArgs()[1]);
 
-    if (messageId.length() != 18 || StringUtils.isNumeric(messageId)) {
+    if (messageId.length() != 18 || !StringUtils.isNumeric(messageId)) {
       e.reply("You have entered an invalid message id!");
       return;
     }
