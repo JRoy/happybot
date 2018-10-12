@@ -315,6 +315,7 @@ public class Main extends ListenerAdapter {
         new MuteCommand(eventManager),
         new MessageFactoryCommand(messageFactory),
         new EmoteCommand(),
+        new StarGoalCommand(starMessages),
 
         //Bot Management
 
