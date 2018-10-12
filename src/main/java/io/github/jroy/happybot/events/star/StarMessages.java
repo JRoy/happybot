@@ -60,7 +60,7 @@ public class StarMessages extends ListenerAdapter {
    * `messageid`: VARCHAR (String) - The id of the message to be modified
    * `amount`: INT - The amount of stars required to send the target message to #starred-messages
    */
-  private final String CREATE_CUSTOM_TABLE = "CREATE TABLE starcounts ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageid` VARCHAR(255) NOT NULL , `amount` INT(50) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private final String CREATE_CUSTOM_TABLE = "CREATE TABLE IF NOT EXISTS starcounts ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageid` VARCHAR(255) NOT NULL , `amount` INT(50) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
   private final String ADD_CUSTOM = "INSERT INTO starcounts (messageid, amount) VALUES (?, ?);";
   private final String SELECT_CUSTOM = "SELECT * FROM starcounts WHERE messageid = ?;";
   private final String SELECT_ALL_CUSTOM = "SELECT * FROM starcounts";
