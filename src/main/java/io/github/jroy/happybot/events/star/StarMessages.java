@@ -30,7 +30,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * This Table Stores Statistics Related to the Amount of Starred, Heeled, and Gilded Messages a User Has
-   *
+   * <p>
    * `id`: INT
    * `userid`: VARCHAR (String) - The id of the user
    * `stars`: BIGINT (Long) - The amount of stars the user has
@@ -44,7 +44,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * This Table Stores a Record of what Messages have been starred/heeled before in order to prevent duplicates arising with bot restarts
-   *
+   * <p>
    * `id`: INT
    * `messageid`: VARCHAR (String) - The id of the message which has been starred/gilded
    */
@@ -54,8 +54,8 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * This Table Stores the Amount of Stars a Message Will Take Before Sent to the #starred-messages Channel
-   *   - This is not required for all messages, only those you wish to alter the default for
-   *
+   * - This is not required for all messages, only those you wish to alter the default for
+   * <p>
    * `id`: INT
    * `messageid`: VARCHAR (String) - The id of the message to be modified
    * `amount`: INT - The amount of stars required to send the target message to #starred-messages
@@ -88,7 +88,8 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Takes note of a requested alteration in the default star count
-   * @param messageId The id of the message being altered
+   *
+   * @param messageId     The id of the message being altered
    * @param requiredStars The new amount of stars required.
    */
   public void addStarAlter(String messageId, int requiredStars) {
@@ -105,6 +106,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Removes star alteration from a message
+   *
    * @param messageId The message id to be removed
    */
   public void deleteStarAlter(String messageId) {
@@ -120,6 +122,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Checks if a message has an alteration on it
+   *
    * @param messageId The id of the message to be checked
    * @return Returns true if the message has an alteration
    */
@@ -129,6 +132,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Adds a message to the SQL records
+   *
    * @param messageId The id of the message
    */
   private void addUsed(String messageId) {
@@ -143,6 +147,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Checks if a message has already been starred/heeled on a previous restart
+   *
    * @param messageId The id of the message to be checked
    * @return Returns true if the message has been starred/heeled before
    */
@@ -159,6 +164,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Gets the stats of a user and places them in a {@link io.github.jroy.happybot.events.star.StarStatsToken token} which adds ease-of-use methods.
+   *
    * @param userId The id of the user being checked
    * @return The {@link io.github.jroy.happybot.events.star.StarStatsToken StarStatsToken} of the user.
    */
@@ -178,6 +184,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Checks to see if a user has had their messages starred/heeled/gilded before.
+   *
    * @param userId The id of the user to check.
    * @return Returns true if the user has been starred/heeled/gilded before.
    */
@@ -194,6 +201,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Propagates a user's stats in sql.
+   *
    * @param userId The id of the user to propagate.
    */
   private void createUser(String userId) {
@@ -208,6 +216,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Adds one star to the user's statistics.
+   *
    * @param userId The id of the user to add to.
    */
   private void addStar(String userId) {
@@ -226,6 +235,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Adds one gild to the user's statistics.
+   *
    * @param userId The id of the user to add to.
    */
   private void addGild(String userId, int amount) {
@@ -244,6 +254,7 @@ public class StarMessages extends ListenerAdapter {
 
   /**
    * Adds one heel to the user's statistics.
+   *
    * @param userId The id of the user to add to.
    */
   private void addHeel(String userId) {
