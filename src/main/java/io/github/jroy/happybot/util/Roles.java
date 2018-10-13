@@ -23,10 +23,10 @@ public enum Roles {
   MUTED("280043630494875648", "Muted", "Muted"),
 
   //Regular Roles
-  LEGENDARY("348917170174033920", "Legendary", "Legendary"),
   PATRON_BOYS("300081997878132736", "Patron Boys", "Patron Boys"),
   SUPPORTER("294583863521312770", "Supporter", "Supporter"),
   QUALITY_ART("364568257660846084", "Quality Art", "Quality Art"),
+  LEGENDARY("348917170174033920", "Legendary", "Legendary"),
   OG("350986983004307456", "OG", "OG"),
   IRL("304074646104571905", "IRL", "IRL"),
   OBSESSIVE("296259032400920578", "Obsessive", "Obsessive"),

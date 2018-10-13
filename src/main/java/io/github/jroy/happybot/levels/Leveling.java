@@ -3,6 +3,8 @@ package io.github.jroy.happybot.levels;
 import com.udojava.evalex.Expression;
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.sql.MessageFactory;
+import io.github.jroy.happybot.sql.PurchaseManager;
+import io.github.jroy.happybot.sql.Reward;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
@@ -37,6 +39,7 @@ public class Leveling extends ListenerAdapter {
   private final static int MAX_LEVEL = 200;
   private final Connection connection;
   private final MessageFactory messageFactory;
+  private final PurchaseManager purchaseManager;
   private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `levels` ( `id` INT NOT NULL AUTO_INCREMENT , `userId` VARCHAR(255) NOT NULL , `level` BIGINT(255) NOT NULL DEFAULT '0' , UNIQUE (`id`)) ENGINE = InnoDB;";
   private final String SELECT_USER = "SELECT * FROM `levels` WHERE userId = ?;";
   private final String CREATE_USER = "INSERT INTO `levels` (userId) VALUES (?);";
@@ -49,9 +52,10 @@ public class Leveling extends ListenerAdapter {
   private HashMap<String, OffsetDateTime> lastChatTimes = new HashMap<>();
   private HashMap<String, Integer> levelCache = new HashMap<>();
 
-  public Leveling(SQLManager sqlManager, MessageFactory messageFactory) {
+  public Leveling(SQLManager sqlManager, MessageFactory messageFactory, PurchaseManager purchaseManager) {
     this.connection = sqlManager.getConnection();
     this.messageFactory = messageFactory;
+    this.purchaseManager = purchaseManager;
     try {
       connection.createStatement().executeUpdate(CREATE_TABLE);
     } catch (SQLException e) {
@@ -217,7 +221,9 @@ public class Leveling extends ListenerAdapter {
     if (isPastUser(e.getUser().getId())) {
       int level = toLevel(getExp(e.getUser().getId()));
 
-      if (level >= 50) {
+      if (level >= 65) {
+        C.giveRoles(e.getMember(), Roles.GAMBLE1, Roles.LEGENDARY, Roles.OG, Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
+      } else if (level >= 50) {
         C.giveRoles(e.getMember(), Roles.OG, Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
       } else if (level >= 30) {
         C.giveRoles(e.getMember(), Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
@@ -258,6 +264,14 @@ public class Leveling extends ListenerAdapter {
       case 50: {
         sb.append("\n    + OG Rank");
         C.giveRole(member, Roles.OG);
+        break;
+      }
+      case 65: {
+        sb.append("\n    + Legendary Rank");
+        sb.append("\n    + Gamble x1 Multiplier");
+        C.giveRole(member, Roles.LEGENDARY);
+        C.giveRole(member, Roles.GAMBLE1);
+        purchaseManager.addReward(member.getUser().getId(), Reward.DAILY1);
         break;
       }
       default: { //No Special Reward: Regular Level-Up Message.

@@ -229,7 +229,7 @@ public class Main extends ListenerAdapter {
     eventListeners.add(new SubmitPinner());
 
     Logger.info("Loading Leveling Manager...");
-    eventListeners.add(leveling = new Leveling(sqlManager, messageFactory));
+    eventListeners.add(leveling = new Leveling(sqlManager, messageFactory, purchaseManager));
 
     Logger.info("Loading Game-True-False");
     eventListeners.add(new TrueFalseGame());
