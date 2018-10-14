@@ -28,6 +28,7 @@ import io.github.jroy.happybot.commands.report.ReportCommand;
 import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.*;
 import io.github.jroy.happybot.events.star.StarMessages;
+import io.github.jroy.happybot.games.GameManager;
 import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.sql.*;
 import io.github.jroy.happybot.sql.og.OGCommandManager;
@@ -68,6 +69,7 @@ public class Main extends ListenerAdapter {
   private static DiscordThemerImpl themeManager;
   private static MessageFactory messageFactory;
   private static EventManager eventManager;
+  private static GameManager gameManager;
   private static League league;
   private static Reddit reddit;
   private static StarMessages starMessages;
@@ -236,6 +238,9 @@ public class Main extends ListenerAdapter {
 
     Logger.info("Loading OG Command Manager...");
     eventListeners.add(ogCommandManager = new OGCommandManager(sqlManager));
+
+    Logger.info("Loading Game Manager...");
+    eventListeners.add(gameManager = new GameManager());
 
     return eventListeners;
   }
