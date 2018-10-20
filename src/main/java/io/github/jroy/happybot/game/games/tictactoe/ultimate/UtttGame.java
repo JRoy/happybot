@@ -1,10 +1,12 @@
-package io.github.jroy.happybot.games.ultimatetictactoe;
+package io.github.jroy.happybot.game.games.tictactoe.ultimate;
 
+import io.github.jroy.happybot.game.games.tictactoe.TicTacToeBoard;
+import io.github.jroy.happybot.game.games.tictactoe.TicTacToeType;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.core.entities.User;
 
-public class UltimateTicTacToe {
+public class UtttGame {
   @Getter
   private final User first;
   @Getter
@@ -15,7 +17,7 @@ public class UltimateTicTacToe {
   @Setter
   private int board = -1;
 
-  public UltimateTicTacToe(User first, User second) {
+  public UtttGame(User first, User second) {
     this.first = first;
     this.second = second;
     this.turn = Math.random() < 0.5 ? TicTacToeType.CROSS : TicTacToeType.NOUGHT;

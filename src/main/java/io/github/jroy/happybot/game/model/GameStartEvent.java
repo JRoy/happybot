@@ -1,16 +1,11 @@
 package io.github.jroy.happybot.game.model;
 
 import io.github.jroy.happybot.game.ActiveGame;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
+@Getter
 public class GameStartEvent {
-
-  private ActiveGame activeGame;
-
-  public GameStartEvent(ActiveGame activeGame) {
-    this.activeGame = activeGame;
-  }
-
-  public ActiveGame getActiveGame() {
-    return activeGame;
-  }
+  private final ActiveGame activeGame;
 }

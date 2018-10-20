@@ -1,5 +1,7 @@
 package io.github.jroy.happybot.game;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -13,13 +15,20 @@ import java.util.Set;
 
 public class ActiveGame {
 
+  @Getter
   private int id;
+  @Getter
   private TextChannel channel;
+  @Getter
   private Game game;
+  @Getter
   private Member creator;
+  @Getter
   private Set<Member> players;
 
   private Webhook webhook;
+  @Getter
+  @Setter
   private OffsetDateTime lastAction;
 
   public ActiveGame(int id, TextChannel channel, Webhook webhook, Game game, Member creator, Set<Member> players) {
@@ -57,33 +66,5 @@ public class ActiveGame {
         .addEmbeds(embed)
         .build());
     client.close();
-  }
-
-  public Game getGame() {
-    return game;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public TextChannel getChannel() {
-    return channel;
-  }
-
-  public Set<Member> getPlayers() {
-    return players;
-  }
-
-  public Member getCreator() {
-    return creator;
-  }
-
-  public void setLastAction(OffsetDateTime lastAction) {
-    this.lastAction = lastAction;
-  }
-
-  public OffsetDateTime getLastAction() {
-    return lastAction;
   }
 }

@@ -1,14 +1,15 @@
 package io.github.jroy.happybot.game.games.blank;
 
 import io.github.jroy.happybot.game.Game;
+import io.github.jroy.happybot.game.GameManager;
 import io.github.jroy.happybot.game.model.GameMessageReceived;
 import io.github.jroy.happybot.game.model.GameReactionReceived;
 import io.github.jroy.happybot.game.model.GameStartEvent;
 
 public class BlankGame extends Game {
 
-  public BlankGame() {
-    super("Blank", "Debug Game", 1, 1);
+  public BlankGame(GameManager manager) {
+    super(manager, "Blank", "Debug Game", 1, 1);
   }
 
   @Override

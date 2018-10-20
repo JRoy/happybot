@@ -26,8 +26,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class GameManager extends ListenerAdapter {
-
-  private int GAME_ID_COUNT = 1;
+  private int gameId = 1;
   private boolean statusLoaded = false;
 
   /**
@@ -176,7 +175,7 @@ public class GameManager extends ListenerAdapter {
    * @param game    The requested game.
    */
   public void spawnGame(Message message, Member member, Game game, Set<Member> players) {
-    int gameId = GAME_ID_COUNT++;
+    int gameId = this.gameId++;
     Channel newChannel = Categories.GAMES.getCategory().createTextChannel("game-" + gameId).setTopic("Playing " + game.getName() + "! Started by " + C.getFullName(member.getUser()))
         .addPermissionOverride(C.getGuild().getPublicRole(), null, EnumSet.of(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ))
         .addPermissionOverride(member, EnumSet.of(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ), null)

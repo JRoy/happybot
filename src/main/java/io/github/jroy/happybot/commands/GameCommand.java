@@ -10,11 +10,9 @@ import io.github.jroy.happybot.game.model.PendingGameToken;
 import io.github.jroy.happybot.util.C;
 
 public class GameCommand extends CommandBase {
+  private final GameManager gameManager;
 
-  private GameManager gameManager;
-
-  @SuppressWarnings("FieldCanBeLocal")
-  private String helpMsg = "**Game Command Help:**\n" +
+  private static final String HELP_MESSAGE = "**Game Command Help:**\n" +
       "`^game create <game name>` - Creates a game and prompts people to join\n" +
       "`^game start` - Starts a game if you have enough players\n" +
       "`^game stop` - Stops a game\n" +
@@ -29,27 +27,26 @@ public class GameCommand extends CommandBase {
   @Override
   protected void executeCommand(CommandEvent e) {
     if (e.getArgs().isEmpty()) {
-      e.replyError(helpMsg);
+      e.replyError(HELP_MESSAGE);
       return;
     }
     switch (e.getSplitArgs()[0]) {
       case "create": {
         if (e.getSplitArgs().length < 2) {
-          e.replyError(helpMsg);
+          e.replyError(HELP_MESSAGE);
           return;
         }
         if (!GameType.isGame(e.getSplitArgs()[1].toUpperCase())) {
-          e.replyError("Invalid Game! For a list of game ids do `^game list`");
+          e.replyError("Invalid Game! For a list of game IDs use `^game list`");
           return;
-        }
-        if (gameManager.isActive(e.getMember().getUser().getId())) {
+        } else if (gameManager.isActive(e.getMember().getUser().getId())) {
           e.replyError("You are already active in the game system! You must be out of a game and not pending in a game to create one.");
           return;
         }
         GameType gameType = GameType.valueOf(e.getSplitArgs()[1].toUpperCase());
 
         if (!e.hasRole(gameType.getRequiredRole())) {
-          e.replyError("You do not have permissions to create this game!");
+          e.replyError("You do not have permission to create this game!");
           return;
         }
 
@@ -90,10 +87,10 @@ public class GameCommand extends CommandBase {
         sb.append(C.bold("Game List"));
         for (GameType curType : GameType.values()) {
           try {
-            Game curGame = curType.getGameClass().newInstance();
+            Game curGame = curType.getGameClass().getConstructor(GameManager.class).newInstance(gameManager);
             sb.append(C.bold(curGame.getName())).append(" (ID: ").append(curType.name()).append(") - ").append(curGame.getDescription()).append(" | (").append(curGame.getMinPlayers()).append(" Min, ").append(curGame.getMaxPlayers()).append(" Max)");
-          } catch (InstantiationException | IllegalAccessException e1) {
-            e1.printStackTrace();
+          } catch (ReflectiveOperationException ex) {
+            ex.printStackTrace();
           }
 
         }
@@ -107,7 +104,7 @@ public class GameCommand extends CommandBase {
         break;
       }
       default: {
-        e.replyError(helpMsg);
+        e.replyError(HELP_MESSAGE);
         break;
       }
     }

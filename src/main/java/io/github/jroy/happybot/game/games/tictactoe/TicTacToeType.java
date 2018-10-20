@@ -1,4 +1,4 @@
-package io.github.jroy.happybot.games.ultimatetictactoe;
+package io.github.jroy.happybot.game.games.tictactoe;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
