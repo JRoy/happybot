@@ -1,6 +1,6 @@
-package io.github.jroy.happybot.games.model;
+package io.github.jroy.happybot.game.model;
 
-import io.github.jroy.happybot.games.Game;
+import io.github.jroy.happybot.game.Game;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 

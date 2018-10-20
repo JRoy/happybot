@@ -1,9 +1,11 @@
-package io.github.jroy.happybot.games;
+package io.github.jroy.happybot.game;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import io.github.jroy.happybot.Main;
-import io.github.jroy.happybot.games.model.PendingGameToken;
+import io.github.jroy.happybot.game.model.GameMessageReceived;
+import io.github.jroy.happybot.game.model.GameReactionReceived;
+import io.github.jroy.happybot.game.model.GameStartEvent;
+import io.github.jroy.happybot.game.model.PendingGameToken;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Categories;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -12,6 +14,7 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
@@ -50,14 +53,13 @@ public class GameManager extends ListenerAdapter {
    */
   private Map<String, Integer> channelToIdMap = new HashMap<>();
   /**
-   * List of users active in games; Whether they created it of are playing in one.
+   * List of users active in game; Whether they created it of are playing in one.
    * <p>
    * String: User ID
    */
   private Set<String> activeUsers = new HashSet<>();
 
   public GameManager() {
-    Main.getJda().addEventListener(this);
     new Timer().scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
@@ -84,7 +86,7 @@ public class GameManager extends ListenerAdapter {
 
   @Override
   public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
-    if (pendingStart.asMap().containsKey(e.getMessageId())) {
+    if (pendingStart.asMap().containsKey(e.getMessageId()) && e.getReactionEmote().getEmote().getName().equalsIgnoreCase("\uD83D\uDC4D")) {
       PendingGameToken token = pendingStart.getIfPresent(e.getMessageId());
       String userId = e.getMember().getUser().getId();
       assert token != null;
@@ -93,19 +95,67 @@ public class GameManager extends ListenerAdapter {
         activeUsers.add(e.getMember().getUser().getId());
         if (token.getPlayers().size() == token.getGame().getMaxPlayers()) {
           startGame(token.getMember());
+          return;
         }
         if (token.getPlayers().size() >= token.getGame().getMinPlayers()) {
           token.getMessage().getTextChannel().sendMessage("Hello " + token.getMember().getAsMention() + ", your game now has enough people to start it! Please do `^game start` to start your game.").queue();
         }
       }
     }
+    if (channelToIdMap.containsKey(e.getChannel().getId())) {
+      activeGames.get(channelToIdMap.get(e.getChannel().getId())).getGame().reactionReceived(new GameReactionReceived(e, activeGames.get(channelToIdMap.get(e.getChannel().getId()))));
+    }
+  }
+
+  @Override
+  public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
+    if (channelToIdMap.containsKey(e.getChannel().getId()) && !e.isWebhookMessage() && !e.getAuthor().isBot()) {
+      int id = channelToIdMap.get(e.getChannel().getId());
+      activeGames.get(id).setLastAction(OffsetDateTime.now().plus(10, ChronoUnit.MINUTES));
+      activeGames.get(id).getGame().messageReceived(new GameMessageReceived(activeGames.get(id), e));
+    }
+  }
+
+  public boolean isPendingUser(String userId) {
+    return pendingUsers.asMap().containsKey(userId);
+  }
+
+  public PendingGameToken getPendingToken(Member member) {
+    return getPendingToken(pendingUsers.asMap().get(member.getUser().getId()));
+  }
+
+  public PendingGameToken getPendingToken(String messageId) {
+    return pendingStart.asMap().get(messageId);
+  }
+
+  public boolean isActive(String userId) {
+    return activeUsers.contains(userId);
+  }
+
+  /**
+   * Determains if a user has a game in progress.
+   * @param userId The user id of the creator of the game
+   * @return Returns true if the the user id provided has a game in progress.
+   */
+  public boolean isHosting(String userId) {
+    for (Map.Entry<Integer, ActiveGame> curEntry : activeGames.entrySet()) {
+      if (curEntry.getValue().getCreator().getUser().getId().equals(userId)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public void pendGame(Message message, Member member, Game game) {
-    Message prompt = message.getTextChannel().sendMessage(new EmbedBuilder().setTitle("New Game Started!").setDescription(C.getFullName(member.getUser()) + " has started a game. Please react with :+1: to join the game!\n**Game:** " + game.getName() + "\n**Description**: " + game.getDescription() + "\n\n**This invite will expire in 5 minutes!**").build()).complete();
+    Message prompt = message.getTextChannel().sendMessage(new EmbedBuilder().setTitle("New Game Started!").setDescription(C.getFullName(member.getUser()) + " has started a game. Please react with :+1: to join the game!\n**Game:** " + game.getName() + "\n**Description:** " + game.getDescription() + "\n**Minimum Players:** " + game.getMinPlayers() + "\n**Maximum Players:** " + game.getMaxPlayers() + "\n\n**This invite will expire in 5 minutes!**").build()).complete();
     prompt.addReaction("\uD83D\uDC4D").complete();
-    pendingStart.put(prompt.getId(), new PendingGameToken(prompt.getId(), message, member, game));
+    PendingGameToken token = new PendingGameToken(prompt.getId(), message, member, game);
+    pendingStart.put(prompt.getId(), token);
     pendingUsers.put(member.getUser().getId(), prompt.getId());
+    activeUsers.add(member.getUser().getId());
+    if (token.getGame().getMaxPlayers() == 1) {
+      startGame(member);
+    }
   }
 
   public void startGame(Member member) {
@@ -134,18 +184,34 @@ public class GameManager extends ListenerAdapter {
     for (Member curPlayer : players) {
       newChannel.getPermissionOverride(curPlayer).getManager().grant(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue();
     }
-    C.getGuild().getTextChannelById(newChannel.getId()).createWebhook("game communication").complete().getId();
-    ActiveGame activeGame = new ActiveGame(gameId, message.getTextChannel(), game, member, players);
+    ActiveGame activeGame = new ActiveGame(gameId, (TextChannel) newChannel, C.getGuild().getTextChannelById(newChannel.getId()).createWebhook("game communication").complete(), game, member, players);
     activeGames.put(gameId, activeGame);
     channelToIdMap.put(newChannel.getId(), gameId);
     activeUsers.add(member.getUser().getId());
+    activeGame.getGame().gameStart(new GameStartEvent(activeGame));
   }
 
-  @Override
-  public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
-    if (channelToIdMap.containsKey(e.getChannel().getId())) {
-      int id = channelToIdMap.get(e.getChannel().getId());
-      activeGames.get(id).setLastAction(OffsetDateTime.now().plus(10, ChronoUnit.MINUTES));
+  /**
+   * Stops a game and cleans up the channels.
+   *
+   * @param member The creator of the game.
+   */
+  public void stopGame(Member member) {
+    ActiveGame activeGame = null;
+    for (Map.Entry<Integer, ActiveGame> curEntry : activeGames.entrySet()) {
+      if (curEntry.getValue().getCreator().getUser().getId().equals(member.getUser().getId())) {
+        activeGame = curEntry.getValue();
+      }
     }
+    if (activeGame == null) {
+      return;
+    }
+    activeUsers.remove(activeGame.getCreator().getUser().getId());
+    for (Member curPlayer : activeGame.getPlayers()) {
+      activeUsers.remove(curPlayer.getUser().getId());
+    }
+    channelToIdMap.remove(activeGame.getChannel().getId());
+    activeGame.getChannel().delete().queue();
+    activeGames.remove(activeGame.getId());
   }
 }

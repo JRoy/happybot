@@ -28,7 +28,7 @@ import io.github.jroy.happybot.commands.report.ReportCommand;
 import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.*;
 import io.github.jroy.happybot.events.star.StarMessages;
-import io.github.jroy.happybot.games.GameManager;
+import io.github.jroy.happybot.game.GameManager;
 import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.sql.*;
 import io.github.jroy.happybot.sql.og.OGCommandManager;
@@ -294,6 +294,7 @@ public class Main extends ListenerAdapter {
         new DeleteRemindCommand(eventManager),
         new SelfOgMngmtCommand(ogCommandManager),
         new OgMngmtCommand(ogCommandManager),
+        new GameCommand(gameManager),
 
         //Staff Tools
 

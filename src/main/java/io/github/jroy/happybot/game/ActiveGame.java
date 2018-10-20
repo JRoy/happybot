@@ -1,10 +1,9 @@
-package io.github.jroy.happybot.games;
+package io.github.jroy.happybot.game;
 
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.Webhook;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.webhook.WebhookClient;
 import net.dv8tion.jda.webhook.WebhookMessageBuilder;
 
@@ -12,7 +11,7 @@ import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
-public class ActiveGame extends ListenerAdapter {
+public class ActiveGame {
 
   private int id;
   private TextChannel channel;
@@ -23,13 +22,13 @@ public class ActiveGame extends ListenerAdapter {
   private Webhook webhook;
   private OffsetDateTime lastAction;
 
-  public ActiveGame(int id, TextChannel channel, Game game, Member creator, Set<Member> players) {
+  public ActiveGame(int id, TextChannel channel, Webhook webhook, Game game, Member creator, Set<Member> players) {
     this.id = id;
     this.channel = channel;
     this.game = game;
     this.creator = creator;
     this.players = players;
-    this.webhook = channel.getWebhooks().complete().get(0);
+    this.webhook = webhook;
     this.lastAction = OffsetDateTime.now().plus(10, ChronoUnit.MINUTES);
     players.add(creator);
   }

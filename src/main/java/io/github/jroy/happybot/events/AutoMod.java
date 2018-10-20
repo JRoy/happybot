@@ -123,13 +123,13 @@ public class AutoMod extends ListenerAdapter {
   public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
     if (event.getMember().getUser().getId().equals("194473148161327104") && event.getRoles().get(0).getId().equals(Roles.EXP_SPAMMER.getId())) {
       C.removeRole(event.getMember(), Roles.EXP_SPAMMER);
-      Channels.ARCHIVED_RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-      Channels.ARCHIVED_RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-      Channels.ARCHIVED_RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-      Channels.ARCHIVED_RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-      Channels.ARCHIVED_RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-      Channels.ARCHIVED_RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
-      Channels.ARCHIVED_RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+      Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+      Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+      Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+      Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+      Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+      Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
+      Channels.RANDOM.getChannel().sendMessage("TEDDY YOU HOE").queue();
     }
   }
 

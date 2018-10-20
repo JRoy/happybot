@@ -1,6 +1,8 @@
-package io.github.jroy.happybot.games;
+package io.github.jroy.happybot.game;
 
-import io.github.jroy.happybot.games.model.GameMessageReceived;
+import io.github.jroy.happybot.game.model.GameMessageReceived;
+import io.github.jroy.happybot.game.model.GameReactionReceived;
+import io.github.jroy.happybot.game.model.GameStartEvent;
 
 public abstract class Game {
 
@@ -16,7 +18,11 @@ public abstract class Game {
     this.maxPlayers = maxPlayers;
   }
 
+  protected abstract void gameStart(GameStartEvent event);
+
   protected abstract void messageReceived(GameMessageReceived event);
+
+  protected abstract void reactionReceived(GameReactionReceived event);
 
   public String getName() {
     return name;
