@@ -32,18 +32,16 @@ import java.awt.*;
 import java.time.OffsetDateTime;
 
 public class LoggingFactory extends ListenerAdapter {
-
-  @SuppressWarnings("FieldCanBeLocal")
-  private final String webhookId = "466642500153769984";
+  private static final String WEBHOOK_ID = "466642500153769984";
   private Webhook webhook = null;
-  private Cache<String, Message> cache = CacheBuilder.newBuilder()
+  private final Cache<String, Message> cache = CacheBuilder.newBuilder()
       .maximumSize(100)
       .build();
 
   public LoggingFactory() {
     Logger.info("Loading Logger Factory...");
     for (Webhook curHook : Channels.LOG.getChannel().getWebhooks().complete()) {
-      if (curHook.getId().equals(webhookId)) {
+      if (curHook.getId().equals(WEBHOOK_ID)) {
         webhook = curHook;
         Main.getJda().addEventListener(this);
         Logger.info("Loaded Logger Factory!");

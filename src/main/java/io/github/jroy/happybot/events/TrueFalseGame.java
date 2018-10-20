@@ -11,9 +11,6 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.util.concurrent.TimeUnit;
 
 public class TrueFalseGame extends ListenerAdapter {
-
-  private int curCount = 0;
-
   @Override
   public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
     if (e.getChannel().getId().equals(Channels.TRUE_FALSE_GAME.getId())) {
@@ -28,7 +25,6 @@ public class TrueFalseGame extends ListenerAdapter {
 //        C.privChannel(e.getMember(), "You may not respond to your own true/false!");
 //        return;
 //      }
-      curCount++;
     }
   }
 

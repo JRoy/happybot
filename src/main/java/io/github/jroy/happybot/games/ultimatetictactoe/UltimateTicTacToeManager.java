@@ -13,10 +13,10 @@ import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 public class UltimateTicTacToeManager extends ListenerAdapter {
-  private Cache<Long, User> waitingForPlayers = CacheBuilder.newBuilder()
+  private final Cache<Long, User> waitingForPlayers = CacheBuilder.newBuilder()
       .expireAfterWrite(5, TimeUnit.MINUTES)
       .build();
-  private Cache<Long, UltimateTicTacToe> games = CacheBuilder.newBuilder()
+  private final Cache<Long, UltimateTicTacToe> games = CacheBuilder.newBuilder()
       .expireAfterAccess(10, TimeUnit.MINUTES)
       .build();
 

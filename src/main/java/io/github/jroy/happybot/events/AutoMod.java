@@ -8,6 +8,7 @@ import io.github.jroy.happybot.util.Constants;
 import io.github.jroy.happybot.util.Emote;
 import io.github.jroy.happybot.util.Roles;
 import io.github.jroy.happybot.util.RuntimeEditor;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Member;
@@ -27,16 +28,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
+@RequiredArgsConstructor
 public class AutoMod extends ListenerAdapter {
-
-  private final Pattern pattern;
-  private List<Message> processedMessages = new ArrayList<>();
-  private MessageFactory messageFactory;
-
-  public AutoMod(MessageFactory messageFactory) {
-    this.messageFactory = messageFactory;
-    pattern = Pattern.compile("(?:https?://)?discord(?:app\\.com/invite|\\.gg)/(\\S+)", Pattern.CASE_INSENSITIVE);
-  }
+  private final Pattern pattern = Pattern.compile("(?:https?://)?discord(?:app\\.com/invite|\\.gg)/(\\S+)", Pattern.CASE_INSENSITIVE);
+  private final List<Message> processedMessages = new ArrayList<>();
+  private final MessageFactory messageFactory;
 
   //Update Notification Resolver
   @Override

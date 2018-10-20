@@ -1,9 +1,11 @@
 package io.github.jroy.happybot.util;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.core.entities.TextChannel;
 
+@RequiredArgsConstructor
 public enum Channels {
-
   RULES("264966606528970752"),
   WELCOME("237363812842340363"),
   LIVE("294588669682122752"),
@@ -28,17 +30,10 @@ public enum Channels {
   TESTING("267145626469400586"),
   SUPER_ADMIN("359135263638814721");
 
-  private String channelId;
-
-  Channels(String channelId) {
-    this.channelId = channelId;
-  }
-
-  public String getId() {
-    return channelId;
-  }
+  @Getter
+  private final String id;
 
   public TextChannel getChannel() {
-    return C.getGuild().getTextChannelById(channelId);
+    return C.getGuild().getTextChannelById(id);
   }
 }

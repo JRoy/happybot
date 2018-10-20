@@ -1,5 +1,8 @@
 package io.github.jroy.happybot.util;
 
+import lombok.Data;
+
+@Data
 public class BotConfig {
 
   private final String botToken;
@@ -18,79 +21,4 @@ public class BotConfig {
   private final String twitterOauthSecret;
   private final String twitterAccessToken;
   private final String twitterAccessTokenSecret;
-
-  public BotConfig(String botToken, String hypixelApiKey, String riotApiKey, String sqlPassword, String prefix, String alternativePrefix, String redditUsername, String redditPassword, String redditClientId, String redditClientSecret, String twitterOauthKey, String twitterOauthSecret, String twitterAccessToken, String twitterAccessTokenSecret) {
-    this.botToken = botToken;
-    this.hypixelApiKey = hypixelApiKey;
-    this.riotApiKey = riotApiKey;
-    this.sqlPassword = sqlPassword;
-    this.prefix = prefix;
-    this.alternativePrefix = alternativePrefix;
-
-    this.redditUsername = redditUsername;
-    this.redditPassword = redditPassword;
-    this.redditClientId = redditClientId;
-    this.redditClientSecret = redditClientSecret;
-
-    this.twitterOauthKey = twitterOauthKey;
-    this.twitterOauthSecret = twitterOauthSecret;
-    this.twitterAccessToken = twitterAccessToken;
-    this.twitterAccessTokenSecret = twitterAccessTokenSecret;
-  }
-
-  public String getBotToken() {
-    return botToken;
-  }
-
-  public String getHypixelApiKey() {
-    return hypixelApiKey;
-  }
-
-  public String getRiotApiKey() {
-    return riotApiKey;
-  }
-
-  public String getSqlPassword() {
-    return sqlPassword;
-  }
-
-  public String getPrefix() {
-    return prefix;
-  }
-
-  public String getAlternativePrefix() {
-    return alternativePrefix;
-  }
-
-  public String getRedditUsername() {
-    return redditUsername;
-  }
-
-  public String getRedditPassword() {
-    return redditPassword;
-  }
-
-  public String getRedditClientId() {
-    return redditClientId;
-  }
-
-  public String getRedditClientSecret() {
-    return redditClientSecret;
-  }
-
-  public String getTwitterOauthKey() {
-    return twitterOauthKey;
-  }
-
-  public String getTwitterOauthSecret() {
-    return twitterOauthSecret;
-  }
-
-  public String getTwitterAccessToken() {
-    return twitterAccessToken;
-  }
-
-  public String getTwitterAccessTokenSecret() {
-    return twitterAccessTokenSecret;
-  }
 }

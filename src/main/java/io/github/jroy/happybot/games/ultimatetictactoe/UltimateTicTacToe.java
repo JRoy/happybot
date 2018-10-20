@@ -1,12 +1,18 @@
 package io.github.jroy.happybot.games.ultimatetictactoe;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.dv8tion.jda.core.entities.User;
 
 public class UltimateTicTacToe {
+  @Getter
   private final User first;
+  @Getter
   private final User second;
   private TicTacToeBoard[] boards = new TicTacToeBoard[9];
   private TicTacToeType turn;
+  @Getter
+  @Setter
   private int board = -1;
 
   public UltimateTicTacToe(User first, User second) {
@@ -52,17 +58,6 @@ public class UltimateTicTacToe {
 
   public User getNext() {
     return turn == TicTacToeType.CROSS ? second : first;
-  }
-
-  public int getBoard() {
-    return board;
-  }
-
-  public void setBoard(int board) {
-    if(board < 0 || board > 8) {
-      throw new IllegalArgumentException("board is not in bounds");
-    }
-    this.board = board;
   }
 
   public boolean makeTurn(int position) {

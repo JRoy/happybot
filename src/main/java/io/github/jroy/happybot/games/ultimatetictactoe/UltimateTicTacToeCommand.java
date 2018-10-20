@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 public class UltimateTicTacToeCommand extends CommandBase {
-  private UltimateTicTacToeManager manager;
+  private final UltimateTicTacToeManager manager;
 
   public UltimateTicTacToeCommand(UltimateTicTacToeManager manager) {
     super("utimatettt", "", "Start a game of Ultimate Tic-Tac-Toe", CommandCategory.FUN);

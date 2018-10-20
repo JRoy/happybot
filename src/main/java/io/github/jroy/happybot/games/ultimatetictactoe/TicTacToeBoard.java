@@ -1,12 +1,11 @@
 package io.github.jroy.happybot.games.ultimatetictactoe;
 
+import lombok.Getter;
+
 public class TicTacToeBoard {
+  @Getter
   private TicTacToeType winner;
   private TicTacToeType[] board = new TicTacToeType[9];
-
-  public TicTacToeType getWinner() {
-    return winner;
-  }
 
   public TicTacToeType[] getBoard() {
     if(winner == TicTacToeType.CROSS) {

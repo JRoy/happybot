@@ -2,20 +2,14 @@ package io.github.jroy.happybot.events;
 
 import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.Channels;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+@RequiredArgsConstructor
 public class WelcomeMessage extends ListenerAdapter {
-
-  private MessageFactory messageFactory;
-
-  /**
-   * Creates an WelcomeMessage Instance!
-   */
-  public WelcomeMessage(MessageFactory messageFactory) {
-    this.messageFactory = messageFactory;
-  }
+  private final MessageFactory messageFactory;
 
   @Override
   public void onGuildMemberJoin(GuildMemberJoinEvent event) {
