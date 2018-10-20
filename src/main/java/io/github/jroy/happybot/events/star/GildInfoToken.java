@@ -8,13 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Getter
 class GildInfoToken {
-  @Getter
   private final String gilderId;
-  @Getter
   private final String targetId;
-
-  @Getter
   private final List<Message> causedMessages = new ArrayList<>();
 
   public void addCaused(Message message) {

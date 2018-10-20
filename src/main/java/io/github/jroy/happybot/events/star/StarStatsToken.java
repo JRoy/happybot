@@ -1,10 +1,12 @@
 package io.github.jroy.happybot.events.star;
 
+import lombok.Getter;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Getter
 public class StarStatsToken {
-
   private final long starCount;
   private final long gildCount;
   private final long heelCount;
@@ -14,17 +16,5 @@ public class StarStatsToken {
     starCount = resultSet.getLong("stars");
     gildCount = resultSet.getLong("gilds");
     heelCount = resultSet.getLong("heels");
-  }
-
-  public long getStarCount() {
-    return starCount;
-  }
-
-  public long getGildCount() {
-    return gildCount;
-  }
-
-  public long getHeelCount() {
-    return heelCount;
   }
 }

@@ -8,6 +8,8 @@ import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import io.github.jroy.happybot.util.RuntimeEditor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
 
@@ -83,23 +85,11 @@ public class WarningsCommand extends CommandBase {
     return new WarningToken(builder, warnings);
   }
 
+  @RequiredArgsConstructor
+  @Getter
   private class WarningToken {
-
-    private StringBuilder builder;
-    private int warnings;
-
-    WarningToken(StringBuilder builder, int warnings) {
-      this.builder = builder;
-      this.warnings = warnings;
-    }
-
-    private StringBuilder getBuilder() {
-      return builder;
-    }
-
-    private int getWarnings() {
-      return warnings;
-    }
+    private final StringBuilder builder;
+    private final int warnings;
   }
 
 }

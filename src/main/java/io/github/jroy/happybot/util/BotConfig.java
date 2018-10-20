@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class BotConfig {
-
   private final String botToken;
   private final String hypixelApiKey;
   private final String riotApiKey;

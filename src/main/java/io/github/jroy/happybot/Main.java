@@ -98,6 +98,7 @@ import io.github.jroy.happybot.sql.timed.EventManager;
 import io.github.jroy.happybot.theme.DiscordThemerImpl;
 import io.github.jroy.happybot.util.BotConfig;
 import io.github.jroy.happybot.util.Logger;
+import lombok.Getter;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -119,6 +120,7 @@ public class Main extends ListenerAdapter {
 
   private static YamlFile yamlFile;
   private static BotConfig botConfig;
+  @Getter
   private static JDA jda;
   private static CommandFactory commandFactory;
   private static TwitterCentre twitterCentre;
@@ -138,6 +140,7 @@ public class Main extends ListenerAdapter {
   private static Leveling leveling;
   private static List<EventListener> eventListeners = new ArrayList<>();
   private Main instance = this;
+  @Getter
   private static CommandClient commandClient;
 
   public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException, InterruptedException {
@@ -410,19 +413,5 @@ public class Main extends ListenerAdapter {
     File file = new File(filename);
     boolean doesNotExist = file.createNewFile();
     return file;
-  }
-
-
-  /**
-   * An easy way to get our JDA Instance!
-   *
-   * @return Returns the JDA Instance.
-   */
-  public static JDA getJda() {
-    return jda;
-  }
-
-  public static CommandClient getCommandClient() {
-    return commandClient;
   }
 }

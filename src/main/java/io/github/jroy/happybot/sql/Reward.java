@@ -3,7 +3,11 @@ package io.github.jroy.happybot.sql;
 import io.github.jroy.happybot.commands.money.ShopReward;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
+@Getter
 public enum Reward {
   DAILY1(1, "x1.5 Daily Reward", 60000, e -> {
     C.giveRole(e.getMember(), Roles.GAMBLE1, "Added from ^shop reward");
@@ -21,17 +25,10 @@ public enum Reward {
   COUNTER(6, "(One Time Use) Block a Robbery", 820, e -> {
   });
 
-  private int id;
-  private String display;
-  private int amount;
-  private ShopReward reward;
-
-  Reward(int id, String display, int amount, ShopReward reward) {
-    this.id = id;
-    this.display = display;
-    this.amount = amount;
-    this.reward = reward;
-  }
+  private final int id;
+  private final String display;
+  private final int amount;
+  private final ShopReward reward;
 
   public static boolean containsID(int id) {
     for (Reward curReward : Reward.values()) {
@@ -49,21 +46,5 @@ public enum Reward {
       }
     }
     return null;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public String getDisplay() {
-    return display;
-  }
-
-  public int getAmount() {
-    return amount;
-  }
-
-  public ShopReward getReward() {
-    return reward;
   }
 }
