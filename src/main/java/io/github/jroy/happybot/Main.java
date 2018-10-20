@@ -30,6 +30,7 @@ import io.github.jroy.happybot.events.*;
 import io.github.jroy.happybot.events.star.StarMessages;
 import io.github.jroy.happybot.games.ultimatetictactoe.UltimateTicTacToeCommand;
 import io.github.jroy.happybot.games.ultimatetictactoe.UltimateTicTacToeManager;
+import io.github.jroy.happybot.game.GameManager;
 import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.sql.*;
 import io.github.jroy.happybot.sql.og.OGCommandManager;
@@ -71,6 +72,7 @@ public class Main extends ListenerAdapter {
   private static DiscordThemerImpl themeManager;
   private static MessageFactory messageFactory;
   private static EventManager eventManager;
+  private static GameManager gameManager;
   private static League league;
   private static Reddit reddit;
   private static StarMessages starMessages;
@@ -234,16 +236,13 @@ public class Main extends ListenerAdapter {
     eventListeners.add(new SubmitPinner());
 
     Logger.info("Loading Leveling Manager...");
-    eventListeners.add(leveling = new Leveling(sqlManager, messageFactory));
+    eventListeners.add(leveling = new Leveling(sqlManager, messageFactory, purchaseManager));
 
     Logger.info("Loading Game-True-False");
     eventListeners.add(new TrueFalseGame());
 
     Logger.info("Loading OG Command Manager...");
     eventListeners.add(ogCommandManager = new OGCommandManager(sqlManager));
-
-    Logger.info("Loading Ultimate Tic Tac Toe Manager...");
-    eventListeners.add(ultimateTicTacToeManager = new UltimateTicTacToeManager());
 
     return eventListeners;
   }
@@ -298,6 +297,7 @@ public class Main extends ListenerAdapter {
         new DeleteRemindCommand(eventManager),
         new SelfOgMngmtCommand(ogCommandManager),
         new OgMngmtCommand(ogCommandManager),
+        new GameCommand(gameManager),
 
         //Staff Tools
 
@@ -324,6 +324,7 @@ public class Main extends ListenerAdapter {
         new MuteCommand(eventManager),
         new MessageFactoryCommand(messageFactory),
         new EmoteCommand(),
+        new StarGoalCommand(starMessages),
 
         //Bot Management
 

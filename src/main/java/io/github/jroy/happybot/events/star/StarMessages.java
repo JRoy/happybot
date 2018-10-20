@@ -16,6 +16,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,23 +27,147 @@ import java.util.concurrent.CompletableFuture;
 @SuppressWarnings("FieldCanBeLocal")
 public class StarMessages extends ListenerAdapter {
   private static final String NEW_GILDED_MESSAGE = "New Gilded Message";
-  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS starstats ( `id` INT(50) NOT NULL AUTO_INCREMENT , `userid` VARCHAR(50) NOT NULL , `stars` BIGINT(255) NOT NULL DEFAULT '0' , `gilds` BIGINT(255) NOT NULL DEFAULT '0' , `heels` BIGINT(255) NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
+  /**
+   * This Table Stores Statistics Related to the Amount of Starred, Heeled, and Gilded Messages a User Has
+   * <p>
+   * `id`: INT
+   * `userid`: VARCHAR (String) - The id of the user
+   * `stars`: BIGINT (Long) - The amount of stars the user has
+   * `gilds`: BIGINT (Long) - The amount of gilds the user has
+   * `heels`: BIGINT (Long) - The amount of heels the user has
+   */
+  private final String CREATE_STAT_TABLE = "CREATE TABLE IF NOT EXISTS starstats ( `id` INT(50) NOT NULL AUTO_INCREMENT , `userid` VARCHAR(50) NOT NULL , `stars` BIGINT(255) NOT NULL DEFAULT '0' , `gilds` BIGINT(255) NOT NULL DEFAULT '0' , `heels` BIGINT(255) NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
   private final String SELECT_USER = "SELECT * FROM starstats WHERE userid = ?;";
   private final String CREATE_USER = "INSERT INTO starstats (userId) VALUES (?);";
   private final String UPDATE_USER = "UPDATE starstats SET stars = ?, gilds = ?, heels = ? WHERE userId = ?;";
+
+  /**
+   * This Table Stores a Record of what Messages have been starred/heeled before in order to prevent duplicates arising with bot restarts
+   * <p>
+   * `id`: INT
+   * `messageid`: VARCHAR (String) - The id of the message which has been starred/gilded
+   */
+  private final String CREATE_USED_TABLE = "CREATE TABLE IF NOT EXISTS starused ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageId` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private final String ADD_USED = "INSERT INTO starused (messageId) VALUES (?);";
+  private final String SELECT_USED = "SELECT * FROM starused WHERE messageId = ?;";
+
+  /**
+   * This Table Stores the Amount of Stars a Message Will Take Before Sent to the #starred-messages Channel
+   * - This is not required for all messages, only those you wish to alter the default for
+   * <p>
+   * `id`: INT
+   * `messageid`: VARCHAR (String) - The id of the message to be modified
+   * `amount`: INT - The amount of stars required to send the target message to #starred-messages
+   */
+  private final String CREATE_CUSTOM_TABLE = "CREATE TABLE IF NOT EXISTS starcounts ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageid` VARCHAR(255) NOT NULL , `amount` INT(50) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private final String ADD_CUSTOM = "INSERT INTO starcounts (messageid, amount) VALUES (?, ?);";
+  private final String SELECT_CUSTOM = "SELECT * FROM starcounts WHERE messageid = ?;";
+  private final String SELECT_ALL_CUSTOM = "SELECT * FROM starcounts";
+  private final String DELETE_CUSTOM = "DELETE FROM starcounts WHERE messageid = ?;";
+
   private Connection connection;
   private Set<String> alreadyUsedMessages = new HashSet<>();
   private Map<String, GildInfoToken> pastGilds = new HashMap<>();
+  private Map<String, Integer> alteredMessages = new HashMap<>();
 
   public StarMessages(SQLManager sqlManager) {
     connection = sqlManager.getConnection();
     try {
-      connection.createStatement().executeUpdate(CREATE_TABLE);
+      connection.createStatement().executeUpdate(CREATE_STAT_TABLE);
+      connection.createStatement().executeUpdate(CREATE_USED_TABLE);
+      connection.createStatement().executeUpdate(CREATE_CUSTOM_TABLE);
+      ResultSet set = connection.createStatement().executeQuery(SELECT_ALL_CUSTOM);
+      while (set.next()) {
+        alteredMessages.put(set.getString("messageid"), set.getInt("amount"));
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
+  /**
+   * Takes note of a requested alteration in the default star count
+   *
+   * @param messageId     The id of the message being altered
+   * @param requiredStars The new amount of stars required.
+   */
+  public void addStarAlter(String messageId, int requiredStars) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(ADD_CUSTOM);
+      statement.setString(1, messageId);
+      statement.setInt(2, requiredStars);
+      statement.executeUpdate();
+      alteredMessages.put(messageId, requiredStars);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Removes star alteration from a message
+   *
+   * @param messageId The message id to be removed
+   */
+  public void deleteStarAlter(String messageId) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(DELETE_CUSTOM);
+      statement.setString(1, messageId);
+      statement.executeUpdate();
+      alteredMessages.remove(messageId);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Checks if a message has an alteration on it
+   *
+   * @param messageId The id of the message to be checked
+   * @return Returns true if the message has an alteration
+   */
+  public boolean isAltered(String messageId) {
+    return alteredMessages.containsKey(messageId);
+  }
+
+  /**
+   * Adds a message to the SQL records
+   *
+   * @param messageId The id of the message
+   */
+  private void addUsed(String messageId) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(ADD_USED);
+      statement.setString(1, messageId);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Checks if a message has already been starred/heeled on a previous restart
+   *
+   * @param messageId The id of the message to be checked
+   * @return Returns true if the message has been starred/heeled before
+   */
+  private boolean isUsed(String messageId) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(SELECT_USED);
+      statement.setString(1, messageId);
+      return statement.executeQuery().next();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  /**
+   * Gets the stats of a user and places them in a {@link io.github.jroy.happybot.events.star.StarStatsToken token} which adds ease-of-use methods.
+   *
+   * @param userId The id of the user being checked
+   * @return The {@link io.github.jroy.happybot.events.star.StarStatsToken StarStatsToken} of the user.
+   */
   public StarStatsToken getUser(String userId) {
     try {
       if (!isPropagated(userId)) {
@@ -57,6 +182,12 @@ public class StarMessages extends ListenerAdapter {
     }
   }
 
+  /**
+   * Checks to see if a user has had their messages starred/heeled/gilded before.
+   *
+   * @param userId The id of the user to check.
+   * @return Returns true if the user has been starred/heeled/gilded before.
+   */
   private boolean isPropagated(String userId) {
     try {
       PreparedStatement statement = connection.prepareStatement(SELECT_USER);
@@ -68,6 +199,11 @@ public class StarMessages extends ListenerAdapter {
     }
   }
 
+  /**
+   * Propagates a user's stats in sql.
+   *
+   * @param userId The id of the user to propagate.
+   */
   private void createUser(String userId) {
     try {
       PreparedStatement statement = connection.prepareStatement(CREATE_USER);
@@ -78,6 +214,11 @@ public class StarMessages extends ListenerAdapter {
     }
   }
 
+  /**
+   * Adds one star to the user's statistics.
+   *
+   * @param userId The id of the user to add to.
+   */
   private void addStar(String userId) {
     try {
       StarStatsToken token = getUser(userId);
@@ -92,6 +233,11 @@ public class StarMessages extends ListenerAdapter {
     }
   }
 
+  /**
+   * Adds one gild to the user's statistics.
+   *
+   * @param userId The id of the user to add to.
+   */
   private void addGild(String userId, int amount) {
     try {
       StarStatsToken token = getUser(userId);
@@ -106,6 +252,11 @@ public class StarMessages extends ListenerAdapter {
     }
   }
 
+  /**
+   * Adds one heel to the user's statistics.
+   *
+   * @param userId The id of the user to add to.
+   */
   private void addHeel(String userId) {
     try {
       StarStatsToken token = getUser(userId);
@@ -173,7 +324,7 @@ public class StarMessages extends ListenerAdapter {
 
     GildInfoToken infoToken = new GildInfoToken(causedUser.getUser().getId(), message.getAuthor().getId());
 
-    if(footer.startsWith(NEW_GILDED_MESSAGE)) {
+    if (footer.startsWith(NEW_GILDED_MESSAGE)) {
       embed.setFooter(footer, "https://cdn.discordapp.com/emojis/371121885997694976.png?v=1");
       pastGilds.put(message.getId(), infoToken);
     } else {
@@ -222,7 +373,16 @@ public class StarMessages extends ListenerAdapter {
             .sum();
 
         if (numberOfStars >= NUM_STARS_REQUIRED && !alreadyUsedMessages.contains(message.getId())) {
-          String footer = "New " + emote.getAction() + " message from #" + message.getChannel().getName();
+          if (isUsed(message.getId())) {
+            alreadyUsedMessages.add(message.getId());
+            return;
+          }
+
+          if (isAltered(message.getId()) && numberOfStars < alteredMessages.get(message.getId())) {
+            return;
+          }
+
+          String footer = "New " + emote.getAction() + " message from #" + message.getChannel().getName() + " • " + numberOfStars + emote.getName();
           String privateMessageText = "Congrats! One of your messages has been " + emote.getAction() + ":";
           sendStarredMessage(footer, message, privateMessageText, emote, e.getMember());
           switch (emote) {
@@ -233,6 +393,8 @@ public class StarMessages extends ListenerAdapter {
               addStar(message.getAuthor().getId());
               break;
           }
+          //This should only be used for heels and stars
+          addUsed(message.getId());
         }
       } catch (NullPointerException | IllegalStateException e) {
         Logger.error("Star reaction is in invalid state!");

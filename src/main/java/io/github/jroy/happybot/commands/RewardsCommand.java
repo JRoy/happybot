@@ -17,7 +17,8 @@ public class RewardsCommand extends CommandBase {
         "Level 10 - **" + Roles.REGULAR.getRole().getName() + "**\n" +
         "Level 20 - **" + Roles.TRYHARD.getRole().getName() + "**\n" +
         "Level 30 - **" + Roles.OBSESSIVE.getRole().getName() + "**\n" +
-        "Level 50 - **" + Roles.OG.getRole().getName() + "**\n"
+        "Level 50 - **" + Roles.OG.getRole().getName() + "**\n" +
+        "Level 65 - **" + Roles.LEGENDARY.getRole().getName() + "**\n"
     );
   }
 }

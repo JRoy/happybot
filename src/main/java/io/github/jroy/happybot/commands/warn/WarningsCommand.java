@@ -45,7 +45,7 @@ public class WarningsCommand extends CommandBase {
 
       String channelId = e.getChannel().getId();
 
-      if ((Channels.RANDOM.getId().equalsIgnoreCase(channelId) || Channels.ARCHIVED_RANDOM.getId().equalsIgnoreCase(channelId) || Channels.GAMBLE.getId().equalsIgnoreCase(channelId) || Channels.MUSIC_REQUEST.getId().equalsIgnoreCase(channelId)) && !C.hasRole(e.getMember(), Roles.SUPER_ADMIN) && !RuntimeEditor.isPermittingWarningExposement()) {
+      if ((Channels.RANDOM.getId().equalsIgnoreCase(channelId) || Channels.GAMBLE.getId().equalsIgnoreCase(channelId) || Channels.MUSIC_REQUEST.getId().equalsIgnoreCase(channelId)) && !C.hasRole(e.getMember(), Roles.SUPER_ADMIN) && !RuntimeEditor.isPermittingWarningExposement()) {
         e.reply("Please use a staff channel to view user warnings...");
         return;
       }
