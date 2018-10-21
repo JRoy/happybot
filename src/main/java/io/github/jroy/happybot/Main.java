@@ -185,6 +185,8 @@ public class Main extends ListenerAdapter {
     Logger.info("Loading Report Manager...");
     reportManager = new ReportManager(sqlManager);
 
+    gameManager = new GameManager();
+
     List<EventListener> eventListeners = loadEventListeners();
     loadCommandFactory();
 
