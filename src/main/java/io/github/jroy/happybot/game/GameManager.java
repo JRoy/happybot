@@ -85,7 +85,7 @@ public class GameManager extends ListenerAdapter {
 
   @Override
   public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
-    if (pendingStart.asMap().containsKey(e.getMessageId()) && e.getReactionEmote().getEmote().getName().equalsIgnoreCase("\uD83D\uDC4D")) {
+    if (pendingStart.asMap().containsKey(e.getMessageId())  && e.getReactionEmote().getEmote().getName().equalsIgnoreCase("\uD83D\uDC4D")) {
       PendingGameToken token = pendingStart.getIfPresent(e.getMessageId());
       String userId = e.getMember().getUser().getId();
       assert token != null;
@@ -181,7 +181,11 @@ public class GameManager extends ListenerAdapter {
         .addPermissionOverride(member, EnumSet.of(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ), null)
         .complete();
     for (Member curPlayer : players) {
-      newChannel.getPermissionOverride(curPlayer).getManager().grant(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue();
+      if (newChannel.getPermissionOverride(curPlayer) == null) {
+        newChannel.createPermissionOverride(curPlayer).setAllow(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue();
+      } else {
+        newChannel.getPermissionOverride(curPlayer).getManager().grant(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue();
+      }
     }
     ActiveGame activeGame = new ActiveGame(gameId, (TextChannel) newChannel, C.getGuild().getTextChannelById(newChannel.getId()).createWebhook("game communication").complete(), game, member, players);
     activeGames.put(gameId, activeGame);

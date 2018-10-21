@@ -306,6 +306,9 @@ public class Main extends ListenerAdapter {
     Logger.info("Loading OG Command Manager...");
     eventListeners.add(ogCommandManager = new OGCommandManager(sqlManager));
 
+    Logger.info("Loading Game Manager...");
+    eventListeners.add(gameManager = new GameManager());
+
     return eventListeners;
   }
 

@@ -7,7 +7,8 @@ import io.github.jroy.happybot.game.Game;
 import io.github.jroy.happybot.game.GameManager;
 import io.github.jroy.happybot.game.GameType;
 import io.github.jroy.happybot.game.model.PendingGameToken;
-import io.github.jroy.happybot.util.C;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class GameCommand extends CommandBase {
   private final GameManager gameManager;
@@ -39,10 +40,13 @@ public class GameCommand extends CommandBase {
         if (!GameType.isGame(e.getSplitArgs()[1].toUpperCase())) {
           e.replyError("Invalid Game! For a list of game IDs use `^game list`");
           return;
-        } else if (gameManager.isActive(e.getMember().getUser().getId())) {
+        }
+
+        if (gameManager.isActive(e.getMember().getUser().getId())) {
           e.replyError("You are already active in the game system! You must be out of a game and not pending in a game to create one.");
           return;
         }
+
         GameType gameType = GameType.valueOf(e.getSplitArgs()[1].toUpperCase());
 
         if (!e.hasRole(gameType.getRequiredRole())) {
@@ -51,8 +55,8 @@ public class GameCommand extends CommandBase {
         }
 
         try {
-          gameManager.pendGame(e.getMessage(), e.getMember(), gameType.getGameClass().newInstance());
-        } catch (InstantiationException | IllegalAccessException e1) {
+          gameManager.pendGame(e.getMessage(), e.getMember(), gameType.getGameClass().getConstructor(GameManager.class).newInstance(gameManager));
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e1) {
           e.replyError("Could not create game: " + e1.getMessage() + "\nNo action has occurred.");
           e1.printStackTrace();
         }
@@ -84,11 +88,11 @@ public class GameCommand extends CommandBase {
       }
       case "list": {
         StringBuilder sb = new StringBuilder();
-        sb.append(C.bold("Game List"));
+        sb.append("**Game List:**");
         for (GameType curType : GameType.values()) {
           try {
             Game curGame = curType.getGameClass().getConstructor(GameManager.class).newInstance(gameManager);
-            sb.append(C.bold(curGame.getName())).append(" (ID: ").append(curType.name()).append(") - ").append(curGame.getDescription()).append(" | (").append(curGame.getMinPlayers()).append(" Min, ").append(curGame.getMaxPlayers()).append(" Max)");
+            sb.append("**").append(curGame.getName()).append("** (ID: ").append(curType.name()).append(") - ").append(curGame.getDescription()).append(" | (").append(curGame.getMinPlayers()).append(" Min, ").append(curGame.getMaxPlayers()).append(" Max)\n");
           } catch (ReflectiveOperationException ex) {
             ex.printStackTrace();
           }

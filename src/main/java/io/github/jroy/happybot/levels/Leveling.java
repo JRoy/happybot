@@ -20,6 +20,7 @@ import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.math.BigInteger;
@@ -29,14 +30,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -61,7 +55,7 @@ public class Leveling extends ListenerAdapter {
       .maximumSize(200)
       .build(new CacheLoader<String, Integer>() {
         @Override
-        public Integer load(String key) {
+        public Integer load(@NotNull String key) {
           return toLevel(getExp(key));
         }
       });
@@ -231,22 +225,19 @@ public class Leveling extends ListenerAdapter {
     if (isPastUser(e.getUser().getId())) {
       int level = toLevel(getExp(e.getUser().getId()));
 
-      List<Roles> roles = new ArrayList<>();
-
       if (level >= 65) {
-          roles.add(Roles.GAMBLE1);
+        C.giveRoles(e.getMember(), Roles.LEGENDARY, Roles.OG, Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
       } else if (level >= 50) {
-        roles.add(Roles.OG);
+        C.giveRoles(e.getMember(), Roles.OG, Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
       } else if (level >= 30) {
-        roles.add(Roles.OBSESSIVE);
+        C.giveRoles(e.getMember(), Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
       } else if (level >= 20) {
-        roles.add(Roles.TRYHARD);
+        C.giveRoles(e.getMember(), Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
       } else if (level >= 10) {
-        roles.add(Roles.REGULAR);
+        C.giveRoles(e.getMember(), Roles.REGULAR, Roles.FANS);
       } else {
-        roles.add(Roles.FANS);
+        C.giveRole(e.getMember(), Roles.FANS);
       }
-      C.giveRoles(e.getMember(), roles.toArray(new Roles[0]));
     } else {
       C.giveRole(e.getMember(), Roles.FANS);
     }
@@ -283,7 +274,6 @@ public class Leveling extends ListenerAdapter {
         sb.append("\n    + Legendary Rank");
         sb.append("\n    + Gamble x1 Multiplier");
         C.giveRole(member, Roles.LEGENDARY);
-        C.giveRole(member, Roles.GAMBLE1);
         purchaseManager.addReward(member.getUser().getId(), Reward.DAILY1);
         break;
       }
