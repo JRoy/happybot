@@ -85,8 +85,14 @@ public class UtttGame {
       board.place(i, boards[i].getWinner());
     }
 
-    return board.getWinner() == null ? null :
-        board.getWinner() == TicTacToeType.CROSS ? second : first;
+    switch(board.getWinner()) {
+      case CROSS:
+        return first;
+      case NOUGHT:
+        return second;
+      default:
+        return null;
+    }
   }
 
   public boolean isFull(int board) {
