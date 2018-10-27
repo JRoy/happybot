@@ -92,7 +92,7 @@ public class Leveling extends ListenerAdapter {
             builder.setAuthor("Top 25 XP Betrayals", null, C.getGuild().getIconUrl()).setFooter("Stats provided by happybot's Leveling API!", Main.getJda().getSelfUser().getAvatarUrl()).setTimestamp(OffsetDateTime.now()).setColor(Color.MAGENTA).setDescription("Here are the current top 25 rankings for experience.");
             for (Map.Entry<Integer, LevelingToken> mapToken : result.entrySet()) {
               LevelingToken token = mapToken.getValue();
-              builder.addField("- #" + curPos + ": " + C.getFullName(token.getMember().getUser()), "Level " + token.getLevel() + " (" + C.prettyNum((int) token.getExp()) + " XP)", false);
+              builder.addField("#" + curPos + ": " + token.getMember().getAsMention(), "Level " + token.getLevel() + " (" + C.prettyNum((int) token.getExp()) + " XP)", true);
               curPos++;
             }
             Channels.LEADERBOARD.getChannel().getMessageById(leaderboardMessageId).complete().editMessage(builder.build()).queue();

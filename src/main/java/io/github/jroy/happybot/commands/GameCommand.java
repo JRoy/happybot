@@ -55,10 +55,11 @@ public class GameCommand extends CommandBase {
         }
 
         try {
-          gameManager.pendGame(e.getMessage(), e.getMember(), gameType.getGameClass().getConstructor(GameManager.class).newInstance(gameManager));
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e1) {
-          e.replyError("Could not create game: " + e1.getMessage() + "\nNo action has occurred.");
-          e1.printStackTrace();
+          gameManager.pendGame(e.getMessage(), e.getMember(), gameType.getGameClass()
+              .getConstructor(GameManager.class).newInstance(gameManager));
+        } catch (ReflectiveOperationException ex) {
+          e.replyError("Could not create game: " + ex.getMessage() + "\nNo action has occurred.");
+          ex.printStackTrace();
         }
         break;
       }
