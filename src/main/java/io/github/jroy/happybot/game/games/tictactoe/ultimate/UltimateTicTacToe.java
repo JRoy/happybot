@@ -29,7 +29,7 @@ public class UltimateTicTacToe extends Game {
   @Override
   protected void gameStart(GameStartEvent event) {
     Iterator<Member> players = event.getActiveGame().getPlayers().iterator();
-    game = new UtttGame(players.next().getUser(), players.next().getUser());
+    game = new UtttGame(players.next().getUser(), players.next().getUser(), event);
   }
 
   @Override

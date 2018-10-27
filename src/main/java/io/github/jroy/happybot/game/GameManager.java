@@ -85,13 +85,12 @@ public class GameManager extends ListenerAdapter {
 
   @Override
   public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
-    if (pendingStart.asMap().containsKey(e.getMessageId())  && e.getReactionEmote().getEmote().getName().equalsIgnoreCase("\uD83D\uDC4D")) {
+    if (!e.getUser().isBot() && pendingStart.asMap().containsKey(e.getMessageId()) && e.getReactionEmote().getName().equalsIgnoreCase("\uD83D\uDC4D")) {
       PendingGameToken token = pendingStart.getIfPresent(e.getMessageId());
       String userId = e.getMember().getUser().getId();
       assert token != null;
-      if (!activeUsers.contains(userId) && !token.getPlayers().contains(e.getMember())) {
+      if (!isActive(userId) && !token.getPlayers().contains(e.getMember())) {
         token.addPlayer(e.getMember());
-        activeUsers.add(e.getMember().getUser().getId());
         if (token.getPlayers().size() == token.getGame().getMaxPlayers()) {
           startGame(token.getMember());
           return;
@@ -128,11 +127,21 @@ public class GameManager extends ListenerAdapter {
   }
 
   public boolean isActive(String userId) {
-    return activeUsers.contains(userId);
+    boolean match = false;
+    outLoop:
+    for (Map.Entry<String, PendingGameToken> pendingGame : pendingStart.asMap().entrySet()) {
+      for (Member curMem : pendingGame.getValue().getPlayers()) {
+        if (curMem.getUser().getId().equals(userId)) {
+          match = true;
+          break outLoop;
+        }
+      }
+    }
+    return activeUsers.contains(userId) || match;
   }
 
   /**
-   * Determains if a user has a game in progress.
+   * Determines if a user has a game in progress.
    * @param userId The user id of the creator of the game
    * @return Returns true if the the user id provided has a game in progress.
    */
@@ -151,7 +160,6 @@ public class GameManager extends ListenerAdapter {
     PendingGameToken token = new PendingGameToken(prompt.getId(), message, member, game);
     pendingStart.put(prompt.getId(), token);
     pendingUsers.put(member.getUser().getId(), prompt.getId());
-    activeUsers.add(member.getUser().getId());
     if (token.getGame().getMaxPlayers() == 1) {
       startGame(member);
     }
@@ -181,6 +189,7 @@ public class GameManager extends ListenerAdapter {
         .addPermissionOverride(member, EnumSet.of(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ), null)
         .complete();
     for (Member curPlayer : players) {
+      activeUsers.add(curPlayer.getUser().getId());
       if (newChannel.getPermissionOverride(curPlayer) == null) {
         newChannel.createPermissionOverride(curPlayer).setAllow(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue();
       } else {

@@ -2,8 +2,10 @@ package io.github.jroy.happybot.game.games.tictactoe.ultimate;
 
 import io.github.jroy.happybot.game.games.tictactoe.TicTacToeBoard;
 import io.github.jroy.happybot.game.games.tictactoe.TicTacToeType;
+import io.github.jroy.happybot.game.model.GameStartEvent;
 import lombok.Getter;
 import lombok.Setter;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.User;
 
 public class UtttGame {
@@ -17,7 +19,7 @@ public class UtttGame {
   @Setter
   private int board = -1;
 
-  public UtttGame(User first, User second) {
+  public UtttGame(User first, User second, GameStartEvent event) {
     this.first = first;
     this.second = second;
     this.turn = Math.random() < 0.5 ? TicTacToeType.CROSS : TicTacToeType.NOUGHT;
@@ -25,6 +27,7 @@ public class UtttGame {
     for(int i = 0; i < boards.length; i++) {
       boards[i] = new TicTacToeBoard();
     }
+    event.getActiveGame().sendMessage(new EmbedBuilder().setDescription(getCurrent().getAsMention() + ", select a board.\n" + fullRender()).build());
   }
 
   public String getBoardName() {

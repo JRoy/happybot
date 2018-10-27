@@ -11,12 +11,13 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum GameType {
 
-  BLANK(BlankGame.class, Roles.DEVELOPER),
-  TTT(TicTacToe.class, Roles.DEVELOPER),
-  UTTT(UltimateTicTacToe.class, Roles.DEVELOPER);
+  BLANK(BlankGame.class, Roles.DEVELOPER, false),
+  TTT(TicTacToe.class, Roles.DEVELOPER, false),
+  UTTT(UltimateTicTacToe.class, Roles.FANS, true);
 
   private final Class<? extends Game> gameClass;
   private final Roles requiredRole;
+  private final boolean displayGame;
 
   public static boolean isGame(String game) {
     for (GameType curType : GameType.values()) {
