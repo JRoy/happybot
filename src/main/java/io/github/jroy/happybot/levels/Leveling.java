@@ -1,5 +1,8 @@
 package io.github.jroy.happybot.levels;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.udojava.evalex.Expression;
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.sql.MessageFactory;
@@ -17,6 +20,7 @@ import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.math.BigInteger;
@@ -26,12 +30,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Leveling extends ListenerAdapter {
@@ -49,8 +49,16 @@ public class Leveling extends ListenerAdapter {
   public Map<Integer, LevelingToken> topCache = new HashMap<>();
   private boolean registered = false;
   private TreeMap<Long, Integer> levels = new TreeMap<>();
-  private HashMap<String, OffsetDateTime> lastChatTimes = new HashMap<>();
-  private HashMap<String, Integer> levelCache = new HashMap<>();
+  private Map<String, OffsetDateTime> lastChatTimes = new HashMap<>();
+  private LoadingCache<String, Integer> levelCache = CacheBuilder.newBuilder()
+      .expireAfterAccess(10, TimeUnit.MINUTES)
+      .maximumSize(200)
+      .build(new CacheLoader<String, Integer>() {
+        @Override
+        public Integer load(@NotNull String key) {
+          return toLevel(getExp(key));
+        }
+      });
 
   public Leveling(SQLManager sqlManager, MessageFactory messageFactory, PurchaseManager purchaseManager) {
     this.connection = sqlManager.getConnection();
@@ -84,7 +92,7 @@ public class Leveling extends ListenerAdapter {
             builder.setAuthor("Top 25 XP Betrayals", null, C.getGuild().getIconUrl()).setFooter("Stats provided by happybot's Leveling API!", Main.getJda().getSelfUser().getAvatarUrl()).setTimestamp(OffsetDateTime.now()).setColor(Color.MAGENTA).setDescription("Here are the current top 25 rankings for experience.");
             for (Map.Entry<Integer, LevelingToken> mapToken : result.entrySet()) {
               LevelingToken token = mapToken.getValue();
-              builder.addField("- #" + curPos + ": " + C.getFullName(token.getMember().getUser()), "Level " + token.getLevel() + " (" + C.prettyNum((int) token.getExp()) + " XP)", false);
+              builder.addField("#" + curPos + ": " + token.getMember().getAsMention(), "Level " + token.getLevel() + " (" + C.prettyNum((int) token.getExp()) + " XP)", true);
               curPos++;
             }
             Channels.LEADERBOARD.getChannel().getMessageById(leaderboardMessageId).complete().editMessage(builder.build()).queue();
@@ -202,14 +210,10 @@ public class Leveling extends ListenerAdapter {
       }
     }
 
-    if (!levelCache.containsKey(userId)) {
-      levelCache.put(userId, toLevel(getExp(userId)));
-    }
-
     int expA = random.nextInt(25 - 15) + 15;
     addExp(userId, expA);
 
-    if (toLevel(getExp(userId)) > levelCache.get(userId)) {
+    if (toLevel(getExp(userId)) > levelCache.getUnchecked(userId)) {
       processRewards(toLevel(getExp(userId)), event.getMember(), event.getChannel());
     }
 
@@ -222,7 +226,7 @@ public class Leveling extends ListenerAdapter {
       int level = toLevel(getExp(e.getUser().getId()));
 
       if (level >= 65) {
-        C.giveRoles(e.getMember(), Roles.GAMBLE1, Roles.LEGENDARY, Roles.OG, Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
+        C.giveRoles(e.getMember(), Roles.LEGENDARY, Roles.OG, Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
       } else if (level >= 50) {
         C.giveRoles(e.getMember(), Roles.OG, Roles.OBSESSIVE, Roles.TRYHARD, Roles.REGULAR, Roles.FANS);
       } else if (level >= 30) {
@@ -270,7 +274,6 @@ public class Leveling extends ListenerAdapter {
         sb.append("\n    + Legendary Rank");
         sb.append("\n    + Gamble x1 Multiplier");
         C.giveRole(member, Roles.LEGENDARY);
-        C.giveRole(member, Roles.GAMBLE1);
         purchaseManager.addReward(member.getUser().getId(), Reward.DAILY1);
         break;
       }

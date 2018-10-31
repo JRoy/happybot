@@ -37,6 +37,7 @@ public class MoneyCommand extends CommandBase {
     bonuses.put(Roles.SUPPORTER, r -> r + 2);
     bonuses.put(Roles.GAMBLE2, r -> r * 2);
     bonuses.put(Roles.GAMBLE1, r -> (int) (r * 1.5));
+    bonuses.put(Roles.LEGENDARY, r -> (int) (r * 1.5));
   }
 
   @Override
@@ -226,7 +227,7 @@ public class MoneyCommand extends CommandBase {
 
         for (int i = 0; i < 10; i++) {
           for (Map.Entry<Member, Integer> curEntry : result.get(i + 1).entrySet()) {
-            builder.addField(C.bold("#" + curPos) + " " + C.escape(curEntry.getKey().getEffectiveName()), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
+            builder.addField(C.bold("#" + curPos) + " " + curEntry.getKey().getAsMention(), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
             curPos++;
           }
         }

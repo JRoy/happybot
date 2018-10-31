@@ -18,9 +18,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class SubmitPinner extends ListenerAdapter {
-
-  private List<String> alreadyUsedMessages = new ArrayList<>();
-  private List<String> processingMessages = new ArrayList<>();
+  private final List<String> alreadyUsedMessages = new ArrayList<>();
+  private final List<String> processingMessages = new ArrayList<>();
 
   @Override
   public void onGuildMessageReceived(GuildMessageReceivedEvent event) {

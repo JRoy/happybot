@@ -1,9 +1,10 @@
 package io.github.jroy.happybot.apis.reddit;
 
 import com.google.gson.JsonObject;
+import lombok.Getter;
 
+@Getter
 public class MemePost {
-
   private String title;
   private String subreddit;
   private String permaLink;
@@ -31,34 +32,5 @@ public class MemePost {
     }
 
     isNsfw = dataObject.toString().replace("promo_adult_nsfw", "").contains("nsfw");
-
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public String getSubreddit() {
-    return subreddit;
-  }
-
-  public String getPermaLink() {
-    return permaLink;
-  }
-
-  public String getMediaUrl() {
-    return mediaUrl;
-  }
-
-  public boolean isSelfPost() {
-    return selfPost;
-  }
-
-  public String getSelfText() {
-    return selfText;
-  }
-
-  public boolean isNsfw() {
-    return isNsfw;
   }
 }

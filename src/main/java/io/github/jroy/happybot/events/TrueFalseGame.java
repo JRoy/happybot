@@ -1,7 +1,9 @@
 package io.github.jroy.happybot.events;
 
-import io.github.jroy.happybot.util.*;
-import net.dv8tion.jda.core.entities.Member;
+import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Channels;
+import io.github.jroy.happybot.util.Roles;
+import io.github.jroy.happybot.util.SafeRestAction;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -9,10 +11,6 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.util.concurrent.TimeUnit;
 
 public class TrueFalseGame extends ListenerAdapter {
-
-  private int curCount = 0;
-  private FixedCache<Integer, Member> repeatCache = new FixedCache<>(4);
-
   @Override
   public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
     if (e.getChannel().getId().equals(Channels.TRUE_FALSE_GAME.getId())) {
@@ -27,8 +25,6 @@ public class TrueFalseGame extends ListenerAdapter {
 //        C.privChannel(e.getMember(), "You may not respond to your own true/false!");
 //        return;
 //      }
-      curCount++;
-      repeatCache.put(curCount, e.getMember());
     }
   }
 

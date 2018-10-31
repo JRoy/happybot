@@ -1,9 +1,10 @@
 package io.github.jroy.happybot.events;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
-import io.github.jroy.happybot.util.FixedCache;
 import io.github.jroy.happybot.util.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -31,16 +32,16 @@ import java.awt.*;
 import java.time.OffsetDateTime;
 
 public class LoggingFactory extends ListenerAdapter {
-
-  @SuppressWarnings("FieldCanBeLocal")
-  private final String webhookId = "466642500153769984";
+  private static final String WEBHOOK_ID = "466642500153769984";
   private Webhook webhook = null;
-  private FixedCache<String, Message> cache = new FixedCache<>(1000);
+  private final Cache<String, Message> cache = CacheBuilder.newBuilder()
+      .maximumSize(100)
+      .build();
 
   public LoggingFactory() {
     Logger.info("Loading Logger Factory...");
     for (Webhook curHook : Channels.LOG.getChannel().getWebhooks().complete()) {
-      if (curHook.getId().equals(webhookId)) {
+      if (curHook.getId().equals(WEBHOOK_ID)) {
         webhook = curHook;
         Main.getJda().addEventListener(this);
         Logger.info("Loaded Logger Factory!");
@@ -90,7 +91,7 @@ public class LoggingFactory extends ListenerAdapter {
 
   @Override
   public void onGuildMessageUpdate(GuildMessageUpdateEvent e) {
-    if (cache.contains(e.getMessage().getId())) {
+    if (cache.asMap().containsKey(e.getMessage().getId())) {
       cache.put(e.getMessage().getId(), e.getMessage());
     }
   }
@@ -101,7 +102,8 @@ public class LoggingFactory extends ListenerAdapter {
       return;
     }
 
-    if (!cache.contains(e.getMessageId())) {
+    Message deleted = cache.getIfPresent(e.getMessageId());
+    if (deleted == null) {
       sendLogMessage(new EmbedBuilder()
           .setAuthor(e.getGuild().getName(), null, e.getGuild().getIconUrl())
           .setDescription(C.bold("Message deleted in ") + e.getChannel().getAsMention())
@@ -110,7 +112,8 @@ public class LoggingFactory extends ListenerAdapter {
           .setFooter("ID: " + e.getMessageId(), null).build());
       return;
     }
-    Message deleted = cache.pull(e.getMessageId());
+    cache.invalidate(e.getMessageId());
+
     String desc = "";
 
     if (!deleted.getContentRaw().isEmpty()) {

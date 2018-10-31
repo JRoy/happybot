@@ -1,11 +1,13 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '2.0.4'
+    id 'io.franzbecker.gradle-lombok' version '1.14'
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
 
 dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
     compile 'com.github.KevinPriv:HypixelApi4J:API-1.4'
     compile 'net.dv8tion:JDA:3.7.1_387'
     compile 'com.jagrosh:jda-utilities:2.1'

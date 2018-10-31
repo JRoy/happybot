@@ -1,7 +1,9 @@
 package io.github.jroy.happybot.util;
 
-public enum Constants {
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
+public enum Constants {
   GUILD_ID("237363812842340363"),
   OWNER_ID("194473148161327104"),
   BOT_ID("354736186516045835"),
@@ -12,11 +14,7 @@ public enum Constants {
   TEDDY_ID("242849297685544962"),
   EXP_SPAMMER_TIME("604800000");
 
-  private String value;
-
-  Constants(String value) {
-    this.value = value;
-  }
+  private final String value;
 
   public String get() {
     return value;

@@ -4,25 +4,20 @@ import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.SearchResultSnippet;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
+import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+@RequiredArgsConstructor
 class ChannelBase {
-
   private final String channelId;
   private final YouTubeAPI youTubeAPI;
   private final boolean pingsEveryone;
   private boolean registered = false;
   private long currentVideo = -1;
-
-  ChannelBase(String channelId, YouTubeAPI youTubeAPI, boolean pingsEveryone) {
-    this.youTubeAPI = youTubeAPI;
-    this.channelId = channelId;
-    this.pingsEveryone = pingsEveryone;
-  }
 
   protected void registerListener() {
     if (registered) {

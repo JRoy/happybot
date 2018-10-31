@@ -2,12 +2,13 @@ package io.github.jroy.happybot.apis;
 
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.apis.exceptions.IllegalAPIState;
+import lombok.Getter;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 public abstract class APIBase {
-
+  @Getter
   private String apiName = "NULL";
   private boolean loaded = false;
   private boolean statusLoaded = false;
@@ -30,14 +31,6 @@ public abstract class APIBase {
     new Listener();
     loadApi();
     loaded = true;
-  }
-
-  public String getApiName() {
-    return apiName;
-  }
-
-  public boolean isLoaded() {
-    return loaded;
   }
 
   private class Listener extends ListenerAdapter {
