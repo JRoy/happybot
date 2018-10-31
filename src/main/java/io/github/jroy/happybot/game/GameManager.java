@@ -6,8 +6,10 @@ import io.github.jroy.happybot.game.model.GameMessageReceived;
 import io.github.jroy.happybot.game.model.GameReactionReceived;
 import io.github.jroy.happybot.game.model.GameStartEvent;
 import io.github.jroy.happybot.game.model.PendingGameToken;
+import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Categories;
+import io.github.jroy.happybot.util.Channels;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.Permission;
@@ -19,13 +21,18 @@ import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import org.jetbrains.annotations.Nullable;
 
+import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class GameManager extends ListenerAdapter {
+
+  private final SQLManager sqlManager;
+
   private int gameId = 1;
   private boolean statusLoaded = false;
 
@@ -58,7 +65,8 @@ public class GameManager extends ListenerAdapter {
    */
   private Set<String> activeUsers = new HashSet<>();
 
-  public GameManager() {
+  public GameManager(SQLManager sqlManager) {
+    this.sqlManager = sqlManager;
     new Timer().scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
@@ -201,6 +209,44 @@ public class GameManager extends ListenerAdapter {
     channelToIdMap.put(newChannel.getId(), gameId);
     activeUsers.add(member.getUser().getId());
     activeGame.getGame().gameStart(new GameStartEvent(activeGame));
+  }
+
+  /**
+   * Locks a game channel and awards winner prizes.
+   * @param activeGame The active game instance.
+   * @param winner The winner of the game. Can be null to indicate no winner.
+   * @param coinPrize The amount of coins to award the user.
+   */
+  public void protectGame(ActiveGame activeGame, @Nullable Member winner, int coinPrize) {
+    for (Member curPlayer : activeGame.getPlayers()) {
+      activeGame.getChannel().getPermissionOverride(curPlayer).getManager().deny(Permission.MESSAGE_WRITE).queue();
+    }
+    activeGame.sendMessage("---------------------------------------------------------------");
+    if (winner != null) {
+      activeGame.sendMessage(
+          "Congratulations " + winner.getAsMention() + " for winning the game!\n"+
+          "You have been awarded **" + C.prettyNum(coinPrize) + " coins**!\n"+
+          "Spend them in `^shop`!");
+      try {
+        if (!sqlManager.isActiveUserH(winner.getUser().getId())) {
+          sqlManager.newUser(winner.getUser().getId());
+        }
+        sqlManager.getUser(winner.getUser().getId()).addCoins(coinPrize);
+      } catch (SQLException e) {
+        activeGame.sendMessage("Unable to award prize. Please notify a developer!");
+        Channels.STAFF_QUEUE.getChannel().sendMessage(
+            "Please award " + winner.getAsMention() + " with **" + C.prettyNum(coinPrize) + " coins** for a game reward. I attempted to do this on my one but failed. Also, let a developer know?")
+            .queue();
+      }
+    } else {
+      activeGame.sendMessage(
+          "Nobody Won the Game :(\n" +
+          "Better Luck Next Time!"
+      );
+    }
+    activeGame.sendMessage(
+        "This channel will be removed in approximately **10 minutes!**\n" +
+        "---------------------------------------------------------------");
   }
 
   /**

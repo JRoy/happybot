@@ -108,6 +108,15 @@ public class UtttGame {
     return true;
   }
 
+  public boolean isFull()  {
+    for (int i = 0; i < boards.length; i++) {
+      if (!isFull(i)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public String fullRender() {
     return "1 = top left, 2 = top middle, 3 = top right,\n" +
         "4 = middle left, 5 = middle, 6 = middle right,\n" +

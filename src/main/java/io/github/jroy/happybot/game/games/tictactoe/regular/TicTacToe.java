@@ -9,7 +9,7 @@ import io.github.jroy.happybot.game.model.GameStartEvent;
 public class TicTacToe extends Game {
 
   public TicTacToe(GameManager manager) {
-    super(manager, "Tic-Tac-Toe", "A classic game of Tic-Tac-Toe", 2, 2);
+    super(manager, "Tic-Tac-Toe", "A classic game of Tic-Tac-Toe", 2, 2, 500);
   }
 
   @Override
