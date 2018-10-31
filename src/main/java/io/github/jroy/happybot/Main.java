@@ -199,7 +199,7 @@ public class Main extends ListenerAdapter {
       builder.addEventListener(listener);
     }
     Logger.info("Logging into Discord...");
-    jda = builder.buildBlocking();
+    jda = builder.build().awaitReady();
 
     new LoggingFactory();
 
