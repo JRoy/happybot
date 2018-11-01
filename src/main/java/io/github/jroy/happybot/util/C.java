@@ -38,7 +38,7 @@ import java.util.Locale;
 /**
  * The C Class provides lots of *sometimes* useful methods that make things ez-pz.
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("unused")
 public class C {
   private static String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
 
@@ -65,16 +65,6 @@ public class C {
   }
 
   /**
-   * Logs the message you provide.
-   *
-   * @param s Message that you wish to log in the bot format.
-   */
-  @Deprecated
-  public static void log(String s) {
-    System.out.println("[HappyBot] " + s);
-  }
-
-  /**
    * Gets the member/sender from the {@link com.jagrosh.jdautilities.command.CommandEvent CommandEvent} in the JDA Member Format.
    *
    * @param e The Command Event that you need the member from.
@@ -92,6 +82,7 @@ public class C {
    * @param index The mentioned member to get
    * @return Returns a member from the event.
    */
+  @SuppressWarnings("ConstantConditions")
   @Nonnull
   public static Member getMentionedMember(CommandEvent e, int index) {
     try {
@@ -148,6 +139,7 @@ public class C {
     HttpURLConnection connection = null;
     //Open the connection.
     try {
+      assert shortURL != null;
       connection = (HttpURLConnection) shortURL.openConnection(Proxy.NO_PROXY);
       //We do not want to render the contents of the long url.
       connection.setInstanceFollowRedirects(false);
@@ -155,6 +147,7 @@ public class C {
       e.printStackTrace();
     }
     //Grab the longer url.
+    assert connection != null;
     String fullURL = connection.getHeaderField("Location");
     connection.disconnect();
     return fullURL;
@@ -257,7 +250,7 @@ public class C {
    * Adds multiple roles to a guild member.
    *
    * @param m    The target guild member.
-   * @param role The target roles.
+   * @param roles The target roles to add to the user.
    */
   public static void giveRoles(Member m, Roles... roles) {
     getGuildCtrl().addRolesToMember(m, toRoleArray(roles)).queue();
@@ -312,9 +305,7 @@ public class C {
     try {
       if (!m.getUser().isBot()) {
         final Message[] message1 = new Message[1];
-        m.getUser().openPrivateChannel().queue(privateChannel -> {
-          message1[0] = privateChannel.sendMessage(message).complete();
-        }, throwable -> Logger.error("Tried to open a private channel but got error: " + throwable.getMessage()));
+        m.getUser().openPrivateChannel().queue(privateChannel -> message1[0] = privateChannel.sendMessage(message).complete(), throwable -> Logger.error("Tried to open a private channel but got error: " + throwable.getMessage()));
         return message1[0];
       }
     } catch (UnsupportedOperationException e) {
@@ -328,9 +319,7 @@ public class C {
     try {
       if (!m.getUser().isBot()) {
         final Message[] message1 = new Message[1];
-        m.getUser().openPrivateChannel().queue(privateChannel -> {
-          message1[0] = privateChannel.sendMessage(message).complete();
-        }, throwable -> Logger.error("Tried to open a private channel but got error: " + throwable.getMessage()));
+        m.getUser().openPrivateChannel().queue(privateChannel -> message1[0] = privateChannel.sendMessage(message).complete(), throwable -> Logger.error("Tried to open a private channel but got error: " + throwable.getMessage()));
         return message1[0];
       }
     } catch (UnsupportedOperationException e) {
@@ -454,7 +443,7 @@ public class C {
    */
   public static String readUrl(String urlString) {
     try {
-      HttpClient client = new DefaultHttpClient();
+      @SuppressWarnings("deprecation") HttpClient client = new DefaultHttpClient();
       HttpGet request = new HttpGet(urlString);
       request.addHeader("User-Agent", USER_AGENT);
 
@@ -529,6 +518,7 @@ public class C {
     return builder.toString();
   }
 
+  @SuppressWarnings("ToArrayCallWithZeroLengthArrayArgument")
   public static Role[] toRoleArray(Roles[] roles) {
     List<Role> list = new ArrayList<>();
     for (Roles curRole : roles) {
