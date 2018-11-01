@@ -85,6 +85,9 @@ public class UtttGame {
       board.place(i, boards[i].getWinner());
     }
 
+    if (board.getWinner() == null) {
+      return null;
+    }
     switch(board.getWinner()) {
       case CROSS:
         return first;
