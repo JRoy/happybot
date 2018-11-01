@@ -227,7 +227,7 @@ public class MoneyCommand extends CommandBase {
 
         for (int i = 0; i < 10; i++) {
           for (Map.Entry<Member, Integer> curEntry : result.get(i + 1).entrySet()) {
-            builder.addField(C.bold("#" + curPos) + " " + curEntry.getKey().getAsMention(), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
+            builder.addField(C.bold("#" + curPos) + " " + curEntry.getKey().getEffectiveName(), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
             curPos++;
           }
         }
