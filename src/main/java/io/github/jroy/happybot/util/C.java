@@ -288,12 +288,7 @@ public class C {
    * @return Comma formatted number.
    */
   public static String prettyNum(int in) {
-    String suffix = "";
-    if(in >= 1000) {
-      in /= 1000;
-      suffix = "k";
-    }
-    return NumberFormat.getInstance(Locale.US).format(in) + suffix;
+    return NumberFormat.getInstance(Locale.US).format(in);
   }
 
   /**
