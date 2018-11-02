@@ -19,7 +19,7 @@ import java.util.function.IntUnaryOperator;
 
 @SuppressWarnings("ConstantConditions")
 public class MoneyCommand extends CommandBase {
-  private static final String NEED_ACCOUNT = "You do not have an account! Please run `^money create` to make one!";
+  public static final String NEED_ACCOUNT = "You do not have an account! Please run `^money create` to make one!";
   private static final int CLAIM_COOLDOWN = 86400000;
 
   private Map<Roles, IntUnaryOperator> bonuses = new HashMap<>();
