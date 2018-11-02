@@ -6,6 +6,7 @@ import io.github.jroy.happybot.game.GameManager;
 import io.github.jroy.happybot.game.model.GameMessageReceived;
 import io.github.jroy.happybot.game.model.GameReactionReceived;
 import io.github.jroy.happybot.game.model.GameStartEvent;
+import io.github.jroy.happybot.util.C;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
@@ -23,13 +24,13 @@ public class UltimateTicTacToe extends Game {
 //      .build();
 
   public UltimateTicTacToe(GameManager manager) {
-    super(manager, "Ultimate Tic-Tac-Toe", "Tic-Tac-Toe on Tic-Tac-Toe", 2, 2);
+    super(manager, "Ultimate Tic-Tac-Toe", "Tic-Tac-Toe on Tic-Tac-Toe", 2, 2, 1000);
   }
 
   @Override
   protected void gameStart(GameStartEvent event) {
     Iterator<Member> players = event.getActiveGame().getPlayers().iterator();
-    game = new UtttGame(players.next().getUser(), players.next().getUser());
+    game = new UtttGame(players.next().getUser(), players.next().getUser(), event);
   }
 
   @Override
@@ -81,13 +82,13 @@ public class UltimateTicTacToe extends Game {
     if (game.makeTurn(num)) {
       User winner = game.getWinner();
       if(winner != null) {
-
-        activeGame.sendMessage(new EmbedBuilder()
-            .setTitle("Winner!")
-            .setDescription(winner.getAsMention() + " has won the game of Ultimate Tic Tac Toe!\n```\n" + game.render() + "```")
-            .build()
-        );
+        //noinspection ConstantConditions
+        endGame(activeGame, C.getGuild().getMember(winner));
         return;
+      }
+
+      if (game.isFull()) {
+        endGame(activeGame, null);
       }
 
       EmbedBuilder builder = new EmbedBuilder()

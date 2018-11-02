@@ -89,8 +89,11 @@ public class GameCommand extends CommandBase {
       }
       case "list": {
         StringBuilder sb = new StringBuilder();
-        sb.append("**Game List:**");
+        sb.append("**Game List:**\n");
         for (GameType curType : GameType.values()) {
+          if (!curType.isDisplayGame()) {
+            continue;
+          }
           try {
             Game curGame = curType.getGameClass().getConstructor(GameManager.class).newInstance(gameManager);
             sb.append("**").append(curGame.getName()).append("** (ID: ").append(curType.name()).append(") - ").append(curGame.getDescription()).append(" | (").append(curGame.getMinPlayers()).append(" Min, ").append(curGame.getMaxPlayers()).append(" Max)\n");

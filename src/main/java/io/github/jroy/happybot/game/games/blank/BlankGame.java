@@ -9,7 +9,7 @@ import io.github.jroy.happybot.game.model.GameStartEvent;
 public class BlankGame extends Game {
 
   public BlankGame(GameManager manager) {
-    super(manager, "Blank", "Debug Game", 1, 1);
+    super(manager, "Blank", "Debug Game", 1, 1, 0);
   }
 
   @Override
