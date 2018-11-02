@@ -2,6 +2,7 @@ package io.github.jroy.happybot.util;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.Main;
+import lombok.Cleanup;
 import net.dean.jraw.http.UserAgent;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
@@ -32,8 +33,12 @@ import java.nio.channels.Channels;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * The C Class provides lots of *sometimes* useful methods that make things ez-pz.
@@ -41,6 +46,51 @@ import java.util.Locale;
 @SuppressWarnings("unused")
 public class C {
   private static String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
+  private static final Map<TimeUnit, String> timeUnits = new LinkedHashMap<>();
+
+  static {
+    timeUnits.put(TimeUnit.DAYS, "d");
+    timeUnits.put(TimeUnit.HOURS, "h");
+    timeUnits.put(TimeUnit.MINUTES, "m");
+    timeUnits.put(TimeUnit.SECONDS, "s");
+    timeUnits.put(TimeUnit.MILLISECONDS, "ms");
+    timeUnits.put(TimeUnit.MICROSECONDS, "μs");
+    timeUnits.put(TimeUnit.NANOSECONDS, "ns");
+  }
+
+  /**
+   * Formats a given numeric time in the given time int to a string with a certain precision
+   */
+  public static String format(long time, TimeUnit input, TimeUnit precision) {
+    AtomicLong nanos = new AtomicLong(input.toNanos(time));
+    List<String> times = new ArrayList<>();
+    for(Map.Entry<TimeUnit, String> entry : timeUnits.entrySet()) {
+      TimeUnit unit = entry.getKey();
+      if(nanos.get() >= unit.toNanos(1) && precision.compareTo(unit) <= 0) {
+        times.add(getTime(nanos, unit, entry.getValue()));
+      }
+    }
+    return String.join(" ", times);
+  }
+
+  /**
+   * Formats assuming the given time is in milliseocnds
+   * @see C#format(long, TimeUnit, TimeUnit)
+   */
+  public static String format(long time, TimeUnit precision) {
+    return C.format(time, TimeUnit.MILLISECONDS, precision);
+  }
+
+
+  private static String getTime(AtomicLong time, TimeUnit unit, String suffix) {
+    long nanos = unit.toNanos(1);
+    if(time.get() >= nanos) {
+      long amount = time.get() / nanos;
+      time.set(time.get() % nanos);
+      return amount + suffix;
+    }
+    return "";
+  }
 
   /**
    * Sees if a user has the role displayed.
@@ -161,9 +211,8 @@ public class C {
    */
   public static void dlFile(String url, String outputName) {
     try {
-      FileOutputStream fos = new FileOutputStream(outputName);
+      @Cleanup FileOutputStream fos = new FileOutputStream(outputName);
       fos.getChannel().transferFrom(Channels.newChannel(new URL(url).openStream()), 0, Long.MAX_VALUE);
-      fos.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -264,11 +313,9 @@ public class C {
    */
   public static void writeFile(String file, String content) {
     try {
-      FileWriter fw = new FileWriter(new File(file));
-      BufferedWriter bw = new BufferedWriter(fw);
+      @Cleanup FileWriter fw = new FileWriter(new File(file));
+      @Cleanup BufferedWriter bw = new BufferedWriter(fw);
       bw.write(content);
-      bw.close();
-      fw.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
