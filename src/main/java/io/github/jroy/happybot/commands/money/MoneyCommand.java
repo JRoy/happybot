@@ -14,11 +14,13 @@ import org.apache.commons.lang3.StringUtils;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.IntUnaryOperator;
 
 @SuppressWarnings("ConstantConditions")
 public class MoneyCommand extends CommandBase {
-  public static final String NEED_ACCOUNT = "You do not have an account! Please run `^money create` to make one!";
+  private static final String NEED_ACCOUNT = "You do not have an account! Please run `^money create` to make one!";
+  private static final int CLAIM_COOLDOWN = 86400000;
 
   private Map<Roles, IntUnaryOperator> bonuses = new HashMap<>();
   private SQLManager sqlManager;
@@ -144,7 +146,6 @@ public class MoneyCommand extends CommandBase {
     }
 
     if (args[0].equalsIgnoreCase("create")) {
-
       try {
         if (!sqlManager.isActiveUser(e.getMember().getUser().getId())) {
           sqlManager.newUser(e.getMember().getUser().getId());
@@ -172,7 +173,7 @@ public class MoneyCommand extends CommandBase {
             }
             e.replySuccess("Here is your FIRST daily money nose! +200");
           } else {
-            if ((System.currentTimeMillis() - userToken.getEpoch()) >= 86400000) {
+            if ((System.currentTimeMillis() - userToken.getEpoch()) >= CLAIM_COOLDOWN) {
               userToken.addCoins(reward);
               userToken.setEpoch(System.currentTimeMillis());
               if (reward != 200) {
@@ -183,19 +184,9 @@ public class MoneyCommand extends CommandBase {
               e.replySuccess("Here is your daily money nose! +200");
             } else {
               int dif = (int) (System.currentTimeMillis() - userToken.getEpoch());
-              double wait = 24 - (((dif / 1000) / 60) / 60);
-              String unit = " hour";
-              if (wait < 1) {
-                wait = wait * 60;
-                unit = " minute";
-                if (wait > 1) {
-                  unit += "s";
-                }
-              } else if (wait > 1) {
-                unit += "s";
-              }
               e.replyError("You may only claim liquid money once a day!\n"
-                  + "You can reclaim your daily reward in: " + (int) wait + unit + "!");
+                  + "You can reclaim your daily reward in: "
+                  + C.format(CLAIM_COOLDOWN - dif, TimeUnit.MINUTES) + "!");
             }
           }
         } else {
@@ -219,43 +210,34 @@ public class MoneyCommand extends CommandBase {
     } else if (args[0].equalsIgnoreCase("baltop") || args[0].equalsIgnoreCase("top")) {
       try {
         Map<Integer, Map<Member, Integer>> result = sqlManager.getTop(10);
-        int curPos = 1;
 
         EmbedBuilder builder = new EmbedBuilder();
-        builder.setTitle("Top Balances");
-        builder.setDescription("Here are the top 10 balances in the gamble system!");
+        builder.setTitle("Top 10 Balances");
 
-        for (int i = 0; i < 10; i++) {
-          for (Map.Entry<Member, Integer> curEntry : result.get(i + 1).entrySet()) {
-            builder.addField(C.bold("#" + curPos) + " " + curEntry.getKey().getAsMention(), C.bold(C.prettyNum(curEntry.getValue())) + " coins", true);
-            curPos++;
+        StringBuilder description = new StringBuilder();
+        for (int i = 1; i <= 10 && i <= result.size(); i++) {
+          for (Map.Entry<Member, Integer> curEntry : result.get(i).entrySet()) {
+            if(i > 1) {
+              description.append("\n");
+            }
+            if (i == 1) {
+              description.append("\uD83E\uDD47");
+            } else if (i == 2) {
+              description.append("\uD83E\uDD48");
+            } else if (i == 3) {
+              description.append("\uD83E\uDD49");
+            } else {
+              description.append(C.bold("#" + i));
+            }
+            description.append(" ").append(curEntry.getKey().getAsMention()).append(": ")
+                .append(C.bold(C.prettyNum(curEntry.getValue()))).append(" coins");
           }
         }
+        builder.setDescription(description);
         e.reply(builder.build());
       } catch (SQLException e1) {
         e.replyError("Oof error.");
-      }
-    } else if (args[0].equalsIgnoreCase("check")) {
-      try {
-        if (sqlManager.isActiveUser(e.getMember().getUser().getId())) {
-          UserToken userToken = (sqlManager.getUser(e.getMember().getUser().getId()));
-          int dif = (int) (System.currentTimeMillis() - userToken.getEpoch());
-          int wait = 24 - (((dif / 1000) / 60) / 60);
-          if (dif >= 86400000 || userToken.getEpoch() == 0) {
-            e.reply("You can reclaim your daily reward RIGHT NOW YOU DUM!");
-            return;
-          }
-          String unit = " hour(s)!";
-          if (wait < 1) {
-            wait = wait * 60;
-            unit = " minute(s)!";
-          }
-          e.reply("You can reclaim your daily reward in: " + wait + unit);
-        } else {
-          e.replyError(NEED_ACCOUNT);
-        }
-      } catch (SQLException e1) {
-        e.reply("Oof error.");
+        e1.printStackTrace();
       }
     } else if (args[0].equalsIgnoreCase("pay")) {
       if (args.length != 3) {
@@ -312,5 +294,4 @@ public class MoneyCommand extends CommandBase {
 
     return reward;
   }
-
 }
