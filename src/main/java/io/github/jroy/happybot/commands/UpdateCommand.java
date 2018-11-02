@@ -3,6 +3,7 @@ package io.github.jroy.happybot.commands;
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
+import io.github.jroy.happybot.game.GameManager;
 import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
@@ -14,11 +15,13 @@ import java.util.concurrent.TimeUnit;
 
 public class UpdateCommand extends CommandBase {
 
-  private MessageFactory messageFactory;
+  private final MessageFactory messageFactory;
+  private final GameManager gameManager;
 
-  public UpdateCommand(MessageFactory messageFactory) {
+  public UpdateCommand(MessageFactory messageFactory, GameManager gameManager) {
     super("update", "<j(enkins)/d(ropbox)> [-s] [-dev]", "Restarts the VM with an update.", CommandCategory.BOT, Roles.DEVELOPER);
     this.messageFactory = messageFactory;
+    this.gameManager = gameManager;
   }
 
   @Override
@@ -45,6 +48,7 @@ public class UpdateCommand extends CommandBase {
       if (e.getArgs().contains("-dev")) {
         dev = true;
       }
+      boolean force =  e.getArgs().contains("-f") || e.getArgs().contains("--force");
       if (e.getArgs().toLowerCase().startsWith("jenkins") || e.getArgs().toLowerCase().startsWith("j")) {
         e.reply(":white_check_mark: Downloading Update from Jenkins!");
         if (!silent) {
@@ -56,9 +60,9 @@ public class UpdateCommand extends CommandBase {
           exitCode = 25;
         }
       } else if (e.getArgs().toLowerCase().startsWith("dropbox") || e.getArgs().toLowerCase().startsWith("d")) {
-        e.reply(":white_check_mark: Downloading Update from Dropbox!");
+        e.reply(":white_check_mark: Downloading Update via SSH!");
         if (!silent) {
-          new Thread(new ImpendRestart("Dropbox")).start();
+          new Thread(new ImpendRestart("SSH")).start();
         }
         exitCode = 10;
       } else {
@@ -70,6 +74,12 @@ public class UpdateCommand extends CommandBase {
         TimeUnit.SECONDS.sleep(1);
       } catch (InterruptedException e1) {
         e1.printStackTrace();
+      }
+      if (gameManager.isGamesActive() && !force) {
+        e.reply("There are currently games active, I have impended a new update and will restart when all games close!");
+        gameManager.setPendingRestart(true);
+        gameManager.setPendingCode(exitCode);
+        return;
       }
       e.getJDA().shutdown();
       Logger.log("Updater - Updating Builds with exit code: " + exitCode);

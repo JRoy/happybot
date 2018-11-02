@@ -8,8 +8,6 @@ import io.github.jroy.happybot.game.GameManager;
 import io.github.jroy.happybot.game.GameType;
 import io.github.jroy.happybot.game.model.PendingGameToken;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class GameCommand extends CommandBase {
   private final GameManager gameManager;
 
@@ -33,6 +31,11 @@ public class GameCommand extends CommandBase {
     }
     switch (e.getSplitArgs()[0]) {
       case "create": {
+        if (gameManager.isPendingRestart()) {
+          e.reply("Happybot is pending a restart, game commands have been paused while this is happening.");
+          return;
+        }
+
         if (e.getSplitArgs().length < 2) {
           e.replyError(HELP_MESSAGE);
           return;
@@ -64,6 +67,11 @@ public class GameCommand extends CommandBase {
         break;
       }
       case "start": {
+        if (gameManager.isPendingRestart()) {
+          e.reply("Happybot is pending a restart, game commands have been paused while this is happening.");
+          return;
+        }
+
         if (gameManager.isPendingUser(e.getMember().getUser().getId())) {
           PendingGameToken token = gameManager.getPendingToken(e.getMember());
           if (token.getPlayers().size() < token.getGame().getMinPlayers()) {

@@ -24,11 +24,7 @@ public class MemePost {
     selfText = dataObject.get("selftext").getAsString();
 
     if (!selfPost) {
-      if (dataObject.getAsJsonObject("preview") == null) {
-        mediaUrl = dataObject.get("url").getAsString();
-      } else {
-        mediaUrl = dataObject.getAsJsonObject("preview").getAsJsonArray("images").get(0).getAsJsonObject().getAsJsonObject("source").get("url").getAsString();
-      }
+      mediaUrl = dataObject.get("url").getAsString();
     }
 
     isNsfw = dataObject.toString().replace("promo_adult_nsfw", "").contains("nsfw");

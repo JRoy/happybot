@@ -40,6 +40,13 @@ public class ActiveGame {
     this.webhook = webhook;
     this.lastAction = OffsetDateTime.now().plus(10, ChronoUnit.MINUTES);
     players.add(creator);
+    StringBuilder sb = new StringBuilder();
+    sb.append("Hello");
+    for (Member curPlayer : players) {
+      sb.append(" ").append(curPlayer.getAsMention());
+    }
+    sb.append("! This is your private game channel.");
+    sendMessage(sb.toString());
   }
 
   public void sendMessage(String message) {

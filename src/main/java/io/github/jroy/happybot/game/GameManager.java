@@ -2,6 +2,7 @@ package io.github.jroy.happybot.game;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.game.model.GameMessageReceived;
 import io.github.jroy.happybot.game.model.GameReactionReceived;
 import io.github.jroy.happybot.game.model.GameStartEvent;
@@ -10,6 +11,7 @@ import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Categories;
 import io.github.jroy.happybot.util.Channels;
+import io.github.jroy.happybot.util.Logger;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.Permission;
@@ -35,6 +37,8 @@ public class GameManager extends ListenerAdapter {
 
   private int gameId = 1;
   private boolean statusLoaded = false;
+  private boolean pendingRestart = false;
+  private int pendingCode = 0;
 
   /**
    * String: Message ID that also serves as a prompt
@@ -79,8 +83,17 @@ public class GameManager extends ListenerAdapter {
             activeGames.remove(curEntry.getValue().getId());
           }
         }
+        checkRestart(0);
       }
     }, 0, 120000);
+  }
+
+  private void checkRestart(int gameCount) {
+    if (activeGames.size() == gameCount && pendingRestart) {
+      Main.getJda().shutdown();
+      Logger.log("The JDA instance has been shutdown...exiting the program.");
+      System.exit(pendingCode);
+    }
   }
 
   @Override
@@ -93,6 +106,9 @@ public class GameManager extends ListenerAdapter {
 
   @Override
   public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
+    if (isPendingRestart()) {
+      return;
+    }
     if (!e.getUser().isBot() && pendingStart.asMap().containsKey(e.getMessageId()) && e.getReactionEmote().getName().equalsIgnoreCase("\uD83D\uDC4D")) {
       PendingGameToken token = pendingStart.getIfPresent(e.getMessageId());
       String userId = e.getMember().getUser().getId();
@@ -120,6 +136,22 @@ public class GameManager extends ListenerAdapter {
       activeGames.get(id).setLastAction(OffsetDateTime.now().plus(10, ChronoUnit.MINUTES));
       activeGames.get(id).getGame().messageReceived(new GameMessageReceived(activeGames.get(id), e));
     }
+  }
+
+  public boolean isPendingRestart() {
+    return pendingRestart;
+  }
+
+  public void setPendingRestart(boolean pendingRestart) {
+    this.pendingRestart = pendingRestart;
+  }
+
+  public void setPendingCode(int pendingCode) {
+    this.pendingCode = pendingCode;
+  }
+
+  public boolean isGamesActive() {
+    return activeGames.size() > 0;
   }
 
   public boolean isPendingUser(String userId) {
@@ -150,6 +182,7 @@ public class GameManager extends ListenerAdapter {
 
   /**
    * Determines if a user has a game in progress.
+   *
    * @param userId The user id of the creator of the game
    * @return Returns true if the the user id provided has a game in progress.
    */
@@ -213,9 +246,10 @@ public class GameManager extends ListenerAdapter {
 
   /**
    * Locks a game channel and awards winner prizes.
+   *
    * @param activeGame The active game instance.
-   * @param winner The winner of the game. Can be null to indicate no winner.
-   * @param coinPrize The amount of coins to award the user.
+   * @param winner     The winner of the game. Can be null to indicate no winner.
+   * @param coinPrize  The amount of coins to award the user.
    */
   public void protectGame(ActiveGame activeGame, @Nullable Member winner, int coinPrize) {
     for (Member curPlayer : activeGame.getPlayers()) {
@@ -224,9 +258,9 @@ public class GameManager extends ListenerAdapter {
     activeGame.sendMessage("---------------------------------------------------------------");
     if (winner != null) {
       activeGame.sendMessage(
-          "Congratulations " + winner.getAsMention() + " for winning the game!\n"+
-          "You have been awarded **" + C.prettyNum(coinPrize) + " coins**!\n"+
-          "Spend them in `^shop`!");
+          "Congratulations " + winner.getAsMention() + " for winning the game!\n" +
+              "You have been awarded **" + C.prettyNum(coinPrize) + " coins**!\n" +
+              "Spend them in `^shop`!");
       try {
         if (!sqlManager.isActiveUserH(winner.getUser().getId())) {
           sqlManager.newUser(winner.getUser().getId());
@@ -241,12 +275,13 @@ public class GameManager extends ListenerAdapter {
     } else {
       activeGame.sendMessage(
           "Nobody Won the Game :(\n" +
-          "Better Luck Next Time!"
+              "Better Luck Next Time!"
       );
     }
     activeGame.sendMessage(
         "This channel will be removed in approximately **10 minutes!**\n" +
-        "---------------------------------------------------------------");
+            "---------------------------------------------------------------");
+    checkRestart(1);
   }
 
   /**
@@ -271,5 +306,6 @@ public class GameManager extends ListenerAdapter {
     channelToIdMap.remove(activeGame.getChannel().getId());
     activeGame.getChannel().delete().queue();
     activeGames.remove(activeGame.getId());
+    checkRestart(0);
   }
 }

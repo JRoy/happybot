@@ -199,7 +199,7 @@ public class Main extends ListenerAdapter {
       builder.addEventListener(listener);
     }
     Logger.info("Logging into Discord...");
-    jda = builder.buildBlocking();
+    jda = builder.build().awaitReady();
 
     new LoggingFactory();
 
@@ -395,8 +395,8 @@ public class Main extends ListenerAdapter {
         new RuntimeCommand(),
         new ThemeCommand(themeManager),
 //                new ThemeManagerCommand(themeManager),
-        new ShutdownCommand(),
-        new UpdateCommand(messageFactory),
+        new ShutdownCommand(gameManager),
+        new UpdateCommand(messageFactory, gameManager),
         new EvalCommand(),
         new TestCommand(),
         new AddUserCommand(leveling),

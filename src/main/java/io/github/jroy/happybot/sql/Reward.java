@@ -9,20 +9,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum Reward {
-  DAILY1(1, "x1.5 Daily Reward", 60000, e -> {
+  DAILY1(1, "x1.5 Daily Reward", 15000, e -> {
     C.giveRole(e.getMember(), Roles.GAMBLE1, "Added from ^shop reward");
   }),
-  DAILY2(2, "x2 Daily Reward", 150000, e -> {
+  DAILY2(2, "x2 Daily Reward", 30000, e -> {
     C.giveRole(e.getMember(), Roles.GAMBLE2, "Added from ^shop reward");
   }),
-  CHANNEL(3, "#casino-lounge Channel", 5000, e -> {
+  CHANNEL(3, "#casino-lounge Channel", 2500, e -> {
     C.giveRole(e.getMember(), Roles.ADDICT, "Added from ^shop reward");
   }),
-  STEALTH(4, "Increase Rate of Robbery", 10000, e -> {
+  STEALTH(4, "Increase Rate of Robbery", 5000, e -> {
   }),
-  BAG(5, "Increase Rob Amount", 10000, e -> {
+  BAG(5, "Increase Rob Amount", 5000, e -> {
   }),
-  COUNTER(6, "(One Time Use) Block a Robbery", 820, e -> {
+  COUNTER(6, "(One Time Use) Block a Robbery", 300, e -> {
   });
 
   private final int id;
