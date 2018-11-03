@@ -305,14 +305,17 @@ public class StarMessages extends ListenerAdapter {
   }
 
   private void handleStar(GuildMessageReactionAddEvent e, StarEmote emote) {
-    CompletableFuture.runAsync(new HandleStar(e, emote, e.getChannel().getMessageById(e.getMessageId()).complete()));
+    Message message = e.getChannel().getMessageById(e.getMessageId()).complete();
+    CompletableFuture.runAsync(new HandleStar(e, emote, message));
   }
 
   private void handleGild(GuildMessageReactionAddEvent e) {
-    CompletableFuture.runAsync(new HandleGild(e, e.getChannel().getMessageById(e.getMessageId()).complete()));
+    Message message = e.getChannel().getMessageById(e.getMessageId()).complete();
+    CompletableFuture.runAsync(new HandleGild(e, message));
   }
 
   private void sendStarredMessage(String footer, Message message, String privateMessageText, StarEmote emote, Member causedUser) {
+    Channels channel = Channels.STARRED_MESSAGES;
     EmbedBuilder embed = new EmbedBuilder()
         .setTitle(C.getFullName(message.getAuthor()))
         .setDescription(message.getContentRaw());
@@ -324,9 +327,12 @@ public class StarMessages extends ListenerAdapter {
 
     GildInfoToken infoToken = new GildInfoToken(causedUser.getUser().getId(), message.getAuthor().getId());
 
-    if (footer.startsWith(NEW_GILDED_MESSAGE)) {
+    if (footer.startsWith(NEW_GILDED_MESSAGE) || footer.startsWith("Suggestion approved")) {
       embed.setFooter(footer, "https://cdn.discordapp.com/emojis/371121885997694976.png?v=1");
       pastGilds.put(message.getId(), infoToken);
+      if (footer.startsWith("Suggestion approved")) {
+        channel = Channels.SUGGESTIONS_STATUS;
+      }
     } else {
       embed.setFooter(footer, emote.getIconUrl());
     }
@@ -337,7 +343,7 @@ public class StarMessages extends ListenerAdapter {
       embed.setImage(C.getImage(message));
     }
 
-    infoToken.addCaused(Channels.STARRED_MESSAGES.getChannel().sendMessage(embed.build()).complete());
+    infoToken.addCaused(channel.getChannel().sendMessage(embed.build()).complete());
     C.privChannel(message.getMember(), privateMessageText);
     C.privChannel(message.getMember(), embed.build());
     alreadyUsedMessages.add(message.getId());
@@ -415,8 +421,12 @@ public class StarMessages extends ListenerAdapter {
     @Override
     public void run() {
       if (!alreadyUsedMessages.contains(message.getId())) {
-        String footer = NEW_GILDED_MESSAGE + " from #" + message.getChannel().getName() + " (" + C.getFullName(e.getUser()) + ")";
         String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
+        String footer = NEW_GILDED_MESSAGE + " from #" + message.getChannel().getName() + " (" + C.getFullName(e.getUser()) + ")";
+        if (e.getChannel().getId().equalsIgnoreCase(Channels.SUGGESTIONS.getId()) && C.hasRole(e.getMember(), Roles.DEVELOPER)) {
+          privateMessageText = "Congrats! Your suggestion has been approved and will be implemented soon!";
+          footer = "Suggestion approved and is pending addition! (" + C.getFullName(e.getUser()) + ")";
+        }
         alreadyUsedMessages.add(message.getId());
         sendStarredMessage(footer, message, privateMessageText, null, e.getMember());
         addGild(message.getAuthor().getId(), 1);
