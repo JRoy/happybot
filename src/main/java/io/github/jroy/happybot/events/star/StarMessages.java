@@ -305,11 +305,11 @@ public class StarMessages extends ListenerAdapter {
   }
 
   private void handleStar(GuildMessageReactionAddEvent e, StarEmote emote) {
-    CompletableFuture.runAsync(new HandleStar(e, emote));
+    CompletableFuture.runAsync(new HandleStar(e, emote, e.getChannel().getMessageById(e.getMessageId()).complete()));
   }
 
   private void handleGild(GuildMessageReactionAddEvent e) {
-    CompletableFuture.runAsync(new HandleGild(e));
+    CompletableFuture.runAsync(new HandleGild(e, e.getChannel().getMessageById(e.getMessageId()).complete()));
   }
 
   private void sendStarredMessage(String footer, Message message, String privateMessageText, StarEmote emote, Member causedUser) {
@@ -350,10 +350,10 @@ public class StarMessages extends ListenerAdapter {
     private Message message;
     private StarEmote emote;
 
-    HandleStar(GuildMessageReactionAddEvent e, StarEmote emote) {
+    HandleStar(GuildMessageReactionAddEvent e, StarEmote emote, Message message) {
       this.e = e;
       this.emote = emote;
-      message = e.getChannel().getMessageById(e.getMessageId()).complete();
+      this.message = message;
     }
 
     @Override
@@ -407,9 +407,9 @@ public class StarMessages extends ListenerAdapter {
     private GuildMessageReactionAddEvent e;
     private Message message;
 
-    HandleGild(GuildMessageReactionAddEvent e) {
+    HandleGild(GuildMessageReactionAddEvent e, Message message) {
       this.e = e;
-      message = e.getChannel().getMessageById(e.getMessageId()).complete();
+      this.message = message;
     }
 
     @Override
