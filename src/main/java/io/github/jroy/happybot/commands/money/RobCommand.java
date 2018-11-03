@@ -7,16 +7,19 @@ import io.github.jroy.happybot.sql.PurchaseManager;
 import io.github.jroy.happybot.sql.Reward;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.sql.UserToken;
+import io.github.jroy.happybot.util.C;
 import net.dv8tion.jda.core.entities.Member;
 
 import java.sql.SQLException;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 public class RobCommand extends CommandBase {
 
   private final static int FINE = 300;
+  private final static int SECURITY_MULTIPLIER = 2;
   private final HashMap<String, RobToken> robTokens = new HashMap<>();
   private SQLManager sqlManager;
   private PurchaseManager purchaseManager;
@@ -57,10 +60,10 @@ public class RobCommand extends CommandBase {
       RobToken token = robTokens.get(userId);
 
       // Check the user has not robbed in the last day
-	  int secondsRemaining = token.getTimeRemainingForUser(userId);
+	    int secondsRemaining = token.getTimeRemainingForUser(userId);
       if (secondsRemaining > 0) {
-      	String timeRemainingSuffixString = timeRemainingSuffix(secondsRemaining);
-	    e.replyError("You may only rob a user once a day! You can rob them again in " + timeRemainingSuffixString);
+	      e.replyError("You may only rob a user once a day! You can rob them again in "
+            + C.format(secondsRemaining, TimeUnit.SECONDS, TimeUnit.MINUTES));
         removeFromCooldown(e.getMember());
         return;
       }
@@ -71,6 +74,10 @@ public class RobCommand extends CommandBase {
       if (targetToken.getCoins() < 1000) {
         e.reply("This person has under 1000 coins, give them a break!");
         removeFromCooldown(e.getMember());
+        return;
+      } else if (userToken.getCoins() < FINE * SECURITY_MULTIPLIER) {
+        e.reply("You don't have enough coins to be worth it, you'll go broke!\n" +
+            "You need " + FINE * SECURITY_MULTIPLIER + " coins.");
         return;
       }
 
@@ -86,15 +93,15 @@ public class RobCommand extends CommandBase {
         e.reply("The person you are trying to steal from does not have any money to steal! You got caught in the act!\n" +
             "    -" + FINE + " coins.");
         token.registerRob(targetMember.getUser().getId());
-        userToken.takeCoins(Math.min(FINE, userToken.getCoins()));
+        userToken.takeCoins(FINE);
         return;
       }
 
       if (purchaseManager.hasReward(targetMember.getUser().getId(), Reward.COUNTER)) {
         purchaseManager.deleteSingleReward(targetMember.getUser().getId(), Reward.COUNTER);
-        targetToken.addCoins(FINE * 2);
-        userToken.takeCoins(Math.min(FINE * 2, userToken.getCoins()));
-        e.replyError("!!SECURITY SYSTEM TRIGGERED!! You must pay " + FINE * 2 + " coins to get out of jail!");
+        targetToken.addCoins(FINE * SECURITY_MULTIPLIER);
+        userToken.takeCoins(FINE * SECURITY_MULTIPLIER);
+        e.replyError("!!SECURITY SYSTEM TRIGGERED!! You must pay " + FINE * SECURITY_MULTIPLIER + " coins to get out of jail!");
         return;
       }
 
@@ -120,19 +127,5 @@ public class RobCommand extends CommandBase {
       removeFromCooldown(e.getMember());
 
     }
-  }
-
-  private String timeRemainingSuffix(int secondsRemaining) {
-	  int hoursRemaining = (secondsRemaining + (3600 - 1)) / 3600;
-	  if (hoursRemaining == 1) {
-		  int minutesRemaining = (secondsRemaining + (60 - 1)) / 60;
-		  if (minutesRemaining == 1) {
-			  return "1 minute";
-		  } else {
-			  return String.format("%d minutes", minutesRemaining);
-		  }
-	  } else {
-		  return String.format("%d hours", hoursRemaining);
-	  }
   }
 }
