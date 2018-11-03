@@ -33,24 +33,31 @@ public class RobCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent e) {
-    try {
-      if (!e.containsMention()) {
-        e.reply(invalid);
-        removeFromCooldown(e.getMember());
-        return;
+    Member target = null;
+    if (!e.getArgs().isEmpty()) {
+      Member fromName = C.getMemberFromName(e.getArgs());
+      if (e.containsMention()) {
+        target = e.getMentionedMember();
+      } else if (fromName != null) {
+        target = fromName;
       }
-
+    }
+    if (target == null) {
+      e.reply(invalid);
+      removeFromCooldown(e.getMember());
+      return;
+    }
+    try {
       // Check both members have a money account
       String userId = e.getMember().getUser().getId();
-      Member targetMember = e.getMentionedMember();
-      if (!sqlManager.isActiveUserH(userId) || !sqlManager.isActiveUserH(targetMember.getUser().getId())) {
+      if (!sqlManager.isActiveUserH(userId) || !sqlManager.isActiveUserH(target.getUser().getId())) {
         e.reply("Both you and the person you are attempting to rob must have a money account!");
         removeFromCooldown(e.getMember());
         return;
       }
 
       // Check the user is not robbing themselves
-      if (userId.equalsIgnoreCase(targetMember.getUser().getId())) {
+      if (userId.equalsIgnoreCase(target.getUser().getId())) {
         e.reply("Why would you rob yourself?");
         removeFromCooldown(e.getMember());
         return;
@@ -69,7 +76,7 @@ public class RobCommand extends CommandBase {
       }
 
       UserToken userToken = sqlManager.getUser(userId);
-      UserToken targetToken = sqlManager.getUser(targetMember.getUser().getId());
+      UserToken targetToken = sqlManager.getUser(target.getUser().getId());
 
       if (targetToken.getCoins() < 1000) {
         e.reply("This person has under 1000 coins, give them a break!");
@@ -92,13 +99,13 @@ public class RobCommand extends CommandBase {
       if (targetToken.getCoins() < robAmount) {
         e.reply("The person you are trying to steal from does not have any money to steal! You got caught in the act!\n" +
             "    -" + FINE + " coins.");
-        token.registerRob(targetMember.getUser().getId());
+        token.registerRob(target.getUser().getId());
         userToken.takeCoins(FINE);
         return;
       }
 
-      if (purchaseManager.hasReward(targetMember.getUser().getId(), Reward.COUNTER)) {
-        purchaseManager.deleteSingleReward(targetMember.getUser().getId(), Reward.COUNTER);
+      if (purchaseManager.hasReward(target.getUser().getId(), Reward.COUNTER)) {
+        purchaseManager.deleteSingleReward(target.getUser().getId(), Reward.COUNTER);
         targetToken.addCoins(FINE * SECURITY_MULTIPLIER);
         userToken.takeCoins(FINE * SECURITY_MULTIPLIER);
         e.replyError("!!SECURITY SYSTEM TRIGGERED!! You must pay " + FINE * SECURITY_MULTIPLIER + " coins to get out of jail!");
@@ -114,12 +121,12 @@ public class RobCommand extends CommandBase {
       if (chance < rate) {
         targetToken.takeCoins(robAmount);
         userToken.addCoins(robAmount);
-        token.registerRob(targetMember.getUser().getId());
-        e.reply("Hey " + targetMember.getAsMention() + ", you just got robbed by " + e.getMember().getAsMention() + " for " + robAmount + " coins!");
+        token.registerRob(target.getUser().getId());
+        e.reply("Hey " + target.getAsMention() + ", you just got robbed by " + e.getMember().getAsMention() + " for " + robAmount + " coins!");
       } else {
         e.reply(e.getMember().getAsMention() + ", the feds caught you in the act you thief.\n" +
             "    -" + FINE + " coins as fine.");
-        token.registerRob(targetMember.getUser().getId());
+        token.registerRob(target.getUser().getId());
         userToken.takeCoins(Math.min(FINE, userToken.getCoins()));
       }
     } catch (SQLException e1) {
