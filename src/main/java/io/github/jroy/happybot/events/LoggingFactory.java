@@ -23,7 +23,6 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
 import net.dv8tion.jda.core.events.role.RoleCreateEvent;
 import net.dv8tion.jda.core.events.role.RoleDeleteEvent;
 import net.dv8tion.jda.core.events.role.update.RoleUpdateNameEvent;
-import net.dv8tion.jda.core.events.user.update.UserUpdateNameEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.webhook.WebhookClient;
 import net.dv8tion.jda.webhook.WebhookMessageBuilder;
@@ -200,17 +199,6 @@ public class LoggingFactory extends ListenerAdapter {
         .setDescription(e.getUser().getAsMention() + " " + C.bold("nickname changed!"))
         .addField("New Nick", e.getNewNick() != null ? e.getNewNick() : "N/A", false)
         .addField("Old Nick", e.getPrevNick() != null ? e.getPrevNick() : "N/A", false)
-        .setColor(Color.CYAN)
-        .setFooter("ID: " + e.getUser().getId(), null).build());
-  }
-
-  @Override
-  public void onUserUpdateName(UserUpdateNameEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor(C.getFullName(e.getUser()), null, e.getUser().getAvatarUrl())
-        .setDescription(e.getUser().getAsMention() + " " + C.bold("username changed!"))
-        .addField("New Name", e.getNewName(), false)
-        .addField("Old Name", e.getOldName(), false)
         .setColor(Color.CYAN)
         .setFooter("ID: " + e.getUser().getId(), null).build());
   }
