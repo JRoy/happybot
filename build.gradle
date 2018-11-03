@@ -9,7 +9,7 @@ apply plugin: 'idea'
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile 'com.github.KevinPriv:HypixelApi4J:API-1.4'
-    compile 'net.dv8tion:JDA:3.8.1_439'
+    compile 'net.dv8tion:JDA:3.7.1_422'
     compile 'com.jagrosh:jda-utilities:2.1.4'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
