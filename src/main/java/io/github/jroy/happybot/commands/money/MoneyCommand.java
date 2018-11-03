@@ -220,16 +220,8 @@ public class MoneyCommand extends CommandBase {
             if(i > 1) {
               description.append("\n");
             }
-            if (i == 1) {
-              description.append("\uD83E\uDD47");
-            } else if (i == 2) {
-              description.append("\uD83E\uDD48");
-            } else if (i == 3) {
-              description.append("\uD83E\uDD49");
-            } else {
-              description.append(C.bold("#" + i));
-            }
-            description.append(" ").append(curEntry.getKey().getAsMention()).append(": ")
+            description.append(C.getPositionName(i))
+                .append(" ").append(curEntry.getKey().getAsMention()).append(": ")
                 .append(C.bold(C.prettyNum(curEntry.getValue()))).append(" coins");
           }
         }

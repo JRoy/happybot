@@ -20,9 +20,9 @@ public class TrueFalseGame extends ListenerAdapter {
         return;
       }
 //      if (repeatCache.contains(curCount)) {
-//        if (repeatCache.get(curCount).getUser().getId().equals(e.getMember().getUser().getId()))
+//        if (repeatCache.get(curCount).getUser().getId().equals(e.matchMember().getUser().getId()))
 //          new SafeRestAction(e.getMessage().delete()).wait(TimeUnit.MILLISECONDS, 500).queue();
-//        C.privChannel(e.getMember(), "You may not respond to your own true/false!");
+//        C.privChannel(e.matchMember(), "You may not respond to your own true/false!");
 //        return;
 //      }
     }

@@ -39,6 +39,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The C Class provides lots of *sometimes* useful methods that make things ez-pz.
@@ -46,6 +48,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @SuppressWarnings("unused")
 public class C {
   private static String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
+  private static final Pattern MENTION_REGEX = Pattern.compile("(?<=<@)\\d+(?=>)");
   private static final Map<TimeUnit, String> timeUnits = new LinkedHashMap<>();
 
   static {
@@ -56,6 +59,48 @@ public class C {
     timeUnits.put(TimeUnit.MILLISECONDS, "ms");
     timeUnits.put(TimeUnit.MICROSECONDS, "μs");
     timeUnits.put(TimeUnit.NANOSECONDS, "ns");
+  }
+
+  public static Member matchMember(String string) {
+    Guild guild = C.getGuild();
+    Matcher matcher = MENTION_REGEX.matcher(string);
+    if(matcher.matches()) {
+      return guild.getMemberById(matcher.group());
+    }
+
+    Member closest = null;
+    double distance = Double.MIN_VALUE;
+
+    for (Member member : guild.getMembers()) {
+      double nicknameDistance = JaroWinklerDistance.apply(string, member.getEffectiveName());
+      if (nicknameDistance > distance) {
+        closest = member;
+        distance = nicknameDistance;
+      }
+      double usernameDistance = JaroWinklerDistance.apply(string, member.getUser().getName());
+      if (usernameDistance > distance) {
+        closest = member;
+        distance = usernameDistance;
+      }
+      double fullNameDistance = JaroWinklerDistance.apply(string, C.getFullName(member.getUser()));
+      if (fullNameDistance > distance) {
+        closest = member;
+        distance = fullNameDistance;
+      }
+    }
+    return closest;
+  }
+
+  public static String getPositionName(int position) {
+    if (position == 1) {
+      return "\uD83E\uDD47";
+    } else if (position == 2) {
+      return "\uD83E\uDD48";
+    } else if (position == 3) {
+      return "\uD83E\uDD49";
+    } else {
+      return C.bold("#" + position);
+    }
   }
 
   /**
@@ -327,7 +372,7 @@ public class C {
    * @param in The input number.
    * @return Comma formatted number.
    */
-  public static String prettyNum(int in) {
+  public static String prettyNum(long in) {
     return NumberFormat.getInstance(Locale.US).format(in);
   }
 

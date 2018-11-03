@@ -12,7 +12,10 @@ public enum Constants {
   SQL_DATABASE_NAME("coins"),
   HAPPYHEART_DISCORD_ID("206547133338222592"),
   TEDDY_ID("242849297685544962"),
-  EXP_SPAMMER_TIME("604800000");
+  EXP_SPAMMER_TIME("604800000"),
+  FIRST_PLACE("\uD83E\uDD47"),
+  SECOND_PLACE("\uD83E\uDD48"),
+  THIRD_PLACE("\uD83E\uDD49");
 
   private final String value;
 
@@ -20,4 +23,8 @@ public enum Constants {
     return value;
   }
 
+  @Override
+  public String toString() {
+    return value;
+  }
 }

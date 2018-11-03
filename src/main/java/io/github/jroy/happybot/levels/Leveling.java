@@ -4,7 +4,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.udojava.evalex.Expression;
-import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.sql.PurchaseManager;
 import io.github.jroy.happybot.sql.Reward;
@@ -30,7 +29,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -89,13 +93,45 @@ public class Leveling extends ListenerAdapter {
             topCache = result;
             int curPos = 1;
             EmbedBuilder builder = new EmbedBuilder();
-            builder.setAuthor("Top 25 XP Betrayals", null, C.getGuild().getIconUrl()).setFooter("Stats provided by happybot's Leveling API!", Main.getJda().getSelfUser().getAvatarUrl()).setTimestamp(OffsetDateTime.now()).setColor(Color.MAGENTA).setDescription("Here are the current top 25 rankings for experience.");
+            builder.setAuthor("Top 25 chatters by XP", null, C.getGuild().getIconUrl())
+                .setTimestamp(OffsetDateTime.now())
+                .setColor(Color.MAGENTA);
+
+            StringBuilder description = new StringBuilder();
             for (Map.Entry<Integer, LevelingToken> mapToken : result.entrySet()) {
+              if(curPos > 1) {
+                description.append("\n");
+              }
+
               LevelingToken token = mapToken.getValue();
-              builder.addField("#" + curPos + ": " + C.getFullName(token.getMember().getUser()), "Level " + token.getLevel() + " (" + C.prettyNum((int) token.getExp()) + " XP)", false);
+
+              long rankXp = getNextExp(token.getLevel()).longValue();
+              long totalExpP = token.getLevel() - 1;
+              long progressXp;
+              if (token.getLevel() == 0) {
+                progressXp = 0;
+              } else {
+                progressXp = token.getExp() - getTotalExp(totalExpP) - getNextExp(totalExpP).longValue();
+              }
+
+              description.append(C.getPositionName(curPos))
+                  .append(" ")
+                  .append(token.getMember().getAsMention())
+                  .append(" level ")
+                  .append(token.getLevel())
+                  .append(", ")
+                  .append(C.prettyNum(progressXp))
+                  .append("/")
+                  .append(C.prettyNum(rankXp))
+                  .append(", total XP: ")
+                  .append(C.prettyNum(token.getExp()))
+                  .append(" ");
               curPos++;
             }
-            Channels.LEADERBOARD.getChannel().getMessageById(leaderboardMessageId).complete().editMessage(builder.build()).queue();
+            builder.setDescription(description);
+            TextChannel leaderboard = Channels.LEADERBOARD.getChannel();
+            C.getGuild().getTextChannelById(499684786756124684L)
+                .getMessageById(leaderboardMessageId).complete().editMessage(builder.build()).queue();
           } catch (SQLException e) {
             e.printStackTrace();
           }
@@ -137,7 +173,7 @@ public class Leveling extends ListenerAdapter {
     }
   }
 
-  public BigInteger getNextExp(int lvl) {
+  public BigInteger getNextExp(long lvl) {
     return new Expression("5 * (" + lvl + " ^ 2) + 50 * " + lvl + " + 100").eval().toBigInteger();
   }
 
@@ -156,8 +192,8 @@ public class Leveling extends ListenerAdapter {
     return levels.floorEntry(expAmount).getValue();
   }
 
-  public long getTotalExp(Integer level) {
-    Object[] keys = levels.entrySet().stream().filter(e -> level.equals(e.getValue()))
+  public long getTotalExp(long level) {
+    Object[] keys = levels.entrySet().stream().filter(e -> level == e.getValue())
         .map(Map.Entry::getKey).toArray();
     return (long) keys[0];
   }

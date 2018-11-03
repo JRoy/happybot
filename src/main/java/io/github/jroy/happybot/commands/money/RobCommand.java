@@ -33,20 +33,7 @@ public class RobCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent e) {
-    Member target = null;
-    if (!e.getArgs().isEmpty()) {
-      Member fromName = C.getMemberFromName(e.getArgs());
-      if (e.containsMention()) {
-        target = e.getMentionedMember();
-      } else if (fromName != null) {
-        target = fromName;
-      }
-    }
-    if (target == null) {
-      e.reply(invalid);
-      removeFromCooldown(e.getMember());
-      return;
-    }
+    Member target = C.matchMember(e.getArgs());
     try {
       // Check both members have a money account
       String userId = e.getMember().getUser().getId();
