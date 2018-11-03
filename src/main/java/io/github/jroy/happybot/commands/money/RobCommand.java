@@ -33,7 +33,12 @@ public class RobCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent e) {
-    Member target = C.matchMember(e.getArgs());
+    Member target = C.matchMember(null, e.getArgs());
+    if(target == null) {
+      e.reply(invalid);
+      removeFromCooldown(e.getMember());
+      return;
+    }
     try {
       // Check both members have a money account
       String userId = e.getMember().getUser().getId();
@@ -72,6 +77,7 @@ public class RobCommand extends CommandBase {
       } else if (userToken.getCoins() < FINE * SECURITY_MULTIPLIER) {
         e.reply("You don't have enough coins to be worth it, you'll go broke!\n" +
             "You need " + FINE * SECURITY_MULTIPLIER + " coins.");
+        removeFromCooldown(e.getMember());
         return;
       }
 

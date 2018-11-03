@@ -18,7 +18,7 @@ public class AvatarCommand extends CommandBase {
     User target = e.getMember().getUser();
 
     if (!e.getArgs().isEmpty()) {
-      target = C.matchMember(e.getArgs()).getUser();
+      target = C.matchMember(e.getMember(), e.getArgs()).getUser();
     }
 
     e.reply(new EmbedBuilder().setAuthor(C.getFullName(target), target.getAvatarUrl(), target.getEffectiveAvatarUrl())

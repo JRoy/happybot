@@ -61,7 +61,7 @@ public class C {
     timeUnits.put(TimeUnit.NANOSECONDS, "ns");
   }
 
-  public static Member matchMember(String string) {
+  public static Member matchMember(Member def, String string) {
     Guild guild = C.getGuild();
     Matcher matcher = MENTION_REGEX.matcher(string);
     if(matcher.matches()) {
@@ -69,7 +69,7 @@ public class C {
     }
 
     Member closest = null;
-    double distance = Double.MIN_VALUE;
+    double distance = 0.5;
 
     for (Member member : guild.getMembers()) {
       double nicknameDistance = JaroWinklerDistance.apply(string, member.getEffectiveName());
@@ -88,7 +88,11 @@ public class C {
         distance = fullNameDistance;
       }
     }
-    return closest;
+    if(closest == null) {
+      return def;
+    } else {
+      return closest;
+    }
   }
 
   public static String getPositionName(int position) {

@@ -29,7 +29,7 @@ public class WhoIsCommand extends CommandBase {
     Member targetMember = e.getMember();
 
     if (!e.getArgs().isEmpty()) {
-      targetMember = C.matchMember(e.getArgs());
+      targetMember = C.matchMember(targetMember, e.getArgs());
     }
     User targetUser = targetMember.getUser();
 
