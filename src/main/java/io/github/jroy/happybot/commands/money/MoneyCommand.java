@@ -221,7 +221,7 @@ public class MoneyCommand extends CommandBase {
               description.append("\n");
             }
             description.append(C.getPositionName(i))
-                .append(" ").append(curEntry.getKey().getAsMention()).append(": ")
+                .append(" **").append(C.getFullName(curEntry.getKey().getUser())).append("**: ")
                 .append(C.bold(C.prettyNum(curEntry.getValue()))).append(" coins");
           }
         }
