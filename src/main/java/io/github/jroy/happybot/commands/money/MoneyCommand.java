@@ -26,7 +26,7 @@ public class MoneyCommand extends CommandBase {
   private SQLManager sqlManager;
 
   public MoneyCommand(SQLManager sqlManager) {
-    super("money", "<create/claim/check/bal/baltop/pay/admin>", "Command for your money needs.", CommandCategory.FUN);
+    super("money", "<create/claim/bal/baltop/pay/admin>", "Command for your money needs.", CommandCategory.FUN);
     this.sqlManager = sqlManager;
 
     bonuses.put(Roles.HELPER, r -> r + 5);
