@@ -276,12 +276,11 @@ public class GameManager extends ListenerAdapter {
     } else {
       activeGame.sendMessage(
           "Nobody Won the Game :(\n" +
-              "Better Luck Next Time!"
+              "Better Luck Next Time!\n" +
+              "This channel will be removed in approximately **1 minute!**\n" +
+              "---------------------------------------------------------------"
       );
     }
-    activeGame.sendMessage(
-        "This channel will be removed in approximately **1 minute!**\n" +
-            "---------------------------------------------------------------");
     checkRestart(1);
     new Timer().schedule(new TimerTask() {
       @Override
