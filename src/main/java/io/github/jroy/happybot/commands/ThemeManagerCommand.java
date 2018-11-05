@@ -16,7 +16,7 @@ public class ThemeManagerCommand /* extends Command*/ {
 //
 //    @Override
 //    protected void execute(CommandEvent e) {
-//        if (C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
+//        if (C.hasRole(e.matchMember(), Roles.SUPER_ADMIN)) {
 //            if (e.getArgs().isEmpty()) {
 //                e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
 //                return;

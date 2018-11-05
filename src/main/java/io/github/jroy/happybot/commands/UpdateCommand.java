@@ -49,7 +49,7 @@ public class UpdateCommand extends CommandBase {
         dev = true;
       }
       boolean force =  e.getArgs().contains("-f") || e.getArgs().contains("--force");
-      if (e.getArgs().toLowerCase().startsWith("jenkins") || e.getArgs().toLowerCase().startsWith("j")) {
+      if (e.getArgs().toLowerCase().startsWith("j")) {
         e.reply(":white_check_mark: Downloading Update from Jenkins!");
         if (!silent) {
           new Thread(new ImpendRestart("Jenkins")).start();
@@ -59,7 +59,7 @@ public class UpdateCommand extends CommandBase {
         } else {
           exitCode = 25;
         }
-      } else if (e.getArgs().toLowerCase().startsWith("dropbox") || e.getArgs().toLowerCase().startsWith("d")) {
+      } else if (e.getArgs().toLowerCase().startsWith("d")) {
         e.reply(":white_check_mark: Downloading Update via SSH!");
         if (!silent) {
           new Thread(new ImpendRestart("SSH")).start();

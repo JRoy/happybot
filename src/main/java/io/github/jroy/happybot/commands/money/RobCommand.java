@@ -33,16 +33,8 @@ public class RobCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent e) {
-    Member target = null;
-    if (!e.getArgs().isEmpty()) {
-      Member fromName = C.getMemberFromName(e.getArgs());
-      if (e.containsMention()) {
-        target = e.getMentionedMember();
-      } else if (fromName != null) {
-        target = fromName;
-      }
-    }
-    if (target == null) {
+    Member target = C.matchMember(null, e.getArgs());
+    if(target == null) {
       e.reply(invalid);
       removeFromCooldown(e.getMember());
       return;
@@ -85,6 +77,7 @@ public class RobCommand extends CommandBase {
       } else if (userToken.getCoins() < FINE * SECURITY_MULTIPLIER) {
         e.reply("You don't have enough coins to be worth it, you'll go broke!\n" +
             "You need " + FINE * SECURITY_MULTIPLIER + " coins.");
+        removeFromCooldown(e.getMember());
         return;
       }
 
