@@ -11,7 +11,7 @@ import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Categories;
 import io.github.jroy.happybot.util.Channels;
-import io.github.jroy.happybot.util.Logger;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.Permission;
@@ -31,6 +31,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class GameManager extends ListenerAdapter {
 
   private final SQLManager sqlManager;
@@ -91,7 +92,7 @@ public class GameManager extends ListenerAdapter {
   private void checkRestart(int gameCount) {
     if (activeGames.size() == gameCount && pendingRestart) {
       Main.getJda().shutdown();
-      Logger.log("The JDA instance has been shutdown...exiting the program.");
+      log.warn("The JDA instance has been shutdown...exiting the program.");
       System.exit(pendingCode);
     }
   }

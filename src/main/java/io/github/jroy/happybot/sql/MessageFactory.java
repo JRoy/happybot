@@ -1,6 +1,6 @@
 package io.github.jroy.happybot.sql;
 
-import io.github.jroy.happybot.util.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Nonnull;
 import java.nio.charset.StandardCharsets;
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@SuppressWarnings("FieldCanBeLocal")
+@Slf4j
 public class MessageFactory {
 
   private final Connection connection;
 
-  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `messages` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `type` VARCHAR(50) NOT NULL , `value` BINARY(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
-  private final String INSERT_MESSAGE = "INSERT INTO `messages` (`type`, `value`) VALUES (?, ?)";
-  private final String SELECT_MESSAGES = "SELECT * FROM `messages` WHERE type = ?;";
+  private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `messages` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `type` VARCHAR(50) NOT NULL , `value` BINARY(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
+  private static final String INSERT_MESSAGE = "INSERT INTO `messages` (`type`, `value`) VALUES (?, ?)";
+  private static final String SELECT_MESSAGES = "SELECT * FROM `messages` WHERE type = ?;";
 
   private final Random random = new Random();
   private List<String> joinMessages = new ArrayList<>();
@@ -35,7 +35,7 @@ public class MessageFactory {
       connection.createStatement().executeUpdate(CREATE_TABLE);
       refreshMessages();
     } catch (SQLException e) {
-      Logger.error("Error while caching messages: " + e.getMessage());
+      log.error("Error while caching messages: " + e.getMessage());
     }
   }
   

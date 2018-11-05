@@ -2,7 +2,7 @@ package io.github.jroy.happybot.sql;
 
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Constants;
-import io.github.jroy.happybot.util.Logger;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.entities.Member;
 
 import javax.annotation.Nonnull;
@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class SQLManager {
 
   private Connection connection;
@@ -22,12 +23,12 @@ public class SQLManager {
 
   public SQLManager(String sqlPassword) {
     password = sqlPassword;
-    Logger.info("Loading SQLManager...");
+    log.info("Loading SQLManager...");
     try {
       connect();
-      Logger.info("Connected to SQL!");
+      log.info("Connected to SQL!");
     } catch (SQLException | ClassNotFoundException e) {
-      Logger.error("Error connecting to the SQL Database: " + e.getMessage());
+      log.error("Error connecting to the SQL Database: " + e.getMessage());
     }
     instance = this;
   }

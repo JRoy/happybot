@@ -6,13 +6,14 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import io.github.jroy.happybot.apis.APIBase;
-import io.github.jroy.happybot.util.Logger;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class YouTubeAPI extends APIBase {
   public static final String HAPPYHEART_YOUTUBE_ID = "UC-enFKOrEf6N2Kq_YG3sFcQ";
   public static final String FETUS_YOUTUBE_ID = "UCBvPS7EWHVm0JSb8uYp4bNQ";
@@ -35,13 +36,13 @@ public class YouTubeAPI extends APIBase {
     youTube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, null)
         .setApplicationName("happybot").build();
     loadChannels();
-    Logger.info("YouTubeAPI Connected to API, waiting to listen to upload events.");
+    log.info("YouTubeAPI Connected to API, waiting to listen to upload events.");
   }
 
   @Override
   public void onJdaLogin() {
     channels.forEach(ChannelBase::registerListener);
-    Logger.info("YouTubeAPI is now listening to uploads from " + channels.size() + " channels!");
+    log.info("YouTubeAPI is now listening to uploads from " + channels.size() + " channels!");
   }
 
   private void loadChannels() {

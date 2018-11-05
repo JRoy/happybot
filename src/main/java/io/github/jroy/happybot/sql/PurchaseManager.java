@@ -1,6 +1,6 @@
 package io.github.jroy.happybot.sql;
 
-import io.github.jroy.happybot.util.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,27 +8,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("FieldCanBeLocal")
+@Slf4j
 public class PurchaseManager {
 
   private final SQLManager sqlManager;
 
-  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `purchases` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `userId` VARCHAR(255) NOT NULL , `itemId` INT(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-  private final String SELECT_ALL_REWARDS_FROM_USER = "SELECT * FROM `purchases` WHERE userId = ?;";
-  private final String SELECT_REWARD_FROM_USER = "SELECT * FROM `purchases` WHERE userId = ? AND itemId = ?;";
-  private final String ADD_REWARD = "INSERT INTO `purchases` (userId, itemId) VALUES (?, ?);";
-  private final String DELETE_REWARD = "DELETE FROM `purchases` WHERE userId = ? and itemId = ? LIMIT 1;";
+  private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `purchases` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `userId` VARCHAR(255) NOT NULL , `itemId` INT(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private static final String SELECT_ALL_REWARDS_FROM_USER = "SELECT * FROM `purchases` WHERE userId = ?;";
+  private static final String SELECT_REWARD_FROM_USER = "SELECT * FROM `purchases` WHERE userId = ? AND itemId = ?;";
+  private static final String ADD_REWARD = "INSERT INTO `purchases` (userId, itemId) VALUES (?, ?);";
+  private static final String DELETE_REWARD = "DELETE FROM `purchases` WHERE userId = ? and itemId = ? LIMIT 1;";
 
   public PurchaseManager(SQLManager sqlManager) {
-    Logger.info("Loading Purchase Manger...");
+    log.info("Loading Purchase Manger...");
     this.sqlManager = sqlManager;
     try {
       sqlManager.getConnection().createStatement().execute(CREATE_TABLE);
     } catch (SQLException e) {
       e.printStackTrace();
-      Logger.error("Error while creating table: " + e.getMessage());
+      log.error("Error while creating table: " + e.getMessage());
     }
-    Logger.info("Loaded Purchase Manager!");
+    log.info("Loaded Purchase Manager!");
   }
 
   public boolean hasReward(String userId, Reward reward) {

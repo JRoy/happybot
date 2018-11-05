@@ -5,7 +5,7 @@ import com.google.common.cache.CacheBuilder;
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
-import io.github.jroy.happybot.util.Logger;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -30,6 +30,7 @@ import net.dv8tion.jda.webhook.WebhookMessageBuilder;
 import java.awt.*;
 import java.time.OffsetDateTime;
 
+@Slf4j
 public class LoggingFactory extends ListenerAdapter {
   private static final String WEBHOOK_ID = "466642500153769984";
   private Webhook webhook = null;
@@ -38,18 +39,18 @@ public class LoggingFactory extends ListenerAdapter {
       .build();
 
   public LoggingFactory() {
-    Logger.info("Loading Logger Factory...");
+    log.info("Loading Logger Factory...");
     for (Webhook curHook : Channels.LOG.getChannel().getWebhooks().complete()) {
       if (curHook.getId().equals(WEBHOOK_ID)) {
         webhook = curHook;
         Main.getJda().addEventListener(this);
-        Logger.info("Loaded Logger Factory!");
+        log.info("Loaded Logger Factory!");
         sendLogMessage(new EmbedBuilder().setTitle("Bot Status Change").setDescription("Discord Logger has started!").setColor(Color.GREEN).build());
         break;
       }
     }
     if (webhook == null) {
-      Logger.error("Log Webhook Not Found! Logging will be disabled for this instance!");
+      log.error("Log Webhook Not Found! Logging will be disabled for this instance!");
     }
   }
 

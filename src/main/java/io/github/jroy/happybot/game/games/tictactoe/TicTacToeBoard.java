@@ -1,6 +1,9 @@
 package io.github.jroy.happybot.game.games.tictactoe;
 
 import lombok.Getter;
+import net.dv8tion.jda.core.entities.User;
+
+import static io.github.jroy.happybot.game.games.tictactoe.TicTacToeType.CROSS;
 
 public class TicTacToeBoard {
   @Getter
@@ -8,11 +11,11 @@ public class TicTacToeBoard {
   private TicTacToeType[] board = new TicTacToeType[9];
 
   public TicTacToeType[] getBoard() {
-    if(winner == TicTacToeType.CROSS) {
+    if(winner == CROSS) {
       return new TicTacToeType[] {
-          TicTacToeType.CROSS, null, TicTacToeType.CROSS,
-          null, TicTacToeType.CROSS, null,
-          TicTacToeType.CROSS, null, TicTacToeType.CROSS
+          CROSS, null, CROSS,
+          null, CROSS, null,
+          CROSS, null, CROSS
       };
     } else if(winner == TicTacToeType.NOUGHT) {
       return new TicTacToeType[] {
@@ -22,6 +25,14 @@ public class TicTacToeBoard {
       };
     }
     return board;
+  }
+
+  public User getWinner(User first, User second) {
+    if (winner == null) {
+      return null;
+    } else {
+      return winner == CROSS ? first : second;
+    }
   }
 
   /**
@@ -37,6 +48,15 @@ public class TicTacToeBoard {
 
     board[index] = type;
     checkForWinner();
+    return true;
+  }
+
+  public boolean isFull() {
+    for (TicTacToeType type : board) {
+      if (type == null) {
+        return false;
+      }
+    }
     return true;
   }
 

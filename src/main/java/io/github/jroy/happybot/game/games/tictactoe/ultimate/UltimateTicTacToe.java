@@ -36,10 +36,6 @@ public class UltimateTicTacToe extends Game {
   @Override
   protected void messageReceived(GameMessageReceived event) {
     ActiveGame activeGame = event.getActiveGame();
-    // there is no game going on in this channel, we can ignore the message
-    if (game == null) {
-      return;
-    }
 
     if (!game.getCurrent().equals(event.getMember().getUser())) {
       return;
@@ -60,7 +56,7 @@ public class UltimateTicTacToe extends Game {
     num--;
 
     if (game.getBoard() < 0) {
-      if(game.isFull(num)) {
+      if (game.isFull(num)) {
         activeGame.sendMessage(new EmbedBuilder()
             .setTitle("That board is full!")
             .setDescription(game.getCurrent().getAsMention() + ", select a board.\n" + game.fullRender())
@@ -71,8 +67,8 @@ public class UltimateTicTacToe extends Game {
       }
       game.setBoard(num);
       activeGame.sendMessage(new EmbedBuilder()
-          .setTitle("Selected the " + game.getBoardName() + " board.")
-          .setDescription(game.getCurrent().getAsMention() + ", select a point on the " + game.getBoardName() + " board.\n" + game.fullRender())
+          .setTitle("Selected the " + game.getName(game.getBoard()) + " board.")
+          .setDescription(game.getCurrent().getAsMention() + ", select a point on the " + game.getName(game.getBoard()) + " board.\n" + game.fullRender())
           .setColor(Color.BLUE)
           .build()
       );
@@ -81,8 +77,7 @@ public class UltimateTicTacToe extends Game {
 
     if (game.makeTurn(num)) {
       User winner = game.getWinner();
-      if(winner != null) {
-        //noinspection ConstantConditions
+      if (winner != null) {
         endGame(activeGame, C.getGuild().getMember(winner));
         return;
       }
@@ -93,11 +88,12 @@ public class UltimateTicTacToe extends Game {
 
       EmbedBuilder builder = new EmbedBuilder()
           .setTitle("Turn completed.");
-      if(game.getBoard() < 0) {
+      if (game.getBoard() < 0) {
         builder.setDescription(game.getCurrent().getAsMention() + ", select a board.\n" + game.fullRender())
             .setColor(Color.GREEN);
       } else {
-        builder.setDescription(game.getCurrent().getAsMention() + ", select a point on the " + game.getBoardName() + " board.\n"
+        builder.setDescription(game.getCurrent().getAsMention() + ", select a point on the "
+            + game.getName(game.getBoard()) + " board.\n"
             + game.fullRender())
             .setColor(Color.BLUE);
       }
@@ -105,7 +101,8 @@ public class UltimateTicTacToe extends Game {
     } else {
       activeGame.sendMessage(new EmbedBuilder()
           .setTitle("That space is already occupied.")
-          .setDescription(game.getCurrent().getAsMention() + ", select a point on the " + game.getBoardName() + "board.\n" + game.fullRender())
+          .setDescription(game.getCurrent().getAsMention() + ", select a point on the "
+              + game.getName(game.getBoard()) + " board.\n" + game.fullRender())
           .setColor(Color.BLUE)
           .build()
       );

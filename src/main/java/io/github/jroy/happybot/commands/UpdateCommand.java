@@ -7,12 +7,13 @@ import io.github.jroy.happybot.game.GameManager;
 import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
-import io.github.jroy.happybot.util.Logger;
 import io.github.jroy.happybot.util.Roles;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class UpdateCommand extends CommandBase {
 
   private final MessageFactory messageFactory;
@@ -82,10 +83,10 @@ public class UpdateCommand extends CommandBase {
         return;
       }
       e.getJDA().shutdown();
-      Logger.log("Updater - Updating Builds with exit code: " + exitCode);
-      Logger.info("[Updater] ");
-      Logger.info("[Updater] Updater has stopped JDA and is impeding a new update now.");
-      Logger.info("[Updater] ");
+      log.info("Updater - Updating Builds with exit code: " + exitCode);
+      log.info("[Updater] ");
+      log.info("[Updater] Updater has stopped JDA and is impeding a new update now.");
+      log.info("[Updater] ");
       System.exit(exitCode);
     }
   }

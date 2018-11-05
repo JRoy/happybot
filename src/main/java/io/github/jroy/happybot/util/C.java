@@ -3,6 +3,7 @@ package io.github.jroy.happybot.util;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.Main;
 import lombok.Cleanup;
+import lombok.extern.slf4j.Slf4j;
 import net.dean.jraw.http.UserAgent;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
@@ -46,6 +47,7 @@ import java.util.regex.Pattern;
  * The C Class provides lots of *sometimes* useful methods that make things ez-pz.
  */
 @SuppressWarnings("unused")
+@Slf4j
 public class C {
   private static String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
   private static final Pattern MENTION_REGEX = Pattern.compile("(?<=<@)\\d+(?=>)");
@@ -389,10 +391,10 @@ public class C {
   public static void privChannel(Member m, String message) {
     try {
       if (!m.getUser().isBot()) {
-        m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(message).queue(), throwable -> Logger.error("Tried to open a private channel but got error: " + throwable.getMessage()));
+        m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(message).queue(), throwable -> log.error("Tried to open a private channel but got error: " + throwable.getMessage()));
       }
     } catch (UnsupportedOperationException e) {
-      Logger.error("Tried to open a private channel but got error: " + e.getMessage());
+      log.error("Tried to open a private channel but got error: " + e.getMessage());
     }
   }
 
@@ -401,11 +403,11 @@ public class C {
     try {
       if (!m.getUser().isBot()) {
         final Message[] message1 = new Message[1];
-        m.getUser().openPrivateChannel().queue(privateChannel -> message1[0] = privateChannel.sendMessage(message).complete(), throwable -> Logger.error("Tried to open a private channel but got error: " + throwable.getMessage()));
+        m.getUser().openPrivateChannel().queue(privateChannel -> message1[0] = privateChannel.sendMessage(message).complete(), throwable -> log.error("Tried to open a private channel but got error: " + throwable.getMessage()));
         return message1[0];
       }
     } catch (UnsupportedOperationException e) {
-      Logger.error("Tried to open a private channel but got error: " + e.getMessage());
+      log.error("Tried to open a private channel but got error: " + e.getMessage());
     }
     return null;
   }
@@ -415,11 +417,11 @@ public class C {
     try {
       if (!m.getUser().isBot()) {
         final Message[] message1 = new Message[1];
-        m.getUser().openPrivateChannel().queue(privateChannel -> message1[0] = privateChannel.sendMessage(message).complete(), throwable -> Logger.error("Tried to open a private channel but got error: " + throwable.getMessage()));
+        m.getUser().openPrivateChannel().queue(privateChannel -> message1[0] = privateChannel.sendMessage(message).complete(), throwable -> log.error("Tried to open a private channel but got error: " + throwable.getMessage()));
         return message1[0];
       }
     } catch (UnsupportedOperationException e) {
-      Logger.error("Tried to open a private channel but got error: " + e.getMessage());
+      log.error("Tried to open a private channel but got error: " + e.getMessage());
     }
     return null;
   }
@@ -427,10 +429,10 @@ public class C {
   public static void privChannel(Member m, MessageEmbed embed) {
     try {
       if (!m.getUser().isBot()) {
-        m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed).queue(), throwable -> Logger.error("Tried to open a private channel but got error: " + throwable.getMessage()));
+        m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed).queue(), throwable -> log.error("Tried to open a private channel but got error: " + throwable.getMessage()));
       }
     } catch (UnsupportedOperationException e) {
-      Logger.error("Tried to open a private channel but got error: " + e.getMessage());
+      log.error("Tried to open a private channel but got error: " + e.getMessage());
     }
   }
 
