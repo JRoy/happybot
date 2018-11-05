@@ -280,7 +280,7 @@ public class GameManager extends ListenerAdapter {
       );
     }
     activeGame.sendMessage(
-        "This channel will be removed in approximately **10 minutes!**\n" +
+        "This channel will be removed in approximately **1 minute!**\n" +
             "---------------------------------------------------------------");
     checkRestart(1);
     new Timer().schedule(new TimerTask() {
@@ -290,7 +290,7 @@ public class GameManager extends ListenerAdapter {
           stopGame(activeGame.getCreator());
         }
       }
-    }, 300000);
+    }, 60000);
   }
 
   /**
