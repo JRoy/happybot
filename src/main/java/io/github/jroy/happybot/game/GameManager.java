@@ -74,7 +74,7 @@ public class GameManager extends ListenerAdapter {
     new Timer().scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
-        for (Map.Entry<Integer, ActiveGame> curEntry : activeGames.entrySet()) {
+        for (Map.Entry<Integer, ActiveGame> curEntry : new HashMap<>(activeGames).entrySet()) {
           if (OffsetDateTime.now().until(curEntry.getValue().getLastAction(), ChronoUnit.MINUTES) <= 0) {
             C.privChannel(curEntry.getValue().getCreator(), "Your game has timed out and has been closed!");
             activeUsers.remove(curEntry.getValue().getCreator().getUser().getId());
