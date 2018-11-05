@@ -282,6 +282,14 @@ public class GameManager extends ListenerAdapter {
         "This channel will be removed in approximately **10 minutes!**\n" +
             "---------------------------------------------------------------");
     checkRestart(1);
+    new Timer().schedule(new TimerTask() {
+      @Override
+      public void run() {
+        if (activeGames.containsKey(activeGame.getId())) {
+          stopGame(activeGame.getCreator());
+        }
+      }
+    }, 300000);
   }
 
   /**
