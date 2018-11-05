@@ -116,7 +116,7 @@ public class Leveling extends ListenerAdapter {
 
               description.append(C.getPositionName(curPos))
                   .append(" ")
-                  .append(token.getMember().getAsMention())
+                  .append("**").append(C.getFullName(token.getMember().getUser())).append("**")
                   .append(" level ")
                   .append(token.getLevel())
                   .append(", ")
@@ -129,8 +129,7 @@ public class Leveling extends ListenerAdapter {
               curPos++;
             }
             builder.setDescription(description);
-            TextChannel leaderboard = Channels.LEADERBOARD.getChannel();
-            C.getGuild().getTextChannelById(499684786756124684L)
+            Channels.LEADERBOARD.getChannel()
                 .getMessageById(leaderboardMessageId).complete().editMessage(builder.build()).queue();
           } catch (SQLException e) {
             e.printStackTrace();
