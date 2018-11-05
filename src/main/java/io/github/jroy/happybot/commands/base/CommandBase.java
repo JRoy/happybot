@@ -3,8 +3,8 @@ package io.github.jroy.happybot.commands.base;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.util.C;
-import io.github.jroy.happybot.util.Logger;
 import io.github.jroy.happybot.util.Roles;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.entities.Member;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 /**
  * A custom implementation of JDA-Utilities's {@link com.jagrosh.jdautilities.command.Command Command} class that makes our use-case easier.
  */
-@SuppressWarnings("WeakerAccess")
+@Slf4j
 public abstract class CommandBase extends Command {
   /**
    * Command usage
@@ -135,7 +135,7 @@ public abstract class CommandBase extends Command {
     commandCooldowns = new HashMap<>();
     cooldownUnit = chronoUnit;
     cooldownDelay = amount;
-    Logger.info("Cooldown Registered for: ^" + name + "!");
+    log.info("Cooldown Registered for: ^" + name + "!");
   }
 
   public void removeFromCooldown(Member member) {

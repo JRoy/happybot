@@ -1,6 +1,6 @@
 package io.github.jroy.happybot.sql;
 
-import io.github.jroy.happybot.util.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.CheckForNull;
 import java.sql.Connection;
@@ -8,23 +8,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@SuppressWarnings("FieldCanBeLocal")
+@Slf4j
 public class ReportManager {
 
   private final Connection connection;
 
-  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `reports` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `reporterid` VARCHAR(50) NOT NULL , `reportedid` VARCHAR(50) NOT NULL , `channelid` VARCHAR(255) NOT NULL , `reason` VARCHAR(255) NOT NULL , `handleid` VARCHAR(50) NOT NULL DEFAULT '0' , `handlereason` VARCHAR(255) NOT NULL DEFAULT 'NONE' , `status` INT(50) NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-  private final String CREATE_REPORT = "INSERT INTO `reports` (reportedid, reporterid, channelid, reason) VALUES (?, ?, ?, ?);";
-  private final String SELECT_REPORT = "SELECT * FROM `reports` WHERE id = ?;";
-  private final String UPDATE_STATUS = "UPDATE `reports` SET handleid = ?, handlereason = ?, status = ? WHERE id = ?";
-  private final String UPDATE_REASON = "UPDATE `reports` SET handlereason = ? WHERE id = ?";
+  private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `reports` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `reporterid` VARCHAR(50) NOT NULL , `reportedid` VARCHAR(50) NOT NULL , `channelid` VARCHAR(255) NOT NULL , `reason` VARCHAR(255) NOT NULL , `handleid` VARCHAR(50) NOT NULL DEFAULT '0' , `handlereason` VARCHAR(255) NOT NULL DEFAULT 'NONE' , `status` INT(50) NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private static final String CREATE_REPORT = "INSERT INTO `reports` (reportedid, reporterid, channelid, reason) VALUES (?, ?, ?, ?);";
+  private static final String SELECT_REPORT = "SELECT * FROM `reports` WHERE id = ?;";
+  private static final String UPDATE_STATUS = "UPDATE `reports` SET handleid = ?, handlereason = ?, status = ? WHERE id = ?";
+  private static final String UPDATE_REASON = "UPDATE `reports` SET handlereason = ? WHERE id = ?";
 
   public ReportManager(SQLManager sqlManager) {
     connection = sqlManager.getConnection();
     try {
       connection.createStatement().executeUpdate(CREATE_TABLE);
     } catch (SQLException e) {
-      Logger.error("Error while creating the table: " + e.getMessage());
+      log.error("Error while creating the table: " + e.getMessage());
     }
   }
 

@@ -1,30 +1,30 @@
 package io.github.jroy.happybot.sql;
 
-import io.github.jroy.happybot.util.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@SuppressWarnings("FieldCanBeLocal")
+@Slf4j
 public class WarningManager {
 
-  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS warnings ( `id` INT(50) NOT NULL AUTO_INCREMENT , `targetid` VARCHAR(50) NOT NULL , `staffid` VARCHAR(50) NOT NULL , `reason` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-  private final String SELECT_USER = "SELECT * FROM `warnings` WHERE targetid = ?;";
-  private final String CREATE_WARNING = "INSERT INTO `warnings` (targetid, staffid, reason) VALUES (?, ?, ?);";
-  private final String DELETE_WARNING = "DELETE FROM `warnings` WHERE id = ?;";
-  private final String SELECT_WARNING = "SELECT * FROM `warnings` WHERE id = ?;";
-  private final String UPDATE_WARNING = "UPDATE `warnings` SET reason = ? WHERE id = ?;";
-  private Connection connection;
+  private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS warnings ( `id` INT(50) NOT NULL AUTO_INCREMENT , `targetid` VARCHAR(50) NOT NULL , `staffid` VARCHAR(50) NOT NULL , `reason` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private static final String SELECT_USER = "SELECT * FROM `warnings` WHERE targetid = ?;";
+  private static final String CREATE_WARNING = "INSERT INTO `warnings` (targetid, staffid, reason) VALUES (?, ?, ?);";
+  private static final String DELETE_WARNING = "DELETE FROM `warnings` WHERE id = ?;";
+  private static final String SELECT_WARNING = "SELECT * FROM `warnings` WHERE id = ?;";
+  private static final String UPDATE_WARNING = "UPDATE `warnings` SET reason = ? WHERE id = ?;";
 
+  private Connection connection;
 
   public WarningManager(SQLManager sqlManager) {
     this.connection = sqlManager.getConnection();
     try {
       connection.createStatement().executeUpdate(CREATE_TABLE);
     } catch (SQLException e) {
-      Logger.error("Error while creating the table: " + e.getMessage());
+      log.error("Error while creating the table: " + e.getMessage());
     }
   }
 

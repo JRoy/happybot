@@ -3,8 +3,8 @@ package io.github.jroy.happybot.sql.timed;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
-import io.github.jroy.happybot.util.Logger;
 import io.github.jroy.happybot.util.Roles;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
@@ -17,18 +17,18 @@ import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-@SuppressWarnings("FieldCanBeLocal")
+@Slf4j
 public class EventManager extends ListenerAdapter {
 
-  private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `spammers` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `target` VARCHAR(50) NOT NULL , `epoch` BIGINT(255) NOT NULL , `wait` BIGINT(255) NOT NULL , `type` VARCHAR(255) NOT NULL , `reason` VARCHAR(255) NOT NULL DEFAULT 'None' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-  private final String CREATE_EVENT = "INSERT INTO `spammers` (target, epoch, wait, type) VALUES (?, ?, ?, ?);";
-  private final String CREATE_REMINDER = "INSERT INTO `spammers` (target, epoch, wait, type, reason) VALUES (?, ?, ?, ?, ?);";
-  private final String SELECT_EVENT = "SELECT * FROM `spammers` WHERE target = ? AND type = ?;";
-  private final String SELECT_EVENT_ID = "SELECT * FROM `spammers` WHERE id = ?;";
-  private final String SELECT_EVENT_ID_USER = "SELECT * FROM `spammers` WHERE id = ? AND target = ?;";
-  private final String SELECT_ALL = "SELECT * FROM `spammers`;";
-  private final String DELETE_EVENT = "DELETE FROM `spammers` WHERE id = ?;";
-  private final String UPDATE_REMINDER = "UPDATE `spammers` SET reason = ? WHERE id = ?;";
+  private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `spammers` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `target` VARCHAR(50) NOT NULL , `epoch` BIGINT(255) NOT NULL , `wait` BIGINT(255) NOT NULL , `type` VARCHAR(255) NOT NULL , `reason` VARCHAR(255) NOT NULL DEFAULT 'None' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private static final String CREATE_EVENT = "INSERT INTO `spammers` (target, epoch, wait, type) VALUES (?, ?, ?, ?);";
+  private static final String CREATE_REMINDER = "INSERT INTO `spammers` (target, epoch, wait, type, reason) VALUES (?, ?, ?, ?, ?);";
+  private static final String SELECT_EVENT = "SELECT * FROM `spammers` WHERE target = ? AND type = ?;";
+  private static final String SELECT_EVENT_ID = "SELECT * FROM `spammers` WHERE id = ?;";
+  private static final String SELECT_EVENT_ID_USER = "SELECT * FROM `spammers` WHERE id = ? AND target = ?;";
+  private static final String SELECT_ALL = "SELECT * FROM `spammers`;";
+  private static final String DELETE_EVENT = "DELETE FROM `spammers` WHERE id = ?;";
+  private static final String UPDATE_REMINDER = "UPDATE `spammers` SET reason = ? WHERE id = ?;";
   private Connection connection;
   private boolean reg = false;
 
@@ -184,7 +184,7 @@ public class EventManager extends ListenerAdapter {
               }
             }
           } catch (SQLException e) {
-            Logger.error("Error while timing!");
+            log.error("Error while timing!");
             e.printStackTrace();
           }
         }

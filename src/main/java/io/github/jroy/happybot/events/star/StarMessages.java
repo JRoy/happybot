@@ -3,9 +3,9 @@ package io.github.jroy.happybot.events.star;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
-import io.github.jroy.happybot.util.Logger;
 import io.github.jroy.happybot.util.Roles;
 import io.github.jroy.happybot.util.RuntimeEditor;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-@SuppressWarnings("FieldCanBeLocal")
+@Slf4j
 public class StarMessages extends ListenerAdapter {
   private static final String NEW_GILDED_MESSAGE = "New Gilded Message";
 
@@ -37,10 +37,10 @@ public class StarMessages extends ListenerAdapter {
    * `gilds`: BIGINT (Long) - The amount of gilds the user has
    * `heels`: BIGINT (Long) - The amount of heels the user has
    */
-  private final String CREATE_STAT_TABLE = "CREATE TABLE IF NOT EXISTS starstats ( `id` INT(50) NOT NULL AUTO_INCREMENT , `userid` VARCHAR(50) NOT NULL , `stars` BIGINT(255) NOT NULL DEFAULT '0' , `gilds` BIGINT(255) NOT NULL DEFAULT '0' , `heels` BIGINT(255) NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-  private final String SELECT_USER = "SELECT * FROM starstats WHERE userid = ?;";
-  private final String CREATE_USER = "INSERT INTO starstats (userId) VALUES (?);";
-  private final String UPDATE_USER = "UPDATE starstats SET stars = ?, gilds = ?, heels = ? WHERE userId = ?;";
+  private static final String CREATE_STAT_TABLE = "CREATE TABLE IF NOT EXISTS starstats ( `id` INT(50) NOT NULL AUTO_INCREMENT , `userid` VARCHAR(50) NOT NULL , `stars` BIGINT(255) NOT NULL DEFAULT '0' , `gilds` BIGINT(255) NOT NULL DEFAULT '0' , `heels` BIGINT(255) NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private static final String SELECT_USER = "SELECT * FROM starstats WHERE userid = ?;";
+  private static final String CREATE_USER = "INSERT INTO starstats (userId) VALUES (?);";
+  private static final String UPDATE_USER = "UPDATE starstats SET stars = ?, gilds = ?, heels = ? WHERE userId = ?;";
 
   /**
    * This Table Stores a Record of what Messages have been starred/heeled before in order to prevent duplicates arising with bot restarts
@@ -48,9 +48,9 @@ public class StarMessages extends ListenerAdapter {
    * `id`: INT
    * `messageid`: VARCHAR (String) - The id of the message which has been starred/gilded
    */
-  private final String CREATE_USED_TABLE = "CREATE TABLE IF NOT EXISTS starused ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageId` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-  private final String ADD_USED = "INSERT INTO starused (messageId) VALUES (?);";
-  private final String SELECT_USED = "SELECT * FROM starused WHERE messageId = ?;";
+  private static final String CREATE_USED_TABLE = "CREATE TABLE IF NOT EXISTS starused ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageId` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private static final String ADD_USED = "INSERT INTO starused (messageId) VALUES (?);";
+  private static final String SELECT_USED = "SELECT * FROM starused WHERE messageId = ?;";
 
   /**
    * This Table Stores the Amount of Stars a Message Will Take Before Sent to the #starred-messages Channel
@@ -60,11 +60,11 @@ public class StarMessages extends ListenerAdapter {
    * `messageid`: VARCHAR (String) - The id of the message to be modified
    * `amount`: INT - The amount of stars required to send the target message to #starred-messages
    */
-  private final String CREATE_CUSTOM_TABLE = "CREATE TABLE IF NOT EXISTS starcounts ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageid` VARCHAR(255) NOT NULL , `amount` INT(50) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
-  private final String ADD_CUSTOM = "INSERT INTO starcounts (messageid, amount) VALUES (?, ?);";
-  private final String SELECT_CUSTOM = "SELECT * FROM starcounts WHERE messageid = ?;";
-  private final String SELECT_ALL_CUSTOM = "SELECT * FROM starcounts";
-  private final String DELETE_CUSTOM = "DELETE FROM starcounts WHERE messageid = ?;";
+  private static final String CREATE_CUSTOM_TABLE = "CREATE TABLE IF NOT EXISTS starcounts ( `id` INT(50) NOT NULL AUTO_INCREMENT , `messageid` VARCHAR(255) NOT NULL , `amount` INT(50) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+  private static final String ADD_CUSTOM = "INSERT INTO starcounts (messageid, amount) VALUES (?, ?);";
+  private static final String SELECT_CUSTOM = "SELECT * FROM starcounts WHERE messageid = ?;";
+  private static final String SELECT_ALL_CUSTOM = "SELECT * FROM starcounts";
+  private static final String DELETE_CUSTOM = "DELETE FROM starcounts WHERE messageid = ?;";
 
   private Connection connection;
   private Set<String> alreadyUsedMessages = new HashSet<>();
@@ -403,7 +403,7 @@ public class StarMessages extends ListenerAdapter {
           addUsed(message.getId());
         }
       } catch (NullPointerException | IllegalStateException e) {
-        Logger.error("Star reaction is in invalid state!");
+        log.error("Star reaction is in invalid state!");
       }
     }
   }

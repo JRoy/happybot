@@ -51,13 +51,14 @@ import io.github.jroy.happybot.sql.og.OGCommandManager;
 import io.github.jroy.happybot.sql.timed.EventManager;
 import io.github.jroy.happybot.theme.DiscordThemerImpl;
 import io.github.jroy.happybot.util.BotConfig;
-import io.github.jroy.happybot.util.Logger;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.simpleyaml.configuration.file.YamlFile;
@@ -65,11 +66,14 @@ import org.simpleyaml.exceptions.InvalidConfigurationException;
 
 import javax.security.auth.login.LoginException;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
+@Slf4j
 public class Main extends ListenerAdapter {
 
   private static YamlFile yamlFile;
@@ -99,13 +103,11 @@ public class Main extends ListenerAdapter {
 
   public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException, InterruptedException {
 
-    new Logger();
-
     System.setProperty("http.agent", "happybot");
 
-    Logger.info("Initializing happybot...");
+    log.info("Initializing happybot...");
 
-    Logger.log("Loading Config Files...");
+    log.info("Loading Config Files...");
 
     yamlFile = new YamlFile("settings.yml");
 
@@ -113,11 +115,11 @@ public class Main extends ListenerAdapter {
       yamlFile.createNewFile(true);
     }
     try {
-      Logger.info("Reading Config...");
+      log.info("Reading Config...");
       yamlFile.load();
       loadConfig();
     } catch (InvalidConfigurationException e) {
-      Logger.error("Un-parsable Settings!");
+      log.error("Un-parsable Settings!");
       e.printStackTrace();
       System.exit(1);
     }
@@ -133,16 +135,16 @@ public class Main extends ListenerAdapter {
 
     messageFactory = loadMessageFactory();
 
-    Logger.info("Loading Warning Manager...");
+    log.info("Loading Warning Manager...");
     warningManager = new WarningManager(sqlManager);
 
-    Logger.info("Loading Report Manager...");
+    log.info("Loading Report Manager...");
     reportManager = new ReportManager(sqlManager);
 
     List<EventListener> eventListeners = loadEventListeners();
     loadCommandFactory();
 
-    Logger.info("Constructing JDA Instance...");
+    log.info("Constructing JDA Instance...");
     JDABuilder builder = new JDABuilder(AccountType.BOT)
         .setToken(botConfig.getBotToken())
         .setStatus(OnlineStatus.DO_NOT_DISTURB)
@@ -152,17 +154,14 @@ public class Main extends ListenerAdapter {
     for (EventListener listener : eventListeners) {
       builder.addEventListener(listener);
     }
-    Logger.info("Logging into Discord...");
-    jda = builder.buildBlocking();
-
-    new LoggingFactory();
-
+    log.info("Logging into Discord...");
+    jda = builder.build();
 //        new RichPresence((JDAImpl) jda);
-
-    Logger.info("Bot has been loaded & Connected to Discord!");
   }
 
   private static void loadConfig() throws IOException, InvalidConfigurationException {
+    copyResource("logging.properties");
+
     yamlFile.save();
     yamlFile.load();
 
@@ -185,7 +184,7 @@ public class Main extends ListenerAdapter {
     yamlFile.load();
 
     botConfig = new BotConfig(token, hypixel, riot, sql, prefix, alternativePrefix, redditUsername, redditPassword, redditId, redditSecret, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
-    Logger.info("Loaded Config!");
+    log.info("Loaded Config!");
   }
 
   /**
@@ -200,24 +199,24 @@ public class Main extends ListenerAdapter {
   }
 
   private static void loadApis() {
-    Logger.info("Initializing APIs...");
+    log.info("Initializing APIs...");
     List<APIBase> apis = new ArrayList<>();
     apis.add(reddit = new Reddit(botConfig));
     apis.add(hypixel = new Hypixel(botConfig.getHypixelApiKey()));
     apis.add(twitterCentre = new TwitterCentre(botConfig.getTwitterOauthKey(), botConfig.getTwitterOauthSecret(), botConfig.getTwitterAccessToken(), botConfig.getTwitterAccessTokenSecret()));
     apis.add(league = new League(botConfig.getRiotApiKey()));
     apis.add(new YouTubeAPI("AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE")); //API Key is restricted to the VM this bot runs on, don't waste your time...
-    Logger.info("Logging into APIs...");
+    log.info("Logging into APIs...");
     for (APIBase api : apis) {
       try {
         api.loginApi();
       } catch (IllegalAPIState illegalAPIState) {
-        Logger.error("Could not not load an API: " + illegalAPIState.getMessage());
+        log.error("Could not not load an API: " + illegalAPIState.getMessage());
       }
     }
-    Logger.info("Loaded APIS:");
+    log.info("Loaded APIS:");
     for (APIBase api : apis) {
-      Logger.info("- " + api.getApiName());
+      log.info("- " + api.getApiName());
     }
   }
 
@@ -236,32 +235,34 @@ public class Main extends ListenerAdapter {
   }
 
   private static List<EventListener> loadEventListeners() {
-    Logger.info("Loading Event Manager...");
+    log.info("Loading Event Manager...");
     eventListeners.add(eventManager = new EventManager(sqlManager));
 
-    Logger.info("Loading AutoMod...");
+    log.info("Loading AutoMod...");
     eventListeners.add(new AutoMod(messageFactory));
 
-    Logger.info("Loading Welcome Manager...");
+    log.info("Loading Welcome Manager...");
     eventListeners.add(new WelcomeMessage(messageFactory));
 
-    Logger.info("Loading Message Starer...");
+    log.info("Loading Message Starer...");
     eventListeners.add(starMessages = new StarMessages(sqlManager));
 
-    Logger.info("Loading Submission Pinner...");
+    log.info("Loading Submission Pinner...");
     eventListeners.add(new SubmitPinner());
 
-    Logger.info("Loading Leveling Manager...");
+    log.info("Loading Leveling Manager...");
     eventListeners.add(leveling = new Leveling(sqlManager, messageFactory, purchaseManager));
 
-    Logger.info("Loading Game-True-False");
+    log.info("Loading Game-True-False");
     eventListeners.add(new TrueFalseGame());
 
-    Logger.info("Loading OG Command Manager...");
+    log.info("Loading OG Command Manager...");
     eventListeners.add(ogCommandManager = new OGCommandManager(sqlManager));
 
-    Logger.info("Loading Game Manager...");
+    log.info("Loading Game Manager...");
     eventListeners.add(gameManager = new GameManager(sqlManager));
+
+    eventListeners.add(new Main());
 
     return eventListeners;
   }
@@ -371,5 +372,28 @@ public class Main extends ListenerAdapter {
     File file = new File(filename);
     boolean doesNotExist = file.createNewFile();
     return file;
+  }
+
+  private static boolean copyResource(String resource) throws IOException {
+    File file = new File(resource);
+    if (file.exists()) {
+      return false;
+    }
+
+    InputStream configResource = Main.class.getResourceAsStream("/" + resource);
+    FileOutputStream stream = new FileOutputStream(file);
+
+    byte[] buf = new byte[1024];
+    int read;
+    while ((read = configResource.read(buf)) != -1) {
+      stream.write(buf, 0, read);
+    }
+    return true;
+  }
+
+  @Override
+  public void onReady(ReadyEvent event) {
+    new LoggingFactory();
+    log.info("Bot has been loaded & Connected to Discord!");
   }
 }

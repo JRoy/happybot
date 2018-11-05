@@ -4,9 +4,10 @@ import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.game.GameManager;
-import io.github.jroy.happybot.util.Logger;
 import io.github.jroy.happybot.util.Roles;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ShutdownCommand extends CommandBase {
 
   private final GameManager gameManager;
@@ -33,7 +34,7 @@ public class ShutdownCommand extends CommandBase {
     }
     e.replySuccess(":white_check_mark: Restarting!");
     e.getJDA().shutdown();
-    Logger.log("The JDA instance has been shutdown...exiting the program.");
+    log.warn("The JDA instance has been shutdown...exiting the program.");
     System.exit(0);
   }
 

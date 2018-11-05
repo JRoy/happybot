@@ -3,13 +3,14 @@ package io.github.jroy.happybot.commands.base;
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import io.github.jroy.happybot.util.Constants;
-import io.github.jroy.happybot.util.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class CommandFactory {
 
   private CommandClientBuilder clientBuilder;
@@ -18,7 +19,7 @@ public class CommandFactory {
   private Map<CommandCategory, List<CommandBase>> categorizedCommands = new HashMap<>();
 
   public CommandFactory(String prefix, String alternativePrefix) {
-    Logger.info("Loading Command Factory...");
+    log.info("Loading Command Factory...");
     clientBuilder = new CommandClientBuilder();
     clientBuilder.setPrefix(prefix);
     clientBuilder.setAlternativePrefix(alternativePrefix);
@@ -27,7 +28,7 @@ public class CommandFactory {
   }
 
   public void addCommands(CommandBase... commands) {
-    Logger.info("Adding Commands...");
+    log.info("Adding Commands...");
     clientBuilder.addCommands(commands);
     for (CommandBase base : commands) {
       if (!categorizedCommands.containsKey(base.getCommandCategory())) {
@@ -36,7 +37,7 @@ public class CommandFactory {
       categorizedCommands.get(base.getCommandCategory()).add(base);
       registeredCommands.put(base.getName(), base);
     }
-    Logger.info("Added " + commands.length + " Commands!");
+    log.info("Added " + commands.length + " Commands!");
   }
 
   public CommandClient build() {

@@ -9,7 +9,7 @@ AVATAR_URL=https://cdn.discordapp.com/avatars/354736186516045835/ee232e232f4ae04
 
 while true
 do
-java -jar HappyBot.jar
+java -Djava.util.logging.config.file=logging.properties -jar HappyBot.jar
 OUT=$?
 if [ ${OUT} -eq 10 ]
 then
