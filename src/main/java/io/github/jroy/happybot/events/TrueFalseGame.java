@@ -17,7 +17,6 @@ public class TrueFalseGame extends ListenerAdapter {
       if (isInvalidMessage(e.getMessage().getContentRaw()) && !C.hasRole(e.getMember(), Roles.DEVELOPER)) {
         new SafeRestAction(e.getMessage().delete()).wait(TimeUnit.MILLISECONDS, 500).queue();
         C.privChannel(e.getMember(), "The correct format for gameTrueFalse is (true/false), the person below me (statement)");
-        return;
       }
 //      if (repeatCache.contains(curCount)) {
 //        if (repeatCache.get(curCount).getUser().getId().equals(e.matchMember().getUser().getId()))
@@ -39,7 +38,7 @@ public class TrueFalseGame extends ListenerAdapter {
   }
 
   private boolean isInvalidMessage(String message) {
-    return !message.startsWith("true, the person below me ") && !message.startsWith("false, the person below me ") || message.contains("\n");
+    return !message.toLowerCase().startsWith("true, the person below me ") && !message.toLowerCase().startsWith("false, the person below me ") || message.contains("\n");
   }
 
 }
