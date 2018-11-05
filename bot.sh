@@ -21,16 +21,13 @@ echo "[HappyBot] [Bash] Update Done."
 fi
 if [ ${OUT} -eq 20 ]
 then
-echo "[HappyBot] [Bash] Grabbing Update from Jenkins..."
-curl -d '{"username": "happybot-bash", "avatar_url": "${AVATAR_URL}", "content": "Downloading Jenkins Update..."}' -H "Content-Type: application/json" -X POST ${WEBHOOK_URL}
-wget -q -O HappyBot.jar ${JENKINS_URL}
-curl -d '{"username": "happybot-bash", "avatar_url": "${AVATAR_URL}", "content": "Finished Jenkins Update!"}' -H "Content-Type: application/json" -X POST ${WEBHOOK_URL}
-echo "[HappyBot] [Bash] Update Done."
-fi
-if [ ${OUT} -eq 25 ]
-then
-echo "[HappyBot] [Bash] Grabbing Update from Jenkins [DEV]..."
-wget -q -O HappyBot.jar ${JENKINS_DEV_URL}
+echo "[HappyBot] [Bash] Grabbing Update from GitHub..."
+.
+curl -d '{"username": "happybot-bash", "avatar_url": "${AVATAR_URL}", "content": "Downloading GitHub Update..."}' -H "Content-Type: application/json" -X POST ${WEBHOOK_URL}
+git pull
+./gradlew shadowJar
+cp build/libs/happybot-all.jar HappyBot.jar
+curl -d '{"username": "happybot-bash", "avatar_url": "${AVATAR_URL}", "content": "Finished GitHub Update!"}' -H "Content-Type: application/json" -X POST ${WEBHOOK_URL}
 echo "[HappyBot] [Bash] Update Done."
 fi
 echo "[HappyBot] [Bash] Rebooting in:"

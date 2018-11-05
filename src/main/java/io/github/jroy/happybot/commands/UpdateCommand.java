@@ -20,7 +20,7 @@ public class UpdateCommand extends CommandBase {
   private final GameManager gameManager;
 
   public UpdateCommand(MessageFactory messageFactory, GameManager gameManager) {
-    super("update", "<j(enkins)/d(ropbox)> [-s] [-dev]", "Restarts the VM with an update.", CommandCategory.BOT, Roles.DEVELOPER);
+    super("update", "<g(ithub)/d(ropbox)> [-s]", "Restarts the VM with an update.", CommandCategory.BOT, Roles.DEVELOPER);
     this.messageFactory = messageFactory;
     this.gameManager = gameManager;
   }
@@ -42,24 +42,16 @@ public class UpdateCommand extends CommandBase {
     public void run() {
       int exitCode;
       boolean silent = false;
-      boolean dev = false;
       if (e.getArgs().contains("-s")) {
         silent = true;
       }
-      if (e.getArgs().contains("-dev")) {
-        dev = true;
-      }
       boolean force =  e.getArgs().contains("-f") || e.getArgs().contains("--force");
-      if (e.getArgs().toLowerCase().startsWith("j")) {
-        e.reply(":white_check_mark: Downloading Update from Jenkins!");
+      if (e.getArgs().toLowerCase().startsWith("g")) {
+        e.reply(":white_check_mark: Downloading Update from GitHub!");
         if (!silent) {
-          new Thread(new ImpendRestart("Jenkins")).start();
+          new Thread(new ImpendRestart("GitHub")).start();
         }
-        if (dev) {
-          exitCode = 20;
-        } else {
-          exitCode = 25;
-        }
+        exitCode = 20;
       } else if (e.getArgs().toLowerCase().startsWith("d")) {
         e.reply(":white_check_mark: Downloading Update via SSH!");
         if (!silent) {
