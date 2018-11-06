@@ -89,7 +89,7 @@ public class Leveling extends ListenerAdapter {
         @Override
         public void run() {
           try {
-            Map<Integer, LevelingToken> result = getTop(25);
+            Map<Integer, LevelingToken> result = getTop(5000);
             topCache = result;
             int curPos = 1;
             EmbedBuilder builder = new EmbedBuilder();
@@ -99,6 +99,10 @@ public class Leveling extends ListenerAdapter {
 
             StringBuilder description = new StringBuilder();
             for (Map.Entry<Integer, LevelingToken> mapToken : result.entrySet()) {
+              if (curPos -1 == 25) {
+                break;
+              }
+
               if(curPos > 1) {
                 description.append("\n");
               }
