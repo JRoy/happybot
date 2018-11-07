@@ -6,23 +6,18 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.levels.LevelingToken;
 import io.github.jroy.happybot.util.C;
-import io.github.jroy.happybot.util.TextGeneration;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 
-public class LevelCommand extends CommandBase {
+public class OldLevelCommand extends CommandBase {
 
   private Leveling leveling;
 
-  public LevelCommand(Leveling leveling) {
-    super("rank", "<user>", "Displays your current rank stats.", CommandCategory.FUN);
-    this.aliases = new String[]{"level"};
+  public OldLevelCommand(Leveling leveling) {
+    super("oldrank", "<user>", "Displays your current rank stats.", CommandCategory.FUN);
+    this.aliases = new String[]{"oldlevel", "orank", "olevel"};
     this.leveling = leveling;
   }
 
@@ -58,21 +53,15 @@ public class LevelCommand extends CommandBase {
       }
     }
 
-    BufferedImage card = TextGeneration.card;
-    card = TextGeneration.writeTextCenter(card, C.getFullName(target.getUser()), 200F, 0);
-    card = TextGeneration.writeTextCenter(card, C.prettyNum(totalXp), 75F, 215);
-    card = TextGeneration.writeText(card, (rank == -1 ? "?" : String.valueOf(rank)), 150F, 415, 670);
-    card = TextGeneration.writeText(card, String.valueOf(level), 150F, 325, 847);
-    card = TextGeneration.writeText(card, TextGeneration.formatXpProgress(C.prettyNum(progressXp)), 100F, 2160, 840);
-    card = TextGeneration.writeText(card, C.prettyNum(rankXp), 100F, 2518, 840);
-    card = TextGeneration.writeImage(card, TextGeneration.calculateProgressId(progressXp, rankXp), 2315, 705);
-    ByteArrayOutputStream os = new ByteArrayOutputStream();
-    try {
-      ImageIO.write(card, "png", os );
-      e.getChannel().sendFile(new ByteArrayInputStream(os.toByteArray()), "rank.png", null).queue();
-    } catch (IOException e1) {
-      e1.printStackTrace();
-      e.reply("lol no :heart:");
-    }
+    EmbedBuilder builder = new EmbedBuilder();
+
+    builder.setAuthor(target.getUser().getName(), null, target.getUser().getAvatarUrl());
+    builder.setColor(target.getColor());
+
+    builder.addField("Rank", (rank == -1 ? "??" : rank) + "/"+leveling.topCache.size(), false);
+    builder.addField("Level", String.valueOf(level), false);
+    builder.addField("Level Progress", C.prettyNum(progressXp) + "/" + C.prettyNum(rankXp) + " (" + C.prettyNum(totalXp) + " total)", false);
+
+    e.reply(builder.build());
   }
 }

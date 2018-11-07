@@ -13,6 +13,7 @@ import io.github.jroy.happybot.commands.base.CommandFactory;
 import io.github.jroy.happybot.commands.levels.AddUserCommand;
 import io.github.jroy.happybot.commands.levels.LeaderboardCommand;
 import io.github.jroy.happybot.commands.levels.LevelCommand;
+import io.github.jroy.happybot.commands.levels.OldLevelCommand;
 import io.github.jroy.happybot.commands.money.GambleCommand;
 import io.github.jroy.happybot.commands.money.MoneyCommand;
 import io.github.jroy.happybot.commands.money.ReclaimCommand;
@@ -306,6 +307,7 @@ public class Main extends ListenerAdapter {
         new FactCommand(),
         new SelfStarCommands(starMessages),
         new LevelCommand(leveling),
+        new OldLevelCommand(leveling),
         new LeaderboardCommand(leveling),
         new RobCommand(purchaseManager),
         new DiceCommand(),
