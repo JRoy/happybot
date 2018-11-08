@@ -11,6 +11,7 @@ import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Categories;
 import io.github.jroy.happybot.util.Channels;
+import io.github.jroy.happybot.util.Roles;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
@@ -108,6 +109,9 @@ public class GameManager extends ListenerAdapter {
   @Override
   public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
     if (isPendingRestart()) {
+      return;
+    }
+    if (C.hasRole(e.getMember(), Roles.MUTED)) {
       return;
     }
     if (!e.getUser().isBot() && pendingStart.asMap().containsKey(e.getMessageId()) && e.getReactionEmote().getName().equalsIgnoreCase("\uD83D\uDC4D")) {
