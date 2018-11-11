@@ -50,7 +50,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class C {
   private static String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
-  private static final Pattern MENTION_REGEX = Pattern.compile("(?<=<@)\\d+(?=>)");
+  private static final Pattern MENTION_REGEX = Pattern.compile("<@(\\d+)>");
   private static final Map<TimeUnit, String> timeUnits = new LinkedHashMap<>();
 
   static {
@@ -67,7 +67,7 @@ public class C {
     Guild guild = C.getGuild();
     Matcher matcher = MENTION_REGEX.matcher(string);
     if(matcher.matches()) {
-      return guild.getMemberById(matcher.group());
+      return guild.getMemberById(matcher.group(1));
     }
 
     Member closest = null;
