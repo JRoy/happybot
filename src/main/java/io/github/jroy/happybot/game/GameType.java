@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public enum GameType {
 
   BLANK(BlankGame.class, Roles.DEVELOPER, false),
-  TTT(TicTacToe.class, Roles.DEVELOPER, false),
+  TTT(TicTacToe.class, Roles.FANS, true),
   UTTT(UltimateTicTacToe.class, Roles.FANS, true);
 
   private final Class<? extends Game> gameClass;

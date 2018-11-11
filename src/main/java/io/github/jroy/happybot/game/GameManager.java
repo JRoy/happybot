@@ -11,6 +11,7 @@ import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Categories;
 import io.github.jroy.happybot.util.Channels;
+import io.github.jroy.happybot.util.Roles;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
@@ -108,6 +109,9 @@ public class GameManager extends ListenerAdapter {
   @Override
   public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
     if (isPendingRestart()) {
+      return;
+    }
+    if (C.hasRole(e.getMember(), Roles.MUTED)) {
       return;
     }
     if (!e.getUser().isBot() && pendingStart.asMap().containsKey(e.getMessageId()) && e.getReactionEmote().getName().equalsIgnoreCase("\uD83D\uDC4D")) {
@@ -276,12 +280,11 @@ public class GameManager extends ListenerAdapter {
     } else {
       activeGame.sendMessage(
           "Nobody Won the Game :(\n" +
-              "Better Luck Next Time!"
+              "Better Luck Next Time!\n" +
+              "This channel will be removed in approximately **1 minute!**\n" +
+              "---------------------------------------------------------------"
       );
     }
-    activeGame.sendMessage(
-        "This channel will be removed in approximately **10 minutes!**\n" +
-            "---------------------------------------------------------------");
     checkRestart(1);
     new Timer().schedule(new TimerTask() {
       @Override
@@ -290,7 +293,7 @@ public class GameManager extends ListenerAdapter {
           stopGame(activeGame.getCreator());
         }
       }
-    }, 300000);
+    }, 60000);
   }
 
   /**

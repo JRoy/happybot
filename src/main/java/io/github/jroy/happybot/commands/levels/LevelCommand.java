@@ -6,9 +6,15 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.levels.LevelingToken;
 import io.github.jroy.happybot.util.C;
-import net.dv8tion.jda.core.EmbedBuilder;
+import io.github.jroy.happybot.util.TextGeneration;
 import net.dv8tion.jda.core.entities.Member;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 
 public class LevelCommand extends CommandBase {
@@ -53,15 +59,24 @@ public class LevelCommand extends CommandBase {
       }
     }
 
-    EmbedBuilder builder = new EmbedBuilder();
+    try {
+      BufferedImage card = TextGeneration.background;
+      card = TextGeneration.writeImage(card, TextGeneration.card, 0, 0);
+      card = TextGeneration.writeImage(card, TextGeneration.calculateProgressId(progressXp, rankXp), 0, 0);
+      card = TextGeneration.writeImage(card, TextGeneration.resize(TextGeneration.circleize(ImageIO.read(new URL(target.getUser().getAvatarUrl()))), 255, 255), 1450, 80);
+      card = TextGeneration.writeTextCenter(card, C.getFullName(target.getUser()), target.getColor(), 200F, 0, 100);
+      card = TextGeneration.writeTextCenter(card, C.prettyNum(totalXp), target.getColor(), 75F, 700, 220);
+      card = TextGeneration.writeText(card, (rank == -1 ? "?" : String.valueOf(rank)), target.getColor(), 125F, 1000, 210);
+      card = TextGeneration.writeText(card, String.valueOf(level), target.getColor(), 125F, 2320, 210);
+      card = TextGeneration.writeTextCenter(card, C.prettyNum(progressXp), target.getColor(), 75F, -255, 220);
+      card = TextGeneration.writeTextCenter(card, C.prettyNum(rankXp), target.getColor(), 75F, 10, 220);
+      ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-    builder.setAuthor(target.getUser().getName(), null, target.getUser().getAvatarUrl());
-    builder.setColor(target.getColor());
-
-    builder.addField("Rank", (rank == -1 ? "??" : rank) + "/25", false);
-    builder.addField("Level", String.valueOf(level), false);
-    builder.addField("Level Progress", C.prettyNum((int) progressXp) + "/" + C.prettyNum(rankXp) + " (" + C.prettyNum((int) totalXp) + " total)", false);
-
-    e.reply(builder.build());
+      ImageIO.write(card, "png", os);
+      e.getChannel().sendFile(new ByteArrayInputStream(os.toByteArray()), "rank.png", null).queue();
+    } catch (IOException e1) {
+      e1.printStackTrace();
+      e.reply("lol no :heart:");
+    }
   }
 }
