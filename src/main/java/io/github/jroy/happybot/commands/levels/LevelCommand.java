@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 
 public class LevelCommand extends CommandBase {
@@ -58,17 +59,20 @@ public class LevelCommand extends CommandBase {
       }
     }
 
-    BufferedImage card = TextGeneration.card;
-    card = TextGeneration.writeTextCenter(card, C.getFullName(target.getUser()), 200F, 0);
-    card = TextGeneration.writeTextCenter(card, C.prettyNum(totalXp), 75F, 215);
-    card = TextGeneration.writeText(card, (rank == -1 ? "?" : String.valueOf(rank)), 150F, 415, 670);
-    card = TextGeneration.writeText(card, String.valueOf(level), 150F, 325, 847);
-    card = TextGeneration.writeText(card, TextGeneration.formatXpProgress(C.prettyNum(progressXp)), 100F, 2160, 840);
-    card = TextGeneration.writeText(card, C.prettyNum(rankXp), 100F, 2518, 840);
-    card = TextGeneration.writeImage(card, TextGeneration.calculateProgressId(progressXp, rankXp), 2315, 705);
-    ByteArrayOutputStream os = new ByteArrayOutputStream();
     try {
-      ImageIO.write(card, "png", os );
+      BufferedImage card = TextGeneration.background;
+      card = TextGeneration.writeImage(card, TextGeneration.card, 0, 0);
+      card = TextGeneration.writeImage(card, TextGeneration.calculateProgressId(progressXp, rankXp), 0, 0);
+      card = TextGeneration.writeImage(card, TextGeneration.resize(TextGeneration.circleize(ImageIO.read(new URL(e.getMember().getUser().getAvatarUrl()))), 255, 255), 1450, 80);
+      card = TextGeneration.writeTextCenter(card, C.getFullName(target.getUser()), e.getMember().getColor(), 200F, 0, 0);
+      card = TextGeneration.writeTextCenter(card, C.prettyNum(totalXp), e.getMember().getColor(), 75F, 700, 220);
+      card = TextGeneration.writeText(card, (rank == -1 ? "?" : String.valueOf(rank)), e.getMember().getColor(), 125F, 1000, 210);
+      card = TextGeneration.writeText(card, String.valueOf(level), e.getMember().getColor(), 125F, 2320, 210);
+      card = TextGeneration.writeTextCenter(card, C.prettyNum(progressXp), e.getMember().getColor(), 75F, -255, 220);
+      card = TextGeneration.writeTextCenter(card, C.prettyNum(rankXp), e.getMember().getColor(), 75F, 10, 220);
+      ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+      ImageIO.write(card, "png", os);
       e.getChannel().sendFile(new ByteArrayInputStream(os.toByteArray()), "rank.png", null).queue();
     } catch (IOException e1) {
       e1.printStackTrace();

@@ -2,6 +2,7 @@ package io.github.jroy.happybot.util;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,6 +17,7 @@ public class TextGeneration {
   private static Font productSansBold;
 
   public static BufferedImage card;
+  public static BufferedImage background;
   private static BufferedImage progressBar1;
   private static BufferedImage progressBar2;
   private static BufferedImage progressBar3;
@@ -30,6 +32,7 @@ public class TextGeneration {
       productSansBold = Font.createFont(Font.TRUETYPE_FONT, new File("res/sans-bold.ttf"));
 
       card = ImageIO.read(new File("res/card.png"));
+      background = ImageIO.read(new File("res/background.png"));
       progressBar1 = ImageIO.read(new File("res/progress-bar1.png"));
       progressBar2 = ImageIO.read(new File("res/progress-bar2.png"));
       progressBar3 = ImageIO.read(new File("res/progress-bar3.png"));
@@ -64,12 +67,22 @@ public class TextGeneration {
     }
   }
 
-  public static String formatXpProgress(String fancyInput) {
-    StringBuilder fancyInputBuilder = new StringBuilder(fancyInput);
-    while (fancyInputBuilder.length() < 6) {
-      fancyInputBuilder.insert(0, "0");
-    }
-    return fancyInputBuilder.toString();
+  public static BufferedImage resize(BufferedImage img, int height, int width) {
+    Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = resized.createGraphics();
+    g2d.drawImage(tmp, 0, 0, null);
+    g2d.dispose();
+    return resized;
+  }
+
+  public static BufferedImage circleize(BufferedImage image) {
+    int w = image.getWidth();
+    BufferedImage circleBuffer = new BufferedImage(w, w, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2 = circleBuffer.createGraphics();
+    g2.setClip(new Ellipse2D.Float(0, 0, w, w));
+    g2.drawImage(image, 0, 0, w, w, null);
+    return circleBuffer;
   }
 
   public static BufferedImage writeImage(BufferedImage image, BufferedImage overlay, int x, int y) {
@@ -82,12 +95,12 @@ public class TextGeneration {
     return newImage;
   }
 
-  public static BufferedImage writeText(BufferedImage image, String text, float fontSize, int x, int y) {
+  public static BufferedImage writeText(BufferedImage image, String text, Color color, float fontSize, int x, int y) {
     BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
     Graphics2D w = (Graphics2D) newImage.getGraphics();
     w.drawImage(image, 0, 0, null);
-    w.setColor(new Color(192, 149, 216));
+    w.setColor(color);
     w.setFont(productSansBold.deriveFont(fontSize));
 
     w.drawString(text, x, y);
@@ -95,12 +108,12 @@ public class TextGeneration {
     return newImage;
   }
 
-  public static BufferedImage writeTextCenter(BufferedImage image, String text, float fontSize, int yOffset) {
+  public static BufferedImage writeTextCenter(BufferedImage image, String text, Color color, float fontSize, int xOffset, int yOffset) {
     BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
     Graphics2D w = (Graphics2D) newImage.getGraphics();
     w.drawImage(image, 0, 0, null);
-    w.setColor(new Color(192, 149, 216));
+    w.setColor(color);
     w.setFont(productSansBold.deriveFont(fontSize));
     FontMetrics fontMetrics = w.getFontMetrics();
     Rectangle2D rect = fontMetrics.getStringBounds(text, w);
@@ -108,7 +121,7 @@ public class TextGeneration {
     int centerX = (image.getWidth() - (int) rect.getWidth()) / 2;
     int centerY = image.getHeight() / 2;
 
-    w.drawString(text, centerX, centerY + yOffset);
+    w.drawString(text, centerX + xOffset, centerY + yOffset);
     w.dispose();
     return newImage;
   }
