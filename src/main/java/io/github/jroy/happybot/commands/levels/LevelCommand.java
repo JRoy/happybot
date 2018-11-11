@@ -63,13 +63,13 @@ public class LevelCommand extends CommandBase {
       BufferedImage card = TextGeneration.background;
       card = TextGeneration.writeImage(card, TextGeneration.card, 0, 0);
       card = TextGeneration.writeImage(card, TextGeneration.calculateProgressId(progressXp, rankXp), 0, 0);
-      card = TextGeneration.writeImage(card, TextGeneration.resize(TextGeneration.circleize(ImageIO.read(new URL(e.getMember().getUser().getAvatarUrl()))), 255, 255), 1450, 80);
-      card = TextGeneration.writeTextCenter(card, C.getFullName(target.getUser()), e.getMember().getColor(), 200F, 0, 0);
-      card = TextGeneration.writeTextCenter(card, C.prettyNum(totalXp), e.getMember().getColor(), 75F, 700, 220);
-      card = TextGeneration.writeText(card, (rank == -1 ? "?" : String.valueOf(rank)), e.getMember().getColor(), 125F, 1000, 210);
-      card = TextGeneration.writeText(card, String.valueOf(level), e.getMember().getColor(), 125F, 2320, 210);
-      card = TextGeneration.writeTextCenter(card, C.prettyNum(progressXp), e.getMember().getColor(), 75F, -255, 220);
-      card = TextGeneration.writeTextCenter(card, C.prettyNum(rankXp), e.getMember().getColor(), 75F, 10, 220);
+      card = TextGeneration.writeImage(card, TextGeneration.resize(TextGeneration.circleize(ImageIO.read(new URL(target.getUser().getAvatarUrl()))), 255, 255), 1450, 80);
+      card = TextGeneration.writeTextCenter(card, C.getFullName(target.getUser()), target.getColor(), 200F, 0, 100);
+      card = TextGeneration.writeTextCenter(card, C.prettyNum(totalXp), target.getColor(), 75F, 700, 220);
+      card = TextGeneration.writeText(card, (rank == -1 ? "?" : String.valueOf(rank)), target.getColor(), 125F, 1000, 210);
+      card = TextGeneration.writeText(card, String.valueOf(level), target.getColor(), 125F, 2320, 210);
+      card = TextGeneration.writeTextCenter(card, C.prettyNum(progressXp), target.getColor(), 75F, -255, 220);
+      card = TextGeneration.writeTextCenter(card, C.prettyNum(rankXp), target.getColor(), 75F, 10, 220);
       ByteArrayOutputStream os = new ByteArrayOutputStream();
 
       ImageIO.write(card, "png", os);
