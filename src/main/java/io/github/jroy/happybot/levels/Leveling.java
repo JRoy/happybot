@@ -21,12 +21,14 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -48,6 +50,10 @@ public class Leveling extends ListenerAdapter {
   private final String SELECT_USER = "SELECT * FROM `levels` WHERE userId = ?;";
   private final String CREATE_USER = "INSERT INTO `levels` (userId) VALUES (?);";
   private final String UPDATE_USER = "UPDATE `levels` SET level = ? WHERE userId = ?;";
+  private final String CREATE_IMG_TABLE = "CREATE TABLE IF NOT EXISTS `backgrounds` ( `id` INT(255) NOT NULL AUTO_INCREMENT , `userid` VARCHAR(255) , `img` LONGBLOB , UNIQUE (`id`)) ENGINE = InnoDB;";
+  private final String INSERT_IMAGE = "INSERT INTO `backgrounds` (userid, img) VALUES (?, ?);";
+  private final String UPDATE_IMAGE = "UPDATE `backgrounds` SET img = ? WHERE userid = ?;";
+  private final String SELECT_IMAGE = "SELECT * FROM `backgrounds` WHERE userid = ?;";
   private final String leaderboardMessageId = "475436792980701195";
   private final Random random = new Random();
   public Map<Integer, LevelingToken> topCache = new HashMap<>();
@@ -70,6 +76,7 @@ public class Leveling extends ListenerAdapter {
     this.purchaseManager = purchaseManager;
     try {
       connection.createStatement().executeUpdate(CREATE_TABLE);
+      connection.createStatement().executeUpdate(CREATE_IMG_TABLE);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -99,11 +106,11 @@ public class Leveling extends ListenerAdapter {
 
             StringBuilder description = new StringBuilder();
             for (Map.Entry<Integer, LevelingToken> mapToken : result.entrySet()) {
-              if (curPos -1 == 25) {
+              if (curPos - 1 == 25) {
                 break;
               }
 
-              if(curPos > 1) {
+              if (curPos > 1) {
                 description.append("\n");
               }
 
@@ -188,6 +195,52 @@ public class Leveling extends ListenerAdapter {
       statement.execute();
     } catch (SQLException e) {
       e.printStackTrace();
+    }
+  }
+
+  public boolean hasImage(String userid) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(SELECT_IMAGE);
+      statement.setString(1, userid);
+      return statement.executeQuery().next();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  public void setImage(String userid, BufferedImage image) {
+    try {
+      if (hasImage(userid)) {
+        PreparedStatement statement = connection.prepareStatement(UPDATE_IMAGE);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", os);
+        statement.setBlob(1, new ByteArrayInputStream(os.toByteArray()));
+        statement.setString(2, userid);
+        statement.execute();
+      } else {
+        PreparedStatement statement = connection.prepareStatement(INSERT_IMAGE);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", os);
+        statement.setBlob(2, new ByteArrayInputStream(os.toByteArray()));
+        statement.setString(1, userid);
+        statement.execute();
+      }
+    } catch (SQLException | IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public BufferedImage getImage(String userId) {
+    try {
+      PreparedStatement statement = connection.prepareStatement(SELECT_IMAGE);
+      statement.setString(1, userId);
+      ResultSet set = statement.executeQuery();
+      set.next();
+      return ImageIO.read(set.getBlob("img").getBinaryStream());
+    } catch (SQLException | IOException e) {
+      e.printStackTrace();
+      return null;
     }
   }
 
@@ -312,6 +365,7 @@ public class Leveling extends ListenerAdapter {
       case 65: {
         sb.append("\n    + Legendary Rank");
         sb.append("\n    + Gamble x1 Multiplier");
+        sb.append("\n    + Custom ^rank Background");
         C.giveRole(member, Roles.LEGENDARY);
         purchaseManager.addReward(member.getUser().getId(), Reward.DAILY1);
         break;

@@ -6,6 +6,7 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.levels.LevelingToken;
 import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Roles;
 import io.github.jroy.happybot.util.TextGeneration;
 import net.dv8tion.jda.core.entities.Member;
 
@@ -22,7 +23,7 @@ public class LevelCommand extends CommandBase {
   private Leveling leveling;
 
   public LevelCommand(Leveling leveling) {
-    super("rank", "<user>", "Displays your current rank stats.", CommandCategory.FUN);
+    super("rank", "<user> OR <set-card>", "Displays your current rank stats.", CommandCategory.FUN);
     this.aliases = new String[]{"level"};
     this.leveling = leveling;
   }
@@ -32,6 +33,23 @@ public class LevelCommand extends CommandBase {
     Member target = e.getMember();
 
     if (!e.getArgs().isEmpty()) {
+      if (e.getArgs().equalsIgnoreCase("set-card")) {
+        if (!e.hasRole(Roles.LEGENDARY)) {
+          e.replyError(C.permMsg(Roles.LEGENDARY));
+          return;
+        }
+        if (e.getMessage().getAttachments().size() < 1 || !e.getMessage().getAttachments().get(0).isImage()) {
+          e.replyError("You must attach an your background image to this command!");
+          return;
+        }
+        try {
+          leveling.setImage(e.getMember().getUser().getId(), TextGeneration.resize(ImageIO.read(new URL(e.getMessage().getAttachments().get(0).getUrl())), 916, 3036));
+          e.reply("Updated your rank card!");
+          return;
+        } catch (IOException e1) {
+          e1.printStackTrace();
+        }
+      }
       target = C.matchMember(target, e.getArgs());
     }
 
@@ -61,6 +79,9 @@ public class LevelCommand extends CommandBase {
 
     try {
       BufferedImage card = TextGeneration.background;
+      if (leveling.hasImage(targetId)) {
+        card = leveling.getImage(targetId);
+      }
       card = TextGeneration.writeImage(card, TextGeneration.card, 0, 0);
       card = TextGeneration.writeImage(card, TextGeneration.calculateProgressId(progressXp, rankXp), 0, 0);
       card = TextGeneration.writeImage(card, TextGeneration.resize(TextGeneration.circleize(ImageIO.read(new URL(target.getUser().getAvatarUrl()))), 255, 255), 1450, 80);
