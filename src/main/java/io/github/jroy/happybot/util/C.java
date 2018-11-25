@@ -51,6 +51,7 @@ import java.util.regex.Pattern;
 public class C {
   private static String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
   private static final Pattern MENTION_REGEX = Pattern.compile("<@(\\d+)>");
+  private static final Pattern NOT_MENTION_REGEX = Pattern.compile("<@!(\\d+)>");
   private static final Map<TimeUnit, String> timeUnits = new LinkedHashMap<>();
 
   static {
@@ -66,8 +67,12 @@ public class C {
   public static Member matchMember(Member def, String string) {
     Guild guild = C.getGuild();
     Matcher matcher = MENTION_REGEX.matcher(string);
+    Matcher notMatcher = NOT_MENTION_REGEX.matcher(string);
     if(matcher.matches()) {
       return guild.getMemberById(matcher.group(1));
+    }
+    if (notMatcher.matches()) {
+      return guild.getMemberById(notMatcher.group(1));
     }
 
     Member closest = null;
