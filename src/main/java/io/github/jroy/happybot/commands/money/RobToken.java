@@ -11,7 +11,7 @@ class RobToken {
    * Robbed ID & Time Until Can Rob Again
    */
   private final HashMap<String, OffsetDateTime> dailyTimes = new HashMap<>();
-  private final int ROB_DELAY = 86400000; //1 rob per day per person
+  private final int ROB_DELAY = 86400; //1 rob per day per person
 
   protected RobToken() {
 
