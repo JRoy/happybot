@@ -10,11 +10,22 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DiscordThemerImpl extends ListenerAdapter {
+  private static Field FIELD_THEME_MAP;
+
+  static {
+    try {
+      FIELD_THEME_MAP = DiscordThemer.class.getDeclaredField("themeMap");
+      FIELD_THEME_MAP.setAccessible(true);
+    } catch (NoSuchFieldException e) {
+      e.printStackTrace();
+    }
+  }
 
   private final boolean debugMode;
   private DiscordThemer discordThemer;
@@ -36,14 +47,15 @@ public class DiscordThemerImpl extends ListenerAdapter {
     }
   }
 
+  @SuppressWarnings("unchecked")
   public Map<String, String> getRoleNames(String role) {
     Map<String, String> names = new HashMap<>();
-    for (String name : discordThemer.getThemeList()) {
-      try {
-        names.put(name, discordThemer.getThemeToken(name).getThemeRoleData().get(role));
-      } catch (ThemeNotFoundException e) {
-        throw new RuntimeException(e);
+    try {
+      for (Map.Entry<String, ThemeToken> theme : ((Map<String, ThemeToken>) FIELD_THEME_MAP.get(discordThemer)).entrySet()) {
+        names.put(theme.getKey(), theme.getValue().getThemeRoleData().get(role));
       }
+    } catch (IllegalAccessException e) {
+      throw new RuntimeException(e);
     }
     return names;
   }
