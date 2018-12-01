@@ -114,6 +114,10 @@ public class C {
     double distance = MATCH_THRESHOLD;
 
     for (Role role : C.getGuild().getRoles()) {
+      if (role.isPublicRole()) {
+        continue;
+      }
+
       double nameDistance = JaroWinklerDistance.apply(string, role.getName());
       if (nameDistance > distance) {
         closest = role;
