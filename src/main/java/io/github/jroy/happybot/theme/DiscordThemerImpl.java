@@ -10,7 +10,9 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.events.StatusChangeEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DiscordThemerImpl extends ListenerAdapter {
 
@@ -32,6 +34,18 @@ public class DiscordThemerImpl extends ListenerAdapter {
           .setDebugMode(debugMode)
           .build();
     }
+  }
+
+  public Map<String, String> getRoleNames(String role) {
+    Map<String, String> names = new HashMap<>();
+    for (String name : discordThemer.getThemeList()) {
+      try {
+        names.put(name, discordThemer.getThemeToken(name).getThemeRoleData().get(role));
+      } catch (ThemeNotFoundException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return names;
   }
 
   public boolean isValidTheme(String themeName) {

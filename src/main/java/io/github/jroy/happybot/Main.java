@@ -287,6 +287,7 @@ public class Main extends ListenerAdapter {
         new ReportCommand(reportManager),
         new WhoIsCommand(),
         new MemberCountCommand(),
+        new RoleInfoCommand(themeManager),
 
         //Fun
 

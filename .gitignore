@@ -21,6 +21,6 @@ build/
 HappyBot\.iml
 HappyBot\.ipr
 HappyBot\.iws
-latest\.log
-
+*\.log
+logging\.properties
 settings\.yml

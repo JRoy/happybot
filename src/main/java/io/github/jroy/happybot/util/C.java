@@ -38,6 +38,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
@@ -49,9 +50,10 @@ import java.util.regex.Pattern;
 @SuppressWarnings("unused")
 @Slf4j
 public class C {
-  private static String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
+  private static final String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
   private static final Pattern MENTION_REGEX = Pattern.compile("<@!?(\\d+)>");
   private static final Map<TimeUnit, String> timeUnits = new LinkedHashMap<>();
+  private static final double MATCH_THRESHOLD = 0.5;
 
   static {
     timeUnits.put(TimeUnit.DAYS, "d");
@@ -72,7 +74,7 @@ public class C {
 
     Member closest = null;
     // minimum similarity = 0.5 - higher requires more similarity
-    double distance = 0.5;
+    double distance = MATCH_THRESHOLD;
 
     for (Member member : guild.getMembers()) {
       double nicknameDistance = JaroWinklerDistance.apply(string, member.getEffectiveName());
@@ -96,6 +98,26 @@ public class C {
     } else {
       return closest;
     }
+  }
+
+  public static Role matchRole(String string) {
+    Role closest = C.getGuild().getRoleById(string);
+    if (closest != null) {
+      return closest;
+    }
+
+    // minimum similarity = 0.5 - higher requires more similarity
+    double distance = MATCH_THRESHOLD;
+
+    for (Role role : C.getGuild().getRoles()) {
+      double nameDistance = JaroWinklerDistance.apply(string, role.getName());
+      if (nameDistance > distance) {
+        closest = role;
+        distance = nameDistance;
+      }
+    }
+
+    return closest;
   }
 
   public static String getPositionName(int position) {
@@ -142,6 +164,10 @@ public class C {
       return amount + suffix;
     }
     return "";
+  }
+
+  public static java.awt.Color randomColour() {
+    return new java.awt.Color(ThreadLocalRandom.current().nextInt());
   }
 
   /**
