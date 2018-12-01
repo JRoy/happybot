@@ -101,7 +101,11 @@ public class C {
   }
 
   public static Role matchRole(String string) {
-    Role closest = C.getGuild().getRoleById(string);
+    Role closest = null;
+    try {
+      closest = C.getGuild().getRoleById(string);
+    } catch(NumberFormatException ignored) {
+    }
     if (closest != null) {
       return closest;
     }
