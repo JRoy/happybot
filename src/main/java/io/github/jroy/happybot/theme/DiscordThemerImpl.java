@@ -53,7 +53,10 @@ public class DiscordThemerImpl extends ListenerAdapter {
       @SuppressWarnings("unchecked")
       Map<String, ThemeToken> themeMap = (Map<String, ThemeToken>) FIELD_THEME_MAP.get(discordThemer);
       for (Map.Entry<String, ThemeToken> theme : themeMap.entrySet()) {
-        names.put(theme.getKey(), theme.getValue().getThemeRoleData().get(role));
+        String name = theme.getValue().getThemeRoleData().get(role);
+        if (name != null) {
+          names.put(theme.getKey(), name);
+        }
       }
     } catch (IllegalAccessException e) {
       throw new RuntimeException(e);
