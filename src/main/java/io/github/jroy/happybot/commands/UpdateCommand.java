@@ -20,7 +20,7 @@ public class UpdateCommand extends CommandBase {
   private final GameManager gameManager;
 
   public UpdateCommand(MessageFactory messageFactory, GameManager gameManager) {
-    super("update", "<g(ithub)/d(ropbox)> [-s]", "Restarts the VM with an update.", CommandCategory.BOT, Roles.DEVELOPER);
+    super("update", "<g(ithub)/d(ropbox)> [-s] [-d]", "Restarts the VM with an update.", CommandCategory.BOT, Roles.DEVELOPER);
     this.messageFactory = messageFactory;
     this.gameManager = gameManager;
   }
@@ -46,12 +46,13 @@ public class UpdateCommand extends CommandBase {
         silent = true;
       }
       boolean force =  e.getArgs().contains("-f") || e.getArgs().contains("--force");
+      boolean dev = e.getArgs().contains("-d") || e.getArgs().contains("--dev");
       if (e.getArgs().toLowerCase().startsWith("g")) {
-        e.reply(":white_check_mark: Downloading Update from GitHub!");
+        e.reply(":white_check_mark: Downloading Update from GitHub" + (dev ? " (dev)" : "") + "!");
         if (!silent) {
           new Thread(new ImpendRestart("GitHub")).start();
         }
-        exitCode = 20;
+        exitCode = dev ? 20 : 25;
       } else if (e.getArgs().toLowerCase().startsWith("d")) {
         e.reply(":white_check_mark: Downloading Update via SSH!");
         if (!silent) {
