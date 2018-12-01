@@ -1,5 +1,6 @@
 package io.github.jroy.happybot.commands;
 
+import com.google.common.collect.ImmutableMap;
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
@@ -11,6 +12,14 @@ import net.dv8tion.jda.core.entities.Role;
 import java.util.Map;
 
 public class RoleInfoCommand extends CommandBase {
+  private static final String NORMAL_THEME = "normal";
+  private static final ImmutableMap<Object, Object> THEMES = ImmutableMap.builder()
+      .put("valentines", "Valentine's")
+      .put("winter", "Winter")
+      .put("fools", "April Fools'")
+      .put("spooky", "Halloween")
+      .build();
+
   private final DiscordThemerImpl themer;
 
   public RoleInfoCommand(DiscordThemerImpl themer) {
@@ -27,19 +36,16 @@ public class RoleInfoCommand extends CommandBase {
       return;
     }
 
-    EmbedBuilder embed = new EmbedBuilder()
-        .setTitle(role.getName())
-        .setColor(C.randomColour());
-    StringBuilder description = new StringBuilder();
     Map<String, String> names = themer.getRoleNames(role.getId());
-    for (Map.Entry<String, String> entry : names.entrySet()) {
-      if (description.length() > 0) {
-        description.append("\n");
-      }
+    EmbedBuilder embed = new EmbedBuilder()
+        .setTitle(names.get(NORMAL_THEME))
+        .setFooter("ID: " + role.getId(), null)
+        .setColor(C.randomColour());
 
-      description.append("Theme ").append(C.bold(entry.getKey())).append(", name: ").append(entry.getValue());
+    for (Map.Entry<String, String> entry : names.entrySet()) {
+      String name = (String) THEMES.get(entry.getKey());
+      embed.addField(name, entry.getValue(), true);
     }
-    embed.setDescription(description);
 
     event.reply(embed.build());
   }

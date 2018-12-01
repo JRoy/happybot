@@ -47,11 +47,12 @@ public class DiscordThemerImpl extends ListenerAdapter {
     }
   }
 
-  @SuppressWarnings("unchecked")
   public Map<String, String> getRoleNames(String role) {
     Map<String, String> names = new HashMap<>();
     try {
-      for (Map.Entry<String, ThemeToken> theme : ((Map<String, ThemeToken>) FIELD_THEME_MAP.get(discordThemer)).entrySet()) {
+      @SuppressWarnings("unchecked")
+      Map<String, ThemeToken> themeMap = (Map<String, ThemeToken>) FIELD_THEME_MAP.get(discordThemer);
+      for (Map.Entry<String, ThemeToken> theme : themeMap.entrySet()) {
         names.put(theme.getKey(), theme.getValue().getThemeRoleData().get(role));
       }
     } catch (IllegalAccessException e) {
