@@ -44,7 +44,9 @@ public class RoleInfoCommand extends CommandBase {
 
     for (Map.Entry<String, String> entry : names.entrySet()) {
       String name = (String) THEMES.get(entry.getKey());
-      embed.addField(name, entry.getValue(), true);
+      if (name != null) {
+        embed.addField(name, entry.getValue(), true);
+      }
     }
 
     event.reply(embed.build());
