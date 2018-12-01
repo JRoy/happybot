@@ -16,7 +16,7 @@ public class RoleInfoCommand extends CommandBase {
   private static final ImmutableMap<Object, Object> THEMES = ImmutableMap.builder()
       .put("valentines", "Valentine's")
       .put("winter", "Winter")
-      .put("fools", "April Fools'")
+      .put("fool", "April Fools'")
       .put("spooky", "Halloween")
       .build();
 
@@ -37,8 +37,12 @@ public class RoleInfoCommand extends CommandBase {
     }
 
     Map<String, String> names = themer.getRoleNames(role.getId());
+    String normal = names.get(NORMAL_THEME);
+    if (normal == null) {
+      normal = role.getName();
+    }
     EmbedBuilder embed = new EmbedBuilder()
-        .setTitle(names.get(NORMAL_THEME))
+        .setTitle(normal)
         .setFooter("ID: " + role.getId(), null)
         .setColor(C.randomColour());
 
@@ -47,6 +51,10 @@ public class RoleInfoCommand extends CommandBase {
       if (name != null) {
         embed.addField(name, entry.getValue(), true);
       }
+    }
+
+    if (embed.getFields().size() == 0) {
+      embed.setDescription("This role has no themed names.");
     }
 
     event.reply(embed.build());
