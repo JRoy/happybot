@@ -27,25 +27,20 @@ public class RoleInfoCommand extends CommandBase {
       return;
     }
 
-    try {
-      EmbedBuilder embed = new EmbedBuilder()
-          .setTitle(role.getName())
-          .setColor(C.randomColour());
-      StringBuilder description = new StringBuilder();
-      Map<String, String> names = themer.getRoleNames(role.getId());
-      for (Map.Entry<String, String> entry : names.entrySet()) {
-        if (description.length() > 0) {
-          description.append("\n");
-        }
-
-        description.append("Theme ").append(C.bold(entry.getKey())).append(", name: ").append(entry.getValue());
+    EmbedBuilder embed = new EmbedBuilder()
+        .setTitle(role.getName())
+        .setColor(C.randomColour());
+    StringBuilder description = new StringBuilder();
+    Map<String, String> names = themer.getRoleNames(role.getId());
+    for (Map.Entry<String, String> entry : names.entrySet()) {
+      if (description.length() > 0) {
+        description.append("\n");
       }
-      embed.setDescription(description);
 
-      event.reply(embed.build());
-    } catch (Exception e) {
-      event.replyError(e.getMessage());
-      e.printStackTrace();
+      description.append("Theme ").append(C.bold(entry.getKey())).append(", name: ").append(entry.getValue());
     }
+    embed.setDescription(description);
+
+    event.reply(embed.build());
   }
 }
