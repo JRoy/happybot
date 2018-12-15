@@ -4,7 +4,6 @@ import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.entities.impl.TextChannelImpl;
 import org.apache.commons.lang3.StringUtils;
 
 public class SlowmodeCommand extends CommandBase {
@@ -15,21 +14,26 @@ public class SlowmodeCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent e) {
-    if (e.getTextChannel().getSlowmode() != 0 && e.getArgs().isEmpty()) {
-      e.replyError("Slowmode has been disabled!");
+    if (e.getArgs().isEmpty()) {
+      if (e.getTextChannel().getSlowmode() > 0) {
+        e.getTextChannel().getManager().setSlowmode(0).queue();
+        e.replySuccess("Disabled Slowmode!");
+        return;
+      }
+      e.replyError("Please specify a slowmode interval between 1-120 seconds!");
       return;
     }
     if (!StringUtils.isNumeric(e.getArgs())) {
-      e.replyError("Slowmode must be a number!");
+      e.replyError("Slowmode interval must be a number!");
       return;
     }
     int sec = Integer.parseInt(e.getArgs());
     if (sec <= 0 || sec > 120) {
-      e.replyError("Slowmode delay must be 1-120 seconds!");
+      e.replyError("Slowmode interval must be 1-120 seconds!");
       return;
     }
-    TextChannelImpl channel = (TextChannelImpl) e.getTextChannel();
-    channel.setSlowmode(sec);
-    e.reply("Channel Slowmode has been updated!");
+
+    e.getTextChannel().getManager().setSlowmode(sec).queue();
+    e.reply("This channel' slowmode interval has been updated to "+sec+" seconds!");
   }
 }
