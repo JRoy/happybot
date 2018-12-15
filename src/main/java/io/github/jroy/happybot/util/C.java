@@ -566,9 +566,10 @@ public class C {
    * @param urlString the URL to get the body of
    * @return the body of the URL
    */
+  @SuppressWarnings("deprecation")
   public static String readUrl(String urlString) {
     try {
-      @SuppressWarnings("deprecation") HttpClient client = new DefaultHttpClient();
+      HttpClient client = new DefaultHttpClient();
       HttpGet request = new HttpGet(urlString);
       request.addHeader("User-Agent", USER_AGENT);
 
