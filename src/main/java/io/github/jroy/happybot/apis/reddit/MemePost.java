@@ -27,6 +27,6 @@ public class MemePost {
       mediaUrl = dataObject.get("url").getAsString();
     }
 
-    isNsfw = dataObject.toString().replace("promo_adult_nsfw", "").contains("nsfw");
+    isNsfw = dataObject.get("over_18").getAsBoolean();
   }
 }

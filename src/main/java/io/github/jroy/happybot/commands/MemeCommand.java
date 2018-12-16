@@ -52,13 +52,11 @@ public class MemeCommand extends CommandBase {
 
     e.getChannel().sendTyping().queue();
 
-    MemePost post = reddit.getRandomMedia(e.getArgs());
+    MemePost post;
+    do {
+      post = reddit.getRandomMedia(e.getArgs());
+    } while (!post.isNsfw());
     String subreddit = "r/" + post.getSubreddit();
-
-    if (post.isNsfw()) {
-      e.reply("Whoops! The meme you requested appeared to be NSFW! I've canceled the command and I am blaming you. Please enjoy your cooldown.");
-      return;
-    }
 
     EmbedBuilder eb = new EmbedBuilder()
         .setAuthor("Meme from " + subreddit, null, "https://www.redditstatic.com/desktop2x/img/favicon/android-icon-192x192.png")
