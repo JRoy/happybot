@@ -16,7 +16,7 @@ public class RoleInfoCommand extends CommandBase {
   private static final ImmutableMap<Object, Object> THEMES = ImmutableMap.builder()
       .put("valentines", "Valentine's")
       .put("winter", "Winter")
-      .put("fool", "April Fools'")
+      .put("fool", "April Fool's")
       .put("spooky", "Halloween")
       .build();
 
