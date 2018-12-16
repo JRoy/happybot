@@ -55,7 +55,7 @@ public class MemeCommand extends CommandBase {
     MemePost post;
     do {
       post = reddit.getRandomMedia(e.getArgs());
-    } while (!post.isNsfw());
+    } while (post.isNsfw());
     String subreddit = "r/" + post.getSubreddit();
 
     EmbedBuilder eb = new EmbedBuilder()
