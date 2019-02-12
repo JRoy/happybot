@@ -42,6 +42,7 @@ public class MemeCommand extends CommandBase {
     subs.add("nicegirls");
     subs.add("copypasta");
     subs.add("dadjokes");
+    subs.add("dontdeadopeninside");
     this.setCooldown(2, ChronoUnit.MINUTES);
   }
 
