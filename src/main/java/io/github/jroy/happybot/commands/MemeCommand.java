@@ -49,7 +49,7 @@ public class MemeCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent e) {
-    if (!subs.contains(e.getArgs().toLowerCase()) && !e.hasRole(Roles.DEVELOPER)) {
+    if (!subs.contains(e.getArgs().toLowerCase()) && !e.hasRole(Roles.SUPER_ADMIN)) {
       helpMsg(e);
       return;
     }
