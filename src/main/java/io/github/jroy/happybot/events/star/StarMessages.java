@@ -305,13 +305,11 @@ public class StarMessages extends ListenerAdapter {
   }
 
   private void handleStar(GuildMessageReactionAddEvent e, StarEmote emote) {
-    Message message = e.getChannel().getMessageById(e.getMessageId()).complete();
-    CompletableFuture.runAsync(new HandleStar(e, emote, message));
+    e.getChannel().getMessageById(e.getMessageId()).queue(message -> CompletableFuture.runAsync(new HandleStar(e, emote, message)));
   }
 
   private void handleGild(GuildMessageReactionAddEvent e) {
-    Message message = e.getChannel().getMessageById(e.getMessageId()).complete();
-    CompletableFuture.runAsync(new HandleGild(e, message));
+    e.getChannel().getMessageById(e.getMessageId()).queue(message -> CompletableFuture.runAsync(new HandleGild(e, message)));
   }
 
   private void sendStarredMessage(String footer, Message message, String privateMessageText, StarEmote emote, Member causedUser) {
@@ -343,7 +341,7 @@ public class StarMessages extends ListenerAdapter {
       embed.setImage(C.getImage(message));
     }
 
-    infoToken.addCaused(channel.getChannel().sendMessage(embed.build()).complete());
+    channel.getChannel().sendMessage(embed.build()).queue(infoToken::addCaused);
     C.privChannel(message.getMember(), privateMessageText);
     C.privChannel(message.getMember(), embed.build());
     alreadyUsedMessages.add(message.getId());
