@@ -7,18 +7,13 @@ import io.github.jroy.happybot.apis.League;
 import io.github.jroy.happybot.apis.TwitterCentre;
 import io.github.jroy.happybot.apis.exceptions.IllegalAPIState;
 import io.github.jroy.happybot.apis.reddit.Reddit;
-import io.github.jroy.happybot.apis.youtube.YouTubeAPI;
 import io.github.jroy.happybot.commands.*;
 import io.github.jroy.happybot.commands.base.CommandFactory;
 import io.github.jroy.happybot.commands.levels.AddUserCommand;
 import io.github.jroy.happybot.commands.levels.LeaderboardCommand;
 import io.github.jroy.happybot.commands.levels.LevelCommand;
 import io.github.jroy.happybot.commands.levels.OldLevelCommand;
-import io.github.jroy.happybot.commands.money.GambleCommand;
-import io.github.jroy.happybot.commands.money.MoneyCommand;
-import io.github.jroy.happybot.commands.money.ReclaimCommand;
-import io.github.jroy.happybot.commands.money.RobCommand;
-import io.github.jroy.happybot.commands.money.ShopCommand;
+import io.github.jroy.happybot.commands.money.*;
 import io.github.jroy.happybot.commands.og.OgCommand;
 import io.github.jroy.happybot.commands.og.OgMngmtCommand;
 import io.github.jroy.happybot.commands.og.SelfOgMngmtCommand;
@@ -30,24 +25,12 @@ import io.github.jroy.happybot.commands.report.EditReportCommand;
 import io.github.jroy.happybot.commands.report.HandleReportCommand;
 import io.github.jroy.happybot.commands.report.LookupReportCommand;
 import io.github.jroy.happybot.commands.report.ReportCommand;
-import io.github.jroy.happybot.commands.warn.DeleteWarnCommand;
-import io.github.jroy.happybot.commands.warn.EditWarningCommand;
-import io.github.jroy.happybot.commands.warn.SelfWarningsCommand;
-import io.github.jroy.happybot.commands.warn.WarnCommand;
-import io.github.jroy.happybot.commands.warn.WarningsCommand;
-import io.github.jroy.happybot.events.AutoMod;
-import io.github.jroy.happybot.events.LoggingFactory;
-import io.github.jroy.happybot.events.SubmitPinner;
-import io.github.jroy.happybot.events.TrueFalseGame;
-import io.github.jroy.happybot.events.WelcomeMessage;
+import io.github.jroy.happybot.commands.warn.*;
+import io.github.jroy.happybot.events.*;
 import io.github.jroy.happybot.events.star.StarMessages;
 import io.github.jroy.happybot.game.GameManager;
 import io.github.jroy.happybot.levels.Leveling;
-import io.github.jroy.happybot.sql.MessageFactory;
-import io.github.jroy.happybot.sql.PurchaseManager;
-import io.github.jroy.happybot.sql.ReportManager;
-import io.github.jroy.happybot.sql.SQLManager;
-import io.github.jroy.happybot.sql.WarningManager;
+import io.github.jroy.happybot.sql.*;
 import io.github.jroy.happybot.sql.og.OGCommandManager;
 import io.github.jroy.happybot.sql.timed.EventManager;
 import io.github.jroy.happybot.theme.DiscordThemerImpl;
@@ -206,7 +189,7 @@ public class Main extends ListenerAdapter {
     apis.add(hypixel = new Hypixel(botConfig.getHypixelApiKey()));
     apis.add(twitterCentre = new TwitterCentre(botConfig.getTwitterOauthKey(), botConfig.getTwitterOauthSecret(), botConfig.getTwitterAccessToken(), botConfig.getTwitterAccessTokenSecret()));
     apis.add(league = new League(botConfig.getRiotApiKey()));
-    apis.add(new YouTubeAPI("AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE")); //API Key is restricted to the VM this bot runs on, don't waste your time...
+//    apis.add(new YouTubeAPI("AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE")); //API Key is restricted to the VM this bot runs on, don't waste your time...
     log.info("Logging into APIs...");
     for (APIBase api : apis) {
       try {
