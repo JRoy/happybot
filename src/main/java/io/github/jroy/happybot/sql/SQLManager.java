@@ -89,8 +89,8 @@ public class SQLManager {
       if (connection != null && !connection.isClosed()) {
         return;
       }
-      Class.forName("com.mysql.jdbc.Driver");
-      connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/" + Constants.SQL_DATABASE_NAME.get(), Constants.SQL_USERNAME.get(), password);
+      Class.forName("com.mysql.cj.jdbc.Driver");
+      connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/" + Constants.SQL_DATABASE_NAME.get() + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT", Constants.SQL_USERNAME.get(), password);
     }
 
   }
