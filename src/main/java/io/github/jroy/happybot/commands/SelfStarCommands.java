@@ -37,6 +37,7 @@ public class SelfStarCommands extends CommandBase {
         .addField(C.bold("Starred Messages:"), token.getStarCount() + " stars", false)
         .addField(C.bold("Gilded Messages:"), token.getGildCount() + " gilds", false)
         .addField(C.bold("Heeled Messages:"), token.getHeelCount() + " heels", false)
+        .addField(C.bold("Total:"), String.valueOf(token.getGildCount() + token.getStarCount() + token.getHeelCount()), false)
         .build());
   }
 }
