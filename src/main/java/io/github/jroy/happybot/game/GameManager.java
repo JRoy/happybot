@@ -201,7 +201,7 @@ public class GameManager extends ListenerAdapter {
   }
 
   public void pendGame(Message message, Member member, Game game) {
-    Message prompt = message.getTextChannel().sendMessage(new EmbedBuilder().setTitle("New Game Started!").setDescription(C.getFullName(member.getUser()) + " has started a game. Please react with :+1: to join the game!\n**Game:** " + game.getName() + "\n**Description:** " + game.getDescription() + "\n**Minimum Players:** " + game.getMinPlayers() + "\n**Maximum Players:** " + game.getMaxPlayers() + "\n\n**This invite will expire in 5 minutes!**").build()).complete();
+    Message prompt = message.getTextChannel().sendMessage(new EmbedBuilder().setTitle("New Game Started!").setDescription(C.getFullName(member.getUser()) + " has started a game. Please react with :+1: to join the game!\n\n**Game:** " + game.getName() + "\n**Description:** " + game.getDescription() + "\n**Minimum Players:** " + game.getMinPlayers() + "\n**Maximum Players:** " + game.getMaxPlayers() + "\n\n**This invite will expire in 5 minutes!**").build()).complete();
     prompt.addReaction("\uD83D\uDC4D").complete();
     PendingGameToken token = new PendingGameToken(prompt.getId(), message, member, game);
     pendingStart.put(prompt.getId(), token);
