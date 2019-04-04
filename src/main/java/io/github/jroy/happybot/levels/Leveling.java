@@ -11,6 +11,7 @@ import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Member;
@@ -40,6 +41,7 @@ import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("FieldCanBeLocal")
+@Slf4j
 public class Leveling extends ListenerAdapter {
 
   private final static int MAX_LEVEL = 200;
@@ -143,6 +145,7 @@ public class Leveling extends ListenerAdapter {
             Channels.LEADERBOARD.getChannel()
                 .getMessageById(leaderboardMessageId).complete().editMessage(builder.build()).queue();
           } catch (SQLException e) {
+            log.error("Error While Processing Leaderboard");
             e.printStackTrace();
           }
         }

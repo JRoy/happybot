@@ -184,7 +184,7 @@ public class EventManager extends ListenerAdapter {
               }
             }
           } catch (SQLException e) {
-            log.error("Error while timing!");
+            log.error("Error During Infraction Check!");
             e.printStackTrace();
           }
         }
