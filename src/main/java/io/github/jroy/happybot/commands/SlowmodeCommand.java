@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 public class SlowmodeCommand extends CommandBase {
   public SlowmodeCommand() {
     super("slowmode", "<time in seconds>", "Enables/disables slowmode in the current channel channel", CommandCategory.STAFF, Roles.MODERATOR);
-    this.aliases = new String[] { "slow" };
+    this.aliases = new String[]{"slow"};
   }
 
   @Override
@@ -34,6 +34,6 @@ public class SlowmodeCommand extends CommandBase {
     }
 
     e.getTextChannel().getManager().setSlowmode(sec).queue();
-    e.reply("This channel' slowmode interval has been updated to " + sec + " seconds!");
+    e.reply("Channel slowmode has been updated to " + sec + " seconds!");
   }
 }
