@@ -34,6 +34,6 @@ public class SlowmodeCommand extends CommandBase {
     }
 
     e.getTextChannel().getManager().setSlowmode(sec).queue();
-    e.reply("Channel slowmode has been updated to " + sec + " seconds!");
+    e.reply("Channel slowmode has been updated to " + sec + " second(s)");
   }
 }
