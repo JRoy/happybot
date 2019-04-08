@@ -113,7 +113,8 @@ public class Leveling extends ListenerAdapter {
               }
 
               if (curPos > 1) {
-                description.append("\n");
+                description.append("\n"
+                        + "\n");
               }
 
               LevelingToken token = mapToken.getValue();
