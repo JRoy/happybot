@@ -29,7 +29,7 @@ public class SlowmodeCommand extends CommandBase {
     }
     int sec = Integer.parseInt(e.getArgs());
     if (sec <= 0 || sec > 120) {
-      e.replyError("Slowmode interval must be 1-120 seconds!");
+      e.replyError("Slowmode interval must be 1-120 second" + (sec == 1 ? "" : "s") + "!");
       return;
     }
 
