@@ -131,13 +131,13 @@ public class Leveling extends ListenerAdapter {
               description.append(C.getPositionName(curPos))
                   .append(" ")
                   .append("**").append(C.getFullName(token.getMember().getUser())).append("**")
-                  .append(" level ")
+                  .append(" is Level ")
                   .append(token.getLevel())
-                  .append(", ")
+                  .append(", with Progress ")
                   .append(C.prettyNum(progressXp))
                   .append("/")
                   .append(C.prettyNum(rankXp))
-                  .append(", total XP: ")
+                  .append(", and their Total XP is: ")
                   .append(C.prettyNum(token.getExp()))
                   .append(" ");
               curPos++;
