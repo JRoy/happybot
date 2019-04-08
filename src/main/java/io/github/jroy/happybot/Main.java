@@ -7,6 +7,7 @@ import io.github.jroy.happybot.apis.League;
 import io.github.jroy.happybot.apis.TwitterCentre;
 import io.github.jroy.happybot.apis.exceptions.IllegalAPIState;
 import io.github.jroy.happybot.apis.reddit.Reddit;
+import io.github.jroy.happybot.apis.youtube.YouTubeAPI;
 import io.github.jroy.happybot.commands.*;
 import io.github.jroy.happybot.commands.base.CommandFactory;
 import io.github.jroy.happybot.commands.levels.AddUserCommand;
@@ -189,7 +190,7 @@ public class Main extends ListenerAdapter {
     apis.add(hypixel = new Hypixel(botConfig.getHypixelApiKey()));
     apis.add(twitterCentre = new TwitterCentre(botConfig.getTwitterOauthKey(), botConfig.getTwitterOauthSecret(), botConfig.getTwitterAccessToken(), botConfig.getTwitterAccessTokenSecret()));
     apis.add(league = new League(botConfig.getRiotApiKey()));
-//    apis.add(new YouTubeAPI("AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE")); //API Key is restricted to the VM this bot runs on, don't waste your time...
+    apis.add(new YouTubeAPI("AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE")); //API Key is restricted to the VM this bot runs on, don't waste your time...
     log.info("Logging into APIs...");
     for (APIBase api : apis) {
       try {
