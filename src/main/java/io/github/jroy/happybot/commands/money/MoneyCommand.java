@@ -212,7 +212,7 @@ public class MoneyCommand extends CommandBase {
         Map<Integer, Map<Member, Integer>> result = sqlManager.getTop(10);
 
         EmbedBuilder builder = new EmbedBuilder();
-        builder.setTitle("Top 10 Balances");
+        builder.setTitle("Top 10 Richest");
 
         StringBuilder description = new StringBuilder();
         for (int i = 1; i <= 10 && i <= result.size(); i++) {
