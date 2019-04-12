@@ -128,18 +128,19 @@ public class Leveling extends ListenerAdapter {
                 progressXp = token.getExp() - getTotalExp(totalExpP) - getNextExp(totalExpP).longValue();
               }
 
-              description.append(C.getPositionName(curPos))
-                  .append(" ")
-                  .append("**").append(C.getFullName(token.getMember().getUser())).append("**")
-                  .append("'s Level is ")
-                  .append(token.getLevel())
-                  .append(", XP Progress ")
-                  .append(C.prettyNum(progressXp))
-                  .append("/")
-                  .append(C.prettyNum(rankXp))
-                  .append(", and Total XP: ")
-                  .append(C.prettyNum(token.getExp()))
-                  .append(" ");
+              builder.addField(curPos + " **" + C.getFullName(token.getMember().getUser()) + "**", "Level " + token.getLevel() + ", XP Progress " + C.prettyNum(progressXp) + "/" + C.prettyNum(rankXp) + ", and Total XP " + C.prettyNum(token.getExp()), true);
+//              description.append(C.getPositionName(curPos))
+//                  .append(" ")
+//                  .append("**").append(C.getFullName(token.getMember().getUser())).append("**")
+//                  .append("'s Level is ")
+//                  .append(token.getLevel())
+//                  .append(", XP Progress ")
+//                  .append(C.prettyNum(progressXp))
+//                  .append("/")
+//                  .append(C.prettyNum(rankXp))
+//                  .append(", and Total XP: ")
+//                  .append(C.prettyNum(token.getExp()))
+//                  .append(" ");
               curPos++;
             }
             builder.setDescription(description);
