@@ -46,6 +46,7 @@ public class MemeCommand extends CommandBase {
     subs.add("3amjokes");
     subs.add("engrish");
     subs.add("ihadastroke");
+    subs.add("cursedimages");
     this.setCooldown(2, ChronoUnit.MINUTES);
   }
 
