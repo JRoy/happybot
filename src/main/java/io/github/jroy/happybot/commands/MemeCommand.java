@@ -6,6 +6,7 @@ import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
+import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.core.EmbedBuilder;
 
@@ -54,6 +55,11 @@ public class MemeCommand extends CommandBase {
   protected void executeCommand(CommandEvent e) {
     if (!subs.contains(e.getArgs().toLowerCase()) && !e.hasRole(Roles.SUPER_ADMIN)) {
       helpMsg(e);
+      return;
+    }
+
+    if (!e.getChannel().getId().equalsIgnoreCase(Channels.MEMES.getId()) && !e.hasRole(Roles.SUPER_ADMIN)) {
+      e.getMessage().addReaction("❌").queue();
       return;
     }
 
