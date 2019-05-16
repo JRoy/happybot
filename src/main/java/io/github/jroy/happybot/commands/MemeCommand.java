@@ -55,6 +55,7 @@ public class MemeCommand extends CommandBase {
   protected void executeCommand(CommandEvent e) {
     if (!e.getChannel().getId().equalsIgnoreCase(Channels.MEMES.getId()) && !e.hasRole(Roles.SUPER_ADMIN)) {
       e.getMessage().addReaction("❌").queue();
+      removeFromCooldown(e.getMember());
       return;
     }
 
