@@ -156,10 +156,6 @@ public class Main extends ListenerAdapter {
     String sql = getAndSet(yamlFile, "sql-password");
     String prefix = getAndSet(yamlFile, "prefix");
     String alternativePrefix = getAndSet(yamlFile, "alternative-prefix");
-    String redditUsername = getAndSet(yamlFile, "reddit.username");
-    String redditPassword = getAndSet(yamlFile, "reddit.password");
-    String redditId = getAndSet(yamlFile, "reddit.client-id");
-    String redditSecret = getAndSet(yamlFile, "reddit.client-secret");
     String twitterOKey = getAndSet(yamlFile, "twitter.oauth-key");
     String twitterOSecret = getAndSet(yamlFile, "twitter.oauth-secret");
     String twitterAToken = getAndSet(yamlFile, "twitter.access-token");
@@ -168,7 +164,7 @@ public class Main extends ListenerAdapter {
     yamlFile.save();
     yamlFile.load();
 
-    botConfig = new BotConfig(token, hypixel, riot, sql, prefix, alternativePrefix, redditUsername, redditPassword, redditId, redditSecret, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
+    botConfig = new BotConfig(token, hypixel, riot, sql, prefix, alternativePrefix, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
     log.info("Loaded Config!");
   }
 
@@ -186,7 +182,7 @@ public class Main extends ListenerAdapter {
   private static void loadApis() {
     log.info("Initializing APIs...");
     List<APIBase> apis = new ArrayList<>();
-    apis.add(reddit = new Reddit(botConfig));
+    apis.add(reddit = new Reddit());
     apis.add(hypixel = new Hypixel(botConfig.getHypixelApiKey()));
     apis.add(twitterCentre = new TwitterCentre(botConfig.getTwitterOauthKey(), botConfig.getTwitterOauthSecret(), botConfig.getTwitterAccessToken(), botConfig.getTwitterAccessTokenSecret()));
     apis.add(league = new League(botConfig.getRiotApiKey()));

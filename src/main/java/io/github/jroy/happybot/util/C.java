@@ -4,7 +4,6 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.Main;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
-import net.dean.jraw.http.UserAgent;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
@@ -50,7 +49,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("unused")
 @Slf4j
 public class C {
-  private static final String USER_AGENT = new UserAgent("happybot", "io.github.jroy", "v0.1", "wheezygold7931").toString();
+  private static final String USER_AGENT = "happybot:io.github.jroy:v0.1 (by /u/wheezygold7931)";
   private static final Pattern MENTION_REGEX = Pattern.compile("<@!?(\\d+)>");
   private static final Map<TimeUnit, String> timeUnits = new LinkedHashMap<>();
   private static final double MATCH_THRESHOLD = 0.5;

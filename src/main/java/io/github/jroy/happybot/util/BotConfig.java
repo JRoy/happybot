@@ -11,11 +11,6 @@ public class BotConfig {
   private final String prefix;
   private final String alternativePrefix;
 
-  private final String redditUsername;
-  private final String redditPassword;
-  private final String redditClientId;
-  private final String redditClientSecret;
-
   private final String twitterOauthKey;
   private final String twitterOauthSecret;
   private final String twitterAccessToken;
