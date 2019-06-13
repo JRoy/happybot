@@ -3,10 +3,7 @@ package io.github.jroy.happybot.sql;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.CheckForNull;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 @Slf4j
 public class ReportManager {
@@ -29,7 +26,7 @@ public class ReportManager {
   }
 
   public int spawnReport(String targetId, String fromId, String channelId, String reason) throws SQLException {
-    PreparedStatement statement = connection.prepareStatement(CREATE_REPORT);
+    PreparedStatement statement = connection.prepareStatement(CREATE_REPORT, Statement.RETURN_GENERATED_KEYS);
     statement.setString(1, targetId);
     statement.setString(2, fromId);
     statement.setString(3, channelId);

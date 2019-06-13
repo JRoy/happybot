@@ -2,10 +2,7 @@ package io.github.jroy.happybot.sql;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 @Slf4j
 public class WarningManager {
@@ -29,7 +26,7 @@ public class WarningManager {
   }
 
   public int spawnWarning(String targetID, String staffID, String reason) throws SQLException {
-    PreparedStatement statement = connection.prepareStatement(CREATE_WARNING);
+    PreparedStatement statement = connection.prepareStatement(CREATE_WARNING, Statement.RETURN_GENERATED_KEYS);
     statement.setString(1, targetID);
     statement.setString(2, staffID);
     statement.setString(3, reason);
