@@ -140,7 +140,7 @@ public class MoneyCommand extends CommandBase {
           return;
         }
       } else {
-        e.replyError("**Correct Usage:" + C.bold("^" + name + " bal **<user>"));
+        e.replyError("**Correct Usage: " + C.bold("^" + name + " bal **<user>**"));
         return;
       }
     }
