@@ -213,6 +213,7 @@ public class MoneyCommand extends CommandBase {
 
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle("Top 10 Richest");
+        builder.setColor(e.getMember().getColor());
 
         StringBuilder description = new StringBuilder();
         for (int i = 1; i <= 10 && i <= result.size(); i++) {
