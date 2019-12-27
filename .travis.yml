@@ -1,8 +1,11 @@
 language: java
 jdk:
-  - oraclejdk9
+  - oraclejdk11
 os:
   - linux
-sudo: false
+sudo: true
+install:
+  - chmod +x gradlew
+  - "./gradlew assemble"
 script:
-  - ./gradlew shadowJar
+  - "./gradlew shadowJar"
