@@ -1,16 +1,17 @@
 package io.github.jroy.happybot.game;
 
+import club.minnced.discord.webhook.WebhookClient;
+import club.minnced.discord.webhook.send.WebhookEmbed;
+import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.Webhook;
-import net.dv8tion.jda.webhook.WebhookClient;
-import net.dv8tion.jda.webhook.WebhookMessageBuilder;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.Webhook;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import java.util.Set;
 
 public class ActiveGame {
@@ -54,7 +55,7 @@ public class ActiveGame {
   }
 
   public void sendMessage(String username, String message) {
-    WebhookClient client = webhook.newClient().build();
+    WebhookClient client = WebhookClient.withId(webhook.getIdLong(), Objects.requireNonNull(webhook.getToken()));
     client.send(new WebhookMessageBuilder().setAvatarUrl(channel.getJDA().getSelfUser().getAvatarUrl())
         .setUsername(username)
         .setContent(message)
@@ -62,13 +63,14 @@ public class ActiveGame {
     client.close();
   }
 
-  public void sendMessage(MessageEmbed embed) {
+  public void sendMessage(WebhookEmbed embed) {
     sendMessage("Game #" + id, embed);
   }
 
-  public void sendMessage(String username, MessageEmbed embed) {
-    WebhookClient client = webhook.newClient().build();
-    client.send(new WebhookMessageBuilder().setAvatarUrl(channel.getJDA().getSelfUser().getAvatarUrl())
+  public void sendMessage(String username, WebhookEmbed embed) {
+    WebhookClient client = WebhookClient.withId(webhook.getIdLong(), Objects.requireNonNull(webhook.getToken()));
+    client.send(new WebhookMessageBuilder()
+        .setAvatarUrl(channel.getJDA().getSelfUser().getAvatarUrl())
         .setUsername(username)
         .addEmbeds(embed)
         .build());

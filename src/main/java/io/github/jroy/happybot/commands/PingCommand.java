@@ -21,7 +21,7 @@ public class PingCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent event) {
-    event.reply("Ping: ...", m -> m.editMessage("Ping: " + event.getMessage().getCreationTime().until(m.getCreationTime(), ChronoUnit.MILLIS) + "ms | Websocket: " + event.getJDA().getPing() + "ms").queue());
+    event.reply("Ping: ...", m -> m.editMessage("Ping: " + event.getMessage().getTimeCreated().until(m.getTimeCreated(), ChronoUnit.MILLIS) + "ms | Websocket: " + event.getJDA().getGatewayPing() + "ms").queue());
   }
 
 }

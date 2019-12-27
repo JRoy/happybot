@@ -2,7 +2,7 @@ package io.github.jroy.happybot.levels;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 
 @RequiredArgsConstructor
 @Getter

@@ -1,34 +1,36 @@
 package io.github.jroy.happybot.events;
 
+import club.minnced.discord.webhook.WebhookClient;
+import club.minnced.discord.webhook.send.WebhookEmbed;
+import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
+import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.Webhook;
-import net.dv8tion.jda.core.events.channel.text.TextChannelCreateEvent;
-import net.dv8tion.jda.core.events.channel.text.TextChannelDeleteEvent;
-import net.dv8tion.jda.core.events.guild.GuildBanEvent;
-import net.dv8tion.jda.core.events.guild.GuildUnbanEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberNickChangeEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleAddEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleRemoveEvent;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageDeleteEvent;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
-import net.dv8tion.jda.core.events.role.RoleCreateEvent;
-import net.dv8tion.jda.core.events.role.RoleDeleteEvent;
-import net.dv8tion.jda.core.events.role.update.RoleUpdateNameEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import net.dv8tion.jda.webhook.WebhookClient;
-import net.dv8tion.jda.webhook.WebhookMessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Webhook;
+import net.dv8tion.jda.api.events.channel.text.TextChannelCreateEvent;
+import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent;
+import net.dv8tion.jda.api.events.guild.GuildBanEvent;
+import net.dv8tion.jda.api.events.guild.GuildUnbanEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
+import net.dv8tion.jda.api.events.guild.member.update.GuildMemberUpdateNicknameEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
+import net.dv8tion.jda.api.events.role.RoleCreateEvent;
+import net.dv8tion.jda.api.events.role.RoleDeleteEvent;
+import net.dv8tion.jda.api.events.role.update.RoleUpdateNameEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 @Slf4j
 public class LoggingFactory extends ListenerAdapter {
@@ -40,12 +42,12 @@ public class LoggingFactory extends ListenerAdapter {
 
   public LoggingFactory() {
     log.info("Loading Logger Factory...");
-    for (Webhook curHook : Channels.LOG.getChannel().getWebhooks().complete()) {
+    for (Webhook curHook : Channels.LOG.getChannel().retrieveWebhooks().complete()) {
       if (curHook.getId().equals(WEBHOOK_ID)) {
         webhook = curHook;
         Main.getJda().addEventListener(this);
         log.info("Loaded Logger Factory!");
-        sendLogMessage(new EmbedBuilder().setTitle("Bot Status Change").setDescription("Discord Logger has started!").setColor(Color.GREEN).build());
+        sendLogMessage(new WebhookEmbedBuilder().setTitle(new WebhookEmbed.EmbedTitle("Bot Status Change", null)).setDescription("Discord Logger has started!").setColor(Color.GREEN.getRGB()).build());
         break;
       }
     }
@@ -54,8 +56,8 @@ public class LoggingFactory extends ListenerAdapter {
     }
   }
 
-  private void sendLogMessage(MessageEmbed embed) {
-    WebhookClient client = webhook.newClient().build();
+  private void sendLogMessage(WebhookEmbed embed) {
+    WebhookClient client = WebhookClient.withId(webhook.getIdLong(), Objects.requireNonNull(webhook.getToken()));
     WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder()
         .addEmbeds(embed)
         .setUsername("happybot-logger")
@@ -66,22 +68,22 @@ public class LoggingFactory extends ListenerAdapter {
 
   @Override
   public void onGuildBan(GuildBanEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor("Member Banned", null, e.getUser().getAvatarUrl())
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor("Member Banned", e.getUser().getAvatarUrl(), null))
         .setDescription(e.getUser().getAsMention() + " " + C.getFullName(e.getUser()))
-        .setThumbnail(e.getUser().getAvatarUrl())
-        .setColor(Color.RED)
-        .setFooter("ID: " + e.getUser().getId(), null).build());
+        .setThumbnailUrl(e.getUser().getAvatarUrl())
+        .setColor(Color.RED.getRGB())
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getUser().getId(), null)).build());
   }
 
   @Override
   public void onGuildUnban(GuildUnbanEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor("Member Unbanned", null, e.getUser().getAvatarUrl())
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor("Member Unbanned", e.getUser().getAvatarUrl(), null))
         .setDescription(e.getUser().getAsMention() + " " + C.getFullName(e.getUser()))
-        .setThumbnail(e.getUser().getAvatarUrl())
-        .setColor(Color.CYAN)
-        .setFooter("ID: " + e.getUser().getId(), null).build());
+        .setThumbnailUrl(e.getUser().getAvatarUrl())
+        .setColor(Color.CYAN.getRGB())
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getUser().getId(), null)).build());
   }
 
   @Override
@@ -104,12 +106,12 @@ public class LoggingFactory extends ListenerAdapter {
 
     Message deleted = cache.getIfPresent(e.getMessageId());
     if (deleted == null) {
-      sendLogMessage(new EmbedBuilder()
-          .setAuthor(e.getGuild().getName(), null, e.getGuild().getIconUrl())
+      sendLogMessage(new WebhookEmbedBuilder()
+          .setAuthor(new WebhookEmbed.EmbedAuthor(e.getGuild().getName(), e.getGuild().getIconUrl(), null))
           .setDescription(C.bold("Message deleted in ") + e.getChannel().getAsMention())
-          .setColor(Color.RED)
+          .setColor(Color.RED.getRGB())
           .setTimestamp(OffsetDateTime.now())
-          .setFooter("ID: " + e.getMessageId(), null).build());
+          .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getMessageId(), null)).build());
       return;
     }
     cache.invalidate(e.getMessageId());
@@ -120,87 +122,87 @@ public class LoggingFactory extends ListenerAdapter {
       desc = deleted.getContentRaw();
     }
 
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor(C.getFullName(deleted.getAuthor()))
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor(C.getFullName(deleted.getAuthor()), null, null))
         .setDescription(C.bold("Message sent by ") + deleted.getAuthor().getAsMention() + C.bold(" deleted in ") + deleted.getTextChannel().getAsMention() + "\n" + desc)
-        .setColor(Color.RED)
+        .setColor(Color.RED.getRGB())
         .setTimestamp(OffsetDateTime.now())
-        .setFooter("ID: " + e.getMessageId(), null).build());
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getMessageId(), null)).build());
   }
 
   @Override
   public void onTextChannelCreate(TextChannelCreateEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor(e.getGuild().getName(), null, e.getGuild().getIconUrl())
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor(e.getGuild().getName(), e.getGuild().getIconUrl(), null))
         .setDescription("Channel Created: #" + e.getChannel().getName())
-        .setColor(Color.GREEN)
-        .setFooter("ID: " + e.getChannel().getId(), null).build());
+        .setColor(Color.GREEN.getRGB())
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getChannel().getId(), null)).build());
   }
 
   @Override
   public void onTextChannelDelete(TextChannelDeleteEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor(e.getGuild().getName(), null, e.getGuild().getIconUrl())
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor(e.getGuild().getName(), e.getGuild().getIconUrl(), null))
         .setDescription("Channel Deleted: #" + e.getChannel().getName())
-        .setColor(Color.RED)
-        .setFooter("ID: " + e.getChannel().getId(), null).build());
+        .setColor(Color.RED.getRGB())
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getChannel().getId(), null)).build());
   }
 
   @Override
   public void onRoleCreate(RoleCreateEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor(e.getGuild().getName(), null, e.getGuild().getIconUrl())
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor(e.getGuild().getName(), e.getGuild().getIconUrl(), null))
         .setDescription("Role Created: " + e.getRole().getName())
-        .setColor(Color.GREEN)
-        .setFooter("ID: " + e.getRole().getId(), null).build());
+        .setColor(Color.GREEN.getRGB())
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getRole().getId(), null)).build());
   }
 
   @Override
   public void onRoleDelete(RoleDeleteEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor(e.getGuild().getName(), null, e.getGuild().getIconUrl())
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor(e.getGuild().getName(), e.getGuild().getIconUrl(), null))
         .setDescription("Role Deleted: " + e.getRole().getName())
-        .setColor(Color.RED)
-        .setFooter("ID: " + e.getRole().getId(), null).build());
+        .setColor(Color.RED.getRGB())
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getRole().getId(), null)).build());
   }
 
   @Override
   public void onRoleUpdateName(RoleUpdateNameEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor(e.getGuild().getName(), null, e.getGuild().getIconUrl())
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor(e.getGuild().getName(), e.getGuild().getIconUrl(), null))
         .setDescription("Role Updated: " + e.getRole().getName())
-        .addField("New Name", e.getNewName(), false)
-        .addField("Old Name", e.getOldName(), false)
-        .setColor(Color.CYAN)
-        .setFooter("ID: " + e.getRole().getId(), null).build());
+        .addField(new WebhookEmbed.EmbedField(false, "New Name", e.getNewName()))
+        .addField(new WebhookEmbed.EmbedField(false, "Old Name", e.getOldName()))
+        .setColor(Color.CYAN.getRGB())
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getRole().getId(), null)).build());
   }
 
   @Override
   public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor(C.getFullName(e.getUser()), null, e.getUser().getAvatarUrl())
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor(C.getFullName(e.getUser()), e.getUser().getAvatarUrl(), null))
         .setDescription(e.getUser().getAsMention() + " " + C.bold("was given the ") + "`" + C.prettyRoleArray(e.getRoles()) + "` " + C.bold("role(s)!"))
-        .setColor(Color.CYAN)
-        .setFooter("ID: " + e.getUser().getId(), null).build());
+        .setColor(Color.CYAN.getRGB())
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getUser().getId(), null)).build());
   }
 
   @Override
   public void onGuildMemberRoleRemove(GuildMemberRoleRemoveEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor(C.getFullName(e.getUser()), null, e.getUser().getAvatarUrl())
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor(C.getFullName(e.getUser()), e.getUser().getAvatarUrl(), null))
         .setDescription(e.getUser().getAsMention() + " " + C.bold("was removed from the ") + "`" + C.prettyRoleArray(e.getRoles()) + "` " + C.bold("role(s)!"))
-        .setColor(Color.CYAN)
-        .setFooter("ID: " + e.getUser().getId(), null).build());
+        .setColor(Color.CYAN.getRGB())
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getUser().getId(), null)).build());
   }
 
   @Override
-  public void onGuildMemberNickChange(GuildMemberNickChangeEvent e) {
-    sendLogMessage(new EmbedBuilder()
-        .setAuthor(C.getFullName(e.getUser()), null, e.getUser().getAvatarUrl())
+  public void onGuildMemberUpdateNickname(@Nonnull GuildMemberUpdateNicknameEvent e) {
+    sendLogMessage(new WebhookEmbedBuilder()
+        .setAuthor(new WebhookEmbed.EmbedAuthor(C.getFullName(e.getUser()), e.getUser().getAvatarUrl(), null))
         .setDescription(e.getUser().getAsMention() + " " + C.bold("nickname changed!"))
-        .addField("New Nick", e.getNewNick() != null ? e.getNewNick() : "N/A", false)
-        .addField("Old Nick", e.getPrevNick() != null ? e.getPrevNick() : "N/A", false)
-        .setColor(Color.CYAN)
-        .setFooter("ID: " + e.getUser().getId(), null).build());
+        .addField(new WebhookEmbed.EmbedField(false, "New Nick", e.getNewNickname() != null ? e.getNewNickname() : "N/A"))
+        .addField(new WebhookEmbed.EmbedField(false, "Old Nick", e.getOldNickname() != null ? e.getOldNickname() : "N/A"))
+        .setColor(Color.CYAN.getRGB())
+        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getUser().getId(), null)).build());
   }
 }

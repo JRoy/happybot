@@ -25,7 +25,7 @@ public class DeleteRemindCommand extends CommandBase {
       int id = Integer.parseInt(e.getSplitArgs()[0]);
 
       if (!e.hasRole(Roles.MODERATOR)) {
-        if (!eventManager.isValidIdPair(id, e.getMember().getUser().getId())) {
+        if (eventManager.isInvalidIdPair(id, e.getMember().getUser().getId())) {
           e.reply("Either that is not your reminder or that reminder id doesn't exist");
           return;
         }

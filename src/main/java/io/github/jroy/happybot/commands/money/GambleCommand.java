@@ -8,7 +8,7 @@ import io.github.jroy.happybot.sql.UserToken;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
 import io.github.jroy.happybot.util.RuntimeEditor;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.SQLException;

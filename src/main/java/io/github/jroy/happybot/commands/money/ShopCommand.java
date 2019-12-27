@@ -7,7 +7,7 @@ import io.github.jroy.happybot.sql.PurchaseManager;
 import io.github.jroy.happybot.sql.Reward;
 import io.github.jroy.happybot.sql.UserToken;
 import io.github.jroy.happybot.util.C;
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.SQLException;

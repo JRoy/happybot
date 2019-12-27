@@ -8,13 +8,13 @@ import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.StatusChangeEvent;
-import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.StatusChangeEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class OGCommandManager extends ListenerAdapter {
@@ -88,8 +89,8 @@ public class OGCommandManager extends ListenerAdapter {
         if (action.getActionType().equals(OGActionType.NAME)) {
           cmdname = cmdname.split("[|]")[1];
         }
-        Channels.STAFF_QUEUE.getChannel().getMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("✅ Command ^" + cmdname + " has been approved by " + e.getMember().getAsMention()).queue();
-        C.privChannel(e.getGuild().getMemberById(action.getUserId()), "Your custom command has been approved!");
+        Channels.STAFF_QUEUE.getChannel().retrieveMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("✅ Command ^" + cmdname + " has been approved by " + e.getMember().getAsMention()).queue();
+        C.privChannel(Objects.requireNonNull(e.getGuild().getMemberById(action.getUserId())), "Your custom command has been approved!");
         ogActionMapByUser.remove(action.getUserId());
         ogActionMap.remove(e.getMessageId());
       } else if (type.equalsIgnoreCase("❌")) {
@@ -98,8 +99,8 @@ public class OGCommandManager extends ListenerAdapter {
         if (action.getActionType().equals(OGActionType.NAME)) {
           cmdname = cmdname.split("[|]")[1];
         }
-        C.privChannel(e.getGuild().getMemberById(action.getUserId()), "Your custom command has been denied!");
-        Channels.STAFF_QUEUE.getChannel().getMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("❌ Command ^" + cmdname + " has been denied by " + e.getMember().getAsMention()).queue();
+        C.privChannel(Objects.requireNonNull(e.getGuild().getMemberById(action.getUserId())), "Your custom command has been denied!");
+        Channels.STAFF_QUEUE.getChannel().retrieveMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("❌ Command ^" + cmdname + " has been denied by " + e.getMember().getAsMention()).queue();
         ogActionMapByUser.remove(action.getUserId());
         ogActionMap.remove(e.getMessageId());
       }

@@ -6,8 +6,8 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
 
 import java.awt.*;
 import java.sql.SQLException;

@@ -24,7 +24,7 @@ public class EditRemindCommand extends CommandBase {
       int id = Integer.parseInt(e.getSplitArgs()[0]);
       String reason = e.getArgs().replaceFirst(e.getSplitArgs()[0], "");
 
-      if (!eventManager.isValidIdPair(id, e.getMember().getUser().getId())) {
+      if (eventManager.isInvalidIdPair(id, e.getMember().getUser().getId())) {
         e.reply("Either that is not your reminder or that reminder id doesn't exist");
         return;
       }

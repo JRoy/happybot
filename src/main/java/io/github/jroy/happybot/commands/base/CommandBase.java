@@ -5,7 +5,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

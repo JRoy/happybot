@@ -5,7 +5,7 @@ import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.entities.Icon;
+import net.dv8tion.jda.api.entities.Icon;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -40,9 +40,9 @@ public class EmoteCommand extends CommandBase {
     }
     try {
       if (staffOnly) {
-        C.getGuildCtrl().createEmote(name, Icon.from(url.openStream()), Roles.HELPER.getRole()).queue();
+        C.getGuild().createEmote(name, Icon.from(url.openStream()), Roles.HELPER.getRole()).queue();
       } else {
-        C.getGuildCtrl().createEmote(name, Icon.from(url.openStream())).queue();
+        C.getGuild().createEmote(name, Icon.from(url.openStream())).queue();
       }
       e.replySuccess("Created emote!");
     } catch (IOException e1) {

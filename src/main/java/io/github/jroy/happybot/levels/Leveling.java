@@ -12,14 +12,14 @@ import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.StatusChangeEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.StatusChangeEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -29,15 +29,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -65,7 +63,7 @@ public class Leveling extends ListenerAdapter {
   private LoadingCache<String, Integer> levelCache = CacheBuilder.newBuilder()
       .expireAfterAccess(10, TimeUnit.MINUTES)
       .maximumSize(200)
-      .build(new CacheLoader<String, Integer>() {
+      .build(new CacheLoader<>() {
         @Override
         public Integer load(@NotNull String key) {
           return toLevel(getExp(key));
@@ -145,7 +143,7 @@ public class Leveling extends ListenerAdapter {
             }
             builder.setDescription(description);
             Channels.LEADERBOARD.getChannel()
-                .getMessageById(leaderboardMessageId).complete().editMessage(builder.build()).queue();
+                .retrieveMessageById(leaderboardMessageId).complete().editMessage(builder.build()).queue();
           } catch (SQLException e) {
             log.error("Error While Processing Leaderboard");
             e.printStackTrace();
@@ -311,7 +309,7 @@ public class Leveling extends ListenerAdapter {
     addExp(userId, expA);
 
     if (toLevel(getExp(userId)) > levelCache.getUnchecked(userId)) {
-      processRewards(toLevel(getExp(userId)), event.getMember(), event.getChannel());
+      processRewards(toLevel(getExp(userId)), Objects.requireNonNull(event.getMember()), event.getChannel());
     }
 
     levelCache.put(userId, toLevel(getExp(userId)));
@@ -342,7 +340,7 @@ public class Leveling extends ListenerAdapter {
 
   private void processRewards(int level, Member member, TextChannel channel) {
     StringBuilder sb = new StringBuilder();
-    String randomMessage = messageFactory.getRawMessage(MessageFactory.MessageType.LEVEL).replaceAll("<user>", member.getAsMention()).replaceAll("<level>", C.bold("Level " + String.valueOf(level)));
+    String randomMessage = messageFactory.getRawMessage(MessageFactory.MessageType.LEVEL).replaceAll("<user>", member.getAsMention()).replaceAll("<level>", C.bold("Level " + level));
 
     sb.append(randomMessage);
 

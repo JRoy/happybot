@@ -1,7 +1,7 @@
 package io.github.jroy.happybot.game.games.tictactoe;
 
 import lombok.Getter;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 
 import static io.github.jroy.happybot.game.games.tictactoe.TicTacToeType.CROSS;
 

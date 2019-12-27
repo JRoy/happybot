@@ -6,22 +6,19 @@ import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import io.github.jroy.happybot.util.RuntimeEditor;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageReaction;
-import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageReaction;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -280,7 +277,7 @@ public class StarMessages extends ListenerAdapter {
         e.getReaction().removeReaction().queue();
         return;
       }
-      e.getChannel().getMessageById(e.getMessageId()).queue(message -> {
+      e.getChannel().retrieveMessageById(e.getMessageId()).queue(message -> {
         if (!RuntimeEditor.isAllowSelfGilds() && e.getMember().getUser() == message.getAuthor()) {
           e.getReaction().removeReaction().queue();
           return;
@@ -294,7 +291,7 @@ public class StarMessages extends ListenerAdapter {
 
   @Override
   public void onGuildMessageReactionRemove(GuildMessageReactionRemoveEvent e) {
-    if (e.getReactionEmote().getName().equals("gild") && pastGilds.containsKey(e.getMessageId()) && pastGilds.get(e.getMessageId()).getGilderId().equals(e.getUser().getId())) {
+    if (e.getReactionEmote().getName().equals("gild") && pastGilds.containsKey(e.getMessageId()) && pastGilds.get(e.getMessageId()).getGilderId().equals(Objects.requireNonNull(e.getUser()).getId())) {
       for (Message msg : pastGilds.get(e.getMessageId()).getCausedMessages()) {
         msg.delete().queue();
       }
@@ -305,11 +302,11 @@ public class StarMessages extends ListenerAdapter {
   }
 
   private void handleStar(GuildMessageReactionAddEvent e, StarEmote emote) {
-    e.getChannel().getMessageById(e.getMessageId()).queue(message -> CompletableFuture.runAsync(new HandleStar(e, emote, message)));
+    e.getChannel().retrieveMessageById(e.getMessageId()).queue(message -> CompletableFuture.runAsync(new HandleStar(e, emote, message)));
   }
 
   private void handleGild(GuildMessageReactionAddEvent e) {
-    e.getChannel().getMessageById(e.getMessageId()).queue(message -> CompletableFuture.runAsync(new HandleGild(e, message)));
+    e.getChannel().retrieveMessageById(e.getMessageId()).queue(message -> CompletableFuture.runAsync(new HandleGild(e, message)));
   }
 
   private void sendStarredMessage(String footer, Message message, String privateMessageText, StarEmote emote, Member causedUser) {
@@ -335,7 +332,7 @@ public class StarMessages extends ListenerAdapter {
       embed.setFooter(footer, emote.getIconUrl());
     }
 
-    embed.setThumbnail(message.getMember().getUser().getAvatarUrl())
+    embed.setThumbnail(Objects.requireNonNull(message.getMember()).getUser().getAvatarUrl())
         .setColor(message.getMember().getColor());
     if (C.containsImage(message)) {
       embed.setImage(C.getImage(message));

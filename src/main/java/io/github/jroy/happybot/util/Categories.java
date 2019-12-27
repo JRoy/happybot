@@ -1,6 +1,6 @@
 package io.github.jroy.happybot.util;
 
-import net.dv8tion.jda.core.entities.Category;
+import net.dv8tion.jda.api.entities.Category;
 
 public enum  Categories {
 

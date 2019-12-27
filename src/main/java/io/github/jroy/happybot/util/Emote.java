@@ -33,7 +33,7 @@ public enum Emote {
     return emote;
   }
 
-  public net.dv8tion.jda.core.entities.Emote getEmote() {
+  public net.dv8tion.jda.api.entities.Emote getEmote() {
     return C.getGuild().getEmoteById(emote);
   }
 

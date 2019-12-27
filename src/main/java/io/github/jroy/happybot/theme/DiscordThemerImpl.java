@@ -6,14 +6,15 @@ import io.github.wheezygold7931.discordthemer.DiscordThemerBuilder;
 import io.github.wheezygold7931.discordthemer.ThemeToken;
 import io.github.wheezygold7931.discordthemer.exceptions.ThemeNotFoundException;
 import io.github.wheezygold7931.discordthemer.util.ActionMode;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.events.StatusChangeEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.events.StatusChangeEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class DiscordThemerImpl extends ListenerAdapter {
   private static Field FIELD_THEME_MAP;
@@ -38,7 +39,7 @@ public class DiscordThemerImpl extends ListenerAdapter {
   public void onStatusChange(StatusChangeEvent event) {
     if (event.getNewStatus() == JDA.Status.CONNECTED && discordThemer == null) {
       discordThemer = new DiscordThemerBuilder(event.getJDA())
-          .setGuild(event.getJDA().getGuildById(Constants.GUILD_ID.get()))
+          .setGuild(Objects.requireNonNull(event.getJDA().getGuildById(Constants.GUILD_ID.get())))
           .setActionMode(ActionMode.QUEUE)
           .setThemeFolder("themes/")
           .setLogDisplayWarnings(true)

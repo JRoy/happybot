@@ -1,6 +1,6 @@
 package io.github.jroy.happybot.util;
 
-import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.api.entities.Role;
 
 /**
  * An easy way to get roles!

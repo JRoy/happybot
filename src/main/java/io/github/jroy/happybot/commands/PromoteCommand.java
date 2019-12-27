@@ -5,7 +5,7 @@ import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 
 public class PromoteCommand extends CommandBase {
 
@@ -42,7 +42,7 @@ public class PromoteCommand extends CommandBase {
   private boolean promoteIfHasRole(Roles requiredRole, Roles promotionRole, Member member, CommandEvent event) {
     if (C.hasRole(member, requiredRole)) {
       event.replySuccess("User has been promoted to " + C.bold(promotionRole.toString()) + "!");
-      event.getGuild().getController().addSingleRoleToMember(member, promotionRole.getRole()).reason("User Promotion!").queue();
+      event.getGuild().addRoleToMember(member, promotionRole.getRole()).reason("User Promotion!").queue();
       return false;
     }
     return true;

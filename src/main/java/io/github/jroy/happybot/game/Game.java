@@ -5,7 +5,7 @@ import io.github.jroy.happybot.game.model.GameReactionReceived;
 import io.github.jroy.happybot.game.model.GameStartEvent;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 import org.jetbrains.annotations.Nullable;
 
 @RequiredArgsConstructor

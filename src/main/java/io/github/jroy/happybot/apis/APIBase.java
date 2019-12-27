@@ -3,9 +3,9 @@ package io.github.jroy.happybot.apis;
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.apis.exceptions.IllegalAPIState;
 import lombok.Getter;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.events.StatusChangeEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.events.StatusChangeEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public abstract class APIBase {
   @Getter
@@ -47,4 +47,6 @@ public abstract class APIBase {
       }
     }
   }
+
+  public class ListenerImpl extends Listener { }
 }

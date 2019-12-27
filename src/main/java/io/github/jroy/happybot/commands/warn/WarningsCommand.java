@@ -10,8 +10,8 @@ import io.github.jroy.happybot.util.Roles;
 import io.github.jroy.happybot.util.RuntimeEditor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -87,7 +87,7 @@ public class WarningsCommand extends CommandBase {
 
   @RequiredArgsConstructor
   @Getter
-  private class WarningToken {
+  private static class WarningToken {
     private final StringBuilder builder;
     private final int warnings;
   }

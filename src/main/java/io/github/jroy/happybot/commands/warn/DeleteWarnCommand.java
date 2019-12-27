@@ -8,11 +8,12 @@ import io.github.jroy.happybot.sql.WarningManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
 import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class DeleteWarnCommand extends CommandBase {
 
@@ -33,7 +34,7 @@ public class DeleteWarnCommand extends CommandBase {
         Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
             .setAuthor(C.getFullName(e.getMember().getUser()), null, e.getMember().getUser().getAvatarUrl())
             .setColor(Color.YELLOW)
-            .setThumbnail(tUser.getAvatarUrl())
+            .setThumbnail(Objects.requireNonNull(tUser).getAvatarUrl())
             .setDescription(":information_source: **Warning Deleted**\n" + "⚠ " + C.bold("Warned " + C.getFullName(tUser)) + "\n:page_facing_up: " + C.bold("Reason: ") + warningManager.getWarnReason(id) + "\n:id: **Warn ID** " + id)
             .build()).queue();
         if (warningManager.deleteWarning(id)) {

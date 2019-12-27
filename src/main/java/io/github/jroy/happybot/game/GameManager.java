@@ -13,17 +13,17 @@ import io.github.jroy.happybot.util.Categories;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Channel;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.StatusChangeEvent;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.StatusChangeEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
@@ -107,7 +107,7 @@ public class GameManager extends ListenerAdapter {
   }
 
   @Override
-  public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
+  public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent e) {
     if (isPendingRestart()) {
       return;
     }
@@ -230,7 +230,7 @@ public class GameManager extends ListenerAdapter {
    */
   public void spawnGame(Message message, Member member, Game game, Set<Member> players) {
     int gameId = this.gameId++;
-    Channel newChannel = Categories.GAMES.getCategory().createTextChannel("game-" + gameId).setTopic("Playing " + game.getName() + "! Started by " + C.getFullName(member.getUser()))
+    TextChannel newChannel = Categories.GAMES.getCategory().createTextChannel("game-" + gameId).setTopic("Playing " + game.getName() + "! Started by " + C.getFullName(member.getUser()))
         .addPermissionOverride(C.getGuild().getPublicRole(), null, EnumSet.of(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ))
         .addPermissionOverride(member, EnumSet.of(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ), null)
         .complete();
@@ -239,10 +239,10 @@ public class GameManager extends ListenerAdapter {
       if (newChannel.getPermissionOverride(curPlayer) == null) {
         newChannel.createPermissionOverride(curPlayer).setAllow(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue();
       } else {
-        newChannel.getPermissionOverride(curPlayer).getManager().grant(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue();
+        Objects.requireNonNull(newChannel.getPermissionOverride(curPlayer)).getManager().grant(Permission.MESSAGE_WRITE, Permission.MESSAGE_READ).queue();
       }
     }
-    ActiveGame activeGame = new ActiveGame(gameId, (TextChannel) newChannel, C.getGuild().getTextChannelById(newChannel.getId()).createWebhook("game communication").complete(), game, member, players);
+    ActiveGame activeGame = new ActiveGame(gameId, newChannel, Objects.requireNonNull(C.getGuild().getTextChannelById(newChannel.getId())).createWebhook("game communication").complete(), game, member, players);
     activeGames.put(gameId, activeGame);
     channelToIdMap.put(newChannel.getId(), gameId);
     activeUsers.add(member.getUser().getId());
@@ -258,7 +258,7 @@ public class GameManager extends ListenerAdapter {
    */
   public void protectGame(ActiveGame activeGame, @Nullable Member winner, int coinPrize) {
     for (Member curPlayer : activeGame.getPlayers()) {
-      activeGame.getChannel().getPermissionOverride(curPlayer).getManager().deny(Permission.MESSAGE_WRITE).queue();
+      Objects.requireNonNull(activeGame.getChannel().getPermissionOverride(curPlayer)).getManager().deny(Permission.MESSAGE_WRITE).queue();
     }
     activeGame.sendMessage("---------------------------------------------------------------");
     if (winner != null) {

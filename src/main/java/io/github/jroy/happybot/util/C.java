@@ -4,14 +4,8 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import io.github.jroy.happybot.Main;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.managers.GuildController;
-import net.dv8tion.jda.core.utils.IOUtil;
+import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.internal.utils.IOUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -19,24 +13,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
@@ -248,16 +232,6 @@ public class C {
   }
 
   /**
-   * Gets the {@link net.dv8tion.jda.core.managers.GuildController GuildController} Class from a {@link com.jagrosh.jdautilities.command.CommandEvent CommandEvent}.
-   *
-   * @param e The target {@link com.jagrosh.jdautilities.command.CommandEvent CommandEvent}
-   * @return The requested {@link net.dv8tion.jda.core.managers.GuildController GuildController}
-   */
-  public static GuildController getCtrl(CommandEvent e) {
-    return e.getGuild().getController();
-  }
-
-  /**
    * Expands a short url and gives the full URL output.
    *
    * @param baseUrl The short url given for conversion.
@@ -306,19 +280,10 @@ public class C {
   /**
    * Gets the happyheart guild easily.
    *
-   * @return {@link net.dv8tion.jda.core.entities.Guild Guild} of happyheart fanbase.
+   * @return Guild of happyheart fanbase.
    */
   public static Guild getGuild() {
     return Main.getJda().getGuildById(Constants.GUILD_ID.get());
-  }
-
-  /**
-   * Gets the happyheart guild controller.
-   *
-   * @return {@link net.dv8tion.jda.core.managers.GuildController GuildController} of happyheart guild.
-   */
-  public static GuildController getGuildCtrl() {
-    return getGuild().getController();
   }
 
   /**
@@ -330,10 +295,10 @@ public class C {
    */
   public static boolean toggleRole(Member m, Roles role) {
     if (!hasRole(m, role)) {
-      getGuildCtrl().addSingleRoleToMember(m, role.getRole()).reason("Role toggle from internal C Util").queue();
+      getGuild().addRoleToMember(m, role.getRole()).reason("Role toggle from internal C Util").queue();
       return true;
     } else {
-      getGuildCtrl().removeSingleRoleFromMember(m, role.getRole()).reason("Role toggle from internal C Util").queue();
+      getGuild().removeRoleFromMember(m, role.getRole()).reason("Role toggle from internal C Util").queue();
       return false;
     }
   }
@@ -345,7 +310,7 @@ public class C {
    * @param role The target role.
    */
   public static void removeRole(Member m, Roles role) {
-    getGuildCtrl().removeSingleRoleFromMember(m, role.getRole()).reason("Role removed from internal C Util").queue();
+    getGuild().removeRoleFromMember(m, role.getRole()).reason("Role removed from internal C Util").queue();
   }
 
   /**
@@ -356,7 +321,7 @@ public class C {
    * @param reason The reason to show in the audit log.
    */
   public static void removeRole(Member m, Roles role, String reason) {
-    getGuildCtrl().removeSingleRoleFromMember(m, role.getRole()).reason(reason).queue();
+    getGuild().removeRoleFromMember(m, role.getRole()).reason(reason).queue();
   }
 
   /**
@@ -366,7 +331,7 @@ public class C {
    * @param role The target role.
    */
   public static void giveRole(Member m, Roles role) {
-    getGuildCtrl().addSingleRoleToMember(m, role.getRole()).queue();
+    getGuild().addRoleToMember(m, role.getRole()).queue();
   }
 
   /**
@@ -377,7 +342,7 @@ public class C {
    * @param reason The reason to show in the audit log.
    */
   public static void giveRole(Member m, Roles role, String reason) {
-    getGuildCtrl().addSingleRoleToMember(m, role.getRole()).reason(reason).queue();
+    getGuild().addRoleToMember(m, role.getRole()).reason(reason).queue();
   }
 
   /**
@@ -387,7 +352,9 @@ public class C {
    * @param roles The target roles to add to the user.
    */
   public static void giveRoles(Member m, Roles... roles) {
-    getGuildCtrl().addRolesToMember(m, toRoleArray(roles)).queue();
+    List<Role> memberRoles = m.getRoles();
+    memberRoles.addAll(Arrays.asList(toRoleArray(roles)));
+    getGuild().modifyMemberRoles(m, memberRoles).queue();
   }
 
   /**
@@ -419,7 +386,7 @@ public class C {
   /**
    * Opens a private channel with a user.
    *
-   * @param m       The Guild {@link net.dv8tion.jda.core.entities.Member Member} that gets the private channel.
+   * @param m       The Guild Member that gets the private channel.
    * @param message The message to send via private channel.
    */
   public static void privChannel(Member m, String message) {
@@ -601,7 +568,7 @@ public class C {
   }
 
   /**
-   * Gets a {@link net.dv8tion.jda.core.entities.Member Guild Member} from their name.
+   * Gets a Guild Member from their name.
    *
    * @param name The name of the memeber.
    * @return the member that matches the name otherwise, null.

@@ -1,7 +1,7 @@
 package io.github.jroy.happybot.sql;
 
 import io.github.jroy.happybot.Main;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 
 public class ReportToken {
 

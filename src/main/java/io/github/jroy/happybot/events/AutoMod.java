@@ -2,29 +2,26 @@ package io.github.jroy.happybot.events;
 
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.sql.MessageFactory;
-import io.github.jroy.happybot.util.C;
-import io.github.jroy.happybot.util.Channels;
-import io.github.jroy.happybot.util.Constants;
-import io.github.jroy.happybot.util.Emote;
-import io.github.jroy.happybot.util.Roles;
-import io.github.jroy.happybot.util.RuntimeEditor;
+import io.github.jroy.happybot.util.*;
 import lombok.RequiredArgsConstructor;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.ShutdownEvent;
-import net.dv8tion.jda.core.events.StatusChangeEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleAddEvent;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.ShutdownEvent;
+import net.dv8tion.jda.api.events.StatusChangeEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
@@ -38,9 +35,9 @@ public class AutoMod extends ListenerAdapter {
   @Override
   public void onStatusChange(StatusChangeEvent event) {
     if (event.getNewStatus() == JDA.Status.CONNECTED) {
-      event.getJDA().getGuildById(Constants.GUILD_ID.get()).getTextChannelById(Channels.BOT_META.getId()).getHistory().retrievePast(10).queue(messages -> messages.forEach(message -> {
+      Objects.requireNonNull(Objects.requireNonNull(event.getJDA().getGuildById(Constants.GUILD_ID.get())).getTextChannelById(Channels.BOT_META.getId())).getHistory().retrievePast(10).queue(messages -> messages.forEach(message -> {
         message.getEmbeds().forEach(messageEmbed -> {
-          if (messageEmbed != null && messageEmbed.getTitle().equalsIgnoreCase("Impending Update") && message.getAuthor() == Main.getJda().getUserById(Constants.BOT_ID.get()) && !message.isWebhookMessage()) {
+          if (messageEmbed != null && Objects.requireNonNull(messageEmbed.getTitle()).equalsIgnoreCase("Impending Update") && message.getAuthor() == Main.getJda().getUserById(Constants.BOT_ID.get()) && !message.isWebhookMessage()) {
             message.editMessage(new EmbedBuilder()
                 .setTitle("Update Complete")
                 .setDescription(messageFactory.getRawMessage(MessageFactory.MessageType.UPDATE_END) + "\nThis update has been finished in PID: " + ManagementFactory.getRuntimeMXBean().getName().split("[@]")[0])
@@ -73,7 +70,7 @@ public class AutoMod extends ListenerAdapter {
     //Git Ping Handler
     if (message.getChannel() == Channels.BOT_META.getChannel() && message.isWebhookMessage()) {
       MessageEmbed embed = message.getEmbeds().get(0);
-      if ((embed.getTitle().startsWith("[JRoy/happybot] Issue closed:") || embed.getTitle().startsWith("[JRoy/happybot] New comment on")) && !RuntimeEditor.isPingIssueClose()) {
+      if ((Objects.requireNonNull(embed.getTitle()).startsWith("[JRoy/happybot] Issue closed:") || embed.getTitle().startsWith("[JRoy/happybot] New comment on")) && !RuntimeEditor.isPingIssueClose()) {
         return;
       }
       Roles.GIT.getRole().getManager().setMentionable(true).complete();
@@ -91,7 +88,7 @@ public class AutoMod extends ListenerAdapter {
 
   //Advert Filter
   @Override
-  public void onGuildMessageUpdate(GuildMessageUpdateEvent event) {
+  public void onGuildMessageUpdate(@NotNull GuildMessageUpdateEvent event) {
     if (RuntimeEditor.isFilteringAdverts()) {
       checkForAdvertising(event.getMember(), event.getMessage(), event.getChannel());
     }
@@ -130,7 +127,7 @@ public class AutoMod extends ListenerAdapter {
   }
 
   @Override
-  public void onShutdown(ShutdownEvent event) {
+  public void onShutdown(@NotNull ShutdownEvent event) {
     System.exit(0);
   }
 }

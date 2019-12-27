@@ -1,5 +1,7 @@
 package io.github.jroy.happybot.game.games.tictactoe.ultimate;
 
+import club.minnced.discord.webhook.send.WebhookEmbed;
+import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
 import io.github.jroy.happybot.game.ActiveGame;
 import io.github.jroy.happybot.game.Game;
 import io.github.jroy.happybot.game.GameManager;
@@ -7,9 +9,9 @@ import io.github.jroy.happybot.game.model.GameMessageReceived;
 import io.github.jroy.happybot.game.model.GameReactionReceived;
 import io.github.jroy.happybot.game.model.GameStartEvent;
 import io.github.jroy.happybot.util.C;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -57,19 +59,19 @@ public class UltimateTicTacToe extends Game {
 
     if (game.getBoard() < 0) {
       if (game.isFull(num)) {
-        activeGame.sendMessage(new EmbedBuilder()
-            .setTitle("That board is full!")
+        activeGame.sendMessage(new WebhookEmbedBuilder()
+            .setTitle(new WebhookEmbed.EmbedTitle("That board is full!", null))
             .setDescription(game.getCurrent().getAsMention() + ", select a board.\n" + game.fullRender())
-            .setColor(Color.GREEN)
+            .setColor(Color.GREEN.getRGB())
             .build()
         );
         return;
       }
       game.setBoard(num);
-      activeGame.sendMessage(new EmbedBuilder()
-          .setTitle("Selected the " + game.getName(game.getBoard()) + " board.")
+      activeGame.sendMessage(new WebhookEmbedBuilder()
+          .setTitle(new WebhookEmbed.EmbedTitle("Selected the " + game.getName(game.getBoard()) + " board.", null))
           .setDescription(game.getCurrent().getAsMention() + ", select a point on the " + game.getName(game.getBoard()) + " board.\n" + game.fullRender())
-          .setColor(Color.BLUE)
+          .setColor(Color.BLUE.getRGB())
           .build()
       );
       return;
@@ -86,24 +88,24 @@ public class UltimateTicTacToe extends Game {
         endGame(activeGame, null);
       }
 
-      EmbedBuilder builder = new EmbedBuilder()
-          .setTitle("Turn completed.");
+      WebhookEmbedBuilder builder = new WebhookEmbedBuilder()
+          .setTitle(new WebhookEmbed.EmbedTitle("Turn completed.", null));
       if (game.getBoard() < 0) {
         builder.setDescription(game.getCurrent().getAsMention() + ", select a board.\n" + game.fullRender())
-            .setColor(Color.GREEN);
+            .setColor(Color.GREEN.getRGB());
       } else {
         builder.setDescription(game.getCurrent().getAsMention() + ", select a point on the "
             + game.getName(game.getBoard()) + " board.\n"
             + game.fullRender())
-            .setColor(Color.BLUE);
+            .setColor(Color.BLUE.getRGB());
       }
       activeGame.sendMessage(builder.build());
     } else {
-      activeGame.sendMessage(new EmbedBuilder()
-          .setTitle("That space is already occupied.")
+      activeGame.sendMessage(new WebhookEmbedBuilder()
+          .setTitle(new WebhookEmbed.EmbedTitle("That space is already occupied.", null))
           .setDescription(game.getCurrent().getAsMention() + ", select a point on the "
               + game.getName(game.getBoard()) + " board.\n" + game.fullRender())
-          .setColor(Color.BLUE)
+          .setColor(Color.BLUE.getRGB())
           .build()
       );
     }

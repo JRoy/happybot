@@ -1,12 +1,13 @@
 package io.github.jroy.happybot.util;
 
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.requests.RestAction;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.requests.RestAction;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
+@SuppressWarnings("rawtypes")
 public class SafeRestAction {
 
   private final RestAction restAction;
@@ -49,7 +50,7 @@ public class SafeRestAction {
     return restAction;
   }
 
-  private class ImpendAction implements Runnable {
+  private static class ImpendAction implements Runnable {
 
     private final SafeRestAction safeRestAction;
     private final Consumer consumer;

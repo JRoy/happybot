@@ -6,8 +6,8 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
 
 import java.awt.*;
 
@@ -34,7 +34,7 @@ public class BanCommand extends CommandBase {
 
       C.privChannel(target, "Banned with Reason: " + reason);
 
-      C.getCtrl(e).ban(target.getUser(), 7, "Banned by Moderator: " + e.getMember().getUser().getName()).reason("Banned by Moderator: " + e.getMember().getUser().getName() + ". With Reason: " + reason).queue();
+      e.getGuild().ban(target.getUser(), 7, "Banned by Moderator: " + e.getMember().getUser().getName()).reason("Banned by Moderator: " + e.getMember().getUser().getName() + ". With Reason: " + reason).queue();
       e.replySuccess("User " + C.getFullName(target.getUser()) + " has been **FRIGGING BANNED** by " + e.getMember().getEffectiveName());
       Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
           .setAuthor(C.getFullName(e.getMember().getUser()), null, e.getMember().getUser().getAvatarUrl())

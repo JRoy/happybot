@@ -4,9 +4,11 @@ import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.PermissionOverride;
-import net.dv8tion.jda.core.managers.PermOverrideManager;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.PermissionOverride;
+import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
+
+import java.util.Objects;
 
 public class UnlockCommand extends CommandBase {
 
@@ -18,7 +20,7 @@ public class UnlockCommand extends CommandBase {
   protected void executeCommand(CommandEvent e) {
     try {
       PermissionOverride permissionOverride = e.getTextChannel().getPermissionOverride(Roles.EVERYONE.getRole());
-      PermOverrideManager manager = permissionOverride.getManager();
+      PermissionOverrideAction manager = Objects.requireNonNull(permissionOverride).getManager();
       manager.grant(Permission.MESSAGE_WRITE).queue();
       e.replySuccess(":unlock: Channel has been unlocked!");
     } catch (NullPointerException npe) {

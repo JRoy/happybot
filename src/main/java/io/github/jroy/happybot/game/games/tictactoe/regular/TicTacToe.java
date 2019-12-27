@@ -1,5 +1,7 @@
 package io.github.jroy.happybot.game.games.tictactoe.regular;
 
+import club.minnced.discord.webhook.send.WebhookEmbed;
+import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
 import io.github.jroy.happybot.game.ActiveGame;
 import io.github.jroy.happybot.game.Game;
 import io.github.jroy.happybot.game.GameManager;
@@ -7,9 +9,8 @@ import io.github.jroy.happybot.game.model.GameMessageReceived;
 import io.github.jroy.happybot.game.model.GameReactionReceived;
 import io.github.jroy.happybot.game.model.GameStartEvent;
 import io.github.jroy.happybot.util.C;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -27,9 +28,9 @@ public class TicTacToe extends Game {
     Iterator<Member> players = event.getActiveGame().getPlayers().iterator();
     game = new TicTacToeGame(players.next().getUser(), players.next().getUser());
     event.getActiveGame()
-        .sendMessage(new EmbedBuilder()
+        .sendMessage(new WebhookEmbedBuilder()
             .setDescription(game.getCurrent().getAsMention() + ", select a point.\n" + game.fullRender())
-            .setColor(Color.CYAN)
+            .setColor(Color.CYAN.getRGB())
             .build());
   }
 
@@ -65,16 +66,16 @@ public class TicTacToe extends Game {
         return;
       }
 
-      activeGame.sendMessage(new EmbedBuilder()
-          .setTitle("Turn completed.")
+      activeGame.sendMessage(new WebhookEmbedBuilder()
+          .setTitle(new WebhookEmbed.EmbedTitle("Turn completed.", null))
           .setDescription(game.getCurrent().getAsMention() + ", select a point.\n" + game.fullRender())
-          .setColor(Color.GREEN)
+          .setColor(Color.GREEN.getRGB())
           .build());
     } else {
-      activeGame.sendMessage(new EmbedBuilder()
-          .setTitle("That space is already occupied.")
+      activeGame.sendMessage(new WebhookEmbedBuilder()
+          .setTitle(new WebhookEmbed.EmbedTitle("That space is already occupied.", null))
           .setDescription(game.getCurrent().getAsMention() + ", select a point.\n" + game.fullRender())
-          .setColor(Color.BLUE)
+          .setColor(Color.BLUE.getRGB())
           .build()
       );
     }

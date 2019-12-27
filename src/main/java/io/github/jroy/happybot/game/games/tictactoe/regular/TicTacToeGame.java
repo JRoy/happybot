@@ -3,7 +3,7 @@ package io.github.jroy.happybot.game.games.tictactoe.regular;
 import io.github.jroy.happybot.game.games.tictactoe.AbstractTicTacToeGame;
 import io.github.jroy.happybot.game.games.tictactoe.TicTacToeBoard;
 import io.github.jroy.happybot.game.games.tictactoe.TicTacToeType;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 
 public class TicTacToeGame extends AbstractTicTacToeGame {
   private TicTacToeBoard board = new TicTacToeBoard();

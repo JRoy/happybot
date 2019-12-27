@@ -8,7 +8,7 @@ import io.github.jroy.happybot.levels.LevelingToken;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
 import io.github.jroy.happybot.util.TextGeneration;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -17,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class LevelCommand extends CommandBase {
 
@@ -28,6 +29,7 @@ public class LevelCommand extends CommandBase {
     this.leveling = leveling;
   }
 
+  @SuppressWarnings("ConstantConditions")
   @Override
   protected void executeCommand(CommandEvent e) {
     Member target = e.getMember();
@@ -84,7 +86,7 @@ public class LevelCommand extends CommandBase {
       }
       card = TextGeneration.writeImage(card, TextGeneration.card, 0, 0);
       card = TextGeneration.writeImage(card, TextGeneration.calculateProgressId(progressXp, rankXp), 0, 0);
-      card = TextGeneration.writeImage(card, TextGeneration.resize(TextGeneration.circleize(ImageIO.read(new URL(target.getUser().getAvatarUrl()))), 255, 255), 1450, 80);
+      card = TextGeneration.writeImage(card, TextGeneration.resize(TextGeneration.circleize(ImageIO.read(new URL(Objects.requireNonNull(target.getUser().getAvatarUrl())))), 255, 255), 1450, 80);
       card = TextGeneration.writeTextCenter(card, C.getFullName(target.getUser()), target.getColor(), 200F, 0, 100);
       card = TextGeneration.writeTextCenter(card, C.prettyNum(totalXp), target.getColor(), 75F, 700, 220);
       card = TextGeneration.writeText(card, (rank == -1 ? "?" : String.valueOf(rank)), target.getColor(), 125F, 1000, 210);
@@ -94,6 +96,7 @@ public class LevelCommand extends CommandBase {
       ByteArrayOutputStream os = new ByteArrayOutputStream();
 
       ImageIO.write(card, "png", os);
+      //noinspection ConfusingArgumentToVarargsMethod
       e.getChannel().sendFile(new ByteArrayInputStream(os.toByteArray()), "rank.png", null).queue();
     } catch (IOException e1) {
       e1.printStackTrace();

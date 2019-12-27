@@ -5,10 +5,11 @@ import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.events.StatusChangeEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.events.StatusChangeEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -82,15 +83,15 @@ public class EventManager extends ListenerAdapter {
     }
   }
 
-  public boolean isValidIdPair(int id, String userId) {
+  public boolean isInvalidIdPair(int id, String userId) {
     try {
       PreparedStatement statement = connection.prepareStatement(SELECT_EVENT_ID_USER);
       statement.setInt(1, id);
       statement.setString(2, userId);
-      return statement.executeQuery().next();
+      return !statement.executeQuery().next();
     } catch (SQLException e) {
       e.printStackTrace();
-      return false;
+      return true;
     }
   }
 
@@ -129,7 +130,7 @@ public class EventManager extends ListenerAdapter {
   }
 
   @Override
-  public void onStatusChange(StatusChangeEvent event) {
+  public void onStatusChange(@NotNull StatusChangeEvent event) {
     if (reg) {
       return;
     }

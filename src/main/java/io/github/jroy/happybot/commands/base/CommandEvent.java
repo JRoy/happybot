@@ -3,8 +3,8 @@ package io.github.jroy.happybot.commands.base;
 import com.jagrosh.jdautilities.command.CommandClient;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * A custom implementation of JDA-Utilities's {@link com.jagrosh.jdautilities.command.CommandEvent CommandEvent} class that makes our use-case easier.

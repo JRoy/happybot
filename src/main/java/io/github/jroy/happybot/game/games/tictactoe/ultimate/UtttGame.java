@@ -1,13 +1,13 @@
 package io.github.jroy.happybot.game.games.tictactoe.ultimate;
 
-import io.github.jroy.happybot.game.games.tictactoe.TicTacToeBoard;
+import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
 import io.github.jroy.happybot.game.games.tictactoe.AbstractTicTacToeGame;
+import io.github.jroy.happybot.game.games.tictactoe.TicTacToeBoard;
 import io.github.jroy.happybot.game.games.tictactoe.TicTacToeType;
 import io.github.jroy.happybot.game.model.GameStartEvent;
 import lombok.Getter;
 import lombok.Setter;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 
 public class UtttGame extends AbstractTicTacToeGame {
   private TicTacToeBoard[] boards = new TicTacToeBoard[9];
@@ -21,7 +21,7 @@ public class UtttGame extends AbstractTicTacToeGame {
     for (int i = 0; i < boards.length; i++) {
       boards[i] = new TicTacToeBoard();
     }
-    event.getActiveGame().sendMessage(new EmbedBuilder().setDescription(getCurrent().getAsMention() + ", select a board.\n" + fullRender()).build());
+    event.getActiveGame().sendMessage(new WebhookEmbedBuilder().setDescription(getCurrent().getAsMention() + ", select a board.\n" + fullRender()).build());
   }
 
   public boolean makeTurn(int position) {

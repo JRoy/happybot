@@ -38,14 +38,15 @@ import io.github.jroy.happybot.theme.DiscordThemerImpl;
 import io.github.jroy.happybot.util.BotConfig;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.events.ReadyEvent;
-import net.dv8tion.jda.core.hooks.EventListener;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.hooks.EventListener;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 import org.simpleyaml.configuration.file.YamlFile;
 import org.simpleyaml.exceptions.InvalidConfigurationException;
 
@@ -86,7 +87,7 @@ public class Main extends ListenerAdapter {
   @Getter
   private static CommandClient commandClient;
 
-  public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException, InterruptedException {
+  public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException {
 
     System.setProperty("http.agent", "happybot");
 
@@ -134,10 +135,10 @@ public class Main extends ListenerAdapter {
         .setToken(botConfig.getBotToken())
         .setStatus(OnlineStatus.DO_NOT_DISTURB)
         //Listens to the MessageReceivedEvent.
-        .addEventListener(commandClient = commandFactory.build())
-        .setGame(Game.of(Game.GameType.DEFAULT, "Loading"));
+        .addEventListeners(commandClient = commandFactory.build())
+        .setActivity(Activity.playing("Loading..."));
     for (EventListener listener : eventListeners) {
-      builder.addEventListener(listener);
+      builder.addEventListeners(listener);
     }
     log.info("Logging into Discord...");
     jda = builder.build();
@@ -376,7 +377,7 @@ public class Main extends ListenerAdapter {
   }
 
   @Override
-  public void onReady(ReadyEvent event) {
+  public void onReady(@NotNull ReadyEvent event) {
     new LoggingFactory();
     log.info("Bot has been loaded & Connected to Discord!");
   }

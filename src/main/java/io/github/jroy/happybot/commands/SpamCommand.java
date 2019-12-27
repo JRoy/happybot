@@ -8,7 +8,7 @@ import io.github.jroy.happybot.sql.timed.EventType;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Constants;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 
 import java.sql.SQLException;
 

@@ -3,14 +3,10 @@ package io.github.jroy.happybot.sql;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Constants;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 
 import javax.annotation.Nonnull;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 

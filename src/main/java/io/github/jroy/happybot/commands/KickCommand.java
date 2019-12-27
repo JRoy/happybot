@@ -5,7 +5,7 @@ import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 
 public class KickCommand extends CommandBase {
 
@@ -29,7 +29,7 @@ public class KickCommand extends CommandBase {
         return;
       }
 
-      C.getCtrl(e).kick(target).reason("Kicked by Moderator: " + e.getMember().getUser().getName() + ". With Reason: " + reason).queue();
+      C.getGuild().kick(target).reason("Kicked by Moderator: " + e.getMember().getUser().getName() + ". With Reason: " + reason).queue();
       e.replySuccess("User " + C.getFullName(target.getUser()) + " has been **FLIPPIN KICKED** by " + e.getMember().getEffectiveName());
     } else {
       e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);

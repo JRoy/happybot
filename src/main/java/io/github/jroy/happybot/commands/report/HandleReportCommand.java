@@ -7,11 +7,12 @@ import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
 import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class HandleReportCommand extends CommandBase {
 
@@ -66,7 +67,7 @@ public class HandleReportCommand extends CommandBase {
           .build()
       ).queue();
       User tU = e.getJDA().getUserById(reportManager.getReportTarget(targetReport));
-      C.privChannel(e.getGuild().getMemberById(reportManager.getReportAuthor(targetReport)), "Your report against " + tU.getName() + "#" + tU.getDiscriminator() + " has been accepted!\nReason: " + C.codeblock(reason));
+      C.privChannel(Objects.requireNonNull(e.getGuild().getMemberById(reportManager.getReportAuthor(targetReport))), "Your report against " + Objects.requireNonNull(tU).getName() + "#" + tU.getDiscriminator() + " has been accepted!\nReason: " + C.codeblock(reason));
       e.replySuccess("Report has been accepted!");
     } else if (args[0].equalsIgnoreCase("deny")) {
       reportManager.denyReport(targetReport, e.getMember().getUser().getId(), reason);
@@ -78,7 +79,7 @@ public class HandleReportCommand extends CommandBase {
           .build()
       ).queue();
       User tU = e.getJDA().getUserById(reportManager.getReportTarget(targetReport));
-      C.privChannel(e.getGuild().getMemberById(reportManager.getReportAuthor(targetReport)), "Your report against " + tU.getName() + "#" + tU.getDiscriminator() + " has been denied!\nReason: " + C.codeblock(reason));
+      C.privChannel(Objects.requireNonNull(e.getGuild().getMemberById(reportManager.getReportAuthor(targetReport))), "Your report against " + Objects.requireNonNull(tU).getName() + "#" + tU.getDiscriminator() + " has been denied!\nReason: " + C.codeblock(reason));
       e.replySuccess("Report has been denied!");
     }
   }

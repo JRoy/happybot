@@ -7,7 +7,7 @@ import io.github.jroy.happybot.sql.ReportManager;
 import io.github.jroy.happybot.sql.ReportToken;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;

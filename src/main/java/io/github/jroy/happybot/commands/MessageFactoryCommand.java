@@ -6,7 +6,7 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -47,7 +47,7 @@ public class MessageFactoryCommand extends CommandBase {
         e1.printStackTrace();
       }
     } else if (e.getSplitArgs()[0].equalsIgnoreCase("pins")) {
-      List<Message> pins = Channels.WELCOME_SUBMIT.getChannel().getPinnedMessages().complete();
+      List<Message> pins = Channels.WELCOME_SUBMIT.getChannel().retrievePinnedMessages().complete();
       int added = 0;
       for (Message msg : pins) {
         String content = msg.getContentDisplay().replaceFirst("\\((.*?)\\) ", "");

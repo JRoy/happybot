@@ -8,7 +8,7 @@ import io.github.jroy.happybot.sql.Reward;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.sql.UserToken;
 import io.github.jroy.happybot.util.C;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 
 import java.sql.SQLException;
 import java.time.temporal.ChronoUnit;

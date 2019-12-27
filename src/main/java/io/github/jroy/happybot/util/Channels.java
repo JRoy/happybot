@@ -2,7 +2,7 @@ package io.github.jroy.happybot.util;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 @RequiredArgsConstructor
 public enum Channels {

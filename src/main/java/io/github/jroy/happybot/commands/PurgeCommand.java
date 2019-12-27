@@ -5,8 +5,8 @@ import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageHistory;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageHistory;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedList;
@@ -53,8 +53,7 @@ public class PurgeCommand extends CommandBase {
         break;
       }
       case 1: { /* 1 Argument: Purging ALL Messages in Target Amount */
-        List<Message> del = new LinkedList<>();
-        del.addAll(history.retrievePast(target).complete());
+        List<Message> del = new LinkedList<>(history.retrievePast(target).complete());
         e.getTextChannel().deleteMessages(del).complete();
         break;
       }
