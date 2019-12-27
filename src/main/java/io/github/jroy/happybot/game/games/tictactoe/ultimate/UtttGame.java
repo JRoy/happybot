@@ -80,7 +80,7 @@ public class UtttGame extends AbstractTicTacToeGame {
       }
       for (int line = 0; line < 3; line++) {
         if (line > 0) {
-          render.append("─┼─┼─╂─┼─┼─╂─┼─┼─\n");
+          render.append("─┼─┼─┃─┼─┼─┃─┼─┼─\n");
         }
         render.append(renderBoardLine(board, line));
       }

@@ -3,7 +3,7 @@ package io.github.jroy.happybot.game.games.tictactoe;
 import lombok.Getter;
 import net.dv8tion.jda.core.entities.User;
 
-import static io.github.jroy.happybot.game.games.tictactoe.TicTacToeType.CROSS;
+import static io.github.jroy.happybot.game.games.tictactoe.TicTacToeType.*;
 
 public class TicTacToeBoard {
   @Getter
@@ -17,26 +17,29 @@ public class TicTacToeBoard {
           null, CROSS, null,
           CROSS, null, CROSS
       };
-    } else if(winner == TicTacToeType.NOUGHT) {
+    } else if(winner == NOUGHT) {
       return new TicTacToeType[] {
-          TicTacToeType.NOUGHT, TicTacToeType.NOUGHT, TicTacToeType.NOUGHT,
-          TicTacToeType.NOUGHT, null, TicTacToeType.NOUGHT,
-          TicTacToeType.NOUGHT, TicTacToeType.NOUGHT, TicTacToeType.NOUGHT
+          NOUGHT, NOUGHT, NOUGHT,
+          NOUGHT, null, NOUGHT,
+          NOUGHT, NOUGHT, NOUGHT
       };
+    } else {
+      return board;
     }
-    return board;
   }
 
   public User getWinner(User first, User second) {
-    if (winner == null) {
-      return null;
+    if (winner == CROSS) {
+      return first;
+    } else if (winner == NOUGHT) {
+      return second;
     } else {
-      return winner == CROSS ? first : second;
+      return null;
     }
   }
 
   /**
-   * Places a given type onto the board at the given inde
+   * Places a given type onto the board at the given index
    * @param index the index to place the {@link TicTacToeType} at
    * @param type the type of piece
    * @return whether the placement was successful.

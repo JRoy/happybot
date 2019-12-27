@@ -16,13 +16,6 @@ import java.util.Iterator;
 
 public class UltimateTicTacToe extends Game {
   private UtttGame game;
-//  private final Cache<Long, User> waitingForPlayers = CacheBuilder.newBuilder()
-//      .expireAfterWrite(5, TimeUnit.MINUTES)
-//      .build();
-//  private final Cache<Long, UtttGame> games = CacheBuilder.newBuilder()
-//      .expireAfterAccess(10, TimeUnit.MINUTES)
-//      .build();
-
   public UltimateTicTacToe(GameManager manager) {
     super(manager, "Ultimate Tic-Tac-Toe", "Tic-Tac-Toe on Tic-Tac-Toe", 2, 2, 1000);
   }
