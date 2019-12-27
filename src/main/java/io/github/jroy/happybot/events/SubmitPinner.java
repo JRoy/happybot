@@ -116,9 +116,6 @@ public class SubmitPinner extends ListenerAdapter {
     } catch (NullPointerException e1) {
       return;
     }
-    e.getReactionEmote();
-    e.getReactionEmote().getEmote();
-    e.getChannel();
     if (e.getReactionEmote().getEmote().getId().equalsIgnoreCase("447793727532957716") && e.getChannel().getId().equalsIgnoreCase(Channels.WELCOME_SUBMIT.getId())) {
       int numberOfStars = message.getReactions().stream()
           .filter(reaction -> reaction.getReactionEmote().getId().equals("447793727532957716"))

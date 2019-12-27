@@ -26,6 +26,9 @@ public class YouTubeAPI extends APIBase {
   protected YouTube youTube;
   private List<ChannelBase> channels = new ArrayList<>();
 
+  @Getter(AccessLevel.PROTECTED)
+  private final long started = System.currentTimeMillis();
+
   public YouTubeAPI(String apiKey) {
     super("YouTube");
     this.apiKey = apiKey;

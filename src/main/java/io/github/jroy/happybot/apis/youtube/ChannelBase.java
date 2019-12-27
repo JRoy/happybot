@@ -41,7 +41,7 @@ class ChannelBase {
           }
           for (SearchResult result : searchResults) {
             SearchResultSnippet snippet = result.getSnippet();
-            if (Long.compare(snippet.getPublishedAt().getValue(), currentVideo) <= 0) {
+            if (snippet.getPublishedAt().getValue() <= currentVideo) {
               continue;
             }
             sendAlert(result.getId().getVideoId(), snippet);
@@ -58,7 +58,7 @@ class ChannelBase {
 
   private void sendAlert(String vidId, SearchResultSnippet video) {
     StringBuilder builder = new StringBuilder();
-    if (pingsEveryone) {
+    if (pingsEveryone && (System.currentTimeMillis() - youTubeAPI.getStarted()) > 300000) {
       builder.append("@everyone\n");
     }
     builder.append(C.bold(video.getChannelTitle() + " has uploaded a video!\n"));
