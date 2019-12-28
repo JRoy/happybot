@@ -1,12 +1,12 @@
 package io.github.jroy.happybot.commands;
 
-import com.kbrewster.exceptions.APIException;
-import com.kbrewster.hypixelapi.player.HypixelPlayer;
 import io.github.jroy.happybot.apis.Hypixel;
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.util.C;
+import me.kbrewster.exceptions.APIException;
+import me.kbrewster.hypixelapi.player.HypixelPlayer;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.HashMap;

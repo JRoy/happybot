@@ -1,5 +1,6 @@
 package io.github.jroy.happybot.sql.og;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleOAuthConstants;
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
@@ -12,6 +13,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.StatusChangeEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -71,28 +73,13 @@ public class OGCommandManager extends ListenerAdapter {
       String type = e.getReactionEmote().getName();
       if (type.equalsIgnoreCase("✅")) {
         OGAction action = ogActionMap.get(e.getMessageId());
-        switch (action.getActionType()) {
-          case COMMAND: {
-            createCommand(action.getUserId(), action.getPendingName(), action.getPendingContent());
-            break;
-          }
-          case NAME: {
-            setCommandName(action.getPendingId(), action.getPendingName());
-            break;
-          }
-          case CONTENT: {
-            setCommandContent(action.getPendingId(), action.getPendingContent());
-            break;
-          }
-        }
-        String cmdname = action.getPendingName();
-        if (action.getActionType().equals(OGActionType.NAME)) {
-          cmdname = cmdname.split("[|]")[1];
-        }
+
+        String cmdname = approveCommand(action);
+
+        ogActionMap.remove(e.getMessageId());
+
         Channels.STAFF_QUEUE.getChannel().retrieveMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("✅ Command ^" + cmdname + " has been approved by " + e.getMember().getAsMention()).queue();
         C.privChannel(Objects.requireNonNull(e.getGuild().getMemberById(action.getUserId())), "Your custom command has been approved!");
-        ogActionMapByUser.remove(action.getUserId());
-        ogActionMap.remove(e.getMessageId());
       } else if (type.equalsIgnoreCase("❌")) {
         OGAction action = ogActionMap.get(e.getMessageId());
         String cmdname = action.getPendingName();
@@ -107,25 +94,61 @@ public class OGCommandManager extends ListenerAdapter {
     }
   }
 
-  public void requestCommand(OGActionType actionType, Integer commandId, String commandName, String commandContent, Member member) {
+  private String approveCommand(OGAction action) {
+    switch (action.getActionType()) {
+      case COMMAND: {
+        createCommand(action.getUserId(), action.getPendingName(), action.getPendingContent());
+        break;
+      }
+      case NAME: {
+        setCommandName(action.getPendingId(), action.getPendingName());
+        break;
+      }
+      case CONTENT: {
+        setCommandContent(action.getPendingId(), action.getPendingContent());
+        break;
+      }
+    }
+    String cmdname = action.getPendingName();
+    if (action.getActionType().equals(OGActionType.NAME)) {
+      cmdname = cmdname.split("[|]")[1];
+    }
+    ogActionMapByUser.remove(action.getUserId());
+
+    return cmdname;
+  }
+
+  public boolean requestCommand(OGAction action) {
+    Member member = C.getGuild().getMemberById(action.getUserId());
+    if (C.hasRole(member, Roles.MODERATOR)) {
+      approveCommand(action);
+      return true;
+    } else {
+      doRequestCommand(action);
+      return false;
+    }
+  }
+
+  private void doRequestCommand(OGAction action) {
     EmbedBuilder builder = new EmbedBuilder();
     builder.setTitle("New OG Command Pending Approval!");
     builder.setDescription("Please react with a check to approve this command or a cross-out to deny it!");
-    builder.addField("Action", actionType.getTranslation(), false);
-    if (actionType.equals(OGActionType.NAME)) {
-      builder.addField("Command Name", commandName.split("[|]")[1], false);
+    builder.addField("Action", action.getActionType().getTranslation(), false);
+    if (action.getActionType().equals(OGActionType.NAME)) {
+      builder.addField("Command Name", action.getPendingName().split("[|]")[1], false);
     } else {
-      builder.addField("Command Name", commandName, false);
+      builder.addField("Command Name", action.getPendingName(), false);
     }
-    builder.addField("Command Content", commandContent, false);
-    builder.setThumbnail(member.getUser().getAvatarUrl());
-    builder.setFooter("ID: " + member.getUser().getId(), null).setTimestamp(OffsetDateTime.now());
+    builder.addField("Command Content", action.getPendingContent(), false);
+    User user = C.getGuild().getMemberById(action.getUserId()).getUser();
+    builder.setThumbnail(user.getAvatarUrl());
+    builder.setFooter("ID: " + user.getId(), null).setTimestamp(OffsetDateTime.now());
 
     Message message = Channels.STAFF_QUEUE.getChannel().sendMessage(builder.build()).complete();
     message.addReaction("✅").queue();
     message.addReaction("❌").queue();
-    ogActionMap.put(message.getId(), new OGAction(actionType, member.getUser().getId(), commandId, commandName, commandContent));
-    ogActionMapByUser.put(member.getUser().getId(), message.getId());
+    ogActionMap.put(message.getId(), action);
+    ogActionMapByUser.put(action.getUserId(), message.getId());
   }
 
   public boolean isPendingAction(String userId) {
