@@ -153,6 +153,7 @@ public class Main extends ListenerAdapter {
     String token = getAndSet(yamlFile, "token");
     String hypixel = getAndSet(yamlFile, "hypixel-api-key");
     String riot = getAndSet(yamlFile, "riot-api-key");
+    String youtubeApiKey = getAndSet(yamlFile, "youtube-api-key");
     String sql = getAndSet(yamlFile, "sql-password");
     String prefix = getAndSet(yamlFile, "prefix");
     String alternativePrefix = getAndSet(yamlFile, "alternative-prefix");
@@ -164,7 +165,7 @@ public class Main extends ListenerAdapter {
     yamlFile.save();
     yamlFile.load();
 
-    botConfig = new BotConfig(token, hypixel, riot, sql, prefix, alternativePrefix, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
+    botConfig = new BotConfig(token, hypixel, riot, youtubeApiKey, sql, prefix, alternativePrefix, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
     log.info("Loaded Config!");
   }
 
@@ -186,7 +187,7 @@ public class Main extends ListenerAdapter {
     apis.add(hypixel = new Hypixel(botConfig.getHypixelApiKey()));
     apis.add(twitterCentre = new TwitterCentre(botConfig.getTwitterOauthKey(), botConfig.getTwitterOauthSecret(), botConfig.getTwitterAccessToken(), botConfig.getTwitterAccessTokenSecret()));
     apis.add(league = new League(botConfig.getRiotApiKey()));
-    apis.add(new YouTubeAPI("AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE")); //API Key is restricted to the VM this bot runs on, don't waste your time...
+    apis.add(new YouTubeAPI(botConfig.getYoutubeApiKey()));
     log.info("Logging into APIs...");
     for (APIBase api : apis) {
       try {

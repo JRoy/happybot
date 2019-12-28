@@ -7,6 +7,7 @@ public class BotConfig {
   private final String botToken;
   private final String hypixelApiKey;
   private final String riotApiKey;
+  private final String youtubeApiKey;
   private final String sqlPassword;
   private final String prefix;
   private final String alternativePrefix;
