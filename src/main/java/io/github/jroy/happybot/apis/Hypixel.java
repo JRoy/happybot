@@ -1,15 +1,15 @@
 package io.github.jroy.happybot.apis;
 
-import com.kbrewster.exceptions.APIException;
-import com.kbrewster.exceptions.InvalidPlayerException;
-import com.kbrewster.hypixelapi.HypixelAPI;
-import com.kbrewster.hypixelapi.player.HypixelPlayer;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import me.kbrewster.exceptions.APIException;
+import me.kbrewster.exceptions.InvalidPlayerException;
+import me.kbrewster.hypixelapi.HypixelAPI;
+import me.kbrewster.hypixelapi.player.HypixelPlayer;
 
 public class Hypixel extends APIBase {
 

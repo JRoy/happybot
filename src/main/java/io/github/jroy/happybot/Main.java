@@ -131,8 +131,7 @@ public class Main extends ListenerAdapter {
     loadCommandFactory();
 
     log.info("Constructing JDA Instance...");
-    JDABuilder builder = new JDABuilder(AccountType.BOT)
-        .setToken(botConfig.getBotToken())
+    JDABuilder builder = new JDABuilder(botConfig.getBotToken())
         .setStatus(OnlineStatus.DO_NOT_DISTURB)
         //Listens to the MessageReceivedEvent.
         .addEventListeners(commandClient = commandFactory.build())
