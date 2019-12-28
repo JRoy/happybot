@@ -57,7 +57,7 @@ class ChannelBase {
   }
 
   private void sendAlert(String vidId, SearchResultSnippet video) {
-    if ((System.currentTimeMillis() - youTubeAPI.getStarted()) > 300000) {
+    if ((System.currentTimeMillis() - youTubeAPI.getStarted()) < 300000) {
       return;
     }
     StringBuilder builder = new StringBuilder();
