@@ -57,8 +57,11 @@ class ChannelBase {
   }
 
   private void sendAlert(String vidId, SearchResultSnippet video) {
+    if ((System.currentTimeMillis() - youTubeAPI.getStarted()) > 300000) {
+      return;
+    }
     StringBuilder builder = new StringBuilder();
-    if (pingsEveryone && (System.currentTimeMillis() - youTubeAPI.getStarted()) > 300000) {
+    if (pingsEveryone) {
       builder.append("@everyone\n");
     }
     builder.append(C.bold(video.getChannelTitle() + " has uploaded a video!\n"));
