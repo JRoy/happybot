@@ -76,10 +76,11 @@ public class OGCommandManager extends ListenerAdapter {
 
         String cmdname = approveCommand(action);
 
-        ogActionMap.remove(e.getMessageId());
-
         Channels.STAFF_QUEUE.getChannel().retrieveMessageById(ogActionMapByUser.get(action.getUserId())).complete().editMessage("✅ Command ^" + cmdname + " has been approved by " + e.getMember().getAsMention()).queue();
         C.privChannel(Objects.requireNonNull(e.getGuild().getMemberById(action.getUserId())), "Your custom command has been approved!");
+
+        ogActionMap.remove(e.getMessageId());
+        ogActionMapByUser.remove(action.getUserId());
       } else if (type.equalsIgnoreCase("❌")) {
         OGAction action = ogActionMap.get(e.getMessageId());
         String cmdname = action.getPendingName();
@@ -113,7 +114,6 @@ public class OGCommandManager extends ListenerAdapter {
     if (action.getActionType().equals(OGActionType.NAME)) {
       cmdname = cmdname.split("[|]")[1];
     }
-    ogActionMapByUser.remove(action.getUserId());
 
     return cmdname;
   }

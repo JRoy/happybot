@@ -47,10 +47,8 @@ public class SelfOgMngmtCommand extends CommandBase {
         return;
       }
 
-//      ogCommandManager.requestCommand(OGActionType.COMMAND, null, e.getSplitArgs()[1], e.getArgs().replaceFirst("request " + e.getSplitArgs()[1], ""), e.getMember());
-      boolean l = ogCommandManager.requestCommand(
-          new OGAction(OGActionType.COMMAND, e.getMember().getId(), null, e.getSplitArgs()[1], e.getArgs().replaceFirst("request " + e.getSplitArgs()[1], "")));
-      if (l) {
+      if (ogCommandManager.requestCommand(
+          new OGAction(OGActionType.COMMAND, e.getMember().getId(), null, e.getSplitArgs()[1], e.getArgs().replaceFirst("request " + e.getSplitArgs()[1], "")))) {
         e.reply("Successfully added command.");
       } else {
         e.reply("Command requested, please don't bug staff to approve it!");
@@ -62,10 +60,8 @@ public class SelfOgMngmtCommand extends CommandBase {
       }
 
       int id = ogCommandManager.getCommandId(e.getMember().getUser().getId());
-//      ogCommandManager.requestCommand(OGActionType.CONTENT, id, ogCommandManager.getCommandFromId(id), e.getArgs().replaceFirst("edit ", ""), e.getMember());
-      boolean l = ogCommandManager.requestCommand(
-          new OGAction(OGActionType.CONTENT, e.getMember().getId(), id, ogCommandManager.getCommandFromId(id), e.getArgs().replaceFirst("edit ", "")));
-      if (l) {
+      if (ogCommandManager.requestCommand(
+          new OGAction(OGActionType.CONTENT, e.getMember().getId(), id, ogCommandManager.getCommandFromId(id), e.getArgs().replaceFirst("edit ", "")))) {
         e.reply("Successfully edited command.");
       } else {
         e.reply("Command edit requested, please don't bug staff to approve it!");
@@ -77,10 +73,8 @@ public class SelfOgMngmtCommand extends CommandBase {
       }
 
       int id = ogCommandManager.getCommandId(e.getMember().getUser().getId());
-//      ogCommandManager.requestCommand(OGActionType.NAME, id, ogCommandManager.getCommandFromId(id) + "|" + e.getSplitArgs()[1], ogCommandManager.getCommandContentFromId(id), e.getMember());
-      boolean l = ogCommandManager.requestCommand(
-          new OGAction(OGActionType.NAME, e.getMember().getId(), id, ogCommandManager.getCommandFromId(id) + "|" + e.getSplitArgs()[1], ogCommandManager.getCommandContentFromId(id)));
-      if (l) {
+      if (ogCommandManager.requestCommand(
+          new OGAction(OGActionType.NAME, e.getMember().getId(), id, ogCommandManager.getCommandFromId(id) + "|" + e.getSplitArgs()[1], ogCommandManager.getCommandContentFromId(id)))) {
         e.reply("Successfully edited command name.");
       } else {
         e.reply("Command name edit requested.");

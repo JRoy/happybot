@@ -63,7 +63,7 @@ public class Leveling extends ListenerAdapter {
   private LoadingCache<String, Integer> levelCache = CacheBuilder.newBuilder()
       .expireAfterAccess(10, TimeUnit.MINUTES)
       .maximumSize(200)
-      .build(new CacheLoader<String, Integer>() {
+      .build(new CacheLoader<>() {
         @Override
         public Integer load(@NotNull String key) {
           return toLevel(getExp(key));
