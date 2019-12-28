@@ -38,7 +38,7 @@ public class EvalCommand extends CommandBase {
     se.put("member", e.getMember());
 
     try {
-      se.eval("var EmbedBuilder = Java.type(\"net.dv8tion.jda.core.EmbedBuilder\");");
+      se.eval("var EmbedBuilder = Java.type(\"net.dv8tion.jda.api.EmbedBuilder\");");
       se.eval("var C = Java.type(\"io.github.jroy.happybot.util.C\");");
       se.eval("var Roles = Java.type(\"io.github.jroy.happybot.util.Roles\");");
       se.eval("var Channels = Java.type(\"io.github.jroy.happybot.util.Channels\");");
