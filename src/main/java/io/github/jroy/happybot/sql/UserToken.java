@@ -44,11 +44,11 @@ public class UserToken {
   }
 
   public void addCoins(int increment) throws SQLException {
-    setCoins(coins + increment);
+    setCoins(Math.addExact(coins, increment));
   }
 
   public void takeCoins(int subtraction) throws SQLException {
-    setCoins(coins - subtraction);
+    setCoins(Math.subtractExact(coins, subtraction));
   }
 
   public long getEpoch() {
