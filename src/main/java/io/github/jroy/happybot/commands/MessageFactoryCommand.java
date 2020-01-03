@@ -4,6 +4,7 @@ import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
 import io.github.jroy.happybot.commands.base.CommandEvent;
 import io.github.jroy.happybot.sql.MessageFactory;
+import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import net.dv8tion.jda.api.entities.Message;
@@ -40,6 +41,10 @@ public class MessageFactoryCommand extends CommandBase {
       }
       String message = e.getArgs().replaceFirst(e.getSplitArgs()[0] + " " + e.getSplitArgs()[1] + " ", "");
       try {
+        if (message.getBytes().length > 255) {
+          e.replyError("Cannot exceed 255 bytes!");
+          return;
+        }
         messageFactory.addMessage(type, message);
         e.reply("Added message successfully!");
       } catch (SQLException e1) {
@@ -69,6 +74,11 @@ public class MessageFactoryCommand extends CommandBase {
         }
 
         try {
+          if (content.getBytes().length > 255) {
+            e.replyError("One message by " + C.getFullName(msg.getAuthor()) + " exceeded 255 bytes!");
+            msg.unpin().queue();
+            continue;
+          }
           messageFactory.addMessage(type, content);
           msg.unpin().queue();
           added++;
