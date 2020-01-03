@@ -32,6 +32,13 @@ public class LevelCommand extends CommandBase {
   @SuppressWarnings("ConstantConditions")
   @Override
   protected void executeCommand(CommandEvent e) {
+
+    new OldLevelCommand(leveling).executeCommand(e);
+
+    if (true) {
+      return;
+    }
+
     Member target = e.getMember();
 
     if (!e.getArgs().isEmpty()) {
