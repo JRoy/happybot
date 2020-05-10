@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class DeleteWarnCommand extends CommandBase {
 
-  private WarningManager warningManager;
+  private final WarningManager warningManager;
 
   public DeleteWarnCommand(WarningManager warningManager) {
     super("delwarn", "<warning ID>", "Deletes the target warning.", CommandCategory.STAFF, Roles.HELPER);

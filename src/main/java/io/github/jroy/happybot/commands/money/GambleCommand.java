@@ -17,8 +17,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 
 public class GambleCommand extends CommandBase {
-  private SQLManager sqlManager;
-  private HashMap<Member, OffsetDateTime> gambleTimes = new HashMap<>();
+  private final SQLManager sqlManager;
+  private final HashMap<Member, OffsetDateTime> gambleTimes = new HashMap<>();
 
   public GambleCommand(SQLManager sqlManager) {
     super("gamble", "<help/check>", "Gambling Command, please type `^gamble help` for details.", CommandCategory.FUN);

@@ -69,8 +69,8 @@ public class DiscordThemerImpl extends ListenerAdapter {
     return discordThemer.isValidTheme(themeName);
   }
 
-  public ThemeToken getThemeToken(String themeName) {
-    return null;
+  public ThemeToken getThemeToken(String themeName) throws ThemeNotFoundException {
+    return discordThemer.getThemeToken(themeName);
   }
 
   public void switchToTheme(String themeName) throws ThemeNotFoundException {
@@ -78,7 +78,7 @@ public class DiscordThemerImpl extends ListenerAdapter {
   }
 
   public List<String> getThemeList() {
-    return null;
+    return discordThemer.getThemeList();
   }
 
 }

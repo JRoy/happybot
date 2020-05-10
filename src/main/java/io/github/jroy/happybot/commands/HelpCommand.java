@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class HelpCommand extends CommandBase {
 
-  private CommandFactory commandFactory;
+  private final CommandFactory commandFactory;
 
   public HelpCommand(CommandFactory commandFactory) {
     super("help", "[<command>]", "Displays command usages.", CommandCategory.GENERAL);
@@ -25,11 +25,10 @@ public class HelpCommand extends CommandBase {
         CommandBase base = commandFactory.getRegisteredCommands().get(cmd);
         e.reply("Command Help:\n" +
             "`^" + base.getName() + (base.getArguments() == null ? "` - " : " " + base.getArguments() + "` - ") + base.getHelp() + (base.getPermissionRole() == null ? " (Public Command)" : " (Requires: " + base.getPermissionRole().getRoleName() + ")") + "\n");
-        return;
       } else {
         e.reply("Invalid command!");
-        return;
       }
+      return;
     }
 
     Map<CommandCategory, List<CommandBase>> catBase = commandFactory.getCategorizedCommands();

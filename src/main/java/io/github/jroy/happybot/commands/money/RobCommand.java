@@ -21,8 +21,8 @@ public class RobCommand extends CommandBase {
   private final static int FINE = 300;
   private final static int SECURITY_MULTIPLIER = 2;
   private final HashMap<String, RobToken> robTokens = new HashMap<>();
-  private SQLManager sqlManager;
-  private PurchaseManager purchaseManager;
+  private final SQLManager sqlManager;
+  private final PurchaseManager purchaseManager;
 
   public RobCommand(PurchaseManager purchaseManager) {
     super("rob", "<user>", "Robs a user for their money.", CommandCategory.FUN);

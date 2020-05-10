@@ -6,7 +6,7 @@ import io.github.jroy.happybot.game.games.tictactoe.TicTacToeType;
 import net.dv8tion.jda.api.entities.User;
 
 public class TicTacToeGame extends AbstractTicTacToeGame {
-  private TicTacToeBoard board = new TicTacToeBoard();
+  private final TicTacToeBoard board = new TicTacToeBoard();
 
   public TicTacToeGame(User first, User second) {
     super(first, second);

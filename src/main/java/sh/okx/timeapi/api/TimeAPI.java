@@ -3,9 +3,9 @@ package sh.okx.timeapi.api;
 import java.util.concurrent.TimeUnit;
 
 public class TimeAPI {
-    private static long DAYS_IN_WEEK = 7;
-    private static long DAYS_IN_MONTH = 30;
-    private static long DAYS_IN_YEAR = 365;
+    private static final long DAYS_IN_WEEK = 7;
+    private static final long DAYS_IN_MONTH = 30;
+    private static final long DAYS_IN_YEAR = 365;
 
     private long seconds;
 

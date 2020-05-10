@@ -32,7 +32,7 @@ public class UpdateCommand extends CommandBase {
 
   class Update implements Runnable {
 
-    private CommandEvent e;
+    private final CommandEvent e;
 
     Update(CommandEvent e) {
       this.e = e;
@@ -86,7 +86,7 @@ public class UpdateCommand extends CommandBase {
 
   class ImpendRestart implements Runnable {
 
-    private String s;
+    private final String s;
 
     ImpendRestart(String source) {
       this.s = source;

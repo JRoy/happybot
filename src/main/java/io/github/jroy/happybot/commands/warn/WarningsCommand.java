@@ -18,7 +18,7 @@ import java.sql.SQLException;
 
 public class WarningsCommand extends CommandBase {
 
-  private WarningManager warningManager;
+  private final WarningManager warningManager;
 
   public WarningsCommand(WarningManager warningManager) {
     super("warnings", "<user>", "Provides list of target user's warnings.", CommandCategory.STAFF);

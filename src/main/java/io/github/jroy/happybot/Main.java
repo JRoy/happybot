@@ -38,7 +38,6 @@ import io.github.jroy.happybot.theme.DiscordThemerImpl;
 import io.github.jroy.happybot.util.BotConfig;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -82,8 +81,8 @@ public class Main extends ListenerAdapter {
   private static Reddit reddit;
   private static StarMessages starMessages;
   private static Leveling leveling;
-  private static List<EventListener> eventListeners = new ArrayList<>();
-  private Main instance = this;
+  private static final List<EventListener> eventListeners = new ArrayList<>();
+  private final Main instance = this;
   @Getter
   private static CommandClient commandClient;
 

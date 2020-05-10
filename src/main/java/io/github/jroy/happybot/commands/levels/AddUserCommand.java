@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class AddUserCommand extends CommandBase {
 
-  private Leveling leveling;
+  private final Leveling leveling;
 
   public AddUserCommand(Leveling leveling) {
     super("adduser", "<user> <xp>", "Adds a user to the level database.", CommandCategory.BOT, Roles.DEVELOPER);

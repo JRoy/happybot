@@ -113,9 +113,7 @@ public class GameCommand extends CommandBase {
         e.reply(sb.toString());
         break;
       }
-      case "join": {
-        break;
-      }
+      case "join":
       case "spectate": {
         break;
       }

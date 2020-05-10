@@ -10,7 +10,7 @@ import lombok.Setter;
 import net.dv8tion.jda.api.entities.User;
 
 public class UtttGame extends AbstractTicTacToeGame {
-  private TicTacToeBoard[] boards = new TicTacToeBoard[9];
+  private final TicTacToeBoard[] boards = new TicTacToeBoard[9];
   @Getter
   @Setter
   private int board = -1;

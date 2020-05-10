@@ -15,7 +15,7 @@ public class YouTubeRealTime {
   /**
    * Key is restricted to the VM this lives on. (Nice try)
    */
-  private String apiKey = "AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE";
+  private final String apiKey = "AIzaSyCR_UuC2zxDJ8KxbFElFrCVdN4uY739HAE";
   private JSONObject jsonResponse;
 
   public YouTubeRealTime pullAPI() {

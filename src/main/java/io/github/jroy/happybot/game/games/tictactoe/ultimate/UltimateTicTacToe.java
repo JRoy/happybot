@@ -9,7 +9,6 @@ import io.github.jroy.happybot.game.model.GameMessageReceived;
 import io.github.jroy.happybot.game.model.GameReactionReceived;
 import io.github.jroy.happybot.game.model.GameStartEvent;
 import io.github.jroy.happybot.util.C;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 

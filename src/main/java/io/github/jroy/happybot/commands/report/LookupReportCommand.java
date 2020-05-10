@@ -14,7 +14,7 @@ import java.awt.*;
 
 public class LookupReportCommand extends CommandBase {
 
-  private ReportManager reportManager;
+  private final ReportManager reportManager;
 
   public LookupReportCommand(ReportManager reportManager) {
     super("lookupreport", "<id>", "Lookup a report from the database.", CommandCategory.STAFF, Roles.HELPER);

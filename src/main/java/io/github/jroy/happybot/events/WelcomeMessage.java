@@ -4,7 +4,7 @@ import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.Channels;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 @RequiredArgsConstructor
@@ -21,12 +21,12 @@ public class WelcomeMessage extends ListenerAdapter {
   }
 
   @Override
-  public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
-    String leaveformat = messageFactory.getRawMessage(MessageFactory.MessageType.LEAVE).replaceAll("<player>", "**" + event.getMember().getUser().getName() + "**").replaceAll("<user>", "**" + event.getMember().getUser().getName() + "**");
+  public void onGuildMemberRemove(GuildMemberRemoveEvent event) {
+    String leaveformat = messageFactory.getRawMessage(MessageFactory.MessageType.LEAVE).replaceAll("<player>", "**" + event.getUser().getName() + "**").replaceAll("<user>", "**" + event.getUser().getName() + "**");
     if (!leaveformat.startsWith("'s") || !leaveformat.startsWith(",")) {
       leaveformat = " " + leaveformat;
     }
-    Channels.WELCOME.getChannel().sendMessage("**" + event.getMember().getUser().getName() + "**" + leaveformat).queue();
+    Channels.WELCOME.getChannel().sendMessage("**" + event.getUser().getName() + "**" + leaveformat).queue();
   }
 
 }

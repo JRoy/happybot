@@ -174,7 +174,7 @@ public class MessageFactory {
     WARN("warn"),
     LEVEL("level");
 
-    private String translation;
+    private final String translation;
 
     MessageType(String translation) {
       this.translation = translation;

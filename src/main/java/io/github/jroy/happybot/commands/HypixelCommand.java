@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class HypixelCommand extends CommandBase {
   private static final String HYPIXEL_IMAGE = "https://media-curse.cursecdn.com/attachments/264/727/f7c76fdb4569546a9ddf0e58c8653823.png";
 
-  private Hypixel hypixel;
+  private final Hypixel hypixel;
 
   public HypixelCommand(Hypixel hypixel) {
     super("hypixel", "<player>", "Checks target's hypixel player stats!", CommandCategory.FUN);

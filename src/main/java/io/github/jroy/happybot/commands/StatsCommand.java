@@ -17,8 +17,8 @@ import java.util.HashMap;
 
 public class StatsCommand extends CommandBase {
 
-  private League league;
-  private Hypixel hypixel;
+  private final League league;
+  private final Hypixel hypixel;
 
   public StatsCommand(Hypixel hypixel, League league) {
     super("stats", "<youtube/hypixel/league>", "Gives stats of a happyheart's channel and hypixel player.", CommandCategory.FUN);
@@ -41,7 +41,7 @@ public class StatsCommand extends CommandBase {
 
   class GetLoLStats implements Runnable {
 
-    private CommandEvent e;
+    private final CommandEvent e;
 
     GetLoLStats(CommandEvent e) {
       this.e = e;
@@ -69,7 +69,7 @@ public class StatsCommand extends CommandBase {
 
   static class GetYoutubeStats implements Runnable {
 
-    private CommandEvent e;
+    private final CommandEvent e;
 
     GetYoutubeStats(CommandEvent e) {
       this.e = e;
@@ -94,7 +94,7 @@ public class StatsCommand extends CommandBase {
 
   class GetHypixelStats implements Runnable {
 
-    private CommandEvent e;
+    private final CommandEvent e;
 
     GetHypixelStats(CommandEvent e) {
       this.e = e;

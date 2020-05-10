@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class StarGoalCommand extends CommandBase {
 
-  private StarMessages starMessages;
+  private final StarMessages starMessages;
 
   public StarGoalCommand(StarMessages starMessages) {
     super("setgoal", "<message id> <goal (6-100)>", "Sets a custom star/heel goal for a message", CommandCategory.STAFF, Roles.MODERATOR);

@@ -46,30 +46,30 @@ public class GameManager extends ListenerAdapter {
    * String: Message ID that also serves as a prompt
    * PendingGameToken: The information about the pending game.
    */
-  private Cache<String, PendingGameToken> pendingStart = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
+  private final Cache<String, PendingGameToken> pendingStart = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
   /**
    * String: Member ID that is pending.
    * String: Message ID of the prompt.
    */
-  private Cache<String, String> pendingUsers = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
+  private final Cache<String, String> pendingUsers = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
   /**
    * Integer: Game ID for spectating.
    * ActiveGame: The game being played.
    */
-  private Map<Integer, ActiveGame> activeGames = new HashMap<>();
+  private final Map<Integer, ActiveGame> activeGames = new HashMap<>();
   /**
    * Maps Private Channel IDs to the Game IDs.
    * <p>
    * String: Private Channel ID
    * Integer: Game ID
    */
-  private Map<String, Integer> channelToIdMap = new HashMap<>();
+  private final Map<String, Integer> channelToIdMap = new HashMap<>();
   /**
    * List of users active in game; Whether they created it of are playing in one.
    * <p>
    * String: User ID
    */
-  private Set<String> activeUsers = new HashSet<>();
+  private final Set<String> activeUsers = new HashSet<>();
 
   public GameManager(SQLManager sqlManager) {
     this.sqlManager = sqlManager;

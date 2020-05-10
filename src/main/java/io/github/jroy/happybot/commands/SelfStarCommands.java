@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.entities.User;
 
 public class SelfStarCommands extends CommandBase {
 
-  private StarMessages starMessages;
+  private final StarMessages starMessages;
 
   public SelfStarCommands(StarMessages starMessages) {
     super("mystars", null, "Shows your star/gild/heel messages counts.", CommandCategory.FUN);

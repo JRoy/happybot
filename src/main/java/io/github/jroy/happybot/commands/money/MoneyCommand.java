@@ -21,8 +21,8 @@ public class MoneyCommand extends CommandBase {
   public static final String NEED_ACCOUNT = "You do not have an account! Please run `^money create` to make one!";
   private static final int CLAIM_COOLDOWN = 86400000;
 
-  private Map<Roles, IntUnaryOperator> bonuses = new HashMap<>();
-  private SQLManager sqlManager;
+  private final Map<Roles, IntUnaryOperator> bonuses = new HashMap<>();
+  private final SQLManager sqlManager;
 
   public MoneyCommand(SQLManager sqlManager) {
     super("money", "<create/claim/bal/baltop/pay/admin>", "Command for your money needs.", CommandCategory.FUN);

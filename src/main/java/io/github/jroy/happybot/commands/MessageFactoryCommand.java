@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class MessageFactoryCommand extends CommandBase {
 
-  private MessageFactory messageFactory;
+  private final MessageFactory messageFactory;
 
   public MessageFactoryCommand(MessageFactory messageFactory) {
     super("messages",

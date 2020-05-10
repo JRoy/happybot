@@ -113,9 +113,7 @@ public class RuntimeCommand extends CommandBase {
         e.replySuccess(":gear: Updated value to **" + value.toLowerCase() + "**!");
         return;
       }
-      e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
-    } else {
-      e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
     }
+    e.replyError(C.bold("Correct Usage:") + " ^" + name + " " + arguments);
   }
 }

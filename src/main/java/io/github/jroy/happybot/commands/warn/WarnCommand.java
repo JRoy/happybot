@@ -16,8 +16,8 @@ import java.sql.SQLException;
 
 public class WarnCommand extends CommandBase {
 
-  private WarningManager warningManager;
-  private MessageFactory messageFactory;
+  private final WarningManager warningManager;
+  private final MessageFactory messageFactory;
 
   public WarnCommand(WarningManager warningManager, MessageFactory messageFactory) {
     super("warn", "<user> <reason>", "Warns the target user.", CommandCategory.STAFF, Roles.HELPER);

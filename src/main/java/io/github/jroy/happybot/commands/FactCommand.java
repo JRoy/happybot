@@ -20,7 +20,7 @@ public class FactCommand extends CommandBase {
   protected void executeCommand(CommandEvent e) {
     String catFactString = Objects.requireNonNull(C.readUrl("https://catfact.ninja/fact"));
 
-    String catFact = new JsonParser().parse(catFactString)
+    String catFact = JsonParser.parseString(catFactString)
         .getAsJsonObject().get("fact").getAsString();
 
     e.reply(new EmbedBuilder()

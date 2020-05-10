@@ -18,7 +18,7 @@ public class MemeCommand extends CommandBase {
 
   private final Reddit reddit;
 
-  private List<String> subs = new ArrayList<>();
+  private final List<String> subs = new ArrayList<>();
 
   public MemeCommand(Reddit reddit) {
     super("meme", "<subreddit>", "Displays a random meme from the requested subreddit.", CommandCategory.FUN);

@@ -30,7 +30,7 @@ public class EventManager extends ListenerAdapter {
   private static final String SELECT_ALL = "SELECT * FROM `spammers`;";
   private static final String DELETE_EVENT = "DELETE FROM `spammers` WHERE id = ?;";
   private static final String UPDATE_REMINDER = "UPDATE `spammers` SET reason = ? WHERE id = ?;";
-  private Connection connection;
+  private final Connection connection;
   private boolean reg = false;
 
   public EventManager(SQLManager sqlManager) {

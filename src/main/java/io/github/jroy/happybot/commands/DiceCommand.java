@@ -65,6 +65,6 @@ public class DiceCommand extends CommandBase {
   }
 
   private String joinRolls(List<Integer> rolls) {
-    return String.join(", ", rolls.stream().map(String::valueOf).collect(Collectors.toList()));
+    return rolls.stream().map(String::valueOf).collect(Collectors.joining(", "));
   }
 }

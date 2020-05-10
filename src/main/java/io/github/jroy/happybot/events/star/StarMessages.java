@@ -63,10 +63,10 @@ public class StarMessages extends ListenerAdapter {
   private static final String SELECT_ALL_CUSTOM = "SELECT * FROM starcounts";
   private static final String DELETE_CUSTOM = "DELETE FROM starcounts WHERE messageid = ?;";
 
-  private Connection connection;
-  private Set<String> alreadyUsedMessages = new HashSet<>();
-  private Map<String, GildInfoToken> pastGilds = new HashMap<>();
-  private Map<String, Integer> alteredMessages = new HashMap<>();
+  private final Connection connection;
+  private final Set<String> alreadyUsedMessages = new HashSet<>();
+  private final Map<String, GildInfoToken> pastGilds = new HashMap<>();
+  private final Map<String, Integer> alteredMessages = new HashMap<>();
 
   public StarMessages(SQLManager sqlManager) {
     connection = sqlManager.getConnection();
@@ -347,9 +347,9 @@ public class StarMessages extends ListenerAdapter {
   private class HandleStar implements Runnable {
 
     private static final int NUM_STARS_REQUIRED = 5;
-    private GuildMessageReactionAddEvent e;
-    private Message message;
-    private StarEmote emote;
+    private final GuildMessageReactionAddEvent e;
+    private final Message message;
+    private final StarEmote emote;
 
     HandleStar(GuildMessageReactionAddEvent e, StarEmote emote, Message message) {
       this.e = e;
@@ -405,8 +405,8 @@ public class StarMessages extends ListenerAdapter {
 
   private class HandleGild implements Runnable {
 
-    private GuildMessageReactionAddEvent e;
-    private Message message;
+    private final GuildMessageReactionAddEvent e;
+    private final Message message;
 
     HandleGild(GuildMessageReactionAddEvent e, Message message) {
       this.e = e;

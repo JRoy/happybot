@@ -5,15 +5,15 @@ import lombok.Getter;
 
 @Getter
 public class MemePost {
-  private String title;
-  private String subreddit;
-  private String permaLink;
+  private final String title;
+  private final String subreddit;
+  private final String permaLink;
   private String mediaUrl;
 
-  private boolean selfPost;
-  private String selfText;
+  private final boolean selfPost;
+  private final String selfText;
 
-  private boolean isNsfw;
+  private final boolean isNsfw;
 
   MemePost(JsonObject dataObject) {
     title = dataObject.get("title").getAsString();

@@ -8,7 +8,7 @@ import io.github.jroy.happybot.util.Roles;
 
 public class OgMngmtCommand extends CommandBase {
 
-  private OGCommandManager ogCommandManager;
+  private final OGCommandManager ogCommandManager;
 
   public OgMngmtCommand(OGCommandManager ogCommandManager) {
     super("userogcmd", "idk", "Manage commands for OG users.", CommandCategory.STAFF, Roles.SUPER_ADMIN, true);

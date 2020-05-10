@@ -17,17 +17,17 @@ import java.util.Set;
 public class ActiveGame {
 
   @Getter
-  private int id;
+  private final int id;
   @Getter
-  private TextChannel channel;
+  private final TextChannel channel;
   @Getter
-  private Game game;
+  private final Game game;
   @Getter
-  private Member creator;
+  private final Member creator;
   @Getter
-  private Set<Member> players;
+  private final Set<Member> players;
 
-  private Webhook webhook;
+  private final Webhook webhook;
   @Getter
   @Setter
   private OffsetDateTime lastAction;

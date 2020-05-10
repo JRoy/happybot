@@ -6,11 +6,11 @@ import java.sql.SQLException;
 
 public class UserToken {
 
-  private int id;
-  private String userId;
+  private final int id;
+  private final String userId;
   private int coins;
   private long epoch;
-  private SQLManager sqlManager;
+  private final SQLManager sqlManager;
 
   UserToken(SQLManager sqlManager, String userID) throws SQLException {
     ResultSet resultSet = sqlManager.getConnection().createStatement().executeQuery("SELECT * FROM user WHERE userid = " + userID + ";");

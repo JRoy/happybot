@@ -22,7 +22,7 @@ public class ShopCommand extends CommandBase {
       "If you would like to buy an item do the following:\n" +
       "`^shop buy <id>` This will buy it from your account!";
 
-  private PurchaseManager purchaseManager;
+  private final PurchaseManager purchaseManager;
 
 
   public ShopCommand(PurchaseManager purchaseManager) {

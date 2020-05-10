@@ -10,7 +10,7 @@ import io.github.wheezygold7931.discordthemer.exceptions.ThemeNotFoundException;
 
 public class ThemeCommand extends CommandBase {
 
-  private DiscordThemerImpl themeManager;
+  private final DiscordThemerImpl themeManager;
 
   public ThemeCommand(DiscordThemerImpl themeManager) {
     super("theme", "<Theme Name>", "Sets the theme of the discord server.", CommandCategory.BOT, Roles.SUPER_ADMIN);

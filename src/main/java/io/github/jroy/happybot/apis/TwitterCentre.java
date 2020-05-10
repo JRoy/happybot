@@ -40,7 +40,7 @@ public class TwitterCentre extends APIBase {
     twitterStream.addListener(new StatusListener() {
       @Override
       public void onStatus(Status status) {
-        new Thread(new TwitterCentre.HandleTweet(status)).start();
+        new Thread(new HandleTweet(status)).start();
       }
 
       @Override
@@ -73,9 +73,9 @@ public class TwitterCentre extends APIBase {
     twitterStream.filter(filter);
   }
 
-  private class HandleTweet implements Runnable {
+  private static class HandleTweet implements Runnable {
 
-    private Status status;
+    private final Status status;
 
     HandleTweet(Status status) {
       this.status = status;

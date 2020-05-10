@@ -6,7 +6,7 @@ public enum OGActionType {
   NAME("Change Command Name"),
   CONTENT("Change Command Content");
 
-  private String translation;
+  private final String translation;
 
   OGActionType(String translation) {
     this.translation = translation;

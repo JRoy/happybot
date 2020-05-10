@@ -58,9 +58,9 @@ public class Leveling extends ListenerAdapter {
   private final Random random = new Random();
   public Map<Integer, LevelingToken> topCache = new HashMap<>();
   private boolean registered = false;
-  private TreeMap<Long, Integer> levels = new TreeMap<>();
-  private Map<String, OffsetDateTime> lastChatTimes = new HashMap<>();
-  private LoadingCache<String, Integer> levelCache = CacheBuilder.newBuilder()
+  private final TreeMap<Long, Integer> levels = new TreeMap<>();
+  private final Map<String, OffsetDateTime> lastChatTimes = new HashMap<>();
+  private final LoadingCache<String, Integer> levelCache = CacheBuilder.newBuilder()
       .expireAfterAccess(10, TimeUnit.MINUTES)
       .maximumSize(200)
       .build(new CacheLoader<>() {

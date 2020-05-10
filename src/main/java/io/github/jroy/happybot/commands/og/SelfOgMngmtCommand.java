@@ -16,7 +16,7 @@ public class SelfOgMngmtCommand extends CommandBase {
       "`^ogcmd edit <command text>` - Requests an edit to your OG Custom Command\n" +
       "`^ogcmd edit-name <command name>` - Requests an edit to your OG Custom Command's name";
 
-  private OGCommandManager ogCommandManager;
+  private final OGCommandManager ogCommandManager;
 
   public SelfOgMngmtCommand(OGCommandManager ogCommandManager) {
     super("ogcmd", "help", "Manage your custom og command!", CommandCategory.GENERAL, Roles.OG, true);

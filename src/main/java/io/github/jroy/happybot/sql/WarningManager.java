@@ -14,7 +14,7 @@ public class WarningManager {
   private static final String SELECT_WARNING = "SELECT * FROM `warnings` WHERE id = ?;";
   private static final String UPDATE_WARNING = "UPDATE `warnings` SET reason = ? WHERE id = ?;";
 
-  private Connection connection;
+  private final Connection connection;
 
   public WarningManager(SQLManager sqlManager) {
     this.connection = sqlManager.getConnection();

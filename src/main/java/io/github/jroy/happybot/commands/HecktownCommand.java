@@ -7,7 +7,7 @@ import io.github.jroy.happybot.commands.base.CommandEvent;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class HecktownCommand extends CommandBase {
-  private String[] hecktownLocations = new String[]{"https://goo.gl/Cik7vC", "https://goo.gl/cenQgf",
+  private final String[] hecktownLocations = new String[]{"https://goo.gl/Cik7vC", "https://goo.gl/cenQgf",
       "https://goo.gl/eeukMu", "https://goo.gl/YGF5eX", "https://goo.gl/LjaEyC"};
 
   public HecktownCommand() {

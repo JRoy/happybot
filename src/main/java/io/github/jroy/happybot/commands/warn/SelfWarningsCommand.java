@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class SelfWarningsCommand extends CommandBase {
 
-  private WarningManager warningManager;
+  private final WarningManager warningManager;
 
   public SelfWarningsCommand(WarningManager warningManager) {
     super("mywarns", null, "Direct Messages you a list of your warnings.", CommandCategory.GENERAL);

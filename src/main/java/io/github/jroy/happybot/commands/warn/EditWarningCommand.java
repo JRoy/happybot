@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class EditWarningCommand extends CommandBase {
 
-  private WarningManager warningManager;
+  private final WarningManager warningManager;
 
   public EditWarningCommand(WarningManager warningManager) {
     super("editwarn", "<warning ID> <new reason>", "Edits the target warning.", CommandCategory.STAFF, Roles.HELPER);

@@ -49,9 +49,9 @@ public enum Roles {
   BOT("285371566580170753", "Useless Bot", "Bot"),
   EVERYONE("237363812842340363", "@everyone", "@everyone");
 
-  private String roleName;
-  private String name;
-  private String id;
+  private final String roleName;
+  private final String name;
+  private final String id;
 
   Roles(String id, String roleName, String name) {
 

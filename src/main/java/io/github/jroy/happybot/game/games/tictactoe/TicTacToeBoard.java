@@ -8,7 +8,7 @@ import static io.github.jroy.happybot.game.games.tictactoe.TicTacToeType.*;
 public class TicTacToeBoard {
   @Getter
   private TicTacToeType winner;
-  private TicTacToeType[] board = new TicTacToeType[9];
+  private final TicTacToeType[] board = new TicTacToeType[9];
 
   public TicTacToeType[] getBoard() {
     if(winner == CROSS) {

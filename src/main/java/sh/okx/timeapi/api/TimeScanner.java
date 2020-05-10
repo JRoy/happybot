@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 class TimeScanner {
-    private char[] time;
+    private final char[] time;
     private int index = 0;
 
     public TimeScanner(String time) {

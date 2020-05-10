@@ -6,7 +6,7 @@ public enum EventType {
   MUTE("mute"),
   REMIND("remind");
 
-  private String translation;
+  private final String translation;
 
   EventType(String translation) {
     this.translation = translation;

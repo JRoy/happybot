@@ -14,8 +14,8 @@ import java.util.Map;
 public class SQLManager {
 
   private Connection connection;
-  private String password;
-  private SQLManager instance;
+  private final String password;
+  private final SQLManager instance;
 
   public SQLManager(String sqlPassword) {
     password = sqlPassword;

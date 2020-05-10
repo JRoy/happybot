@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class LeaderboardCommand extends CommandBase {
 
-  private Leveling leveling;
+  private final Leveling leveling;
 
   public LeaderboardCommand(Leveling leveling) {
     super("leaderboard", null, "Displays the level rankings.", CommandCategory.FUN);

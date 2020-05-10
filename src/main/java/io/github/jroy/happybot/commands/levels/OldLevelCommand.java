@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class OldLevelCommand extends CommandBase {
 
-  private Leveling leveling;
+  private final Leveling leveling;
 
   public OldLevelCommand(Leveling leveling) {
     super("oldrank", "<user>", "Displays your current rank stats.", CommandCategory.FUN);

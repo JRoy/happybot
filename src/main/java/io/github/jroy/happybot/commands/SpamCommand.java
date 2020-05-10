@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class SpamCommand extends CommandBase {
 
-  private EventManager eventManager;
+  private final EventManager eventManager;
 
   public SpamCommand(EventManager eventManager) {
     super("expspammer", "<user>", "Gives/Takes a user's EXP Spammer Role!", CommandCategory.STAFF, Roles.HELPER);

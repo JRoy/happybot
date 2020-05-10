@@ -7,7 +7,7 @@ import io.github.jroy.happybot.sql.MessageFactory;
 
 public class MessageStatsCommand extends CommandBase {
 
-  private MessageFactory messageFactory;
+  private final MessageFactory messageFactory;
 
   public MessageStatsCommand(MessageFactory messageFactory) {
     super("messagestats", null, "Gives statistics about messages from the MessageFactory.", CommandCategory.FUN);

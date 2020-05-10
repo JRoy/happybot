@@ -19,7 +19,7 @@ public class Reddit extends APIBase {
   }
 
   public MemePost getRandomMedia(String subReddit) {
-    JsonElement jsonElement = new JsonParser().parse(Objects.requireNonNull(C.readUrl("https://www.reddit.com/r/" + subReddit + "/random/.json")));
+    JsonElement jsonElement = JsonParser.parseString(Objects.requireNonNull(C.readUrl("https://www.reddit.com/r/" + subReddit + "/random/.json")));
     JsonObject jsonObject;
     if (jsonElement.isJsonArray()) {
       jsonObject = jsonElement.getAsJsonArray().get(0).getAsJsonObject();

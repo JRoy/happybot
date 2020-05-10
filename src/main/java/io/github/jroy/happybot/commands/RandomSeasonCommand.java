@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomSeasonCommand extends CommandBase {
 
-  private String[] seasons;
+  private final String[] seasons;
 
   public RandomSeasonCommand() {
     super("randomseason", null, "Gives you a random happyheart season!", CommandCategory.FUN);

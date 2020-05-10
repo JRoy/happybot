@@ -1,6 +1,5 @@
 package io.github.jroy.happybot.sql.og;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleOAuthConstants;
 import io.github.jroy.happybot.Main;
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;

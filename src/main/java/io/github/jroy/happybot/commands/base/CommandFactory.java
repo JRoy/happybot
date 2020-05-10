@@ -13,10 +13,10 @@ import java.util.Map;
 @Slf4j
 public class CommandFactory {
 
-  private CommandClientBuilder clientBuilder;
+  private final CommandClientBuilder clientBuilder;
 
-  private Map<String, CommandBase> registeredCommands = new HashMap<>();
-  private Map<CommandCategory, List<CommandBase>> categorizedCommands = new HashMap<>();
+  private final Map<String, CommandBase> registeredCommands = new HashMap<>();
+  private final Map<CommandCategory, List<CommandBase>> categorizedCommands = new HashMap<>();
 
   public CommandFactory(String prefix, String alternativePrefix) {
     log.info("Loading Command Factory...");

@@ -12,7 +12,7 @@ public enum  Categories {
   STAFF_DISCUSSION("356263399111262208"),
   VOICE("358051174487818240");
 
-  private String categoryId;
+  private final String categoryId;
 
   Categories(String categoryId) {
     this.categoryId = categoryId;

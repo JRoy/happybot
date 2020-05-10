@@ -21,7 +21,7 @@ import java.util.Objects;
 
 public class LevelCommand extends CommandBase {
 
-  private Leveling leveling;
+  private final Leveling leveling;
 
   public LevelCommand(Leveling leveling) {
     super("rank", "<user> OR <set-card>", "Displays your current rank stats.", CommandCategory.FUN);

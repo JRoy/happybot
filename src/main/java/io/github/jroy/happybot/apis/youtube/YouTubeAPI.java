@@ -24,7 +24,7 @@ public class YouTubeAPI extends APIBase {
   private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
   private final JsonFactory JSON_FACTORY = new JacksonFactory();
   protected YouTube youTube;
-  private List<ChannelBase> channels = new ArrayList<>();
+  private final List<ChannelBase> channels = new ArrayList<>();
 
   @Getter(AccessLevel.PROTECTED)
   private final long started = System.currentTimeMillis();

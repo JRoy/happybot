@@ -19,7 +19,7 @@ public enum Emote {
   HAPPPYGIR("376180982698737675"),
   SPOOKYHEART("369237560372756480");
 
-  private String emote;
+  private final String emote;
 
   Emote(String emote) {
     this.emote = emote;

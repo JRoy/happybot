@@ -17,7 +17,7 @@ import java.sql.SQLException;
 
 public class MuteCommand extends CommandBase {
 
-  private EventManager eventManager;
+  private final EventManager eventManager;
 
   public MuteCommand(EventManager eventManager) {
     super("mute", "<user> [<time> <reason>]", "Toggles the mute of a user.", CommandCategory.STAFF, Roles.HELPER);
