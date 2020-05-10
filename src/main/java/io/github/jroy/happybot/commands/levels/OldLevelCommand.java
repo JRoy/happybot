@@ -58,7 +58,7 @@ public class OldLevelCommand extends CommandBase {
     builder.setAuthor(target.getUser().getName(), null, target.getUser().getAvatarUrl());
     builder.setColor(target.getColor());
 
-    builder.addField("Rank", (rank == -1 ? "??" : rank) + "/"+leveling.topCache.size(), false);
+    builder.addField("Rank", (rank == -1 ? "??" : rank) + "/" + leveling.topCache.size(), false);
     builder.addField("Level", String.valueOf(level), false);
     builder.addField("Level Progress", C.prettyNum(progressXp) + "/" + C.prettyNum(rankXp) + " (" + C.prettyNum(totalXp) + " total)", false);
 

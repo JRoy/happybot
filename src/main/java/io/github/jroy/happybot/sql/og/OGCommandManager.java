@@ -31,8 +31,6 @@ import java.util.Objects;
 public class OGCommandManager extends ListenerAdapter {
 
   private final Connection connection;
-  private boolean init = false;
-
   private final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `cmds` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `content` BINARY(255) NOT NULL , `userid` VARCHAR(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
   private final String SELECT_BY_USER = "SELECT * FROM `cmds` WHERE `userid` = ?;";
   private final String SELECT_BY_NAME = "SELECT * FROM `cmds` WHERE `name` = ?;";
@@ -40,9 +38,9 @@ public class OGCommandManager extends ListenerAdapter {
   private final String INSERT_COMMAND = "INSERT INTO `cmds` (`name`, `content`, `userid`) VALUES (?, ?, ?)";
   private final String UPDATE_COMMAND_NAME = "UPDATE `cmds` SET name = ? WHERE id = ?;";
   private final String UPDATE_COMMAND_CONTENT = "UPDATE `cmds` SET content = ? WHERE id = ?;";
-
   private final Map<String, OGAction> ogActionMap = new HashMap<>();
   private final Map<String, String> ogActionMapByUser = new HashMap<>();
+  private boolean init = false;
 
   public OGCommandManager(SQLManager sqlManager) {
     this.connection = sqlManager.getConnection();

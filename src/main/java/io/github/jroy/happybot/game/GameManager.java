@@ -36,12 +36,6 @@ import java.util.concurrent.TimeUnit;
 public class GameManager extends ListenerAdapter {
 
   private final SQLManager sqlManager;
-
-  private int gameId = 1;
-  private boolean statusLoaded = false;
-  private boolean pendingRestart = false;
-  private int pendingCode = 0;
-
   /**
    * String: Message ID that also serves as a prompt
    * PendingGameToken: The information about the pending game.
@@ -70,6 +64,10 @@ public class GameManager extends ListenerAdapter {
    * String: User ID
    */
   private final Set<String> activeUsers = new HashSet<>();
+  private int gameId = 1;
+  private boolean statusLoaded = false;
+  private boolean pendingRestart = false;
+  private int pendingCode = 0;
 
   public GameManager(SQLManager sqlManager) {
     this.sqlManager = sqlManager;

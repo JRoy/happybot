@@ -14,8 +14,8 @@ public enum StarEmote {
   private final String iconUrl;
 
   public static StarEmote getByName(String name) {
-    for(StarEmote emote : values()) {
-      if(emote.getName().equals(name)) {
+    for (StarEmote emote : values()) {
+      if (emote.getName().equals(name)) {
         return emote;
       }
     }

@@ -61,6 +61,7 @@ import java.util.List;
 @Slf4j
 public class Main extends ListenerAdapter {
 
+  private static final List<EventListener> eventListeners = new ArrayList<>();
   private static YamlFile yamlFile;
   private static BotConfig botConfig;
   @Getter
@@ -81,10 +82,9 @@ public class Main extends ListenerAdapter {
   private static Reddit reddit;
   private static StarMessages starMessages;
   private static Leveling leveling;
-  private static final List<EventListener> eventListeners = new ArrayList<>();
-  private final Main instance = this;
   @Getter
   private static CommandClient commandClient;
+  private final Main instance = this;
 
   public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException {
 

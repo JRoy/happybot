@@ -15,12 +15,10 @@ import java.util.Random;
 @Slf4j
 public class MessageFactory {
 
-  private final Connection connection;
-
   private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `messages` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `type` VARCHAR(50) NOT NULL , `value` BINARY(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
   private static final String INSERT_MESSAGE = "INSERT INTO `messages` (`type`, `value`) VALUES (?, ?)";
   private static final String SELECT_MESSAGES = "SELECT * FROM `messages` WHERE type = ?;";
-
+  private final Connection connection;
   private final Random random = new Random();
   private List<String> joinMessages = new ArrayList<>();
   private List<String> leaveMessages = new ArrayList<>();
@@ -38,7 +36,7 @@ public class MessageFactory {
       log.error("Error while caching messages: " + e.getMessage());
     }
   }
-  
+
   public void addMessage(MessageType messageType, String message) throws SQLException {
     message = message.replace("(user)", "<user>").replace("[user]", "<user>").replace("{user}", "<user>");
     switch (messageType) { //We add the message to the cache first; we don't want to call SQL every time.
@@ -60,7 +58,7 @@ public class MessageFactory {
       case LEAVE: {
         if (!leaveMessages.contains(message)) {
           leaveMessages.add(message);
-       }
+        }
         break;
       }
       case UPDATE_END: {

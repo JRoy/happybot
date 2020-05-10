@@ -24,7 +24,7 @@ public class RoleInfoCommand extends CommandBase {
 
   public RoleInfoCommand(DiscordThemerImpl themer) {
     super("role", "<role name>", "Show information on themed roles", CommandCategory.GENERAL);
-    this.aliases = new String[] {"roleinfo", "name", "rolename", "rolehelp"};
+    this.aliases = new String[]{"roleinfo", "name", "rolename", "rolehelp"};
     this.themer = themer;
   }
 

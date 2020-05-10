@@ -37,6 +37,6 @@ public class StarGoalCommand extends CommandBase {
     }
 
     starMessages.addStarAlter(messageId, goal);
-    e.reply("Message("+messageId+") will now only star at " + goal + " stars/heels!");
+    e.reply("Message(" + messageId + ") will now only star at " + goal + " stars/heels!");
   }
 }

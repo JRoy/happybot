@@ -29,7 +29,7 @@ public abstract class AbstractTicTacToeGame {
   }
 
   public String getName(int board) {
-    switch(board) {
+    switch (board) {
       case -1:
         return "any";
       case 0:
@@ -63,7 +63,10 @@ public abstract class AbstractTicTacToeGame {
   }
 
   public abstract String render();
+
   public abstract User getWinner();
+
   public abstract boolean isFull();
+
   public abstract boolean makeTurn(int position);
 }

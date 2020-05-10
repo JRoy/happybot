@@ -217,9 +217,9 @@ public class MoneyCommand extends CommandBase {
         StringBuilder description = new StringBuilder();
         for (int i = 1; i <= 10 && i <= result.size(); i++) {
           for (Map.Entry<Member, Integer> curEntry : result.get(i).entrySet()) {
-            if(i > 1) {
+            if (i > 1) {
               description.append("\n"
-                      + "\n");
+                  + "\n");
             }
             description.append(C.getPositionName(i))
                 .append(" __").append(C.escape(C.getFullName(curEntry.getKey().getUser()))).append("__: ")

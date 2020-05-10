@@ -39,6 +39,31 @@ public class StatsCommand extends CommandBase {
     }
   }
 
+  static class GetYoutubeStats implements Runnable {
+
+    private final CommandEvent e;
+
+    GetYoutubeStats(CommandEvent e) {
+      this.e = e;
+    }
+
+    @Override
+    public void run() {
+
+      YouTubeRealTime youTube = new YouTubeRealTime().pullAPI();
+
+      e.reply(new EmbedBuilder()
+          .setTitle("Happyheart's YouTube Statistics")
+          .setDescription("Listing Statistics:")
+          .setFooter("Stats provided by YouTube's Realtime API", "http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c545.png")
+          .addField("**Subscribers**", youTube.fetchSubs(), true)
+          .addField("**Videos**", youTube.fetchVids(), true)
+          .addField("**Views**", youTube.fetchViews(), true)
+          .build());
+      youTube.finish();
+    }
+  }
+
   class GetLoLStats implements Runnable {
 
     private final CommandEvent e;
@@ -64,31 +89,6 @@ public class StatsCommand extends CommandBase {
         e1.printStackTrace();
       }
       e.reply(embed.build());
-    }
-  }
-
-  static class GetYoutubeStats implements Runnable {
-
-    private final CommandEvent e;
-
-    GetYoutubeStats(CommandEvent e) {
-      this.e = e;
-    }
-
-    @Override
-    public void run() {
-
-      YouTubeRealTime youTube = new YouTubeRealTime().pullAPI();
-
-      e.reply(new EmbedBuilder()
-          .setTitle("Happyheart's YouTube Statistics")
-          .setDescription("Listing Statistics:")
-          .setFooter("Stats provided by YouTube's Realtime API", "http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c545.png")
-          .addField("**Subscribers**", youTube.fetchSubs(), true)
-          .addField("**Videos**", youTube.fetchVids(), true)
-          .addField("**Views**", youTube.fetchViews(), true)
-          .build());
-      youTube.finish();
     }
   }
 

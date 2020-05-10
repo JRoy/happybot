@@ -11,13 +11,12 @@ import java.util.List;
 @Slf4j
 public class PurchaseManager {
 
-  private final SQLManager sqlManager;
-
   private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `purchases` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `userId` VARCHAR(255) NOT NULL , `itemId` INT(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
   private static final String SELECT_ALL_REWARDS_FROM_USER = "SELECT * FROM `purchases` WHERE userId = ?;";
   private static final String SELECT_REWARD_FROM_USER = "SELECT * FROM `purchases` WHERE userId = ? AND itemId = ?;";
   private static final String ADD_REWARD = "INSERT INTO `purchases` (userId, itemId) VALUES (?, ?);";
   private static final String DELETE_REWARD = "DELETE FROM `purchases` WHERE userId = ? and itemId = ? LIMIT 1;";
+  private final SQLManager sqlManager;
 
   public PurchaseManager(SQLManager sqlManager) {
     log.info("Loading Purchase Manger...");

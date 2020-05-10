@@ -8,12 +8,10 @@ public class MemePost {
   private final String title;
   private final String subreddit;
   private final String permaLink;
-  private String mediaUrl;
-
   private final boolean selfPost;
   private final String selfText;
-
   private final boolean isNsfw;
+  private String mediaUrl;
 
   MemePost(JsonObject dataObject) {
     title = dataObject.get("title").getAsString();

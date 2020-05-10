@@ -13,9 +13,9 @@ import java.util.Map;
 @Slf4j
 public class SQLManager {
 
-  private Connection connection;
   private final String password;
   private final SQLManager instance;
+  private Connection connection;
 
   public SQLManager(String sqlPassword) {
     password = sqlPassword;

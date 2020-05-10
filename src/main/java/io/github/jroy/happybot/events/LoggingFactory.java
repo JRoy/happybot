@@ -35,10 +35,10 @@ import java.util.Objects;
 @Slf4j
 public class LoggingFactory extends ListenerAdapter {
   private static final String WEBHOOK_ID = "466642500153769984";
-  private Webhook webhook = null;
   private final Cache<String, Message> cache = CacheBuilder.newBuilder()
       .maximumSize(100)
       .build();
+  private Webhook webhook = null;
 
   public LoggingFactory() {
     log.info("Loading Logger Factory...");

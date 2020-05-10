@@ -17,6 +17,7 @@ import java.util.Iterator;
 
 public class UltimateTicTacToe extends Game {
   private UtttGame game;
+
   public UltimateTicTacToe(GameManager manager) {
     super(manager, "Ultimate Tic-Tac-Toe", "Tic-Tac-Toe on Tic-Tac-Toe", 2, 2, 1000);
   }

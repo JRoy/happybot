@@ -56,8 +56,6 @@ public class Leveling extends ListenerAdapter {
   private final String SELECT_IMAGE = "SELECT * FROM `backgrounds` WHERE userid = ?;";
   private final String leaderboardMessageId = "475436792980701195";
   private final Random random = new Random();
-  public Map<Integer, LevelingToken> topCache = new HashMap<>();
-  private boolean registered = false;
   private final TreeMap<Long, Integer> levels = new TreeMap<>();
   private final Map<String, OffsetDateTime> lastChatTimes = new HashMap<>();
   private final LoadingCache<String, Integer> levelCache = CacheBuilder.newBuilder()
@@ -69,6 +67,8 @@ public class Leveling extends ListenerAdapter {
           return toLevel(getExp(key));
         }
       });
+  public Map<Integer, LevelingToken> topCache = new HashMap<>();
+  private boolean registered = false;
 
   public Leveling(SQLManager sqlManager, MessageFactory messageFactory, PurchaseManager purchaseManager) {
     this.connection = sqlManager.getConnection();
@@ -112,7 +112,7 @@ public class Leveling extends ListenerAdapter {
 
               if (curPos > 1) {
                 description.append("\n"
-                        + "\n");
+                    + "\n");
               }
 
               LevelingToken token = mapToken.getValue();

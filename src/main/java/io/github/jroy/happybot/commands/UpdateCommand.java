@@ -45,7 +45,7 @@ public class UpdateCommand extends CommandBase {
       if (e.getArgs().contains("-s")) {
         silent = true;
       }
-      boolean force =  e.getArgs().contains("-f") || e.getArgs().contains("--force");
+      boolean force = e.getArgs().contains("-f") || e.getArgs().contains("--force");
       boolean dev = e.getArgs().contains("-d") || e.getArgs().contains("--dev");
       if (e.getArgs().toLowerCase().startsWith("g")) {
         e.reply(":white_check_mark: Downloading Update from GitHub" + (dev ? " (dev)" : "") + "!");

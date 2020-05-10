@@ -42,13 +42,13 @@ import java.util.Arrays;
 public class JaroWinklerDistance {
 
   /**
-   * The default prefix length limit set to four.
-   */
-  private static final int PREFIX_LENGTH_LIMIT = 4;
-  /**
    * Represents a failed index search.
    */
   public static final int INDEX_NOT_FOUND = -1;
+  /**
+   * The default prefix length limit set to four.
+   */
+  private static final int PREFIX_LENGTH_LIMIT = 4;
 
   /**
    * Find the Jaro Winkler Distance which indicates the similarity score
@@ -71,7 +71,7 @@ public class JaroWinklerDistance {
    * distance.apply("PENNSYLVANIA", "PENNCISYLVNIA")    = 0.88
    * </pre>
    *
-   * @param left the first String, must not be null
+   * @param left  the first String, must not be null
    * @param right the second String, must not be null
    * @return result distance
    * @throws IllegalArgumentException if either String input {@code null}
@@ -97,7 +97,7 @@ public class JaroWinklerDistance {
   /**
    * This method returns the Jaro-Winkler string matches, transpositions, prefix, max array.
    *
-   * @param first the first string to be matched
+   * @param first  the first string to be matched
    * @param second the second string to be machted
    * @return mtp array containing: matches, transpositions, prefix, and max length
    */
@@ -154,7 +154,7 @@ public class JaroWinklerDistance {
         break;
       }
     }
-    return new int[] { matches, transpositions / 2, prefix, max.length() };
+    return new int[]{matches, transpositions / 2, prefix, max.length()};
   }
 
 }

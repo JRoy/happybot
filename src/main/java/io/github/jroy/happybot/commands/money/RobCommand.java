@@ -34,7 +34,7 @@ public class RobCommand extends CommandBase {
   @Override
   protected void executeCommand(CommandEvent e) {
     Member target = C.matchMember(null, e.getArgs());
-    if(target == null) {
+    if (target == null) {
       e.reply(invalid);
       removeFromCooldown(e.getMember());
       return;
@@ -60,9 +60,9 @@ public class RobCommand extends CommandBase {
       RobToken token = robTokens.get(userId);
 
       // Check the user has not robbed in the last day
-	    int secondsRemaining = token.getTimeRemainingForUser(targetId);
+      int secondsRemaining = token.getTimeRemainingForUser(targetId);
       if (secondsRemaining > 0) {
-	      e.replyError("You may only rob a user once a day! You can rob them again in "
+        e.replyError("You may only rob a user once a day! You can rob them again in "
             + C.format(secondsRemaining, TimeUnit.SECONDS, TimeUnit.MINUTES));
         removeFromCooldown(e.getMember());
         return;

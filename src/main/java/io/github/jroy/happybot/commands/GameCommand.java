@@ -9,13 +9,12 @@ import io.github.jroy.happybot.game.GameType;
 import io.github.jroy.happybot.game.model.PendingGameToken;
 
 public class GameCommand extends CommandBase {
-  private final GameManager gameManager;
-
   private static final String HELP_MESSAGE = "**Game Command Help:**\n" +
       "`^game create <game name>` - Creates a game and prompts people to join\n" +
       "`^game start` - Starts a game if you have enough players\n" +
       "`^game stop` - Stops a game\n" +
       "`^game list` - Lists all the possible game you can play";
+  private final GameManager gameManager;
 //      "`^game spectate` - Joins a game lobby in spectate view";
 
   public GameCommand(GameManager gameManager) {

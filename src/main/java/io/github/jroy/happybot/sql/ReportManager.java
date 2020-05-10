@@ -8,13 +8,12 @@ import java.sql.*;
 @Slf4j
 public class ReportManager {
 
-  private final Connection connection;
-
   private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `reports` ( `id` INT(50) NOT NULL AUTO_INCREMENT , `reporterid` VARCHAR(50) NOT NULL , `reportedid` VARCHAR(50) NOT NULL , `channelid` VARCHAR(255) NOT NULL , `reason` VARCHAR(255) NOT NULL , `handleid` VARCHAR(50) NOT NULL DEFAULT '0' , `handlereason` VARCHAR(255) NOT NULL DEFAULT 'NONE' , `status` INT(50) NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
   private static final String CREATE_REPORT = "INSERT INTO `reports` (reportedid, reporterid, channelid, reason) VALUES (?, ?, ?, ?);";
   private static final String SELECT_REPORT = "SELECT * FROM `reports` WHERE id = ?;";
   private static final String UPDATE_STATUS = "UPDATE `reports` SET handleid = ?, handlereason = ?, status = ? WHERE id = ?";
   private static final String UPDATE_REASON = "UPDATE `reports` SET handlereason = ? WHERE id = ?";
+  private final Connection connection;
 
   public ReportManager(SQLManager sqlManager) {
     connection = sqlManager.getConnection();

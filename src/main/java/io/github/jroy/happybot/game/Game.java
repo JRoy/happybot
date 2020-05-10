@@ -26,8 +26,9 @@ public abstract class Game {
 
   /**
    * Ends a game and rewards prize to winner.
+   *
    * @param activeGame The active game instance to call the winner from.
-   * @param winner Winner of the game. Can be null to indicate no winner.
+   * @param winner     Winner of the game. Can be null to indicate no winner.
    */
   protected void endGame(ActiveGame activeGame, @Nullable Member winner) {
     manager.protectGame(activeGame, winner, coinPrize);

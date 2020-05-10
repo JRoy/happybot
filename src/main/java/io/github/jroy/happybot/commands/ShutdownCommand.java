@@ -21,7 +21,7 @@ public class ShutdownCommand extends CommandBase {
   @Override
   protected void executeCommand(CommandEvent e) {
     boolean confirm = e.getArgs().contains("-y") || e.getArgs().contains("--yes");
-    boolean force =  e.getArgs().contains("-f") || e.getArgs().contains("--force");
+    boolean force = e.getArgs().contains("-f") || e.getArgs().contains("--force");
     if (!confirm) {
       e.reply("The `^kys` command will instantly restart the bot, please do `^kys -y` to confirm this action.");
       return;

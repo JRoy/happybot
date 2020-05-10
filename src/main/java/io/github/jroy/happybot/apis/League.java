@@ -10,8 +10,8 @@ import java.util.HashMap;
 
 public class League extends APIBase {
 
-  private RiotApi api;
   private final String apiKey;
+  private RiotApi api;
 
   public League(String apiKey) {
     super("League");

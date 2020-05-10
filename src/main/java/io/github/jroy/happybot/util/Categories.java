@@ -2,7 +2,7 @@ package io.github.jroy.happybot.util;
 
 import net.dv8tion.jda.api.entities.Category;
 
-public enum  Categories {
+public enum Categories {
 
   META("356261428535099394"),
   DISCUSSION("356261794656026624"),

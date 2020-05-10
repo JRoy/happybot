@@ -48,5 +48,6 @@ public abstract class APIBase {
     }
   }
 
-  public class ListenerImpl extends Listener { }
+  public class ListenerImpl extends Listener {
+  }
 }

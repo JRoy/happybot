@@ -26,10 +26,10 @@ class RobToken {
    * Returns -1 if the user can rob immediately
    */
   protected int getTimeRemainingForUser(String userId) {
-  	if (!dailyTimes.containsKey(userId)) {
-  		return -1;
+    if (!dailyTimes.containsKey(userId)) {
+      return -1;
     } else {
-	    return (int) OffsetDateTime.now().until(dailyTimes.get(userId), ChronoUnit.SECONDS);
+      return (int) OffsetDateTime.now().until(dailyTimes.get(userId), ChronoUnit.SECONDS);
     }
   }
 

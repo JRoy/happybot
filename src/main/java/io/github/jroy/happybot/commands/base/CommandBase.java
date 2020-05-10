@@ -35,31 +35,26 @@ public abstract class CommandBase extends Command {
    * The command's category
    */
   private final CommandCategory commandCategory;
-
+  /**
+   * The command's permission can be bypassed with the developer role.
+   */
+  private final boolean devCommand;
   /**
    * Storage for command cooldowns.
    * Null if the command has no cooldown.
    */
   @Nullable
   private HashMap<Member, OffsetDateTime> commandCooldowns;
-
   /**
    * Unit of time the cooldown is relative to.
    */
   @Nullable
   private ChronoUnit cooldownUnit;
-
   /**
    * Relative cooldown delay.
    */
   @Nullable
   private Integer cooldownDelay;
-
-  /**
-   * The command's permission can be bypassed with the developer role.
-   */
-  private final boolean devCommand;
-
   /**
    * The command may not be used when true
    * Devs+ can bypass this
@@ -99,7 +94,7 @@ public abstract class CommandBase extends Command {
    * @param helpMessage    Command description to be used inside the command list.
    * @param category       Command's category to be used inside the command list.
    * @param permissionRole The role requires to execute the command.
-   * @param devCommand Can developers bypass permission check for this command?
+   * @param devCommand     Can developers bypass permission check for this command?
    */
   public CommandBase(@NotNull String commandName, String arguments, String helpMessage, CommandCategory category, @Nullable Roles permissionRole, boolean devCommand) {
     this.name = commandName;
@@ -154,15 +149,6 @@ public abstract class CommandBase extends Command {
   }
 
   /**
-   * Sets the disabled state of a command.
-   *
-   * @param disabled Disabled state.
-   */
-  public void setDisabled(boolean disabled) {
-    this.disabled = disabled;
-  }
-
-  /**
    * Gets the disabled state of the command.
    *
    * @return Disabled state.
@@ -171,14 +157,23 @@ public abstract class CommandBase extends Command {
     return disabled;
   }
 
+  /**
+   * Sets the disabled state of a command.
+   *
+   * @param disabled Disabled state.
+   */
+  public void setDisabled(boolean disabled) {
+    this.disabled = disabled;
+  }
+
   @Override
   protected final void execute(CommandEvent event) {
     Member member = event.getMember();
 
-        if (disabled && !C.hasRole(event.getMember(), Roles.DEVELOPER)) {
-            event.getMessage().addReaction("❌").queue();
-            return;
-        }
+    if (disabled && !C.hasRole(event.getMember(), Roles.DEVELOPER)) {
+      event.getMessage().addReaction("❌").queue();
+      return;
+    }
 
     //Handle "Complex" Permission Check
     boolean canExecute = true; //We assume the user can run the command at first and we annihilate them if they actually cannot

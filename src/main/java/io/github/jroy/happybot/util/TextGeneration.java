@@ -14,10 +14,9 @@ import java.io.IOException;
  */
 public class TextGeneration {
 
-  private static Font productSansBold;
-
   public static BufferedImage card;
   public static BufferedImage background;
+  private static Font productSansBold;
   private static BufferedImage progressBar1;
   private static BufferedImage progressBar2;
   private static BufferedImage progressBar3;
@@ -47,7 +46,7 @@ public class TextGeneration {
   }
 
   public static BufferedImage calculateProgressId(float current, float goal) {
-    float diff = current/goal;
+    float diff = current / goal;
     if (diff >= 0.875) {
       return progressBar8;
     } else if (diff >= 0.75) {

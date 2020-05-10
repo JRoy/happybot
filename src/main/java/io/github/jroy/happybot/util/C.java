@@ -51,7 +51,7 @@ public class C {
   public static Member matchMember(Member def, String string) {
     Guild guild = C.getGuild();
     Matcher matcher = MENTION_REGEX.matcher(string);
-    if(matcher.matches()) {
+    if (matcher.matches()) {
       return guild.getMemberById(matcher.group(1));
     }
 
@@ -76,7 +76,7 @@ public class C {
         distance = fullNameDistance;
       }
     }
-    if(closest == null) {
+    if (closest == null) {
       return def;
     } else {
       return closest;
@@ -87,7 +87,7 @@ public class C {
     Role closest = null;
     try {
       closest = C.getGuild().getRoleById(string);
-    } catch(NumberFormatException ignored) {
+    } catch (NumberFormatException ignored) {
     }
     if (closest != null) {
       return closest;
@@ -129,9 +129,9 @@ public class C {
   public static String format(long time, TimeUnit input, TimeUnit precision) {
     AtomicLong nanos = new AtomicLong(input.toNanos(time));
     List<String> times = new ArrayList<>();
-    for(Map.Entry<TimeUnit, String> entry : timeUnits.entrySet()) {
+    for (Map.Entry<TimeUnit, String> entry : timeUnits.entrySet()) {
       TimeUnit unit = entry.getKey();
-      if(nanos.get() >= unit.toNanos(1) && precision.compareTo(unit) <= 0) {
+      if (nanos.get() >= unit.toNanos(1) && precision.compareTo(unit) <= 0) {
         times.add(getTime(nanos, unit, entry.getValue()));
       }
     }
@@ -140,6 +140,7 @@ public class C {
 
   /**
    * Formats assuming the given time is in milliseocnds
+   *
    * @see C#format(long, TimeUnit, TimeUnit)
    */
   public static String format(long time, TimeUnit precision) {
@@ -149,7 +150,7 @@ public class C {
 
   private static String getTime(AtomicLong time, TimeUnit unit, String suffix) {
     long nanos = unit.toNanos(1);
-    if(time.get() >= nanos) {
+    if (time.get() >= nanos) {
       long amount = time.get() / nanos;
       time.set(time.get() % nanos);
       return amount + suffix;
@@ -348,7 +349,7 @@ public class C {
   /**
    * Adds multiple roles to a guild member.
    *
-   * @param m    The target guild member.
+   * @param m     The target guild member.
    * @param roles The target roles to add to the user.
    */
   public static void giveRoles(Member m, Roles... roles) {

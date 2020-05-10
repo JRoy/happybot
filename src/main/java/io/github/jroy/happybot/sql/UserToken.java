@@ -8,9 +8,9 @@ public class UserToken {
 
   private final int id;
   private final String userId;
+  private final SQLManager sqlManager;
   private int coins;
   private long epoch;
-  private final SQLManager sqlManager;
 
   UserToken(SQLManager sqlManager, String userID) throws SQLException {
     ResultSet resultSet = sqlManager.getConnection().createStatement().executeQuery("SELECT * FROM user WHERE userid = " + userID + ";");
