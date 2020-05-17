@@ -83,18 +83,22 @@ public class TwitterCentre extends APIBase {
 
     @Override
     public void run() {
-      Roles.TWITTER.getRole().getManager().setMentionable(true).complete();
+      boolean mention = true;
       EmbedBuilder builder = new EmbedBuilder()
           .setThumbnail(status.getUser().getBiggerProfileImageURL())
           .setTitle("@" + status.getUser().getScreenName() + " has just tweeted", "https://twitter.com/" + status.getUser().getScreenName() + "/status/" + status.getId())
           .setDescription(status.getText())
           .setColor(new Color(0, 172, 237));
       if (status.getInReplyToScreenName() != null) {
+        mention = false;
         builder.addField("In reply to..", "[In reply to this @" + status.getInReplyToScreenName() + "'s tweet]" +
             "(https://twitter.com/" + status.getInReplyToScreenName() + "/status/" + status.getInReplyToStatusId() + ")", false);
       }
       if (status.getUser().getId() == HAPPY_ID) {
-        Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getRole().getAsMention()).complete();
+        if (mention) {
+          Roles.TWITTER.getRole().getManager().setMentionable(true).complete();
+          Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getRole().getAsMention()).complete();
+        }
         Channels.TWITTER.getChannel().sendMessage(builder.build()).complete();
       }
       try {
@@ -102,7 +106,9 @@ public class TwitterCentre extends APIBase {
       } catch (InterruptedException e) {
         e.printStackTrace();
       } finally {
-        Roles.TWITTER.getRole().getManager().setMentionable(false).queue();
+        if (mention) {
+          Roles.TWITTER.getRole().getManager().setMentionable(false).queue();
+        }
       }
     }
 
