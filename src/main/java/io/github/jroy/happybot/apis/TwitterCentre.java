@@ -83,6 +83,10 @@ public class TwitterCentre extends APIBase {
 
     @Override
     public void run() {
+      if (status.getUser().getId() != HAPPY_ID) {
+        return;
+      }
+
       boolean mention = true;
       EmbedBuilder builder = new EmbedBuilder()
           .setThumbnail(status.getUser().getBiggerProfileImageURL())
@@ -94,13 +98,13 @@ public class TwitterCentre extends APIBase {
         builder.addField("In reply to..", "[In reply to this @" + status.getInReplyToScreenName() + "'s tweet]" +
             "(https://twitter.com/" + status.getInReplyToScreenName() + "/status/" + status.getInReplyToStatusId() + ")", false);
       }
-      if (status.getUser().getId() == HAPPY_ID) {
-        if (mention) {
-          Roles.TWITTER.getRole().getManager().setMentionable(true).complete();
-          Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getRole().getAsMention()).complete();
-        }
-        Channels.TWITTER.getChannel().sendMessage(builder.build()).complete();
+
+      if (mention) {
+        Roles.TWITTER.getRole().getManager().setMentionable(true).complete();
+        Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getRole().getAsMention()).complete();
       }
+      Channels.TWITTER.getChannel().sendMessage(builder.build()).complete();
+
       try {
         TimeUnit.SECONDS.sleep(1);
       } catch (InterruptedException e) {
