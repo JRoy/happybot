@@ -110,13 +110,13 @@ public class SubmitPinner extends ListenerAdapter {
 
   @Override
   public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent e) {
-    Message message;
-    try {
-      message = e.getChannel().retrieveMessageById(e.getMessageId()).complete();
-    } catch (NullPointerException e1) {
-      return;
-    }
-    if (e.getReactionEmote().getEmote().getId().equalsIgnoreCase("447793727532957716") && e.getChannel().getId().equalsIgnoreCase(Channels.WELCOME_SUBMIT.getId())) {
+    if (e.getReactionEmote().isEmote() && e.getReactionEmote().getEmote().getId().equalsIgnoreCase("447793727532957716") && e.getChannel().getId().equalsIgnoreCase(Channels.WELCOME_SUBMIT.getId())) {
+      Message message;
+      try {
+        message = e.getChannel().retrieveMessageById(e.getMessageId()).complete();
+      } catch (NullPointerException e1) {
+        return;
+      }
       int numberOfStars = message.getReactions().stream()
           .filter(reaction -> reaction.getReactionEmote().getId().equals("447793727532957716"))
           .findAny().map(MessageReaction::getCount).orElse(0);
