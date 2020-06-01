@@ -10,10 +10,7 @@ import io.github.jroy.happybot.apis.reddit.Reddit;
 import io.github.jroy.happybot.apis.youtube.YouTubeAPI;
 import io.github.jroy.happybot.commands.*;
 import io.github.jroy.happybot.commands.base.CommandFactory;
-import io.github.jroy.happybot.commands.levels.AddUserCommand;
-import io.github.jroy.happybot.commands.levels.LeaderboardCommand;
-import io.github.jroy.happybot.commands.levels.LevelCommand;
-import io.github.jroy.happybot.commands.levels.OldLevelCommand;
+import io.github.jroy.happybot.commands.levels.*;
 import io.github.jroy.happybot.commands.money.*;
 import io.github.jroy.happybot.commands.og.OgCommand;
 import io.github.jroy.happybot.commands.og.OgMngmtCommand;
@@ -340,6 +337,7 @@ public class Main extends ListenerAdapter {
         new EvalCommand(),
         new TestCommand(),
         new AddUserCommand(leveling),
+        new SetXpCommand(leveling),
         new ToggleCommand(commandFactory)
 
     );

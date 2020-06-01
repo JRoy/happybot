@@ -191,9 +191,13 @@ public class Leveling extends ListenerAdapter {
   }
 
   public void addExp(String userId, int amount) {
+    setExp(userId, getExp(userId) + amount);
+  }
+
+  public void setExp(String userId, long amount) {
     try {
       PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
-      statement.setLong(1, getExp(userId) + amount);
+      statement.setLong(1, amount);
       statement.setString(2, userId);
       statement.execute();
     } catch (SQLException e) {
