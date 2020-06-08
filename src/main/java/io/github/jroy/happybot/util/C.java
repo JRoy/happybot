@@ -353,7 +353,7 @@ public class C {
    * @param roles The target roles to add to the user.
    */
   public static void giveRoles(Member m, Roles... roles) {
-    List<Role> memberRoles = m.getRoles();
+    List<Role> memberRoles = new ArrayList<>(m.getRoles());
     memberRoles.addAll(Arrays.asList(toRoleArray(roles)));
     getGuild().modifyMemberRoles(m, memberRoles).queue();
   }
