@@ -43,8 +43,8 @@ public class MessageFactoryCommand extends CommandBase {
       if (type == null) {
         e.replyError("Invalid Type! Possible types are: " + MessageFactory.MessageType.getTypes(","));
         return;
-      } else if (!StringUtils.isNumeric(e.getSplitArgs()[1])) {
-        e.replyError("Invalid page number: " + e.getSplitArgs()[1]);
+      } else if (!StringUtils.isNumeric(e.getSplitArgs()[2])) {
+        e.replyError("Invalid page number: " + e.getSplitArgs()[2]);
         return;
       }
 
@@ -60,7 +60,7 @@ public class MessageFactoryCommand extends CommandBase {
 
       try {
         Map<Integer, Map<Integer, String>> pages = messageFactory.getPaginatedList(type);
-        Integer pageNumber = Integer.valueOf(e.getSplitArgs()[1]);
+        Integer pageNumber = Integer.valueOf(e.getSplitArgs()[2]);
         if (!pages.containsKey(pageNumber)) {
           e.replyError("Page number does not exist!");
           return;
@@ -80,13 +80,13 @@ public class MessageFactoryCommand extends CommandBase {
       cachedTypes.clear();
       e.reply("purged");
     } else if (e.getSplitArgs()[0].equalsIgnoreCase("delete") && e.getSplitArgs().length > 1) {
-      if (!StringUtils.isNumeric(e.getSplitArgs()[0])) {
+      if (!StringUtils.isNumeric(e.getSplitArgs()[1])) {
         e.replyError("Invalid number: " + e.getSplitArgs()[1]);
         return;
       }
 
       try {
-        messageFactory.deleteMessage(Integer.parseInt(e.getSplitArgs()[0]));
+        messageFactory.deleteMessage(Integer.parseInt(e.getSplitArgs()[1]));
         e.reply("deleted");
       } catch (SQLException sqlException) {
         e.reply("shit hit fan");
