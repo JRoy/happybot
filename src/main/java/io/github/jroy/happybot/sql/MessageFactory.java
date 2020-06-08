@@ -8,15 +8,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Slf4j
 public class MessageFactory {
 
   private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `messages` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `type` VARCHAR(50) NOT NULL , `value` BINARY(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
   private static final String INSERT_MESSAGE = "INSERT INTO `messages` (`type`, `value`) VALUES (?, ?)";
+  private static final String DELETE_MESSAGE = "DELETE FROM `messages` WHERE id = ?;";
   private static final String SELECT_MESSAGES = "SELECT * FROM `messages` WHERE type = ?;";
   private final Connection connection;
   private final Random random = new Random();
@@ -88,6 +87,12 @@ public class MessageFactory {
     preparedStatement.execute();
   }
 
+  public void deleteMessage(int id) throws SQLException {
+    PreparedStatement preparedStatement = connection.prepareStatement(DELETE_MESSAGE);
+    preparedStatement.setInt(1, id);
+    preparedStatement.executeUpdate();
+  }
+
   private void refreshMessages() throws SQLException {
     joinMessages.clear();
     leaveMessages.clear();
@@ -104,15 +109,37 @@ public class MessageFactory {
   }
 
   private List<String> parseMessages(MessageType messageType) throws SQLException {
+    return new ArrayList<>(getIdList(messageType).values());
+  }
+
+  private Map<Integer, String> getIdList(MessageType messageType) throws SQLException {
     PreparedStatement preparedStatement = connection.prepareStatement(SELECT_MESSAGES);
     preparedStatement.setString(1, messageType.toString());
     ResultSet set = preparedStatement.executeQuery();
 
-    List<String> msgs = new ArrayList<>();
+    Map<Integer, String> msgs = new HashMap<>();
     while (set.next()) {
-      msgs.add(new String(set.getBytes("value"), StandardCharsets.UTF_8).replace("\0", ""));
+      msgs.put(set.getInt("id"), new String(set.getBytes("value"), StandardCharsets.UTF_8).replace("\0", ""));
     }
     return msgs;
+  }
+
+  public Map<Integer, Map<Integer, String>> getPaginatedList(MessageType messageType) throws SQLException {
+    Map<Integer, Map<Integer, String>> pageList = new HashMap<>();
+    Map<Integer, String> list = new HashMap<>();
+    int page = 1;
+    int elementCount = 0;
+    for (Map.Entry<Integer, String> entry : getIdList(messageType).entrySet()) {
+      if (elementCount >= 10) {
+        pageList.put(page, list);
+        list = new HashMap<>();
+        elementCount = 0;
+        page++;
+      }
+      list.put(entry.getKey(), entry.getValue());
+      elementCount++;
+    }
+    return pageList;
   }
 
   @Nonnull

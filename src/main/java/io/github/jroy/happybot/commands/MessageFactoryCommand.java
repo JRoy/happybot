@@ -7,19 +7,24 @@ import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class MessageFactoryCommand extends CommandBase {
 
   private final MessageFactory messageFactory;
+  private final Map<MessageFactory.MessageType, Map<Integer, Map<Integer, String>>> cachedTypes = new HashMap<>();
 
   public MessageFactoryCommand(MessageFactory messageFactory) {
     super("messages",
-        "<add/pins> <type> <message>",
+        "<add/delete/list/purge/pins> <type/id/type> <message/id>",
         "A command to deal with MessageFactory System.",
         CommandCategory.STAFF,
         Roles.SUPER_ADMIN);
@@ -33,7 +38,61 @@ public class MessageFactoryCommand extends CommandBase {
       return;
     }
 
-    if (e.getSplitArgs()[0].equalsIgnoreCase("add") && e.getSplitArgs().length > 2) {
+    if (e.getSplitArgs()[0].equalsIgnoreCase("list") && e.getSplitArgs().length > 2) {
+      MessageFactory.MessageType type = MessageFactory.MessageType.fromText(e.getSplitArgs()[1]);
+      if (type == null) {
+        e.replyError("Invalid Type! Possible types are: " + MessageFactory.MessageType.getTypes(","));
+        return;
+      } else if (!StringUtils.isNumeric(e.getSplitArgs()[1])) {
+        e.replyError("Invalid page number: " + e.getSplitArgs()[1]);
+        return;
+      }
+
+      if (!cachedTypes.containsKey(type)) {
+        try {
+          cachedTypes.put(type, messageFactory.getPaginatedList(type));
+        } catch (SQLException sqlException) {
+          e.replyError("Error while fetching msgs: " + sqlException.getMessage());
+          sqlException.printStackTrace();
+          return;
+        }
+      }
+
+      try {
+        Map<Integer, Map<Integer, String>> pages = messageFactory.getPaginatedList(type);
+        Integer pageNumber = Integer.valueOf(e.getSplitArgs()[1]);
+        if (!pages.containsKey(pageNumber)) {
+          e.replyError("Page number does not exist!");
+          return;
+        }
+
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setFooter("Page " + pageNumber + "/" + pages.size());
+        for (Map.Entry<Integer, String> entry : pages.get(pageNumber).entrySet()) {
+          embed.addField("ID " + entry.getKey(), entry.getValue(), true);
+        }
+        e.reply(embed.build());
+      } catch (SQLException sqlException) {
+        e.replyError("Error while fetching messages: " + sqlException.getMessage());
+        sqlException.printStackTrace();
+      }
+    } else if (e.getSplitArgs()[0].equalsIgnoreCase("purge")) {
+      cachedTypes.clear();
+      e.reply("purged");
+    } else if (e.getSplitArgs()[0].equalsIgnoreCase("delete") && e.getSplitArgs().length > 1) {
+      if (!StringUtils.isNumeric(e.getSplitArgs()[0])) {
+        e.replyError("Invalid number: " + e.getSplitArgs()[1]);
+        return;
+      }
+
+      try {
+        messageFactory.deleteMessage(Integer.parseInt(e.getSplitArgs()[0]));
+        e.reply("deleted");
+      } catch (SQLException sqlException) {
+        e.reply("shit hit fan");
+        sqlException.printStackTrace();
+      }
+    } else if (e.getSplitArgs()[0].equalsIgnoreCase("add") && e.getSplitArgs().length > 2) {
       MessageFactory.MessageType type = MessageFactory.MessageType.fromText(e.getSplitArgs()[1]);
       if (type == null) {
         e.replyError("Invalid Type! Possible types are: " + MessageFactory.MessageType.getTypes(","));
