@@ -25,7 +25,7 @@ public class SubmitPinner extends ListenerAdapter {
 
   @Override
   public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-    if (!event.getChannel().getId().equalsIgnoreCase(Channels.WELCOME_SUBMIT.getId())) {
+    if (!event.getChannel().getId().equalsIgnoreCase(Channels.WELCOME_SUBMIT.getId()) || C.hasRole(event.getMember(), Roles.SUPER_ADMIN)) {
       return;
     }
 
