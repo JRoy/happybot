@@ -112,7 +112,7 @@ public class MessageFactory {
     return new ArrayList<>(getIdList(messageType).values());
   }
 
-  private Map<Integer, String> getIdList(MessageType messageType) throws SQLException {
+  public Map<Integer, String> getIdList(MessageType messageType) throws SQLException {
     PreparedStatement preparedStatement = connection.prepareStatement(SELECT_MESSAGES);
     preparedStatement.setString(1, messageType.toString());
     ResultSet set = preparedStatement.executeQuery();

@@ -24,7 +24,7 @@ public class MessageFactoryCommand extends CommandBase {
 
   public MessageFactoryCommand(MessageFactory messageFactory) {
     super("messages",
-        "<add/delete/list/purge/pins> <type/id/type> <message/id>",
+        "<add/delete/list/search/purge/pins> <type/id/type/search> <message/id>",
         "A command to deal with MessageFactory System.",
         CommandCategory.STAFF,
         Roles.SUPER_ADMIN);
@@ -38,6 +38,29 @@ public class MessageFactoryCommand extends CommandBase {
       return;
     }
 
+    if (e.getSplitArgs()[0].equalsIgnoreCase("search") && e.getSplitArgs().length > 2) {
+      MessageFactory.MessageType type = MessageFactory.MessageType.fromText(e.getSplitArgs()[1]);
+      if (type == null) {
+        e.replyError("Invalid Type! Possible types are: " + MessageFactory.MessageType.getTypes(","));
+        return;
+      }
+
+      String search = e.getArgs().replaceFirst(e.getSplitArgs()[0] + " " + e.getSplitArgs()[1], "").trim().toLowerCase();
+
+      EmbedBuilder embed = new EmbedBuilder();
+      embed.setFooter("Results for " + search);
+      try {
+        for (Map.Entry<Integer, String> entry : messageFactory.getIdList(type).entrySet()) {
+          if (entry.getValue().toLowerCase().contains(search)) {
+            embed.addField("ID " + entry.getKey(), entry.getValue(), true);
+          }
+        }
+        e.reply(embed.build());
+      } catch (SQLException sqlException) {
+        e.replyError("issue");
+        sqlException.printStackTrace();
+      }
+    }
     if (e.getSplitArgs()[0].equalsIgnoreCase("list") && e.getSplitArgs().length > 2) {
       MessageFactory.MessageType type = MessageFactory.MessageType.fromText(e.getSplitArgs()[1]);
       if (type == null) {
