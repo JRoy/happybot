@@ -8,7 +8,7 @@ plugins {
 dependencies {
     compile 'com.github.KevinPriv:HypixelApi4J:API-1.7'
     compile 'net.dv8tion:JDA:4.1.1_165'
-    compile 'com.jagrosh:jda-utilities:3.0.3'
+    compile 'com.jagrosh:jda-utilities:3.0.4'
     compile 'club.minnced:discord-webhooks:0.3.1'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
