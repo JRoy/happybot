@@ -86,6 +86,7 @@ public class Main extends ListenerAdapter {
   public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException {
 
     System.setProperty("http.agent", "happybot");
+    System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
 
     log.info("Initializing happybot...");
 
