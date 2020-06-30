@@ -16,8 +16,8 @@ import java.util.List;
 @Slf4j
 public class YouTubeAPI extends APIBase {
   public static final String HAPPYHEART_YOUTUBE_ID = "UC-enFKOrEf6N2Kq_YG3sFcQ";
-  public static final String FETUS_YOUTUBE_ID = "UCBvPS7EWHVm0JSb8uYp4bNQ";
-  public static final String WHEEZY_YOUTUBE_ID = "UCzD9jOPren4Gi00wCv_NbXg";
+//  public static final String FETUS_YOUTUBE_ID = "UCBvPS7EWHVm0JSb8uYp4bNQ";
+//  public static final String WHEEZY_YOUTUBE_ID = "UCzD9jOPren4Gi00wCv_NbXg";
 
   @Getter(AccessLevel.PROTECTED)
   private final String apiKey;
@@ -49,7 +49,7 @@ public class YouTubeAPI extends APIBase {
 
   private void loadChannels() {
     channels.add(new ChannelBase(HAPPYHEART_YOUTUBE_ID, this, true));
-    channels.add(new ChannelBase(FETUS_YOUTUBE_ID, this, true));
-    channels.add(new ChannelBase(WHEEZY_YOUTUBE_ID, this, false));
+//    channels.add(new ChannelBase(FETUS_YOUTUBE_ID, this, true));
+//    channels.add(new ChannelBase(WHEEZY_YOUTUBE_ID, this, false));
   }
 }
