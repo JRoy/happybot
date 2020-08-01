@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.Member;
 public class PromoteCommand extends CommandBase {
 
   public PromoteCommand() {
-    super("promote", "<user>", "Promotes the target user up the staff hierarchy", CommandCategory.STAFF, Roles.RECRUITER);
+    super("promote", "<user>", "Promotes the target user up the staff hierarchy", CommandCategory.STAFF, Roles.SUPER_ADMIN);
   }
 
   @Override

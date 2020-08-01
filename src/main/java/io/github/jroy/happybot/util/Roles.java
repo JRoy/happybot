@@ -16,7 +16,6 @@ public enum Roles {
   //ADMIN("295673671203291147", "Admin", "Admin"),
   MODERATOR("264964563517046784", "Moderators", "Moderator"),
   HELPER("264965005949009920", "Trial Moderators", "Trial Mod"),
-  RECRUITER("299632971319869451", "Recruiter", "Recruiter"),
 
   //Punish Ranks
   EXP_SPAMMER("299652763099332608", "EXP Spammer", "EXP Spammer"),
@@ -45,7 +44,6 @@ public enum Roles {
   GAMBLE2("389118899989250050", "gamble2", "gamble2"),
 
   //Other Roles
-  ETHAN("369616007884701708", "Ethan", "Ethan"),
   BOT("285371566580170753", "Useless Bot", "Bot"),
   EVERYONE("237363812842340363", "@everyone", "@everyone");
 

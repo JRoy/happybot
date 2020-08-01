@@ -9,7 +9,7 @@ import io.github.jroy.happybot.util.Roles;
 public class StaffManagementCommand extends CommandBase {
 
   public StaffManagementCommand() {
-    super("staffmng", "<deny/deny-level/approve> <user>", "A command to help Recruiters with their job.", CommandCategory.STAFF, Roles.RECRUITER);
+    super("staffmng", "<deny/deny-level/approve> <user>", "A command to help Recruiters with their job.", CommandCategory.STAFF, Roles.SUPER_ADMIN);
   }
 
   @Override

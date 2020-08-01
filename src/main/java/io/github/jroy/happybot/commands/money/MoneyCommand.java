@@ -34,7 +34,6 @@ public class MoneyCommand extends CommandBase {
     bonuses.put(Roles.TRYHARD, r -> r + 1);
     bonuses.put(Roles.OBSESSIVE, r -> r + 1);
     bonuses.put(Roles.PATRON_BOYS, r -> r + 4);
-    bonuses.put(Roles.ETHAN, r -> r + 4);
     bonuses.put(Roles.SUPPORTER, r -> r + 2);
     bonuses.put(Roles.GAMBLE2, r -> r * 2);
     bonuses.put(Roles.GAMBLE1, r -> (int) (r * 1.5));

@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.Member;
 public class DemoteCommand extends CommandBase {
 
   public DemoteCommand() {
-    super("demote", "<user>", "Demotes target user from the staff team.", CommandCategory.STAFF, Roles.RECRUITER);
+    super("demote", "<user>", "Demotes target user from the staff team.", CommandCategory.STAFF, Roles.SUPER_ADMIN);
   }
 
   @Override
@@ -22,7 +22,6 @@ public class DemoteCommand extends CommandBase {
         e.replyError("User is not on the staff team!");
         return;
       }
-      removeIfHasRole(member, Roles.RECRUITER);
       removeIfHasRole(member, Roles.SUPER_ADMIN);
       removeIfHasRole(member, Roles.CHANNEL_MANAGER);
       removeIfHasRole(member, Roles.MODERATOR);
