@@ -41,7 +41,18 @@ public class EventManager extends ListenerAdapter {
     this.gameManager = gameManager;
     try {
       connection.createStatement().executeUpdate(CREATE_TABLE);
-      PreparedStatement statement = connection.prepareStatement(CREATE_REMINDER);
+
+      //Delete Existing Shutdown Tasks
+      PreparedStatement statement = connection.prepareStatement(SELECT_EVENT);
+      statement.setString(1, "");
+      statement.setString(2, EventType.SHUTDOWN.toString());
+      ResultSet set = statement.executeQuery();
+      while (set.next()) {
+        deleteInfraction(set.getInt("id"));
+      }
+
+      //Create shutdown task in an hour
+      statement = connection.prepareStatement(CREATE_REMINDER);
       statement.setString(1, "");
       statement.setLong(2, System.currentTimeMillis());
       statement.setLong(3, 3600000);
@@ -163,10 +174,13 @@ public class EventManager extends ListenerAdapter {
               long waitTime = resultSet.getLong("wait");
               String reason = resultSet.getString("reason");
 
-              Member targetMember = C.getGuild().getMemberById(userId);
-              if (targetMember == null) {
-                deleteInfraction(id);
-                continue;
+              Member targetMember = null;
+              if (!userId.isEmpty()) {
+                targetMember = C.getGuild().getMemberById(userId);
+                if (targetMember == null) {
+                  deleteInfraction(id);
+                  continue;
+                }
               }
 
               if ((System.currentTimeMillis() - createdEpoch) < waitTime) {
@@ -175,18 +189,21 @@ public class EventManager extends ListenerAdapter {
 
               switch (eventType) {
                 case XP: {
+                  assert targetMember != null;
                   C.removeRole(targetMember, Roles.EXP_SPAMMER);
                   deleteInfraction(id);
                   C.privChannel(targetMember, "Your EXP-Spammer has been removed!");
                   break;
                 }
                 case MUTE: {
+                  assert targetMember != null;
                   C.removeRole(targetMember, Roles.MUTED);
                   deleteInfraction(id);
                   C.privChannel(targetMember, "You are no longer muted!");
                   break;
                 }
                 case REMIND: {
+                  assert targetMember != null;
                   deleteInfraction(id);
                   Channels.RANDOM.getChannel().sendMessage(":bell: :bell: " + targetMember.getAsMention() + ": New Reminder! :bell: :bell:" + C.codeblock(reason)).queue();
                   break;
