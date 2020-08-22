@@ -11,6 +11,7 @@ import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
@@ -342,6 +343,7 @@ public class Leveling extends ListenerAdapter {
     }
   }
 
+  @SneakyThrows
   private void processRewards(int level, Member member, TextChannel channel) {
     StringBuilder sb = new StringBuilder();
     String randomMessage = messageFactory.getRawMessage(MessageFactory.MessageType.LEVEL).replaceAll("<user>", member.getAsMention()).replaceAll("<level>", C.bold("Level " + level));

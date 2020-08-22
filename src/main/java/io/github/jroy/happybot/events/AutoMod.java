@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.management.ManagementFactory;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -38,9 +39,15 @@ public class AutoMod extends ListenerAdapter {
       Objects.requireNonNull(Objects.requireNonNull(event.getJDA().getGuildById(Constants.GUILD_ID.get())).getTextChannelById(Channels.BOT_META.getId())).getHistory().retrievePast(10).queue(messages -> messages.forEach(message -> {
         message.getEmbeds().forEach(messageEmbed -> {
           if (messageEmbed != null && Objects.requireNonNull(messageEmbed.getTitle()).equalsIgnoreCase("Impending Update") && message.getAuthor() == Main.getJda().getUserById(Constants.BOT_ID.get()) && !message.isWebhookMessage()) {
+            String msg = "sadge";
+            try {
+              msg = messageFactory.getRawMessage(MessageFactory.MessageType.UPDATE_END);
+            } catch (SQLException throwables) {
+              throwables.printStackTrace();
+            }
             message.editMessage(new EmbedBuilder()
                 .setTitle("Update Complete")
-                .setDescription(messageFactory.getRawMessage(MessageFactory.MessageType.UPDATE_END) + "\nThis update has been finished in PID: " + ManagementFactory.getRuntimeMXBean().getName().split("[@]")[0])
+                .setDescription(msg + "\nThis update has been finished in PID: " + ManagementFactory.getRuntimeMXBean().getName().split("[@]")[0])
                 .build()).queue();
           }
         });

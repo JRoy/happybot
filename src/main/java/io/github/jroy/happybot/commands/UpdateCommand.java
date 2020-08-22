@@ -8,6 +8,7 @@ import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -92,6 +93,7 @@ public class UpdateCommand extends CommandBase {
       this.s = source;
     }
 
+    @SneakyThrows
     @Override
     public void run() {
       Channels.BOT_META.getChannel().sendMessage(new EmbedBuilder()

@@ -3,6 +3,7 @@ package io.github.jroy.happybot.events;
 import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.util.Channels;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -11,6 +12,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class WelcomeMessage extends ListenerAdapter {
   private final MessageFactory messageFactory;
 
+  @SneakyThrows
   @Override
   public void onGuildMemberJoin(GuildMemberJoinEvent event) {
     String joinformat = messageFactory.getRawMessage(MessageFactory.MessageType.JOIN).replaceAll("<player>", event.getMember().getAsMention()).replaceAll("<user>", event.getMember().getAsMention());
@@ -20,6 +22,7 @@ public class WelcomeMessage extends ListenerAdapter {
     Channels.WELCOME.getChannel().sendMessage(event.getMember().getAsMention() + joinformat).queue();
   }
 
+  @SneakyThrows
   @Override
   public void onGuildMemberRemove(GuildMemberRemoveEvent event) {
     String leaveformat = messageFactory.getRawMessage(MessageFactory.MessageType.LEAVE).replaceAll("<player>", "**" + event.getUser().getName() + "**").replaceAll("<user>", "**" + event.getUser().getName() + "**");
