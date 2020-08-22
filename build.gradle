@@ -41,5 +41,4 @@ shadowJar {
     manifest {
         attributes 'Main-Class': 'io.github.jroy.happybot.Main'
     }
-    minimize()
 }
