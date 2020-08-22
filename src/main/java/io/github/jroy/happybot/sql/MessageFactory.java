@@ -94,18 +94,39 @@ public class MessageFactory {
   }
 
   private void refreshMessages() throws SQLException {
-    joinMessages.clear();
-    leaveMessages.clear();
-    updateStartMessages.clear();
-    updateEndMessages.clear();
-    warningMessages.clear();
-    levelUpMessages.clear();
-    joinMessages = parseMessages(MessageType.JOIN);
-    leaveMessages = parseMessages(MessageType.LEAVE);
-    updateStartMessages = parseMessages(MessageType.UPDATE_START);
-    updateEndMessages = parseMessages(MessageType.UPDATE_END);
-    warningMessages = parseMessages(MessageType.WARN);
-    levelUpMessages = parseMessages(MessageType.LEVEL);
+    for (MessageType type : MessageType.values()) {
+      refreshMessages(type);
+    }
+  }
+
+  private void refreshMessages(MessageType type) throws SQLException {
+    List<String> messages = parseMessages(type);
+    switch (type) {
+      case JOIN: {
+        joinMessages = messages;
+        break;
+      }
+      case LEAVE: {
+        leaveMessages = messages;
+        break;
+      }
+      case WARN: {
+        warningMessages = messages;
+        break;
+      }
+      case LEVEL: {
+        levelUpMessages = messages;
+        break;
+      }
+      case UPDATE_END: {
+        updateEndMessages = messages;
+        break;
+      }
+      case UPDATE_START: {
+        updateStartMessages = messages;
+        break;
+      }
+    }
   }
 
   private List<String> parseMessages(MessageType messageType) throws SQLException {
@@ -143,30 +164,52 @@ public class MessageFactory {
   }
 
   @Nonnull
-  public String getRawMessage(MessageType messageType) {
-    if (messageType == MessageType.JOIN) {
-      return joinMessages.get(random.nextInt(joinMessages.size()));
+  public String getRawMessage(MessageType messageType) throws SQLException {
+    String message = "";
+    int maxSize = getTotals(messageType);
+    if (maxSize == 0) {
+      //We ran out of random messages, get a pool of 50 more.
+      refreshMessages(messageType);
+      maxSize = getTotals(messageType);
     }
-    if (messageType == MessageType.LEAVE) {
-      return leaveMessages.get(random.nextInt(leaveMessages.size()));
-    }
-    if (messageType == MessageType.WARN) {
-      String message = warningMessages.get(random.nextInt(warningMessages.size()));
-      if (!message.toLowerCase().contains("<user>")) {
-        message = "<user>: " + message;
+    int index = random.nextInt(maxSize);
+    switch (messageType) {
+      case JOIN: {
+        message = joinMessages.get(index);
+        joinMessages.remove(index);
+        break;
       }
-      return message;
+      case LEAVE: {
+        message = leaveMessages.get(index);
+        leaveMessages.remove(index);
+        break;
+      }
+      case WARN: {
+        String msg = warningMessages.get(index);
+        if (!msg.toLowerCase().contains("<user>")) {
+          msg = "<user>: " + msg;
+        }
+        message = msg;
+        warningMessages.remove(index);
+        break;
+      }
+      case LEVEL: {
+        message = levelUpMessages.get(index);
+        levelUpMessages.remove(index);
+        break;
+      }
+      case UPDATE_END: {
+        message = updateEndMessages.get(index);
+        updateEndMessages.remove(index);
+        break;
+      }
+      case UPDATE_START: {
+        message = updateStartMessages.get(index);
+        updateStartMessages.remove(index);
+        break;
+      }
     }
-    if (messageType == MessageType.UPDATE_START) {
-      return updateStartMessages.get(random.nextInt(updateStartMessages.size()));
-    }
-    if (messageType == MessageType.UPDATE_END) {
-      return updateEndMessages.get(random.nextInt(updateEndMessages.size()));
-    }
-    if (messageType == MessageType.LEVEL) {
-      return levelUpMessages.get(random.nextInt(levelUpMessages.size()));
-    }
-    return "";
+    return message;
   }
 
   public int getTotals(MessageType messageType) {
