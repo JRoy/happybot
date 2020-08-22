@@ -16,7 +16,7 @@ public class MessageFactory {
   private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS `messages` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `type` VARCHAR(50) NOT NULL , `value` BINARY(255) NOT NULL , UNIQUE (`id`)) ENGINE = InnoDB;";
   private static final String INSERT_MESSAGE = "INSERT INTO `messages` (`type`, `value`) VALUES (?, ?)";
   private static final String DELETE_MESSAGE = "DELETE FROM `messages` WHERE id = ?;";
-  private static final String SELECT_MESSAGES = "SELECT * FROM `messages` WHERE type = ?;";
+  private static final String SELECT_MESSAGES = "SELECT * FROM `messages` WHERE type = ? ORDER BY RAND() LIMIT 50;";
   private final Connection connection;
   private final Random random = new Random();
   private List<String> joinMessages = new ArrayList<>();
@@ -119,7 +119,7 @@ public class MessageFactory {
 
     Map<Integer, String> msgs = new HashMap<>();
     while (set.next()) {
-      msgs.put(set.getInt("id"), new String(set.getBytes("value"), StandardCharsets.UTF_8).replace("\0", ""));
+      msgs.put(set.getInt("id"), new String(set.getBytes("value"), StandardCharsets.UTF_8).replace("\0", "").trim());
     }
     return msgs;
   }
