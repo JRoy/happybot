@@ -4,7 +4,8 @@ public enum EventType {
 
   XP("xp"),
   MUTE("mute"),
-  REMIND("remind");
+  REMIND("remind"),
+  SHUTDOWN("shutdown");
 
   private final String translation;
 

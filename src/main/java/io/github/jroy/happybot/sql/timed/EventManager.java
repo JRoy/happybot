@@ -1,5 +1,6 @@
 package io.github.jroy.happybot.sql.timed;
 
+import io.github.jroy.happybot.game.GameManager;
 import io.github.jroy.happybot.sql.SQLManager;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
@@ -33,10 +34,20 @@ public class EventManager extends ListenerAdapter {
   private final Connection connection;
   private boolean reg = false;
 
-  public EventManager(SQLManager sqlManager) {
+  private final GameManager gameManager;
+
+  public EventManager(SQLManager sqlManager, GameManager gameManager) {
     connection = sqlManager.getConnection();
+    this.gameManager = gameManager;
     try {
       connection.createStatement().executeUpdate(CREATE_TABLE);
+      PreparedStatement statement = connection.prepareStatement(CREATE_REMINDER);
+      statement.setString(1, "");
+      statement.setLong(2, System.currentTimeMillis());
+      statement.setLong(3, 3600000);
+      statement.setString(4, EventType.SHUTDOWN.toString());
+      statement.setString(5, "");
+      statement.execute();
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -179,6 +190,10 @@ public class EventManager extends ListenerAdapter {
                   deleteInfraction(id);
                   Channels.RANDOM.getChannel().sendMessage(":bell: :bell: " + targetMember.getAsMention() + ": New Reminder! :bell: :bell:" + C.codeblock(reason)).queue();
                   break;
+                }
+                case SHUTDOWN: {
+                  deleteInfraction(id);
+                  gameManager.setPendingRestart(true);
                 }
                 default:
                   break;

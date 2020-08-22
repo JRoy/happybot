@@ -54,7 +54,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings({"unused", "FieldCanBeLocal"})
+@SuppressWarnings({"FieldCanBeLocal"})
 @Slf4j
 public class Main extends ListenerAdapter {
 
@@ -214,8 +214,11 @@ public class Main extends ListenerAdapter {
   }
 
   private static List<EventListener> loadEventListeners() {
+    log.info("Loading Game Manager...");
+    eventListeners.add(gameManager = new GameManager(sqlManager));
+
     log.info("Loading Event Manager...");
-    eventListeners.add(eventManager = new EventManager(sqlManager));
+    eventListeners.add(eventManager = new EventManager(sqlManager, gameManager));
 
     log.info("Loading AutoMod...");
     eventListeners.add(new AutoMod(messageFactory));
@@ -237,9 +240,6 @@ public class Main extends ListenerAdapter {
 
     log.info("Loading OG Command Manager...");
     eventListeners.add(ogCommandManager = new OGCommandManager(sqlManager));
-
-    log.info("Loading Game Manager...");
-    eventListeners.add(gameManager = new GameManager(sqlManager));
 
     eventListeners.add(new Main());
 
