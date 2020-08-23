@@ -9,6 +9,7 @@ import io.github.jroy.happybot.util.Roles;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 
 public class RemindersCommand extends CommandBase {
 
@@ -30,7 +31,7 @@ public class RemindersCommand extends CommandBase {
       ResultSet reminders = eventManager.getUserReminders(targetId);
       StringBuilder builder = new StringBuilder().append("Reminders:\n");
       while (reminders.next()) {
-        builder.append("- #").append(reminders.getInt("id")).append(" ").append(C.code(reminders.getString("reason"))).append("\n");
+        builder.append("- #").append(reminders.getInt("id")).append(" ").append(" [").append(DateFormat.getInstance().format(reminders.getLong("epoch"))).append("] ").append(C.code(reminders.getString("reason"))).append("\n");
       }
       e.reply(builder.toString());
     } catch (SQLException e1) {
