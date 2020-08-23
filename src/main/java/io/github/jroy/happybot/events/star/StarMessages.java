@@ -335,9 +335,11 @@ public class StarMessages extends ListenerAdapter {
     }
 
     if (!footer.startsWith("Fanart")) {
-      embed.setThumbnail(Objects.requireNonNull(message.getMember()).getUser().getAvatarUrl());
+      embed.setThumbnail(message.getAuthor().getAvatarUrl());
     }
-    embed.setColor(Objects.requireNonNull(message.getMember()).getColor());
+    if (message.getMember() != null) {
+      embed.setColor(Objects.requireNonNull(message.getMember()).getColor());
+    }
     if (C.containsImage(message)) {
       embed.setImage(C.getImage(message));
     }
@@ -424,15 +426,20 @@ public class StarMessages extends ListenerAdapter {
     @Override
     public void run() {
       if (!alreadyUsedMessages.contains(message.getId())) {
-        String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
-        String footer = NEW_GILDED_MESSAGE + " from #" + message.getChannel().getName() + " (" + C.getFullName(member.getUser()) + ")";
+        String privateMessageText;
+        String footer;
         if (e.getId().equalsIgnoreCase(Channels.FANART.getId()) && C.hasRole(member, Roles.SUPER_ADMIN)) {
           privateMessageText = "";
           footer = "Fanart";
+        } else {
+          privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
+          footer = NEW_GILDED_MESSAGE + " from #" + message.getChannel().getName() + " (" + C.getFullName(member.getUser()) + ")";
         }
         alreadyUsedMessages.add(message.getId());
         sendStarredMessage(footer, message, privateMessageText, null, member);
-        addGild(message.getAuthor().getId(), 1);
+        if (!footer.equals("Fanart")) {
+          addGild(message.getAuthor().getId(), 1);
+        }
       }
     }
   }
