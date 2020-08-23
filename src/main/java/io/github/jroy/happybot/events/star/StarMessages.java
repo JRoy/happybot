@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageReaction;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -306,13 +307,13 @@ public class StarMessages extends ListenerAdapter {
   }
 
   private void handleGild(GuildMessageReactionAddEvent e) {
-    e.getChannel().retrieveMessageById(e.getMessageId()).queue(message -> CompletableFuture.runAsync(new HandleGild(e, message)));
+    e.getChannel().retrieveMessageById(e.getMessageId()).queue(message -> CompletableFuture.runAsync(new HandleGild(e.getChannel(), e.getMember(), message)));
   }
 
   private void sendStarredMessage(String footer, Message message, String privateMessageText, StarEmote emote, Member causedUser) {
     Channels channel = Channels.STARRED_MESSAGES;
     EmbedBuilder embed = new EmbedBuilder()
-        .setTitle(C.getFullName(message.getAuthor()))
+        .setTitle(C.getFullName(message.getAuthor()), message.getJumpUrl())
         .setDescription(message.getContentRaw());
 
     if (message.getEmbeds().size() > 0) {
@@ -325,22 +326,26 @@ public class StarMessages extends ListenerAdapter {
     if (footer.startsWith(NEW_GILDED_MESSAGE) || footer.startsWith("Suggestion approved")) {
       embed.setFooter(footer, "https://cdn.discordapp.com/emojis/371121885997694976.png?v=1");
       pastGilds.put(message.getId(), infoToken);
-      if (footer.startsWith("Suggestion approved")) {
-        channel = Channels.SUGGESTIONS_STATUS;
+      if (footer.startsWith("Fanart")) {
+        channel = Channels.FANART_ARCHIVE;
       }
-    } else {
+    } else if (!footer.startsWith("Fanart")) {
       embed.setFooter(footer, emote.getIconUrl());
     }
 
-    embed.setThumbnail(Objects.requireNonNull(message.getMember()).getUser().getAvatarUrl())
-        .setColor(message.getMember().getColor());
+    if (!footer.startsWith("Fanart")) {
+      embed.setThumbnail(Objects.requireNonNull(message.getMember()).getUser().getAvatarUrl());
+    }
+    embed.setColor(Objects.requireNonNull(message.getMember()).getColor());
     if (C.containsImage(message)) {
       embed.setImage(C.getImage(message));
     }
 
     channel.getChannel().sendMessage(embed.build()).queue(infoToken::addCaused);
-    C.privChannel(message.getMember(), privateMessageText);
-    C.privChannel(message.getMember(), embed.build());
+    if (!privateMessageText.isEmpty()) {
+      C.privChannel(message.getMember(), privateMessageText);
+      C.privChannel(message.getMember(), embed.build());
+    }
     alreadyUsedMessages.add(message.getId());
   }
 
@@ -403,13 +408,15 @@ public class StarMessages extends ListenerAdapter {
     }
   }
 
-  private class HandleGild implements Runnable {
+  public class HandleGild implements Runnable {
 
-    private final GuildMessageReactionAddEvent e;
+    private final TextChannel e;
+    private final Member member;
     private final Message message;
 
-    HandleGild(GuildMessageReactionAddEvent e, Message message) {
+    public HandleGild(TextChannel e, Member member, Message message) {
       this.e = e;
+      this.member = member;
       this.message = message;
     }
 
@@ -417,13 +424,13 @@ public class StarMessages extends ListenerAdapter {
     public void run() {
       if (!alreadyUsedMessages.contains(message.getId())) {
         String privateMessageText = "Congrats! One of your messages has been gilded by a staff member:";
-        String footer = NEW_GILDED_MESSAGE + " from #" + message.getChannel().getName() + " (" + C.getFullName(e.getUser()) + ")";
-        if (e.getChannel().getId().equalsIgnoreCase(Channels.SUGGESTIONS.getId()) && C.hasRole(e.getMember(), Roles.DEVELOPER)) {
-          privateMessageText = "Congrats! Your suggestion has been approved and will be implemented soon!";
-          footer = "Suggestion approved and is pending addition! (" + C.getFullName(e.getUser()) + ")";
+        String footer = NEW_GILDED_MESSAGE + " from #" + message.getChannel().getName() + " (" + C.getFullName(member.getUser()) + ")";
+        if (e.getId().equalsIgnoreCase(Channels.FANART.getId()) && C.hasRole(member, Roles.SUPER_ADMIN)) {
+          privateMessageText = "";
+          footer = "Fanart";
         }
         alreadyUsedMessages.add(message.getId());
-        sendStarredMessage(footer, message, privateMessageText, null, e.getMember());
+        sendStarredMessage(footer, message, privateMessageText, null, member);
         addGild(message.getAuthor().getId(), 1);
       }
     }

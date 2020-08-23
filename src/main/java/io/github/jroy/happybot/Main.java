@@ -241,6 +241,9 @@ public class Main extends ListenerAdapter {
     log.info("Loading OG Command Manager...");
     eventListeners.add(ogCommandManager = new OGCommandManager(sqlManager));
 
+    log.info("Loading Fanart Pinner...");
+    eventListeners.add(new FanartPinner());
+
     eventListeners.add(new Main());
 
     return eventListeners;
