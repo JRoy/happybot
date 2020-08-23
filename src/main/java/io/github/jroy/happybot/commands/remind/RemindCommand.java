@@ -29,7 +29,7 @@ public class RemindCommand extends CommandBase {
         e.reply(invalid);
         return;
       }
-      String reason = e.getArgs().replaceFirst(e.getSplitArgs()[0], "");
+      String reason = e.getArgs().replaceFirst(e.getSplitArgs()[0], "").trim();
 
       try {
         eventManager.createReminder(e.getMember().getUser().getId(), (long) wait.getMilliseconds(), reason);
