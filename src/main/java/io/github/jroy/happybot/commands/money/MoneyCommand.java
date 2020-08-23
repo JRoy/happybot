@@ -124,23 +124,19 @@ public class MoneyCommand extends CommandBase {
     }
 
     if (args.length >= 2 && args[0].equalsIgnoreCase("bal")) {
-      if (C.containsMention(e)) {
-        if (sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
+      Member member = C.matchMember(e.getMember(), args[1]);
+        if (sqlManager.isActiveUserH(member.getId())) {
           try {
-            e.replySuccess("User Balance is: " + C.prettyNum(sqlManager.getUser(C.getMentionedMember(e).getUser().getId()).getCoins()) + " coins!");
+            e.replySuccess(member.getUser().getName() + "'s balance is: " + C.prettyNum(sqlManager.getUser(member.getId()).getCoins()) + " coins!");
             return;
           } catch (SQLException e1) {
             e.replyError("Oof Error!");
             e1.printStackTrace();
           }
         } else {
-          e.replyError("User does not have an active money account!");
+          e.replyError(member.getUser().getName() + " does not have an active money account!");
           return;
         }
-      } else {
-        e.replyError(C.bold("Correct Usage:") + " ^" + name + " bal " + C.bold("<user>"));
-        return;
-      }
     }
 
     if (args[0].equalsIgnoreCase("create")) {
@@ -236,7 +232,8 @@ public class MoneyCommand extends CommandBase {
         e.replyError(C.bold("Correct Usage:") + " ^" + name + " pay <amount> <user>");
         return;
       }
-      if (!C.containsMention(e)) {
+      Member target = C.matchMember(null, args[2]);
+      if (target == null) {
         e.replyError(C.bold("Correct Usage:") + " ^" + name + " pay <amount> **<user>**");
         return;
       }
@@ -244,18 +241,18 @@ public class MoneyCommand extends CommandBase {
         e.replyError(C.bold("Correct Usage:") + " ^" + name + " pay **<amount>** <user>");
         return;
       }
-      if (!sqlManager.isActiveUserH(e.getMember().getUser().getId()) || !sqlManager.isActiveUserH(C.getMentionedMember(e).getUser().getId())) {
+      if (!sqlManager.isActiveUserH(e.getMember().getUser().getId()) || !sqlManager.isActiveUserH(target.getId())) {
         e.replyError("Both parties must have a money account please do `^money create` to get one!");
         return;
       }
-      if (C.getMentionedMember(e) == e.getMember()) {
+      if (target == e.getMember()) {
         e.replyError("You may not pay yourself! I know wut ur trying to do...");
         return;
       }
 
       try {
         UserToken fromToken = sqlManager.getUser(e.getMember().getUser().getId());
-        UserToken toToken = sqlManager.getUser(C.getMentionedMember(e).getUser().getId());
+        UserToken toToken = sqlManager.getUser(target.getId());
         int amount = Integer.parseInt(args[1]);
         if (fromToken.getCoins() < amount) {
           e.replyError("You do not have valid funds to complete this transaction.");
@@ -263,7 +260,7 @@ public class MoneyCommand extends CommandBase {
         }
         fromToken.takeCoins(amount);
         toToken.addCoins(amount);
-        e.replySuccess("Successfully paid " + C.bold(C.getMentionedMember(e).getEffectiveName()) + " " + C.underline(C.prettyNum(amount) + " coins!"));
+        e.replySuccess("Successfully paid " + C.bold(target.getEffectiveName()) + " " + C.underline(C.prettyNum(amount) + " coins!"));
       } catch (SQLException e1) {
         e.replyError("Oof Error");
       }
