@@ -170,7 +170,16 @@ public abstract class CommandBase extends Command {
   protected final void execute(CommandEvent event) {
     Member member = event.getMember();
 
-    if (disabled && !C.hasRole(event.getMember(), Roles.DEVELOPER)) {
+    // Check if we're in a dm and if the user is still in the primary guild.
+    if (member == null) {
+      member = C.getGuild().getMember(event.getAuthor());
+      if (member == null) {
+        event.reply("You must be in " + C.getGuild().getName() + " to use commands in this bot!");
+        return;
+      }
+    }
+
+    if (disabled && !C.hasRole(member, Roles.DEVELOPER)) {
       event.getMessage().addReaction("❌").queue();
       return;
     }
@@ -203,7 +212,7 @@ public abstract class CommandBase extends Command {
           return;
         }
       }
-      commandCooldowns.put(event.getMember(), OffsetDateTime.now().plus(cooldownDelay, cooldownUnit));
+      commandCooldowns.put(member, OffsetDateTime.now().plus(cooldownDelay, cooldownUnit));
     }
     executeCommand(new io.github.jroy.happybot.commands.base.CommandEvent(event.getEvent(), event.getArgs(), event.getClient()));
   }

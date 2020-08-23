@@ -11,6 +11,7 @@ public class AvatarCommand extends CommandBase {
 
   public AvatarCommand() {
     super("avatar", "[<user>]", "Gives you the avatar of a user.", CommandCategory.FUN);
+    this.guildOnly = false;
   }
 
   @Override

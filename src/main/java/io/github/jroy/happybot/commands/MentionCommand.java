@@ -10,6 +10,7 @@ public class MentionCommand extends CommandBase {
 
   public MentionCommand() {
     super("mention", "<twitter/git/twitch>", "Toggles what messages you would like to mentioned for.", CommandCategory.GENERAL);
+    this.guildOnly = false;
   }
 
   @Override

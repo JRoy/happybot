@@ -8,6 +8,7 @@ public class RulesCommand extends CommandBase {
 
   public RulesCommand() {
     super("rules", null, "Links to the rules.", CommandCategory.GENERAL);
+    this.guildOnly = false;
   }
 
   @Override

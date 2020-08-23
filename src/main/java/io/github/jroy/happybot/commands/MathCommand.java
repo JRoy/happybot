@@ -11,6 +11,7 @@ public class MathCommand extends CommandBase {
   public MathCommand() {
     super("math", "<math>", "Evaluates a math expression!", CommandCategory.FUN);
     this.aliases = new String[]{"maths"};
+    this.guildOnly = false;
   }
 
   @Override
@@ -33,11 +34,6 @@ public class MathCommand extends CommandBase {
       try {
         result = new Expression(e.getArgs()).eval().toPlainString();
       } catch (Expression.ExpressionException | ArithmeticException e1) {
-        e.replyError("Invalid Expression!");
-        return;
-      }
-
-      if (result == null) {
         e.replyError("Invalid Expression!");
         return;
       }

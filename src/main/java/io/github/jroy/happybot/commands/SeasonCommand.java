@@ -8,6 +8,7 @@ public class SeasonCommand extends CommandBase {
 
   public SeasonCommand() {
     super("seasons", null, "List's the seasons from happyheart's YouTube Channel.", CommandCategory.GENERAL);
+    this.guildOnly = false;
   }
 
   @Override

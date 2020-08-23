@@ -14,6 +14,7 @@ public class FactCommand extends CommandBase {
   public FactCommand() {
     super("fact", null, "Generates a random cat fact.", CommandCategory.FUN);
     this.setCooldownSeconds(10);
+    this.guildOnly = false;
   }
 
   @Override

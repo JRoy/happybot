@@ -20,6 +20,7 @@ public class LeagueCommand extends CommandBase {
   public LeagueCommand(League league) {
     super("league", "<" + Arrays.toString(Platform.values()).replaceAll("[1]", "") + "> <league username>", "Shows the league of legend stats of the target user!", CommandCategory.FUN);
     this.league = league;
+    this.guildOnly = false;
   }
 
   @Override

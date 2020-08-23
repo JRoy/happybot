@@ -23,6 +23,7 @@ public class HypixelCommand extends CommandBase {
     this.arguments = "<player>";
     this.category = new Category("Fun");
     this.hypixel = hypixel;
+    this.guildOnly = false;
   }
 
   @Override

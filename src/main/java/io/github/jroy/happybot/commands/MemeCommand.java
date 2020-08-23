@@ -49,6 +49,7 @@ public class MemeCommand extends CommandBase {
     subs.add("ihadastroke");
     subs.add("cursedimages");
     this.setCooldown(2, ChronoUnit.MINUTES);
+    this.guildOnly = false;
   }
 
   @Override

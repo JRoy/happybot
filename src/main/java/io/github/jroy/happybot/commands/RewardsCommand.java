@@ -9,6 +9,7 @@ public class RewardsCommand extends CommandBase {
 
   public RewardsCommand() {
     super("rewards", null, "Displays the role rewards for MEE6 XP.", CommandCategory.GENERAL);
+    this.guildOnly = false;
   }
 
   @Override

@@ -12,6 +12,7 @@ public class HecktownCommand extends CommandBase {
 
   public HecktownCommand() {
     super("hecktown", null, "Welcome to Hecktown!", CommandCategory.FUN);
+    this.guildOnly = false;
   }
 
   @Override

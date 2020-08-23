@@ -15,6 +15,7 @@ public class DiceCommand extends CommandBase {
   public DiceCommand() {
     super("dice", "[# of dice]d[sides]", "Roll dice.", CommandCategory.FUN);
     this.aliases = new String[]{"die", "roll"};
+    this.guildOnly = false;
   }
 
   @Override

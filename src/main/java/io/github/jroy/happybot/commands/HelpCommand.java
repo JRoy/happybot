@@ -15,6 +15,7 @@ public class HelpCommand extends CommandBase {
   public HelpCommand(CommandFactory commandFactory) {
     super("help", "[<command>]", "Displays command usages.", CommandCategory.GENERAL);
     this.commandFactory = commandFactory;
+    this.guildOnly = false;
   }
 
   @Override

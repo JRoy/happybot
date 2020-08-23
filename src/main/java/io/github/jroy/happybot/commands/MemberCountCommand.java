@@ -12,6 +12,7 @@ public class MemberCountCommand extends CommandBase {
   public MemberCountCommand() {
     super("membercount", null, "Returns counts of members in the server.", CommandCategory.GENERAL);
     this.aliases = new String[]{"usercount", "servercount"};
+    this.guildOnly = false;
   }
 
   @Override

@@ -17,6 +17,7 @@ public class PingCommand extends CommandBase {
   public PingCommand() {
     super("ping", null, "Checks the **BOT**'s latency to Discord", CommandCategory.GENERAL);
     this.aliases = new String[]{"pong"};
+    this.guildOnly = false;
   }
 
   @Override

@@ -3,6 +3,7 @@ package io.github.jroy.happybot.commands.base;
 import com.jagrosh.jdautilities.command.CommandClient;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Roles;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -61,4 +62,16 @@ public class CommandEvent extends com.jagrosh.jdautilities.command.CommandEvent 
     return getArgs().split(" ");
   }
 
+  @Override
+  public Member getMember() {
+    if (super.getMember() == null) {
+      return C.getGuild().getMember(super.getAuthor());
+    }
+    return super.getMember();
+  }
+
+  @Override
+  public Guild getGuild() {
+    return C.getGuild();
+  }
 }

@@ -22,6 +22,7 @@ public class RandomSeasonCommand extends CommandBase {
         "Season 8 - <https://bit.ly/3gn6iFb>",
         "Season 9 - <https://bit.ly/3jblsiH>"
     };
+    this.guildOnly = false;
   }
 
   @Override
