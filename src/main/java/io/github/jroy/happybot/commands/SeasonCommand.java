@@ -18,6 +18,8 @@ public class SeasonCommand extends CommandBase {
         "Season 3 - <http://bit.ly/2xpJ3Zm>\n" +
         "Season 4 - <http://bit.ly/2fTJKPD>\n" +
         "Season 5 - <http://bit.ly/2xq8dCu>\n" +
-        "Season 6 - <https://bit.ly/2JiwVze>");
+        "Season 6 - <https://bit.ly/2JiwVze>\n " +
+        "Season 8 - <https://bit.ly/3gn6iFb>\n" +
+        "Season 9 - <https://bit.ly/3jblsiH>");
   }
 }

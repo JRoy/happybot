@@ -18,7 +18,9 @@ public class RandomSeasonCommand extends CommandBase {
         "Season 3 - <http://bit.ly/2xpJ3Zm>",
         "Season 4 - <http://bit.ly/2fTJKPD>",
         "Season 5 - <http://bit.ly/2xq8dCu>",
-        "Season 6 - <https://bit.ly/2JiwVze>"
+        "Season 6 - <https://bit.ly/2JiwVze>",
+        "Season 8 - <https://bit.ly/3gn6iFb>",
+        "Season 9 - <https://bit.ly/3jblsiH>"
     };
   }
 
