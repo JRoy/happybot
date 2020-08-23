@@ -59,6 +59,7 @@ public class AutoMod extends ListenerAdapter {
   Advert Filter
   Auto React
   Git Ping Handler
+  Twitch Ping Handler
    */
   @Override
   public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -91,6 +92,18 @@ public class AutoMod extends ListenerAdapter {
       }
     }
 
+    //Twitch Ping Handler
+    if (message.getChannel() == Channels.LIVE.getChannel() && message.isWebhookMessage()) {
+      Roles.TWITCH.getRole().getManager().setMentionable(true).complete();
+      Channels.LIVE.getChannel().sendMessage(Roles.TWITCH.getRole().getAsMention()).complete();
+      try {
+        TimeUnit.SECONDS.sleep(1);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      } finally {
+        Roles.TWITCH.getRole().getManager().setMentionable(false).queue();
+      }
+    }
   }
 
   //Advert Filter

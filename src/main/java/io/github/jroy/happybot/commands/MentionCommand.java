@@ -9,7 +9,7 @@ import io.github.jroy.happybot.util.Roles;
 public class MentionCommand extends CommandBase {
 
   public MentionCommand() {
-    super("mention", "<twitter/git/updates>", "Toggles what messages you would like to mentioned for.", CommandCategory.GENERAL);
+    super("mention", "<twitter/git/twitch>", "Toggles what messages you would like to mentioned for.", CommandCategory.GENERAL);
   }
 
   @Override
@@ -35,6 +35,13 @@ public class MentionCommand extends CommandBase {
           sb.append("You will now receive notifications for updates!").append("\n");
         } else {
           sb.append("You will no longer receive notifications for updates!").append("\n");
+        }
+      }
+      if (e.getArgs().contains("twitch")) {
+        if (C.toggleRole(e.getMember(), Roles.TWITCH)) {
+          sb.append("You will now receive notifications for twitch streams!").append("\n");
+        } else {
+          sb.append("You will no longer receive notifications for twitch streams!").append("\n");
         }
       }
       if (sb.toString().isEmpty()) {

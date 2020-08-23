@@ -38,6 +38,7 @@ public enum Roles {
   TWITTER("366005538766585866", "Twitter", "Twitter"),
   GIT("366056865697628160", "Git", "Git"),
   UPDATES("366056967287865345", "Updates", "Updates"),
+  TWITCH("747201597477617825", "Twitch", "Twitch"),
 
   //Gamble ROles
   GAMBLE1("389118818753970177", "gamble1.5", "gamble1.5"),
