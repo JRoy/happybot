@@ -323,12 +323,13 @@ public class StarMessages extends ListenerAdapter {
 
     GildInfoToken infoToken = new GildInfoToken(causedUser.getUser().getId(), message.getAuthor().getId());
 
+    if (footer.startsWith("Fanart")) {
+      channel = Channels.FANART_ARCHIVE;
+    }
+
     if (footer.startsWith(NEW_GILDED_MESSAGE) || footer.startsWith("Suggestion approved")) {
       embed.setFooter(footer, "https://cdn.discordapp.com/emojis/371121885997694976.png?v=1");
       pastGilds.put(message.getId(), infoToken);
-      if (footer.startsWith("Fanart")) {
-        channel = Channels.FANART_ARCHIVE;
-      }
     } else if (!footer.startsWith("Fanart")) {
       embed.setFooter(footer, emote.getIconUrl());
     }
