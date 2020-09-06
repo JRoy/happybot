@@ -170,6 +170,9 @@ public class C {
    * @return Boolean, is the person has the role.
    */
   public static boolean hasRole(Member m, Roles r) {
+    if (m == null) {
+      return false;
+    }
     List<String> ids = getRoleIds(m.getRoles());
     return ids.contains(r.getId()) || (r.equals(Roles.SUPER_ADMIN) && ids.contains(Roles.CHANNEL_MANAGER.getId()));
   }
@@ -182,6 +185,9 @@ public class C {
    * @return If user has all roles.
    */
   public static boolean hasRoles(Member m, Roles... r) {
+    if (m == null) {
+      return false;
+    }
     if (r.length != 0) {
       List<String> ids = getRoleIds(m.getRoles());
       for (Roles role : r) {
