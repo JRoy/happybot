@@ -170,18 +170,35 @@ public class C {
    * @return Boolean, is the person has the role.
    */
   public static boolean hasRole(Member m, Roles r) {
-    try {
-      for (Role s : m.getRoles()) {
-        if (r.equals(Roles.SUPER_ADMIN) && s.getId().equals(Roles.CHANNEL_MANAGER.getId())) {
-          return true;
-        }
-        if (s.getId().equals(r.getRole().getId())) {
-          return true;
+    List<String> ids = getRoleIds(m.getRoles());
+    return ids.contains(r.getId()) || (r.equals(Roles.SUPER_ADMIN) && ids.contains(Roles.CHANNEL_MANAGER.getId()));
+  }
+
+  /**
+   * Sees if a user has the roles displayed.
+   *
+   * @param m The member to check.
+   * @param r The roles to check
+   * @return If user has all roles.
+   */
+  public static boolean hasRoles(Member m, Roles... r) {
+    if (r.length != 0) {
+      List<String> ids = getRoleIds(m.getRoles());
+      for (Roles role : r) {
+        if (!ids.contains(role.getId())) {
+          return false;
         }
       }
-    } catch (NullPointerException ignored) {
     }
-    return false;
+    return true;
+  }
+
+  public static List<String> getRoleIds(List<Role> roles) {
+    List<String> list = new ArrayList<>();
+    for (Role role : roles) {
+      list.add(role.getId());
+    }
+    return list;
   }
 
   /**

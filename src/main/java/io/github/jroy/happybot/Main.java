@@ -310,7 +310,7 @@ public class Main extends ListenerAdapter {
         new WarningsCommand(warningManager),
         new SpamCommand(eventManager),
         new OgCommand(),
-        new FansCommand(),
+        new FansCommand(leveling),
         new LockCommand(),
         new UnlockCommand(),
         new FanartCommand(),
