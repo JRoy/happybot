@@ -14,7 +14,7 @@ import java.util.Set;
 public class RestrictEmoteCommand extends CommandBase {
 
   public RestrictEmoteCommand() {
-    super("restrictemote", "<on/off> <emoteid>", "Restricts an emote to moderators only.", CommandCategory.STAFF, Roles.SUPER_ADMIN);
+    super("restrictemote", "<on/off> <emoteid/*>", "Restricts an emote to moderators only.", CommandCategory.STAFF, Roles.SUPER_ADMIN);
   }
 
   @Override
@@ -25,7 +25,7 @@ public class RestrictEmoteCommand extends CommandBase {
     }
 
     Emote emote = e.getGuild().getEmoteById(e.getSplitArgs()[1]);
-    if (emote == null) {
+    if (emote == null && !e.getSplitArgs()[1].equals("*")) {
       e.replyError("Invalid emote id!");
       return;
     }
@@ -37,7 +37,17 @@ public class RestrictEmoteCommand extends CommandBase {
       roles = new HashSet<>();
     }
 
-    emote.getManager().setRoles(roles).queue();
+    if (emote != null) {
+      emote.getManager().setRoles(roles).queue();
+    } else {
+      for (Emote emotes : e.getGuild().getEmotes()) {
+        if (emotes.getName().equals("gild")) {
+          //skip this one
+          continue;
+        }
+        emotes.getManager().setRoles(roles).queue();
+      }
+    }
     e.reply("Updated emote state!");
   }
 }
