@@ -14,6 +14,7 @@ public enum Channels {
   TWITTER("362333614580432896"),
   LEADERBOARD("464502770574163982"),
   SUGGESTIONS("498932865241710610"),
+  SUB_ALERTS("661271148272812048"),
   RANDOM("294926978882994186"),
   MEMES("578665535575949322"),
   TRUE_FALSE_GAME("474616686201536523"),
@@ -37,5 +38,9 @@ public enum Channels {
 
   public TextChannel getChannel() {
     return C.getGuild().getTextChannelById(id);
+  }
+
+  public void sendMessage(String message) {
+    getChannel().sendMessage(message).queue();
   }
 }

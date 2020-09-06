@@ -244,6 +244,9 @@ public class Main extends ListenerAdapter {
     log.info("Loading Fanart Pinner...");
     eventListeners.add(new FanartPinner());
 
+    log.info("Loading Sub Alerts...");
+    eventListeners.add(new SubAlerts());
+
     eventListeners.add(new Main());
 
     return eventListeners;
