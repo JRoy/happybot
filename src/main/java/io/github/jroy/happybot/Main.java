@@ -327,6 +327,7 @@ public class Main extends ListenerAdapter {
         new MuteCommand(eventManager),
         new MessageFactoryCommand(messageFactory),
         new EmoteCommand(),
+        new RestrictEmoteCommand(),
         new StarGoalCommand(starMessages),
         new SlowmodeCommand(),
 
