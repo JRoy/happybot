@@ -24,11 +24,15 @@ public class RestrictEmoteCommand extends CommandBase {
       return;
     }
 
-    Emote emote = e.getGuild().getEmoteById(e.getSplitArgs()[1]);
-    if (emote == null && !e.getSplitArgs()[1].equals("*")) {
-      e.replyError("Invalid emote id!");
-      return;
+    Emote emote = null;
+    if (!e.getSplitArgs()[1].equals("*")) {
+      emote = e.getGuild().getEmoteById(e.getSplitArgs()[1]);
+      if (emote == null) {
+        e.replyError("Invalid emote id!");
+        return;
+      }
     }
+
 
     Set<Role> roles;
     if (e.getSplitArgs()[0].equalsIgnoreCase("on")) {
