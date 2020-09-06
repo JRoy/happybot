@@ -15,9 +15,14 @@ public enum Reward {
   DAILY2(2, "x2 Daily Reward", 30000, e -> {
     C.giveRole(e.getMember(), Roles.GAMBLE2, "Added from ^shop reward");
   }),
+  DAILY3(7, "x2.5 Daily Reward", 50000, e -> {
+    C.giveRole(e.getMember(), Roles.GAMBLE3, "Added from ^shop reward");
+  }),
+
   CHANNEL(3, "#casino-lounge Channel", 2500, e -> {
     C.giveRole(e.getMember(), Roles.ADDICT, "Added from ^shop reward");
   }),
+
   STEALTH(4, "Increase Rate of Robbery", 5000, e -> {
   }),
   BAG(5, "Increase Rob Amount", 5000, e -> {

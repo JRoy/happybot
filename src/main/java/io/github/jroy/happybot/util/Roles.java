@@ -43,6 +43,7 @@ public enum Roles {
   //Gamble ROles
   GAMBLE1("389118818753970177", "gamble1.5", "gamble1.5"),
   GAMBLE2("389118899989250050", "gamble2", "gamble2"),
+  GAMBLE3("751998987376001104", "gamble2.5", "gamble2.5"),
 
   //Other Roles
   BOT("285371566580170753", "Useless Bot", "Bot"),
