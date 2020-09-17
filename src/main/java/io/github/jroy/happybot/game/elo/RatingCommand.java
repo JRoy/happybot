@@ -30,7 +30,7 @@ public class RatingCommand extends CommandBase {
         EloPlayer player = eloManager.getPlayer(key);
         int rank = eloManager.getRank(key);
         builder.addField(gameType.getName(), "**Rating:** " + (int) player.getEloRating()
-            + (rank != -1 ? "\n**Unranked**" : "\n**Ranking**: #" + rank), true);
+            + (rank == -1 ? "\n**Unranked**" : "\n**Ranking**: #" + rank), true);
       }
     }
 
