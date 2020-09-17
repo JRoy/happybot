@@ -8,6 +8,7 @@ import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.sql.PurchaseManager;
 import io.github.jroy.happybot.sql.Reward;
 import io.github.jroy.happybot.sql.SQLManager;
+import io.github.jroy.happybot.util.BotConfig;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
@@ -145,7 +146,7 @@ public class Leveling extends ListenerAdapter {
             builder.setDescription(description);
             Channels.LEADERBOARD.getChannel()
                 .retrieveMessageById(leaderboardMessageId).complete().editMessage(builder.build()).queue();
-          } catch (SQLException e) {
+          } catch (SQLException | IllegalStateException e) {
             log.error("Error While Processing Leaderboard");
             e.printStackTrace();
           }

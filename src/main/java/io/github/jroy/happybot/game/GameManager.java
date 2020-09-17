@@ -1,8 +1,14 @@
 package io.github.jroy.happybot.game;
 
+import club.minnced.discord.webhook.send.WebhookEmbed;
+import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import io.github.jroy.happybot.Main;
+import io.github.jroy.happybot.game.elo.EloKey;
+import io.github.jroy.happybot.game.elo.EloManager;
+import io.github.jroy.happybot.game.elo.EloPlayer;
+import io.github.jroy.happybot.game.elo.EloResult;
 import io.github.jroy.happybot.game.model.GameMessageReceived;
 import io.github.jroy.happybot.game.model.GameReactionReceived;
 import io.github.jroy.happybot.game.model.GameStartEvent;
@@ -12,6 +18,9 @@ import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Categories;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
@@ -34,8 +43,11 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class GameManager extends ListenerAdapter {
+  private static final DecimalFormat CHANGE_FORMAT = new DecimalFormat("(+#);(-#)");
 
   private final SQLManager sqlManager;
+  @Getter
+  private final EloManager eloManager;
   /**
    * String: Message ID that also serves as a prompt
    * PendingGameToken: The information about the pending game.
@@ -69,8 +81,9 @@ public class GameManager extends ListenerAdapter {
   private boolean pendingRestart = false;
   private int pendingCode = 0;
 
-  public GameManager(SQLManager sqlManager) {
+  public GameManager(SQLManager sqlManager, EloManager eloManager) {
     this.sqlManager = sqlManager;
+    this.eloManager = eloManager;
     new Timer().scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
@@ -136,8 +149,16 @@ public class GameManager extends ListenerAdapter {
   public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
     if (channelToIdMap.containsKey(e.getChannel().getId()) && !e.isWebhookMessage() && !e.getAuthor().isBot()) {
       int id = channelToIdMap.get(e.getChannel().getId());
-      activeGames.get(id).setLastAction(OffsetDateTime.now().plus(10, ChronoUnit.MINUTES));
-      activeGames.get(id).getGame().messageReceived(new GameMessageReceived(activeGames.get(id), e));
+      ActiveGame activeGame = activeGames.get(id);
+      activeGame.setLastAction(OffsetDateTime.now().plus(10, ChronoUnit.MINUTES));
+      Game game = activeGame.getGame();
+
+      // debug command to auto win
+      if (e.getMessage().getContentRaw().equalsIgnoreCase("win") && C.hasRole(e.getMember(), Roles.SUPER_ADMIN)) {
+        game.endGame(activeGame, e.getMember());
+      } else {
+        game.messageReceived(new GameMessageReceived(activeGame, e));
+      }
     }
   }
 
@@ -244,6 +265,23 @@ public class GameManager extends ListenerAdapter {
     activeGames.put(gameId, activeGame);
     channelToIdMap.put(newChannel.getId(), gameId);
     activeUsers.add(member.getUser().getId());
+
+
+    GameType type = GameType.getGameType(game);
+    if (type.isSuportsElo()) {
+      Iterator<Member> it = players.iterator();
+      Member first = it.next();
+      EloPlayer firstPlayer = eloManager.getPlayer(new EloKey(first.getId(), type));
+      Member second = it.next();
+      EloPlayer secondPlayer = eloManager.getPlayer(new EloKey(second.getId(), type));
+      if (firstPlayer != null && secondPlayer != null) {
+        activeGame.sendMessage(new WebhookEmbedBuilder().setDescription(
+            first.getAsMention() + ", you have a rating of " + (int) firstPlayer.getEloRating() + ".\n"
+                + second.getAsMention() + ", you have a rating of " + (int) secondPlayer.getEloRating() + ".")
+            .build());
+      }
+    }
+
     activeGame.getGame().gameStart(new GameStartEvent(activeGame));
   }
 
@@ -259,11 +297,33 @@ public class GameManager extends ListenerAdapter {
       Objects.requireNonNull(activeGame.getChannel().getPermissionOverride(curPlayer)).getManager().deny(Permission.MESSAGE_WRITE).queue();
     }
     activeGame.sendMessage("---------------------------------------------------------------");
+    GameType gameType = GameType.getGameType(activeGame.getGame());
     if (winner != null) {
-      activeGame.sendMessage(
-          "Congratulations " + winner.getAsMention() + " for winning the game!\n" +
-              "You have been awarded **" + C.prettyNum(coinPrize) + " coins**!\n" +
-              "Spend them in `^shop`!");
+      Member loser = null;
+      if (gameType.isSuportsElo()) {
+        for (Member player : activeGame.getPlayers()) {
+          if (!winner.equals(player)) {
+            loser = player;
+            break;
+          }
+        }
+      }
+
+      EloResult result = null;
+      if (loser != null) {
+        result = eloManager.calculate(gameType, winner.getUser(), loser.getUser(), false);
+      }
+
+      String message = "Congratulations " + winner.getAsMention() + " for winning the game!\n" +
+          "You have been awarded **" + C.prettyNum(coinPrize) + " coins**!\n" +
+          "Spend them in `^shop`!";
+
+      if (result != null) {
+        message += "\n\nWinner rating: " + winner.getAsMention() + ": " + result.getWinnerElo() + " " + CHANGE_FORMAT.format(result.getWinnerEloChange())
+            + "\nLoser rating: " + loser.getAsMention() + ": " + result.getLoserElo() + " " + CHANGE_FORMAT.format(result.getLoserEloChange());
+      }
+
+      activeGame.sendMessage(message);
       try {
         if (!sqlManager.isActiveUserH(winner.getUser().getId())) {
           sqlManager.newUser(winner.getUser().getId());
@@ -276,12 +336,33 @@ public class GameManager extends ListenerAdapter {
             .queue();
       }
     } else {
-      activeGame.sendMessage(
-          "Nobody Won the Game :(\n" +
-              "Better Luck Next Time!\n" +
-              "This channel will be removed in approximately **1 minute!**\n" +
-              "---------------------------------------------------------------"
-      );
+      Member p0 = null;
+      Member p1 = null;
+      if (gameType.isSuportsElo()) {
+        for (Member player : activeGame.getPlayers()) {
+          if (p0 == null) {
+            p0 = player;
+          } else {
+            p1 = player;
+            break;
+          }
+        }
+      }
+
+      EloResult result = null;
+      if (p0 != null && p1 != null) {
+        result = eloManager.calculate(gameType, p0.getUser(), p1.getUser(), true);
+      }
+
+      String message = "Nobody Won the Game :(\n" +
+          "Better Luck Next Time!\n" +
+          "This channel will be removed in approximately **1 minute!**\n" +
+          "---------------------------------------------------------------";
+      if (result != null) {
+        message += "\n\nWinner rating: " + p0.getAsMention() + ": " + result.getWinnerElo() + " " + CHANGE_FORMAT.format(result.getWinnerEloChange())
+            + "\nLoser rating: " + p1.getAsMention() + ": " + result.getLoserElo() + " " + CHANGE_FORMAT.format(result.getLoserEloChange());
+      }
+      activeGame.sendMessage(message);
     }
     checkRestart(1);
     new Timer().schedule(new TimerTask() {

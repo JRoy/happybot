@@ -19,7 +19,7 @@ public class LeaderboardCommand extends CommandBase {
   private final Leveling leveling;
 
   public LeaderboardCommand(Leveling leveling) {
-    super("leaderboard", null, "Displays the level rankings.", CommandCategory.FUN);
+    super("xpleaderboard", null, "Displays the level rankings.", CommandCategory.FUN);
     this.aliases = new String[]{"levels"};
     this.leveling = leveling;
   }

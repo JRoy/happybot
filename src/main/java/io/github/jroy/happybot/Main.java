@@ -26,7 +26,10 @@ import io.github.jroy.happybot.commands.report.ReportCommand;
 import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.*;
 import io.github.jroy.happybot.events.star.StarMessages;
+import io.github.jroy.happybot.game.elo.EloManager;
+import io.github.jroy.happybot.game.GameCommand;
 import io.github.jroy.happybot.game.GameManager;
+import io.github.jroy.happybot.game.elo.RatingCommand;
 import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.sql.*;
 import io.github.jroy.happybot.sql.og.OGCommandManager;
@@ -79,6 +82,7 @@ public class Main extends ListenerAdapter {
   private static Reddit reddit;
   private static StarMessages starMessages;
   private static Leveling leveling;
+  private static EloManager eloManager;
   @Getter
   private static CommandClient commandClient;
   private final Main instance = this;
@@ -107,9 +111,10 @@ public class Main extends ListenerAdapter {
       System.exit(1);
     }
 
-    loadApis();
-
-    themeManager = loadThemeManager();
+    if (!botConfig.isLiteMode()) {
+      loadApis();
+      themeManager = loadThemeManager();
+    }
 
     //Load our SQL Stuff
     sqlManager = new SQLManager(botConfig.getSqlPassword());
@@ -123,6 +128,9 @@ public class Main extends ListenerAdapter {
 
     log.info("Loading Report Manager...");
     reportManager = new ReportManager(sqlManager);
+
+    log.info("Loading Elo Manager...");
+    eloManager = new EloManager(sqlManager);
 
     List<EventListener> eventListeners = loadEventListeners();
     loadCommandFactory();
@@ -158,11 +166,12 @@ public class Main extends ListenerAdapter {
     String twitterOSecret = getAndSet(yamlFile, "twitter.oauth-secret");
     String twitterAToken = getAndSet(yamlFile, "twitter.access-token");
     String twitterASecret = getAndSet(yamlFile, "twitter.access-token-secret");
+    boolean liteMode = "true".equalsIgnoreCase(getAndSet(yamlFile, "lite-mode"));
 
     yamlFile.save();
     yamlFile.load();
 
-    botConfig = new BotConfig(token, hypixel, riot, youtubeApiKey, sql, prefix, alternativePrefix, twitterOKey, twitterOSecret, twitterAToken, twitterASecret);
+    botConfig = new BotConfig(token, hypixel, riot, youtubeApiKey, sql, prefix, alternativePrefix, twitterOKey, twitterOSecret, twitterAToken, twitterASecret, liteMode);
     log.info("Loaded Config!");
   }
 
@@ -215,7 +224,7 @@ public class Main extends ListenerAdapter {
 
   private static List<EventListener> loadEventListeners() {
     log.info("Loading Game Manager...");
-    eventListeners.add(gameManager = new GameManager(sqlManager));
+    eventListeners.add(gameManager = new GameManager(sqlManager, eloManager));
 
     log.info("Loading Event Manager...");
     eventListeners.add(eventManager = new EventManager(sqlManager, gameManager));
@@ -223,8 +232,10 @@ public class Main extends ListenerAdapter {
     log.info("Loading AutoMod...");
     eventListeners.add(new AutoMod(messageFactory));
 
-    log.info("Loading Welcome Manager...");
-    eventListeners.add(new WelcomeMessage(messageFactory));
+    if (!botConfig.isLiteMode()) {
+      log.info("Loading Welcome Manager...");
+      eventListeners.add(new WelcomeMessage(messageFactory));
+    }
 
     log.info("Loading Message Starer...");
     eventListeners.add(starMessages = new StarMessages(sqlManager));
@@ -304,6 +315,7 @@ public class Main extends ListenerAdapter {
         new SelfOgMngmtCommand(ogCommandManager),
         new OgMngmtCommand(ogCommandManager),
         new GameCommand(gameManager),
+        new RatingCommand(eloManager),
 
         //Staff Tools
 

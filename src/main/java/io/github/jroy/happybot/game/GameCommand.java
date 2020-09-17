@@ -1,4 +1,4 @@
-package io.github.jroy.happybot.commands;
+package io.github.jroy.happybot.game;
 
 import io.github.jroy.happybot.commands.base.CommandBase;
 import io.github.jroy.happybot.commands.base.CommandCategory;
@@ -11,6 +11,7 @@ import io.github.jroy.happybot.game.model.PendingGameToken;
 public class GameCommand extends CommandBase {
   private static final String HELP_MESSAGE = "**Game Command Help:**\n" +
       "`^game create <game name>` - Creates a game and prompts people to join\n" +
+      "`^game leaderboard` - View game leaderboards\n" +
       "`^game start` - Starts a game if you have enough players\n" +
       "`^game stop` - Stops a game\n" +
       "`^game list` - Lists all the possible game you can play";
@@ -18,7 +19,7 @@ public class GameCommand extends CommandBase {
 //      "`^game spectate` - Joins a game lobby in spectate view";
 
   public GameCommand(GameManager gameManager) {
-    super("game", "<create/start/stop/list/join/spectate> [<gameid/gametype>]", "Helper command for all things related to game.", CommandCategory.FUN);
+    super("game", "<create/start/stop/list/leaderboard> [<gameid/gametype>]", "Helper command for all things related to game.", CommandCategory.FUN);
     this.gameManager = gameManager;
   }
 

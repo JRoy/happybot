@@ -5,6 +5,10 @@ import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
 import io.github.jroy.happybot.game.ActiveGame;
 import io.github.jroy.happybot.game.Game;
 import io.github.jroy.happybot.game.GameManager;
+import io.github.jroy.happybot.game.GameType;
+import io.github.jroy.happybot.game.elo.EloKey;
+import io.github.jroy.happybot.game.elo.EloManager;
+import io.github.jroy.happybot.game.elo.EloPlayer;
 import io.github.jroy.happybot.game.model.GameMessageReceived;
 import io.github.jroy.happybot.game.model.GameReactionReceived;
 import io.github.jroy.happybot.game.model.GameStartEvent;
@@ -25,7 +29,9 @@ public class UltimateTicTacToe extends Game {
   @Override
   protected void gameStart(GameStartEvent event) {
     Iterator<Member> players = event.getActiveGame().getPlayers().iterator();
-    game = new UtttGame(players.next().getUser(), players.next().getUser(), event);
+    User first = players.next().getUser();
+    User second = players.next().getUser();
+    game = new UtttGame(first, second, event);
   }
 
   @Override

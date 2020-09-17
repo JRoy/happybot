@@ -16,4 +16,6 @@ public class BotConfig {
   private final String twitterOauthSecret;
   private final String twitterAccessToken;
   private final String twitterAccessTokenSecret;
+
+  private final boolean liteMode;
 }
