@@ -37,9 +37,9 @@ public class RatingCommand extends CommandBase {
             }
             EloPlayer player = players.get(i);
             User userById = e.getJDA().getUserById(player.getPlayer());
-            sb.append("#").append(i+1).append(" ")
-                .append(userById == null ? player.getPlayer() : userById.getAsMention())
-                .append(" - **").append((int) player.getEloRating()).append("**");
+            sb.append("#").append(i+1).append(" *")
+                .append(userById == null ? player.getPlayer() : userById.getAsTag())
+                .append("* - **").append((int) player.getEloRating()).append("**");
           }
 
           builder.addField(gameType.getName() + " top 10", sb.toString(), false);
