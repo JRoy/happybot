@@ -9,7 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +26,8 @@ import org.jetbrains.annotations.NotNull;
 public class EloManager {
   private static final String CREATE_ELO_TABLE = "CREATE TABLE IF NOT EXISTS `elo` (`userid` VARCHAR(255), `game` VARCHAR(255), `elo` FLOAT, `rd` FLOAT, `velocity` FLOAT, PRIMARY KEY (`userid`, `game`))";
   private static final String GET_PLAYER = "SELECT * FROM `elo` WHERE `userid` = ? AND `game` = ?";
-  private static final String GET_RANK = "SELECT RANK() OVER (ORDER BY elo) AS `rank` FROM `elo` WHERE `userid` = ? AND `game` = ?";
+  private static final String GET_RANK = "SELECT *, COUNT(*) FROM (SELECT COUNT(*) AS total, userid, game, elo, RANK() OVER (ORDER BY elo) AS rank FROM elo WHERE game = ?) subquery WHERE userid = ?;";
+  private static final String GET_TOP10 = "SELECT userid, elo FROM elo WHERE game = ? ORDER BY elo DESC LIMIT 10;";
   private static final String SET_PLAYER = "REPLACE INTO `elo` (`userid`, `game`, `elo`, `rd`, `velocity`) VALUES (?, ?, ?, ?, ?)";
 
   private final LoadingCache<EloKey, EloPlayer> eloCache = CacheBuilder.newBuilder()
@@ -57,15 +61,36 @@ public class EloManager {
     }
   }
 
+  public List<EloPlayer> getTop10(GameType gameType) {
+    try {
+      PreparedStatement statement = sqlManager.getConnection().prepareStatement(GET_TOP10);
+      statement.setString(1, gameType.name());
+
+      List<EloPlayer> players = new ArrayList<>();
+
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+        players.add(new EloPlayer(resultSet.getString("userid"), gameType, resultSet.getDouble("elo"), 0, 0));
+      }
+      return players;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
+    }
+  }
+
   public int getRank(EloKey key) {
     try {
       PreparedStatement statement = sqlManager.getConnection().prepareStatement(GET_RANK);
-      statement.setString(1, key.getUser());
-      statement.setString(2, key.getGameType().name());
+      statement.setString(1, key.getGameType().name());
+      statement.setString(2, key.getUser());
 
       ResultSet resultSet = statement.executeQuery();
       if (resultSet.next()) {
-        return resultSet.getInt("rank");
+        int total = resultSet.getInt("total");
+        int rank = resultSet.getInt("rank");
+
+        return rank | (total << 8);
       } else {
         return -1;
       }
