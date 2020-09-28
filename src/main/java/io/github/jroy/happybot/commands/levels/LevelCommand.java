@@ -103,8 +103,7 @@ public class LevelCommand extends CommandBase {
       ByteArrayOutputStream os = new ByteArrayOutputStream();
 
       ImageIO.write(card, "png", os);
-      //noinspection ConfusingArgumentToVarargsMethod
-      e.getChannel().sendFile(new ByteArrayInputStream(os.toByteArray()), "rank.png", null).queue();
+      e.getChannel().sendFile(new ByteArrayInputStream(os.toByteArray()), "rank.png").queue();
     } catch (IOException e1) {
       e1.printStackTrace();
       e.reply("lol no :heart:");
