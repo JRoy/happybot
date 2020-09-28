@@ -93,9 +93,16 @@ public class LevelCommand extends CommandBase {
       card = TextGeneration.writeTextCenter(card, C.prettyNum(progressXp), target.getColor(), 75F, -255, 220);
       card = TextGeneration.writeTextCenter(card, C.prettyNum(rankXp), target.getColor(), 75F, 10, 220);
       ByteArrayOutputStream os = new ByteArrayOutputStream();
-
       ImageIO.write(card, "png", os);
-      e.getChannel().sendFile(new ByteArrayInputStream(os.toByteArray()), "rank.png").queue();
+
+      ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray());
+      try {
+        e.getChannel().sendFile(is, "rank.png").complete();
+      } catch (Throwable throwable) {
+        card.flush();
+        is.close();
+        os.close();
+      }
     } catch (IOException e1) {
       e1.printStackTrace();
       e.reply("lol no :heart:");
