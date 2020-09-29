@@ -67,7 +67,6 @@ public class Main extends ListenerAdapter {
   @Getter
   private static JDA jda;
   private static CommandFactory commandFactory;
-  private static TwitterCentre twitterCentre;
   private static SQLManager sqlManager;
   private static PurchaseManager purchaseManager;
   private static WarningManager warningManager;
@@ -85,7 +84,6 @@ public class Main extends ListenerAdapter {
   private static EloManager eloManager;
   @Getter
   private static CommandClient commandClient;
-  private final Main instance = this;
 
   public static void main(String[] args) throws IOException, IllegalArgumentException, LoginException {
 
@@ -150,7 +148,7 @@ public class Main extends ListenerAdapter {
   }
 
   private static void loadConfig() throws IOException, InvalidConfigurationException {
-    copyResource("logging.properties");
+    copyLoggingResource();
 
     yamlFile.save();
     yamlFile.load();
@@ -191,7 +189,7 @@ public class Main extends ListenerAdapter {
     List<APIBase> apis = new ArrayList<>();
     apis.add(reddit = new Reddit());
     apis.add(hypixel = new Hypixel(botConfig.getHypixelApiKey()));
-    apis.add(twitterCentre = new TwitterCentre(botConfig.getTwitterOauthKey(), botConfig.getTwitterOauthSecret(), botConfig.getTwitterAccessToken(), botConfig.getTwitterAccessTokenSecret()));
+    apis.add(new TwitterCentre(botConfig.getTwitterOauthKey(), botConfig.getTwitterOauthSecret(), botConfig.getTwitterAccessToken(), botConfig.getTwitterAccessTokenSecret()));
     apis.add(league = new League(botConfig.getRiotApiKey()));
     apis.add(new YouTubeAPI(botConfig.getYoutubeApiKey()));
     log.info("Logging into APIs...");
@@ -362,26 +360,13 @@ public class Main extends ListenerAdapter {
     );
   }
 
-  /**
-   * Creates a new file if it does not exist
-   *
-   * @param filename The filename for the file
-   * @return The reference to the open file
-   * @throws IOException If the file could not be created
-   */
-  private static File createFile(String filename) throws IOException {
-    File file = new File(filename);
-    boolean doesNotExist = file.createNewFile();
-    return file;
-  }
-
-  private static boolean copyResource(String resource) throws IOException {
-    File file = new File(resource);
+  private static void copyLoggingResource() throws IOException {
+    File file = new File("logging.properties");
     if (file.exists()) {
-      return false;
+      return;
     }
 
-    InputStream configResource = Main.class.getResourceAsStream("/" + resource);
+    InputStream configResource = Main.class.getResourceAsStream("/" + "logging.properties");
     FileOutputStream stream = new FileOutputStream(file);
 
     byte[] buf = new byte[1024];
@@ -389,7 +374,6 @@ public class Main extends ListenerAdapter {
     while ((read = configResource.read(buf)) != -1) {
       stream.write(buf, 0, read);
     }
-    return true;
   }
 
   @Override
