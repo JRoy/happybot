@@ -45,6 +45,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.jetbrains.annotations.NotNull;
 import org.simpleyaml.configuration.file.YamlFile;
 import org.simpleyaml.exceptions.InvalidConfigurationException;
@@ -55,6 +56,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 @SuppressWarnings({"FieldCanBeLocal"})
@@ -134,7 +136,7 @@ public class Main extends ListenerAdapter {
     loadCommandFactory();
 
     log.info("Constructing JDA Instance...");
-    JDABuilder builder = new JDABuilder(botConfig.getBotToken())
+    JDABuilder builder = JDABuilder.create(botConfig.getBotToken(), EnumSet.allOf(GatewayIntent.class))
         .setStatus(OnlineStatus.DO_NOT_DISTURB)
         //Listens to the MessageReceivedEvent.
         .addEventListeners(commandClient = commandFactory.build())
