@@ -1,6 +1,5 @@
 package io.github.jroy.happybot.game;
 
-import club.minnced.discord.webhook.send.WebhookEmbed;
 import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -19,7 +18,7 @@ import io.github.jroy.happybot.util.Categories;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
+
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;

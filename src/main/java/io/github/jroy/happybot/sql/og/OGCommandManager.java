@@ -137,7 +137,7 @@ public class OGCommandManager extends ListenerAdapter {
       builder.addField("Command Name", action.getPendingName(), false);
     }
     builder.addField("Command Content", action.getPendingContent(), false);
-    User user = C.getGuild().getMemberById(action.getUserId()).getUser();
+    User user = Objects.requireNonNull(C.getGuild().getMemberById(action.getUserId())).getUser();
     builder.setThumbnail(user.getAvatarUrl());
     builder.setFooter("ID: " + user.getId(), null).setTimestamp(OffsetDateTime.now());
 

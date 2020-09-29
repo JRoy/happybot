@@ -56,13 +56,13 @@ public class ReportManager {
     }
   }
 
-  public boolean isValidReport(int reportId) {
+  public boolean isInvalidReport(int reportId) {
     try {
       PreparedStatement statement = connection.prepareStatement(SELECT_REPORT);
       statement.setInt(1, reportId);
-      return statement.executeQuery().next();
+      return !statement.executeQuery().next();
     } catch (SQLException e) {
-      return false;
+      return true;
     }
   }
 

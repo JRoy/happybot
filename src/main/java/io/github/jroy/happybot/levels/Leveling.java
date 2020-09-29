@@ -8,7 +8,6 @@ import io.github.jroy.happybot.sql.MessageFactory;
 import io.github.jroy.happybot.sql.PurchaseManager;
 import io.github.jroy.happybot.sql.Reward;
 import io.github.jroy.happybot.sql.SQLManager;
-import io.github.jroy.happybot.util.BotConfig;
 import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;

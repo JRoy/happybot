@@ -57,10 +57,10 @@ public class DiceCommand extends CommandBase {
       rolls.add(ThreadLocalRandom.current().nextInt(sides) + 1);
     }
 
-    int sum = rolls.stream().reduce(Integer::sum).get();
+    int sum = rolls.stream().reduce(Integer::sum).orElse(-1);
     e.replySuccess(":game_die: " + C.bold("Rolled: ") + joinRolls(rolls) + "\n"
-        + C.bold("Highest: ") + rolls.stream().max(Integer::compare).get() + "\n"
-        + C.bold("Lowest: ") + rolls.stream().min(Integer::compare).get() + "\n"
+        + C.bold("Highest: ") + rolls.stream().max(Integer::compare).orElse(-1) + "\n"
+        + C.bold("Lowest: ") + rolls.stream().min(Integer::compare).orElse(-1) + "\n"
         + C.bold("Average: ") + sum / (double) rolls.size() + "\n"
         + C.bold("Sum: ") + sum);
   }

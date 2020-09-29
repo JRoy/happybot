@@ -36,22 +36,20 @@ public class AutoMod extends ListenerAdapter {
   @Override
   public void onStatusChange(StatusChangeEvent event) {
     if (event.getNewStatus() == JDA.Status.CONNECTED) {
-      Objects.requireNonNull(Objects.requireNonNull(event.getJDA().getGuildById(Constants.GUILD_ID.get())).getTextChannelById(Channels.BOT_META.getId())).getHistory().retrievePast(10).queue(messages -> messages.forEach(message -> {
-        message.getEmbeds().forEach(messageEmbed -> {
-          if (messageEmbed != null && Objects.requireNonNull(messageEmbed.getTitle()).equalsIgnoreCase("Impending Update") && message.getAuthor() == Main.getJda().getUserById(Constants.BOT_ID.get()) && !message.isWebhookMessage()) {
-            String msg = "sadge";
-            try {
-              msg = messageFactory.getRawMessage(MessageFactory.MessageType.UPDATE_END);
-            } catch (SQLException throwables) {
-              throwables.printStackTrace();
-            }
-            message.editMessage(new EmbedBuilder()
-                .setTitle("Update Complete")
-                .setDescription(msg + "\nThis update has been finished in PID: " + ManagementFactory.getRuntimeMXBean().getName().split("[@]")[0])
-                .build()).queue();
+      Objects.requireNonNull(Objects.requireNonNull(event.getJDA().getGuildById(Constants.GUILD_ID.get())).getTextChannelById(Channels.BOT_META.getId())).getHistory().retrievePast(10).queue(messages -> messages.forEach(message -> message.getEmbeds().forEach(messageEmbed -> {
+        if (messageEmbed != null && Objects.requireNonNull(messageEmbed.getTitle()).equalsIgnoreCase("Impending Update") && message.getAuthor() == Main.getJda().getUserById(Constants.BOT_ID.get()) && !message.isWebhookMessage()) {
+          String msg = "sadge";
+          try {
+            msg = messageFactory.getRawMessage(MessageFactory.MessageType.UPDATE_END);
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
           }
-        });
-      }));
+          message.editMessage(new EmbedBuilder()
+              .setTitle("Update Complete")
+              .setDescription(msg + "\nThis update has been finished in PID: " + ManagementFactory.getRuntimeMXBean().getName().split("[@]")[0])
+              .build()).queue();
+        }
+      })));
     }
   }
 

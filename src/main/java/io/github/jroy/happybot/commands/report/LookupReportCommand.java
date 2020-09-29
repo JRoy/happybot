@@ -32,7 +32,7 @@ public class LookupReportCommand extends CommandBase {
 
     int targetReport = Integer.parseInt(e.getArgs());
 
-    if (!reportManager.isValidReport(targetReport)) {
+    if (reportManager.isInvalidReport(targetReport)) {
       e.replyError("Invalid Report ID!");
       return;
     }

@@ -47,7 +47,7 @@ public class HandleReportCommand extends CommandBase {
 
     int targetReport = Integer.parseInt(args[1]);
 
-    if (!reportManager.isValidReport(targetReport)) {
+    if (reportManager.isInvalidReport(targetReport)) {
       e.replyError("Invalid Report ID!");
       return;
     }
