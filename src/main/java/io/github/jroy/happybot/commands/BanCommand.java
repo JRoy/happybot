@@ -33,7 +33,7 @@ public class BanCommand extends CommandBase {
       }
 
       if (!e.getMember().canInteract(target)) {
-        System.out.println("That target has your upmost role, you may not modify them!");
+        e.reply("That target has your upmost role, you may not modify them!");
         return;
       }
 
