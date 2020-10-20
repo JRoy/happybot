@@ -41,11 +41,13 @@ public class WhoIsCommand extends CommandBase {
     embed.setDescription(targetMember.getAsMention()).setFooter("ID: " + targetUser.getId() + " • " + "Avatar ID: " + targetUser.getAvatarId(), null);
     embed.addField("Status", targetMember.getOnlineStatus().getKey(), true);
 
-    ZonedDateTime joinDate = targetMember.getTimeJoined().atZoneSameInstant(ZoneId.of("America/New_York"));
+    ZonedDateTime joinDate;
     if (targetUser.getId().equals(TECHNOCODER_ID)) {
       joinDate = ZonedDateTime.of(2017, 3, 24, 5, 36, 0, 0, ZoneId.of("America/New_York"));
     } else if (targetUser.getId().equals(OKX_ID)) {
-      joinDate = ZonedDateTime.of(2017, 3, 25, 19, 22, 0, 0, ZoneId.of("Europe/London")); 
+      joinDate = ZonedDateTime.of(2017, 3, 25, 19, 22, 0, 0, ZoneId.of("America/New_York"));
+    } else {
+      joinDate = targetMember.getTimeJoined().atZoneSameInstant(ZoneId.of("America/New_York"));
     }
 
     embed.addField("Joined", joinDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US) + ", " + joinDate.getMonth().getDisplayName(TextStyle.SHORT, Locale.US) + " " + joinDate.getDayOfMonth() + ", " + joinDate.getYear() + " " + joinDate.getHour() % 12 + ":" + joinDate.getMinute() + " " + ((joinDate.getHour() >= 12) ? "PM" : "AM"), true);
