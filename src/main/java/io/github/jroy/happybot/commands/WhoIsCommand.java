@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class WhoIsCommand extends CommandBase {
-    // Thanks Okx.
-    private static final String TECHNOCODER_ID = "180899128006410240";
+  // Thanks Okx.
+  private static final String TECHNOCODER_ID = "180899128006410240";
 
   public WhoIsCommand() {
     super("whois", "[<user>]", "Gives you information about you or another user.", CommandCategory.GENERAL);
@@ -41,15 +41,18 @@ public class WhoIsCommand extends CommandBase {
     embed.addField("Status", targetMember.getOnlineStatus().getKey(), true);
 
     ZonedDateTime joinDate = targetMember.getTimeJoined().atZoneSameInstant(ZoneId.of("America/New_York"));
-    if (targetUser.getId().equals(TECHNOCODER_ID))
-        joinDate = ZonedDateTime.of(2017, 3, 24, 5, 36, 0, 0, ZoneId.of("America/New_York"));
+    if (targetUser.getId().equals(TECHNOCODER_ID)) {
+      joinDate = ZonedDateTime.of(2017, 3, 24, 5, 36, 0, 0, ZoneId.of("America/New_York"));
+    }
 
     embed.addField("Joined", joinDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US) + ", " + joinDate.getMonth().getDisplayName(TextStyle.SHORT, Locale.US) + " " + joinDate.getDayOfMonth() + ", " + joinDate.getYear() + " " + joinDate.getHour() % 12 + ":" + joinDate.getMinute() + " " + ((joinDate.getHour() >= 12) ? "PM" : "AM"), true);
 
     List<Member> joinPosSort = new ArrayList<>(e.getGuild().getMembers());
     joinPosSort.sort(Comparator.comparing(Member::getTimeJoined));
     int joinPosition = joinPosSort.indexOf(targetMember);
-    if (targetUser.getId().equals(TECHNOCODER_ID)) joinPosition = 39;
+    if (targetUser.getId().equals(TECHNOCODER_ID)) {
+      joinPosition = 39;
+    }
     embed.addField("Join Position", joinPosition + "/" + joinPosSort.size(), true);
 
     ZonedDateTime registerDate = targetUser.getTimeCreated().atZoneSameInstant(ZoneId.of("America/New_York"));
