@@ -27,13 +27,13 @@ public class ShippingCommand extends CommandBase {
           ":broken_heart: 0%+"); //No return statement is intentional here...
     }
 
-    if (e.getMentionsAmount() != 2) {
+    if (e.getSplitArgs().length < 2) {
       e.replyError(invalid);
       return;
     }
 
-    Member firstUser = e.getMentionedMember(0);
-    Member secondUser = e.getMentionedMember(1);
+    Member firstUser = C.matchMember(e.getMember(), e.getSplitArgs()[0]);
+    Member secondUser = C.matchMember(e.getMember(), e.getSplitArgs()[1]);
     String firstName = firstUser.getUser().getName();
     String secondName = secondUser.getUser().getName();
 
@@ -56,7 +56,7 @@ public class ShippingCommand extends CommandBase {
     }
 
     e.reply(":heart_exclamation:" + C.bold("Shipping") + ":heart_exclamation:\n" +
-        firstUser.getAsMention() + " (" + emote + ") " + secondUser.getAsMention() + "\n" +
+        firstUser.getEffectiveName() + " (" + emote + ") " + secondUser.getEffectiveName() + "\n" +
         shipName + " is a " + match + "% match!");
   }
 
