@@ -32,6 +32,11 @@ public class BanCommand extends CommandBase {
         return;
       }
 
+      if (C.hasRole(target, Roles.getRole(e.getMember().getRoles().get(0)))) {
+        System.out.println("That target has your upmost role, you may not modify them!");
+        return;
+      }
+
       C.privChannel(target, "Banned with Reason: " + reason);
 
       e.getGuild().ban(target.getUser(), 7, "Banned by Moderator: " + e.getMember().getUser().getName()).reason("Banned by Moderator: " + e.getMember().getUser().getName() + ". With Reason: " + reason).queue();
