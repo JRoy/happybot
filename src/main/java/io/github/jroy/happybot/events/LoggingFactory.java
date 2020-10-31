@@ -105,6 +105,7 @@ public class LoggingFactory extends ListenerAdapter {
     }
 
     Message deleted = cache.getIfPresent(e.getMessageId());
+    cache.invalidate(e.getMessageId());
     if (deleted == null) {
 //      sendLogMessage(new WebhookEmbedBuilder()
 //          .setAuthor(new WebhookEmbed.EmbedAuthor(e.getGuild().getName(), e.getGuild().getIconUrl(), null))
@@ -114,20 +115,23 @@ public class LoggingFactory extends ListenerAdapter {
 //          .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getMessageId(), null)).build());
       return;
     }
-    cache.invalidate(e.getMessageId());
 
-    String desc = "";
+    try {
+      String desc = "";
 
-    if (!deleted.getContentRaw().isEmpty()) {
-      desc = deleted.getContentRaw();
+      if (!deleted.getContentRaw().isEmpty()) {
+        desc = deleted.getContentRaw();
+      }
+
+      sendLogMessage(new WebhookEmbedBuilder()
+          .setAuthor(new WebhookEmbed.EmbedAuthor(C.getFullName(deleted.getAuthor()), null, null))
+          .setDescription(C.bold("Message sent by ") + deleted.getAuthor().getAsMention() + C.bold(" deleted in ") + deleted.getTextChannel().getAsMention() + "\n" + desc)
+          .setColor(Color.RED.getRGB())
+          .setTimestamp(OffsetDateTime.now())
+          .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getMessageId(), null)).build());
+    } catch (Exception ignored) {
+      cache.invalidateAll(); //Assume cache is poisoned!
     }
-
-    sendLogMessage(new WebhookEmbedBuilder()
-        .setAuthor(new WebhookEmbed.EmbedAuthor(C.getFullName(deleted.getAuthor()), null, null))
-        .setDescription(C.bold("Message sent by ") + deleted.getAuthor().getAsMention() + C.bold(" deleted in ") + deleted.getTextChannel().getAsMention() + "\n" + desc)
-        .setColor(Color.RED.getRGB())
-        .setTimestamp(OffsetDateTime.now())
-        .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getMessageId(), null)).build());
   }
 
   @Override
