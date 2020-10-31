@@ -19,6 +19,7 @@ public enum Roles {
   //Punish Ranks
   EXP_SPAMMER("299652763099332608", "EXP Spammer"),
   MUTED("280043630494875648", "Muted"),
+  BOT_BANNED("771926567706034186", ""),
 
   //Money Ranks
   PATRON_BOYS("300081997878132736", "Patron Boys"),

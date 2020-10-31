@@ -179,6 +179,11 @@ public abstract class CommandBase extends Command {
       }
     }
 
+    // Check if we've been told to ignore commands from this user.
+    if (C.hasRole(member, Roles.BOT_BANNED)) {
+      return;
+    }
+
     if (disabled && !C.hasRole(member, Roles.DEVELOPER)) {
       event.getMessage().addReaction("❌").queue();
       return;
