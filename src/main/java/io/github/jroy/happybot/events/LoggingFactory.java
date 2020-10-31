@@ -106,12 +106,12 @@ public class LoggingFactory extends ListenerAdapter {
 
     Message deleted = cache.getIfPresent(e.getMessageId());
     if (deleted == null) {
-      sendLogMessage(new WebhookEmbedBuilder()
-          .setAuthor(new WebhookEmbed.EmbedAuthor(e.getGuild().getName(), e.getGuild().getIconUrl(), null))
-          .setDescription(C.bold("Message deleted in ") + e.getChannel().getAsMention())
-          .setColor(Color.RED.getRGB())
-          .setTimestamp(OffsetDateTime.now())
-          .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getMessageId(), null)).build());
+//      sendLogMessage(new WebhookEmbedBuilder()
+//          .setAuthor(new WebhookEmbed.EmbedAuthor(e.getGuild().getName(), e.getGuild().getIconUrl(), null))
+//          .setDescription(C.bold("Message deleted in ") + e.getChannel().getAsMention())
+//          .setColor(Color.RED.getRGB())
+//          .setTimestamp(OffsetDateTime.now())
+//          .setFooter(new WebhookEmbed.EmbedFooter("ID: " + e.getMessageId(), null)).build());
       return;
     }
     cache.invalidate(e.getMessageId());
