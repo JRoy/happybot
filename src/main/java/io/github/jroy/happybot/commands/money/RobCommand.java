@@ -38,6 +38,10 @@ public class RobCommand extends CommandBase {
       e.reply(invalid);
       removeFromCooldown(e.getMember());
       return;
+    } else if (target.getIdLong() == 115090410849828865L) {
+      e.reply("fuck off");
+      removeFromCooldown(e.getMember());
+      return;
     }
     try {
       // Check both members have a money account
