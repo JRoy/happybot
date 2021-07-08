@@ -193,7 +193,7 @@ public class Main extends ListenerAdapter {
     apis.add(hypixel = new Hypixel(botConfig.getHypixelApiKey()));
     apis.add(new TwitterCentre(botConfig.getTwitterOauthKey(), botConfig.getTwitterOauthSecret(), botConfig.getTwitterAccessToken(), botConfig.getTwitterAccessTokenSecret()));
     apis.add(league = new League(botConfig.getRiotApiKey()));
-    apis.add(new YouTubeAPI(botConfig.getYoutubeApiKey()));
+    //apis.add(new YouTubeAPI(botConfig.getYoutubeApiKey()));
     log.info("Logging into APIs...");
     for (APIBase api : apis) {
       try {
