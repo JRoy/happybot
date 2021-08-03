@@ -7,7 +7,9 @@ plugins {
 
 dependencies {
     implementation 'com.github.KevinPriv:HypixelApi4J:API-1.7'
-    implementation 'net.dv8tion:JDA:4.3.0_304'
+    implementation('net.dv8tion:JDA:4.3.0_304') {
+        exclude module: 'opus-java'
+    }
     implementation 'com.jagrosh:jda-utilities:3.0.4'
     implementation 'club.minnced:discord-webhooks:0.5.7'
     implementation 'org.slf4j:slf4j-simple:1.7.32'
