@@ -3,7 +3,7 @@ package io.github.jroy.happybot.apis.youtube;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.youtube.YouTube;
 import io.github.jroy.happybot.apis.APIBase;
 import lombok.AccessLevel;
@@ -22,7 +22,7 @@ public class YouTubeAPI extends APIBase {
   @Getter(AccessLevel.PROTECTED)
   private final String apiKey;
   private final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-  private final JsonFactory JSON_FACTORY = new JacksonFactory();
+  private final JsonFactory JSON_FACTORY = new GsonFactory();
   private final List<ChannelBase> channels = new ArrayList<>();
   @Getter(AccessLevel.PROTECTED)
   private final long started = System.currentTimeMillis();

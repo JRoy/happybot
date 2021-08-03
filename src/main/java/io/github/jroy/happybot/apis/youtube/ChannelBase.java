@@ -28,12 +28,12 @@ class ChannelBase {
       public void run() {
         try {
           List<SearchResult> searchResults = youTubeAPI.youTube.search()
-              .list("id,snippet")
+              .list(List.of("id", "snippet"))
               .setKey(youTubeAPI.getApiKey())
               .setChannelId(channelId)
               .setOrder("date")
               .setMaxResults(10L)
-              .setType("video")
+              .setType(List.of("video"))
               .execute()
               .getItems();
           if (currentVideo < 0) {
