@@ -44,7 +44,7 @@ public class AutoMod extends ListenerAdapter {
           } catch (SQLException throwables) {
             throwables.printStackTrace();
           }
-          message.editMessage(new EmbedBuilder()
+          message.editMessageEmbeds(new EmbedBuilder()
               .setTitle("Update Complete")
               .setDescription(msg + "\nThis update has been finished in PID: " + ManagementFactory.getRuntimeMXBean().getName().split("[@]")[0])
               .build()).queue();
@@ -129,7 +129,6 @@ public class AutoMod extends ListenerAdapter {
     return true;
   }
 
-  //Teddy is hoe
   @Override
   public void onGuildMemberRoleAdd(GuildMemberRoleAddEvent event) {
     if (event.getMember().getUser().getId().equals("194473148161327104") && event.getRoles().get(0).getId().equals(Roles.EXP_SPAMMER.getId())) {

@@ -103,7 +103,7 @@ public class TwitterCentre extends APIBase {
         Roles.TWITTER.getRole().getManager().setMentionable(true).complete();
         Channels.TWITTER.getChannel().sendMessage(Roles.TWITTER.getRole().getAsMention()).complete();
       }
-      Channels.TWITTER.getChannel().sendMessage(builder.build()).complete();
+      Channels.TWITTER.getChannel().sendMessageEmbeds(builder.build()).complete();
 
       try {
         TimeUnit.SECONDS.sleep(1);

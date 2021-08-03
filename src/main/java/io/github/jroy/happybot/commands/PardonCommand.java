@@ -24,7 +24,7 @@ public class PardonCommand extends CommandBase {
       if (args.length >= 1) {
         C.getGuild().unban(args[0]).reason("Pardoned by Moderator: " + e.getMember().getUser().getName()).queue();
         e.replySuccess("User U(" + args[0] + ") has been *forgivably pardoned*  by " + e.getMember().getEffectiveName());
-        Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
+        Channels.LOG.getChannel().sendMessageEmbeds(new EmbedBuilder()
             .setAuthor(C.getFullName(e.getMember().getUser()), null, e.getMember().getUser().getAvatarUrl())
             .setColor(Color.RED)
             .setDescription(":information_source: **User Pardoned**\n" + C.bold("Pardoned " + args[0]))

@@ -1,5 +1,6 @@
 package io.github.jroy.happybot;
 
+import com.google.common.io.ByteStreams;
 import com.jagrosh.jdautilities.command.CommandClient;
 import io.github.jroy.happybot.apis.APIBase;
 import io.github.jroy.happybot.apis.Hypixel;
@@ -26,9 +27,9 @@ import io.github.jroy.happybot.commands.report.ReportCommand;
 import io.github.jroy.happybot.commands.warn.*;
 import io.github.jroy.happybot.events.*;
 import io.github.jroy.happybot.events.star.StarMessages;
-import io.github.jroy.happybot.game.elo.EloManager;
 import io.github.jroy.happybot.game.GameCommand;
 import io.github.jroy.happybot.game.GameManager;
+import io.github.jroy.happybot.game.elo.EloManager;
 import io.github.jroy.happybot.game.elo.RatingCommand;
 import io.github.jroy.happybot.levels.Leveling;
 import io.github.jroy.happybot.sql.*;
@@ -313,7 +314,7 @@ public class Main extends ListenerAdapter {
         new EditRemindCommand(eventManager),
         new DeleteRemindCommand(eventManager),
         new SelfOgMngmtCommand(ogCommandManager),
-        new OgMngmtCommand(ogCommandManager),
+        new OgMngmtCommand(),
         new GameCommand(gameManager),
         new RatingCommand(eloManager),
 
@@ -368,14 +369,15 @@ public class Main extends ListenerAdapter {
       return;
     }
 
-    InputStream configResource = Main.class.getResourceAsStream("/" + "logging.properties");
-    FileOutputStream stream = new FileOutputStream(file);
-
-    byte[] buf = new byte[1024];
-    int read;
-    while ((read = configResource.read(buf)) != -1) {
-      stream.write(buf, 0, read);
+    InputStream configResource = Main.class.getResourceAsStream("/logging.properties");
+    if (configResource == null) {
+      return;
     }
+
+    FileOutputStream stream = new FileOutputStream(file);
+    ByteStreams.copy(configResource, stream);
+    configResource.close();
+    stream.close();
   }
 
   @Override

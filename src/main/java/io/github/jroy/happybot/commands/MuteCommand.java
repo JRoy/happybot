@@ -38,7 +38,7 @@ public class MuteCommand extends CommandBase {
         eventManager.deleteInfraction(target.getUser().getId(), EventType.MUTE);
         C.removeRole(target, Roles.MUTED);
         e.reply("User un-muted!");
-        Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
+        Channels.LOG.getChannel().sendMessageEmbeds(new EmbedBuilder()
             .setAuthor(C.getFullName(e.getMember().getUser()), null, e.getMember().getUser().getAvatarUrl())
             .setColor(Color.CYAN)
             .setThumbnail(target.getUser().getAvatarUrl())
@@ -62,7 +62,7 @@ public class MuteCommand extends CommandBase {
         eventManager.createInfraction(target.getUser().getId(), (long) wait.getMilliseconds(), EventType.MUTE);
         C.giveRole(target, Roles.MUTED);
         e.replySuccess("User muted!");
-        Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
+        Channels.LOG.getChannel().sendMessageEmbeds(new EmbedBuilder()
             .setAuthor(C.getFullName(e.getMember().getUser()), null, e.getMember().getUser().getAvatarUrl())
             .setColor(Color.CYAN)
             .setThumbnail(target.getUser().getAvatarUrl())

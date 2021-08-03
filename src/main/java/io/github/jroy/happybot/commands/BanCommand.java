@@ -41,7 +41,7 @@ public class BanCommand extends CommandBase {
 
       e.getGuild().ban(target.getUser(), 7, "Banned by Moderator: " + e.getMember().getUser().getName()).reason("Banned by Moderator: " + e.getMember().getUser().getName() + ". With Reason: " + reason).queue();
       e.replySuccess("User " + C.getFullName(target.getUser()) + " has been **FRIGGING BANNED** by " + e.getMember().getEffectiveName());
-      Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
+      Channels.LOG.getChannel().sendMessageEmbeds(new EmbedBuilder()
           .setAuthor(C.getFullName(e.getMember().getUser()), null, e.getMember().getUser().getAvatarUrl())
           .setColor(Color.RED)
           .setThumbnail(target.getUser().getAvatarUrl())

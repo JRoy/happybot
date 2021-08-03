@@ -49,7 +49,7 @@ public class CommandEvent extends com.jagrosh.jdautilities.command.CommandEvent 
   /**
    * Wrapper for the {@link io.github.jroy.happybot.util.C C} class method to auto-fill parameters.
    *
-   * @param index Get's a certain mentioned member.
+   * @param index Gets a certain mentioned member.
    */
   public Member getMentionedMember(int index) {
     return C.getMentionedMember(this, index);

@@ -55,7 +55,7 @@ public class WarnCommand extends CommandBase {
       int warnId = warningManager.spawnWarning(target.getUser().getId(), e.getMember().getUser().getId(), reason);
       C.privChannel(target, "You have been warned for: " + C.bold(reason) + "! To review the rules please type `^rules` in the random channel.");
       e.reply(messageFactory.getRawMessage(MessageFactory.MessageType.WARN).replaceAll("<player>", "**" + target.getAsMention() + "**").replaceAll("<user>", "**" + target.getAsMention() + "**"));
-      Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
+      Channels.LOG.getChannel().sendMessageEmbeds(new EmbedBuilder()
           .setAuthor(C.getFullName(e.getMember().getUser()), null, e.getMember().getUser().getAvatarUrl())
           .setColor(Color.YELLOW)
           .setThumbnail(target.getUser().getAvatarUrl())

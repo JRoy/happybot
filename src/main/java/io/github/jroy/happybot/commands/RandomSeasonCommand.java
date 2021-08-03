@@ -13,11 +13,11 @@ public class RandomSeasonCommand extends CommandBase {
   public RandomSeasonCommand() {
     super("randomseason", null, "Gives you a random happyheart season!", CommandCategory.FUN);
     seasons = new String[]{
-        "Season 1 - <http://bit.ly/2y0akBf>",
-        "Season 2 - <http://bit.ly/2kxqexc>",
-        "Season 3 - <http://bit.ly/2xpJ3Zm>",
-        "Season 4 - <http://bit.ly/2fTJKPD>",
-        "Season 5 - <http://bit.ly/2xq8dCu>",
+        "Season 1 - <https://bit.ly/2y0akBf>",
+        "Season 2 - <https://bit.ly/2kxqexc>",
+        "Season 3 - <https://bit.ly/2xpJ3Zm>",
+        "Season 4 - <https://bit.ly/2fTJKPD>",
+        "Season 5 - <https://bit.ly/2xq8dCu>",
         "Season 6 - <https://bit.ly/2JiwVze>",
         "Season 8 - <https://bit.ly/3gn6iFb>",
         "Season 9 - <https://bit.ly/3jblsiH>"

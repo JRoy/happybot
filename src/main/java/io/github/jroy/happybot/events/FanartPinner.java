@@ -28,7 +28,7 @@ public class FanartPinner extends ListenerAdapter {
         if (C.containsImage(message)) {
           embed.setImage(C.getImage(message));
         }
-        Channels.FANART_ARCHIVE.getChannel().sendMessage(embed.build()).queue();
+        Channels.FANART_ARCHIVE.getChannel().sendMessageEmbeds(embed.build()).queue();
       });
     }
   }

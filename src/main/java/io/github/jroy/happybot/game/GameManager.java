@@ -17,8 +17,6 @@ import io.github.jroy.happybot.util.C;
 import io.github.jroy.happybot.util.Categories;
 import io.github.jroy.happybot.util.Channels;
 import io.github.jroy.happybot.util.Roles;
-import java.text.DecimalFormat;
-
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -35,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -207,7 +206,7 @@ public class GameManager extends ListenerAdapter {
    * Determines if a user has a game in progress.
    *
    * @param userId The user id of the creator of the game
-   * @return Returns true if the the user id provided has a game in progress.
+   * @return Returns true if the user id provided has a game in progress.
    */
   public boolean isHosting(String userId) {
     for (Map.Entry<Integer, ActiveGame> curEntry : activeGames.entrySet()) {
@@ -219,7 +218,7 @@ public class GameManager extends ListenerAdapter {
   }
 
   public void pendGame(Message message, Member member, Game game) {
-    Message prompt = message.getTextChannel().sendMessage(new EmbedBuilder().setTitle("New Game Started!").setDescription(C.getFullName(member.getUser()) + " has started a game. Please react with :+1: to join the game!\n\n**Game:** " + game.getName() + "\n**Description:** " + game.getDescription() + "\n**Minimum Players:** " + game.getMinPlayers() + "\n**Maximum Players:** " + game.getMaxPlayers() + "\n\n**This invite will expire in 5 minutes!**").build()).complete();
+    Message prompt = message.getTextChannel().sendMessageEmbeds(new EmbedBuilder().setTitle("New Game Started!").setDescription(C.getFullName(member.getUser()) + " has started a game. Please react with :+1: to join the game!\n\n**Game:** " + game.getName() + "\n**Description:** " + game.getDescription() + "\n**Minimum Players:** " + game.getMinPlayers() + "\n**Maximum Players:** " + game.getMaxPlayers() + "\n\n**This invite will expire in 5 minutes!**").build()).complete();
     prompt.addReaction("\uD83D\uDC4D").complete();
     PendingGameToken token = new PendingGameToken(prompt.getId(), message, member, game);
     pendingStart.put(prompt.getId(), token);

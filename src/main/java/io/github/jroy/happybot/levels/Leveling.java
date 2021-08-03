@@ -144,7 +144,7 @@ public class Leveling extends ListenerAdapter {
             }
             builder.setDescription(description);
             Channels.LEADERBOARD.getChannel()
-                .retrieveMessageById(leaderboardMessageId).complete().editMessage(builder.build()).queue();
+                .retrieveMessageById(leaderboardMessageId).complete().editMessageEmbeds(builder.build()).queue();
           } catch (SQLException | IllegalStateException e) {
             log.error("Error While Processing Leaderboard");
             e.printStackTrace();

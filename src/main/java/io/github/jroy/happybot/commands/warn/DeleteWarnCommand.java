@@ -31,7 +31,7 @@ public class DeleteWarnCommand extends CommandBase {
       int id = Integer.parseInt(e.getArgs());
       if (warningManager.isValidWarning(id)) {
         User tUser = Main.getJda().getUserById(warningManager.getWarnTargetId(id));
-        Channels.LOG.getChannel().sendMessage(new EmbedBuilder()
+        Channels.LOG.getChannel().sendMessageEmbeds(new EmbedBuilder()
             .setAuthor(C.getFullName(e.getMember().getUser()), null, e.getMember().getUser().getAvatarUrl())
             .setColor(Color.YELLOW)
             .setThumbnail(Objects.requireNonNull(tUser).getAvatarUrl())

@@ -190,7 +190,7 @@ public abstract class CommandBase extends Command {
     }
 
     //Handle "Complex" Permission Check
-    boolean canExecute = true; //We assume the user can run the command at first and we annihilate them if they actually cannot
+    boolean canExecute = true; //We assume the user can run the command at first, and we annihilate them if they actually cannot
     if (permissionRole != null) { //permissionRole *is* null when there is no permission required
       if (!C.hasRole(member, permissionRole)) { //User does not have the permission role required for this command, disable execution
         canExecute = false;
@@ -223,7 +223,7 @@ public abstract class CommandBase extends Command {
   }
 
   /**
-   * Triggered when the command is ran and the user has the required permission.
+   * Triggered when the command is run and the user has the required permission.
    *
    * @param event The information associated with the command calling
    */

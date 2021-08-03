@@ -55,7 +55,7 @@ public class StatsCommand extends CommandBase {
       e.reply(new EmbedBuilder()
           .setTitle("Happyheart's YouTube Statistics")
           .setDescription("Listing Statistics:")
-          .setFooter("Stats provided by YouTube's Realtime API", "http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c545.png")
+          .setFooter("Stats provided by YouTube's Realtime API", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/2560px-YouTube_full-color_icon_%282017%29.svg.png")
           .addField("**Subscribers**", youTube.fetchSubs(), true)
           .addField("**Videos**", youTube.fetchVids(), true)
           .addField("**Views**", youTube.fetchViews(), true)
@@ -78,7 +78,7 @@ public class StatsCommand extends CommandBase {
       EmbedBuilder embed = new EmbedBuilder()
           .setTitle("LoL Player Statistics")
           .setDescription("Listing statistics:")
-          .setFooter("Stats provided by Riot Games's API", "http://i.imgur.com/xNLs83T.png");
+          .setFooter("Stats provided by Riot Games's API", "https://i.imgur.com/xNLs83T.png");
       try {
         for (HashMap.Entry<String, String> entry : league.getAllFields("happyheart", Platform.NA).entrySet()) {
           if (entry.getValue() != null && !entry.getValue().equals("0")) {

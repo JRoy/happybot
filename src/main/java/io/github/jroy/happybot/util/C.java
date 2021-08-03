@@ -389,7 +389,7 @@ public class C {
    */
   public static void writeFile(String file, String content) {
     try {
-      @Cleanup FileWriter fw = new FileWriter(new File(file));
+      @Cleanup FileWriter fw = new FileWriter(file);
       @Cleanup BufferedWriter bw = new BufferedWriter(fw);
       bw.write(content);
     } catch (IOException e) {
@@ -442,7 +442,7 @@ public class C {
     try {
       if (!m.getUser().isBot()) {
         final Message[] message1 = new Message[1];
-        m.getUser().openPrivateChannel().queue(privateChannel -> message1[0] = privateChannel.sendMessage(message).complete(), throwable -> log.error("Tried to open a private channel but got error: " + throwable.getMessage()));
+        m.getUser().openPrivateChannel().queue(privateChannel -> message1[0] = privateChannel.sendMessageEmbeds(message).complete(), throwable -> log.error("Tried to open a private channel but got error: " + throwable.getMessage()));
         return message1[0];
       }
     } catch (UnsupportedOperationException e) {
@@ -454,7 +454,7 @@ public class C {
   public static void privChannel(Member m, MessageEmbed embed) {
     try {
       if (!m.getUser().isBot()) {
-        m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(embed).queue(), throwable -> log.error("Tried to open a private channel but got error: " + throwable.getMessage()));
+        m.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessageEmbeds(embed).queue(), throwable -> log.error("Tried to open a private channel but got error: " + throwable.getMessage()));
       }
     } catch (UnsupportedOperationException e) {
       log.error("Tried to open a private channel but got error: " + e.getMessage());

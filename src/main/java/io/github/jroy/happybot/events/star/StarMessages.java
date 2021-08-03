@@ -344,7 +344,7 @@ public class StarMessages extends ListenerAdapter {
       embed.setImage(C.getImage(message));
     }
 
-    channel.getChannel().sendMessage(embed.build()).queue(infoToken::addCaused);
+    channel.getChannel().sendMessageEmbeds(embed.build()).queue(infoToken::addCaused);
     if (!privateMessageText.isEmpty()) {
       C.privChannel(message.getMember(), privateMessageText);
       C.privChannel(message.getMember(), embed.build());

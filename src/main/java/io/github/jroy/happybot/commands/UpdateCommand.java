@@ -42,10 +42,7 @@ public class UpdateCommand extends CommandBase {
     @Override
     public void run() {
       int exitCode;
-      boolean silent = false;
-      if (e.getArgs().contains("-s")) {
-        silent = true;
-      }
+      boolean silent = e.getArgs().contains("-s");
       boolean force = e.getArgs().contains("-f") || e.getArgs().contains("--force");
       boolean dev = e.getArgs().contains("-d") || e.getArgs().contains("--dev");
       if (e.getArgs().toLowerCase().startsWith("g")) {
@@ -96,7 +93,7 @@ public class UpdateCommand extends CommandBase {
     @SneakyThrows
     @Override
     public void run() {
-      Channels.BOT_META.getChannel().sendMessage(new EmbedBuilder()
+      Channels.BOT_META.getChannel().sendMessageEmbeds(new EmbedBuilder()
           .setTitle("Impending Update")
           .setDescription(messageFactory.getRawMessage(MessageFactory.MessageType.UPDATE_START) + "\nNew Impending Update from " + s + ". Bot is currently restarting")
           .build()).queue();

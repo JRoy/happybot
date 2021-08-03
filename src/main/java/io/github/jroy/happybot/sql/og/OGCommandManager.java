@@ -141,7 +141,7 @@ public class OGCommandManager extends ListenerAdapter {
     builder.setThumbnail(user.getAvatarUrl());
     builder.setFooter("ID: " + user.getId(), null).setTimestamp(OffsetDateTime.now());
 
-    Message message = Channels.STAFF_QUEUE.getChannel().sendMessage(builder.build()).complete();
+    Message message = Channels.STAFF_QUEUE.getChannel().sendMessageEmbeds(builder.build()).complete();
     message.addReaction("✅").queue();
     message.addReaction("❌").queue();
     ogActionMap.put(message.getId(), action);

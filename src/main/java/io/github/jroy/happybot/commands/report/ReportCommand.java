@@ -37,7 +37,7 @@ public class ReportCommand extends CommandBase {
 
     try {
       int id = reportManager.spawnReport(target.getUser().getId(), e.getMember().getUser().getId(), e.getChannel().getId(), reason);
-      Channels.STAFF_QUEUE.getChannel().sendMessage(new EmbedBuilder()
+      Channels.STAFF_QUEUE.getChannel().sendMessageEmbeds(new EmbedBuilder()
           .setTitle("New Report")
           .setDescription(":paperclip: " + C.bold("Report #" + id + " has been created.") + "\n:arrow_forward: " + C.bold("Reported User: ") + target.getAsMention() + "\n:arrow_forward: " + C.bold("Reporter: " + e.getMember().getAsMention()) + "\n:page_facing_up: " + C.bold("Reason: ") + C.code(reason) + "\n:hash: " + C.bold("Channel: <#" + e.getChannel().getId() + ">"))
           .setColor(Color.GREEN)

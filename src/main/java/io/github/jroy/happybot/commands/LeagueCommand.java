@@ -45,7 +45,7 @@ public class LeagueCommand extends CommandBase {
       EmbedBuilder embed = new EmbedBuilder()
           .setTitle("LoL Player Statistics")
           .setDescription("Listing statistics:")
-          .setFooter("Stats provided by Riot Games's API", "http://i.imgur.com/xNLs83T.png");
+          .setFooter("Stats provided by Riot Games's API", "https://i.imgur.com/xNLs83T.png");
       for (HashMap.Entry<String, String> entry : league.getAllFields(args[1], platform).entrySet()) {
         if (entry.getValue() != null && !entry.getValue().equals("0")) {
           embed.addField("**" + entry.getKey() + "**", entry.getValue(), true);

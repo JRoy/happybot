@@ -14,11 +14,11 @@ public class SeasonCommand extends CommandBase {
   @Override
   protected void executeCommand(CommandEvent e) {
     e.replySuccess("**Happyheart Seasons:**\n\n" +
-        "Season 1 - <http://bit.ly/2y0akBf>\n" +
-        "Season 2 - <http://bit.ly/2kxqexc>\n" +
-        "Season 3 - <http://bit.ly/2xpJ3Zm>\n" +
-        "Season 4 - <http://bit.ly/2fTJKPD>\n" +
-        "Season 5 - <http://bit.ly/2xq8dCu>\n" +
+        "Season 1 - <https://bit.ly/2y0akBf>\n" +
+        "Season 2 - <https://bit.ly/2kxqexc>\n" +
+        "Season 3 - <https://bit.ly/2xpJ3Zm>\n" +
+        "Season 4 - <https://bit.ly/2fTJKPD>\n" +
+        "Season 5 - <https://bit.ly/2xq8dCu>\n" +
         "Season 6 - <https://bit.ly/2JiwVze>\n" +
         "Season 8 - <https://bit.ly/3gn6iFb>\n" +
         "Season 9 - <https://bit.ly/3jblsiH>");

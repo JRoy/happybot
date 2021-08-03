@@ -13,6 +13,6 @@ public class RulesCommand extends CommandBase {
 
   @Override
   protected void executeCommand(CommandEvent e) {
-    e.replySuccess("Here are the rules: <http://bit.ly/2ihUfAc>");
+    e.replySuccess("Here are the rules: <https://bit.ly/2ihUfAc>");
   }
 }

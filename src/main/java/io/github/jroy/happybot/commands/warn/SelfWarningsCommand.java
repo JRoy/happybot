@@ -36,7 +36,7 @@ public class SelfWarningsCommand extends CommandBase {
           builder.append("#").append(resultSet.getString("id")).append(" ").append(C.bold(staffMem.getUser().getName() + "#" + staffMem.getUser().getDiscriminator())).append(" - ").append(C.bold(resultSet.getString("reason"))).append("\n");
         }
       }
-      e.replyInDm(targetM.getName() + "'s Warnings [" + count + "]\n" + builder.toString());
+      e.replyInDm(targetM.getName() + "'s Warnings [" + count + "]\n" + builder);
     } catch (SQLException e1) {
       e.replyError("Oof Error: " + e1.getMessage());
     }

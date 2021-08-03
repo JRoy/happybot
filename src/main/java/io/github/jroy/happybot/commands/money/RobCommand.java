@@ -44,7 +44,7 @@ public class RobCommand extends CommandBase {
       return;
     }
     try {
-      // Check both members have a money account
+      // Check both members have money account
       String userId = e.getMember().getUser().getId();
       String targetId = target.getUser().getId();
       if (!sqlManager.isActiveUserH(userId) || !sqlManager.isActiveUserH(targetId)) {

@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
- * All this class does is parse the data from the youtube channels api. This is by no means an actual api implementation.
+ * All this class does is parse the data from the YouTube channels api. This is by no means an actual api implementation.
  */
 @SuppressWarnings("FieldCanBeLocal")
 public class YouTubeRealTime {
